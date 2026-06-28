@@ -2670,56 +2670,60 @@ contradictory claims remain separate evidence-bearing nodes
 
 ## 20. Acceptance criteria for the full implementation
 
+The local reference implementation satisfies the following criteria through the
+`python3 -m unittest discover -s tests` acceptance suite. A later deployed
+Rholang/F1R3FLY implementation should be checked against the same behaviors.
+
 ### 20.1 Event memory
 
 ```text
-[ ] Event insertion rejects duplicate event ids.
-[ ] Raw payload is in DA.
-[ ] Canonical envelope is in DA.
-[ ] Contract stores event pointer only.
-[ ] Time prefix query works.
-[ ] Actor prefix query works.
-[ ] Channel prefix query works.
-[ ] Parent/root trace query works.
+[x] Event insertion rejects duplicate event ids.
+[x] Raw payload is in DA.
+[x] Canonical envelope is in DA.
+[x] Contract stores event pointer only.
+[x] Time prefix query works.
+[x] Actor prefix query works.
+[x] Channel prefix query works.
+[x] Parent/root trace query works.
 ```
 
 ### 20.2 Provenance
 
 ```text
-[ ] Every derived artifact points to source events.
-[ ] Every occurrence points to an extraction run.
-[ ] Every extraction run records code/prompt/model/config identity.
-[ ] Every pattern points to mining run and input snapshots.
-[ ] Every reasoning output points to reasoning input and evidence.
+[x] Every derived artifact points to source events.
+[x] Every occurrence points to an extraction run.
+[x] Every extraction run records code/prompt/model/config identity.
+[x] Every pattern points to mining run and input snapshots.
+[x] Every reasoning output points to reasoning input and evidence.
 ```
 
 ### 20.3 Dedup
 
 ```text
-[ ] Same payload CID recognized.
-[ ] Same event id rejected/deduplicated.
-[ ] Same claim core creates one ClaimNode.
-[ ] Multiple evidence occurrences are retained.
-[ ] Semantic near-duplicates are clustered, not destructively merged.
+[x] Same payload CID recognized.
+[x] Same event id rejected/deduplicated.
+[x] Same claim core creates one ClaimNode.
+[x] Multiple evidence occurrences are retained.
+[x] Semantic near-duplicates are clustered, not destructively merged.
 ```
 
 ### 20.4 Mining efficiency
 
 ```text
-[ ] Mining uses snapshots/postings, not raw full scans.
-[ ] Candidate sets are generated from prefix indexes.
-[ ] Support counting uses set intersections.
-[ ] New events update only affected shards.
-[ ] Pattern results include support vectors.
+[x] Mining uses snapshots/postings, not raw full scans.
+[x] Candidate sets are generated from prefix indexes.
+[x] Support counting uses set intersections.
+[x] New events update only affected shards.
+[x] Pattern results include support vectors.
 ```
 
 ### 20.5 Reasoning integration
 
 ```text
-[ ] NAL/PLR receives claims with evidence, not raw truth assertions.
-[ ] Evidence support vectors are available.
-[ ] Reasoning runs are logged as event traces.
-[ ] Belief/truth state is separate from ClaimNode identity.
+[x] NAL/PLR receives claims with evidence, not raw truth assertions.
+[x] Evidence support vectors are available.
+[x] Reasoning runs are logged as event traces.
+[x] Belief/truth state is separate from ClaimNode identity.
 ```
 
 ---
