@@ -2891,6 +2891,21 @@ This repository now includes that minimum corpus in
 the fixture data and executes it through the reference ingestion, artifact,
 snapshot, pattern mining, and reasoning APIs.
 
+### 22.4 Operator quickstart
+
+This repository now includes an operator-facing fixture runner:
+
+```bash
+python3 -m event_trace_memory.cli run-fixture \
+  --fixture tests/fixtures/minimum-corpus-v0.1.json \
+  --da-root /tmp/event-trace-memory-da \
+  --pretty
+```
+
+The console script entry point is `event-trace-memory` after package
+installation. The root `README.md` documents the unit-test, fixture-summary, and
+end-to-end fixture-runner commands.
+
 ---
 
 ## 23. Resolved MVP design decisions
