@@ -32,8 +32,9 @@ bash scripts/validate_rholang_contracts.sh
 ```
 
 The script starts a standalone F1R3FLY node in Docker, evaluates both `.rho`
-contracts with `/opt/docker/bin/node eval`, and fails if either contract does
-not report deployment cost.
+contracts with `/opt/docker/bin/node eval`, then generates smoke-call Rholang
+programs that exercise `putEvent`/`byTimePrefix` and
+`putRun`/`putClaim`/`putClaimOccurrence`/`byClaim`.
 
 Notes from local validation:
 

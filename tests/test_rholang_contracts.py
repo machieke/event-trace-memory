@@ -105,7 +105,10 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("f1r3flyindustries/f1r3fly-rust-node:latest", source)
         self.assertIn("EventTraceIndex.rho", source)
         self.assertIn("DerivedArtifactIndex.rho", source)
-        self.assertIn("/opt/docker/bin/node eval", source)
+        self.assertIn("/opt/docker/bin/node eval --print-unmatched-sends-only", source)
+        self.assertIn("EventTraceIndexSmoke.rho", source)
+        self.assertIn("DerivedArtifactIndexSmoke.rho", source)
+        self.assertIn("claim-occ:smoke-1", source)
 
 
 if __name__ == "__main__":
