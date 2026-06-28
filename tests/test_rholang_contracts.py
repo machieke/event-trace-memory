@@ -99,6 +99,14 @@ class RholangContractsTest(unittest.TestCase):
             self.assertIn("return!", source)
             source.encode("ascii")
 
+    def test_runtime_validation_script_exists(self):
+        script = ROOT / "scripts" / "validate_rholang_contracts.sh"
+        source = script.read_text(encoding="utf-8")
+        self.assertIn("f1r3flyindustries/f1r3fly-rust-node:latest", source)
+        self.assertIn("EventTraceIndex.rho", source)
+        self.assertIn("DerivedArtifactIndex.rho", source)
+        self.assertIn("/opt/docker/bin/node eval", source)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -25,5 +25,20 @@ The repository includes static contract coverage tests:
 python3 -m unittest discover -s tests
 ```
 
-If a Rholang/F1R3FLY runtime is available, these files should also be compiled
-and exercised against the same fixtures as the Python reference implementation.
+Runtime validation against the F1R3FLY Docker image:
+
+```bash
+bash scripts/validate_rholang_contracts.sh
+```
+
+The script starts a standalone F1R3FLY node in Docker, evaluates both `.rho`
+contracts with `/opt/docker/bin/node eval`, and fails if either contract does
+not report deployment cost.
+
+Notes from local validation:
+
+- The Docker image path validates the contracts successfully.
+- Building `rholang-cli` from the upstream workspace required `clang` to avoid
+  an `aws-lc-sys` GCC rejection, then failed because the system `protoc`
+  version was `libprotoc 3.6.1`, which rejects proto3 `optional` fields.
+  Docker runtime validation is the reproducible Phase 1 path for this repo.

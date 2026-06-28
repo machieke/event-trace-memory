@@ -5,6 +5,8 @@
 // This contract stores compact pointers and query indexes only.
 
 new eventTraceIndex,
+    appendIndex,
+    appendOne,
     stateCh,
     uriCh,
     insertArbitrary(`rho:registry:insertArbitrary`),
@@ -56,57 +58,51 @@ in {
 
   contract eventTraceIndex(@"putEvent", @eventPointer, return) = {
     for (@state <- stateCh) {
-      eventId = eventPointer.get("eventId") |
-      eventCid = eventPointer.get("eventCid") |
-      payloadCid = eventPointer.get("payloadCid") |
-      valueKind = eventPointer.get("valueKind") |
-      rootEventId = eventPointer.getOrElse("rootEventId", eventId) |
-
-      if (state.getOrElse("events", {}).contains(eventId)) {
+      if (state.getOrElse("events", {}).contains(eventPointer.get("eventId"))) {
         stateCh!(state)
         |
         return!({
           "ok": false,
           "error": "duplicate-event-id",
-          "eventId": eventId
+          "eventId": eventPointer.get("eventId")
         })
       } else {
-        if (state.getOrElse("eventCidIndex", {}).contains(eventCid)) {
+        if (state.getOrElse("eventCidIndex", {}).contains(eventPointer.get("eventCid"))) {
           stateCh!(state)
           |
           return!({
             "ok": false,
             "error": "duplicate-event-cid",
-            "eventCid": eventCid,
-            "eventId": state.getOrElse("eventCidIndex", {}).get(eventCid)
+            "eventCid": eventPointer.get("eventCid"),
+            "eventId": state.getOrElse("eventCidIndex", {}).get(eventPointer.get("eventCid"))
           })
         } else {
           new timeOut, actorOut, channelOut, parentOut in {
             appendIndex!(
               state.getOrElse("timeIndex", {}),
               eventPointer.getOrElse("timePrefixKeys", []),
-              eventId,
+              eventPointer.get("eventId"),
               *timeOut
             )
             |
             appendIndex!(
               state.getOrElse("actorIndex", {}),
               eventPointer.getOrElse("actorPrefixKeys", []),
-              eventId,
+              eventPointer.get("eventId"),
               *actorOut
             )
             |
             appendIndex!(
               state.getOrElse("channelIndex", {}),
               eventPointer.getOrElse("channelPrefixKeys", []),
-              eventId,
+              eventPointer.get("eventId"),
               *channelOut
             )
             |
             appendIndex!(
               state.getOrElse("parentIndex", {}),
               eventPointer.getOrElse("parentEventIds", []),
-              eventId,
+              eventPointer.get("eventId"),
               *parentOut
             )
             |
@@ -119,37 +115,37 @@ in {
               stateCh!({
                 "events":
                   state.getOrElse("events", {}).set(
-                    eventId,
-                    eventPointer.set("rootEventId", rootEventId)
+                    eventPointer.get("eventId"),
+                    eventPointer.set("rootEventId", eventPointer.getOrElse("rootEventId", eventPointer.get("eventId")))
                   ),
                 "timeIndex": timeIndex,
                 "actorIndex": actorIndex,
                 "channelIndex": channelIndex,
                 "kindIndex":
                   state.getOrElse("kindIndex", {}).set(
-                    valueKind,
-                    state.getOrElse("kindIndex", {}).getOrElse(valueKind, []) ++ [eventId]
+                    eventPointer.get("valueKind"),
+                    state.getOrElse("kindIndex", {}).getOrElse(eventPointer.get("valueKind"), []) ++ [eventPointer.get("eventId")]
                   ),
                 "parentIndex": parentIndex,
                 "rootIndex":
                   state.getOrElse("rootIndex", {}).set(
-                    rootEventId,
-                    state.getOrElse("rootIndex", {}).getOrElse(rootEventId, []) ++ [eventId]
+                    eventPointer.getOrElse("rootEventId", eventPointer.get("eventId")),
+                    state.getOrElse("rootIndex", {}).getOrElse(eventPointer.getOrElse("rootEventId", eventPointer.get("eventId")), []) ++ [eventPointer.get("eventId")]
                   ),
                 "payloadIndex":
                   state.getOrElse("payloadIndex", {}).set(
-                    payloadCid,
-                    state.getOrElse("payloadIndex", {}).getOrElse(payloadCid, []) ++ [eventId]
+                    eventPointer.get("payloadCid"),
+                    state.getOrElse("payloadIndex", {}).getOrElse(eventPointer.get("payloadCid"), []) ++ [eventPointer.get("eventId")]
                   ),
                 "eventCidIndex":
-                  state.getOrElse("eventCidIndex", {}).set(eventCid, eventId)
+                  state.getOrElse("eventCidIndex", {}).set(eventPointer.get("eventCid"), eventPointer.get("eventId"))
               })
               |
               return!({
                 "ok": true,
-                "eventId": eventId,
-                "eventCid": eventCid,
-                "payloadCid": payloadCid
+                "eventId": eventPointer.get("eventId"),
+                "eventCid": eventPointer.get("eventCid"),
+                "payloadCid": eventPointer.get("payloadCid")
               })
             }
           }
