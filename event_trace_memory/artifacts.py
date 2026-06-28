@@ -216,3 +216,65 @@ class ArtifactWriter:
         }
         ack = self.derived_index.put_feature_occurrence(pointer)
         return StoredArtifact(occurrence_id, cid, body, pointer, ack)
+
+    def put_pattern(
+        self,
+        *,
+        pattern_core: dict[str, Any],
+        input_snapshot_cids: list[str],
+        mining_run_id: str,
+        miner_key: str,
+        support_vector: dict[str, int],
+    ) -> StoredArtifact:
+        cid = self.da.put_json(pattern_core)
+        pattern_id = content_id("pattern", pattern_core)
+        pointer = {
+            "kind": "pattern-pointer",
+            "schema": "pattern-pointer-v0.1",
+            "patternId": pattern_id,
+            "patternCid": cid,
+            "patternType": pattern_core["patternType"],
+            "inputSnapshotCids": input_snapshot_cids,
+            "minedBy": mining_run_id,
+            "minerKey": miner_key,
+            "supportVector": support_vector,
+        }
+        ack = self.derived_index.put_pattern(pointer)
+        return StoredArtifact(pattern_id, cid, pattern_core, pointer, ack)
+
+    def put_pattern_occurrence(
+        self,
+        *,
+        pattern_id: str,
+        root_event_id: str,
+        participating_event_ids: list[str],
+        mined_by: str,
+        participating_run_ids: list[str] | None = None,
+        participating_claim_occurrence_ids: list[str] | None = None,
+    ) -> StoredArtifact:
+        body = {
+            "kind": "pattern-occurrence",
+            "schema": "pattern-occurrence-v0.1",
+            "patternId": pattern_id,
+            "rootEventId": root_event_id,
+            "participatingEventIds": participating_event_ids,
+            "participatingRunIds": participating_run_ids or [],
+            "participatingClaimOccurrenceIds": participating_claim_occurrence_ids or [],
+            "minedBy": mined_by,
+        }
+        cid = self.da.put_json(body)
+        occurrence_id = content_id("pattern-occ", body)
+        pointer = {
+            "kind": "pattern-occurrence-pointer",
+            "schema": "pattern-occurrence-pointer-v0.1",
+            "occurrenceId": occurrence_id,
+            "occurrenceCid": cid,
+            "patternId": pattern_id,
+            "rootEventId": root_event_id,
+            "participatingEventIds": participating_event_ids,
+            "participatingRunIds": participating_run_ids or [],
+            "participatingClaimOccurrenceIds": participating_claim_occurrence_ids or [],
+            "minedBy": mined_by,
+        }
+        ack = self.derived_index.put_pattern_occurrence(pointer)
+        return StoredArtifact(occurrence_id, cid, body, pointer, ack)
