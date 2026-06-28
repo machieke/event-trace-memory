@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/feature-core-v0.1.schema.json",
+  "title": "Feature Core v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "featureType"],
+  "properties": {
+    "kind": {"const": "feature"},
+    "schema": {"const": "feature-core-v0.1"},
+    "featureType": {"type": "string"},
+    "value": {"type": "object"},
+    "model": {"type": "object"},
+    "inputArtifactId": {"type": "string"},
+    "vectorDigest": {"type": "string"},
+    "vectorCid": {"type": "string"}
+  }
+}

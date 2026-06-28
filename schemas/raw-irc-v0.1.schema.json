@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/raw-irc-v0.1.schema.json",
+  "title": "Raw IRC Payload v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "transport", "server", "room", "nick", "message", "raw", "observedAt"],
+  "properties": {
+    "kind": {"const": "raw-payload"},
+    "schema": {"const": "raw-irc-v0.1"},
+    "transport": {"const": "irc"},
+    "server": {"type": "string"},
+    "room": {"type": "string"},
+    "nick": {"type": "string"},
+    "message": {"type": "string"},
+    "raw": {"type": "string"},
+    "observedAt": {"type": "string"}
+  }
+}

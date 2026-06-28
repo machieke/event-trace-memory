@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/feature-occurrence-v0.1.schema.json",
+  "title": "Feature Occurrence v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "featureId",
+    "featureCid",
+    "sourceEventId",
+    "extractionRunId",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "kind": {"const": "feature-occurrence"},
+    "schema": {"const": "feature-occurrence-v0.1"},
+    "featureId": {"type": "string"},
+    "featureCid": {"type": "string"},
+    "sourceEventId": {"type": "string"},
+    "extractionRunId": {"type": "string"},
+    "confidence": {"type": "number"},
+    "evidence": {"type": "object"}
+  }
+}

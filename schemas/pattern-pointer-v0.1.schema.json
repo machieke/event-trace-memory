@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/pattern-pointer-v0.1.schema.json",
+  "title": "Pattern Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "patternId",
+    "patternCid",
+    "patternType",
+    "inputSnapshotCids",
+    "minedBy",
+    "minerKey",
+    "supportVector"
+  ],
+  "properties": {
+    "kind": {"const": "pattern-pointer"},
+    "schema": {"const": "pattern-pointer-v0.1"},
+    "patternId": {"type": "string"},
+    "patternCid": {"type": "string"},
+    "patternType": {"type": "string"},
+    "inputSnapshotCids": {"type": "array", "items": {"type": "string"}},
+    "minedBy": {"type": "string"},
+    "minerKey": {"type": "string"},
+    "supportVector": {"type": "object"}
+  }
+}

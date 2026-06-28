@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/pattern-core-v0.1.schema.json",
+  "title": "Pattern Core v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "patternType", "body", "constraints"],
+  "properties": {
+    "kind": {"const": "pattern"},
+    "schema": {"const": "pattern-core-v0.1"},
+    "patternType": {"type": "string"},
+    "body": {"type": "array", "items": {"type": "object"}},
+    "constraints": {"type": "object"}
+  }
+}

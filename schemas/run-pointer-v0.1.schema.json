@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/run-pointer-v0.1.schema.json",
+  "title": "Worker Run Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "runId",
+    "runCid",
+    "runType",
+    "inputEventIds",
+    "inputSnapshotCids",
+    "outputArtifactIds",
+    "extractorKey",
+    "minerKey",
+    "reasonerKey",
+    "tool",
+    "config",
+    "status"
+  ],
+  "properties": {
+    "kind": {"const": "run-pointer"},
+    "schema": {"const": "run-pointer-v0.1"},
+    "runId": {"type": "string"},
+    "runCid": {"type": "string"},
+    "runType": {"type": "string"},
+    "inputEventIds": {"type": "array", "items": {"type": "string"}},
+    "inputSnapshotCids": {"type": "array", "items": {"type": "string"}},
+    "outputArtifactIds": {"type": "array", "items": {"type": "string"}},
+    "extractorKey": {"type": "string"},
+    "minerKey": {"type": "string"},
+    "reasonerKey": {"type": "string"},
+    "tool": {"type": "object"},
+    "config": {"type": "object"},
+    "status": {"type": "string"}
+  }
+}

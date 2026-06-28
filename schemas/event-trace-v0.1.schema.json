@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/event-trace-v0.1.schema.json",
+  "title": "Event Trace Envelope v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "time", "actorPath", "channelPath", "value", "provenance", "causal"],
+  "properties": {
+    "kind": {"const": "event-trace"},
+    "schema": {"const": "event-trace-v0.1"},
+    "time": {
+      "type": "object",
+      "required": ["iso", "year", "month", "day", "hour", "minute", "second"],
+      "properties": {
+        "iso": {"type": "string"},
+        "year": {"type": "integer"},
+        "month": {"type": "integer"},
+        "day": {"type": "integer"},
+        "hour": {"type": "integer"},
+        "minute": {"type": "integer"},
+        "second": {"type": "integer"}
+      }
+    },
+    "actorPath": {"type": "array", "items": {"type": "string"}},
+    "channelPath": {"type": "array", "items": {"type": "string"}},
+    "value": {
+      "type": "object",
+      "required": ["kind", "contentType", "payloadCid"],
+      "properties": {
+        "kind": {"type": "string"},
+        "contentType": {"type": "string"},
+        "payloadCid": {"type": "string"},
+        "preview": {"type": "string"}
+      }
+    },
+    "provenance": {"type": "object"},
+    "causal": {
+      "type": "object",
+      "required": ["parentEventIds", "rootEventId", "inputEventIds", "outputArtifactIds"],
+      "properties": {
+        "parentEventIds": {"type": "array", "items": {"type": "string"}},
+        "rootEventId": {"type": ["string", "null"]},
+        "inputEventIds": {"type": "array", "items": {"type": "string"}},
+        "outputArtifactIds": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

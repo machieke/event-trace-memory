@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/claim-pointer-v0.1.schema.json",
+  "title": "Claim Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "claimId", "claimCid", "subjectKey", "predicateKey", "objectKey"],
+  "properties": {
+    "kind": {"const": "claim-pointer"},
+    "schema": {"const": "claim-pointer-v0.1"},
+    "claimId": {"type": "string"},
+    "claimCid": {"type": "string"},
+    "subjectKey": {"type": "string"},
+    "predicateKey": {"type": "string"},
+    "objectKey": {"type": "string"}
+  }
+}

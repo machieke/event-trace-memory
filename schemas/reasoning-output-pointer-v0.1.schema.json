@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/reasoning-output-pointer-v0.1.schema.json",
+  "title": "Reasoning Output Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "outputId",
+    "outputCid",
+    "inputId",
+    "inputCid",
+    "claimId",
+    "reasoningRunId",
+    "beliefStateId",
+    "evidenceOccurrenceIds"
+  ],
+  "properties": {
+    "kind": {"const": "reasoning-output-pointer"},
+    "schema": {"const": "reasoning-output-pointer-v0.1"},
+    "outputId": {"type": "string"},
+    "outputCid": {"type": "string"},
+    "inputId": {"type": "string"},
+    "inputCid": {"type": "string"},
+    "claimId": {"type": "string"},
+    "reasoningRunId": {"type": "string"},
+    "beliefStateId": {"type": "string"},
+    "evidenceOccurrenceIds": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/nal-plr-input-v0.1.schema.json",
+  "title": "NAL/PLR Reasoning Input v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "claimId", "claimCid", "statement", "evidence", "derivedFromPatterns"],
+  "properties": {
+    "kind": {"const": "reasoning-input"},
+    "schema": {"const": "nal-plr-input-v0.1"},
+    "claimId": {"type": "string"},
+    "claimCid": {"type": "string"},
+    "statement": {
+      "type": "object",
+      "required": ["format", "text"],
+      "properties": {
+        "format": {"type": "string"},
+        "text": {"type": "string"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["positiveOccurrences", "negativeOccurrences", "supportVector"],
+      "properties": {
+        "positiveOccurrences": {"type": "array", "items": {"type": "string"}},
+        "negativeOccurrences": {"type": "array", "items": {"type": "string"}},
+        "supportVector": {"type": "object"}
+      }
+    },
+    "derivedFromPatterns": {"type": "array", "items": {"type": "string"}}
+  }
+}

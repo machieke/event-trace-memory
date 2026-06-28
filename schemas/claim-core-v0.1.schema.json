@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/claim-core-v0.1.schema.json",
+  "title": "Claim Core v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "subject", "predicate", "object"],
+  "properties": {
+    "kind": {"const": "claim"},
+    "schema": {"const": "claim-core-v0.1"},
+    "subject": {"type": "object"},
+    "predicate": {"type": "object"},
+    "object": {"type": "object"},
+    "modality": {"type": "string"},
+    "context": {"type": "object"}
+  }
+}

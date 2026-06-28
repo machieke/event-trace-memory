@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/event-pointer-v0.1.schema.json",
+  "title": "Event Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "eventId",
+    "eventCid",
+    "payloadCid",
+    "timePath",
+    "timePrefixKeys",
+    "actorPath",
+    "actorPrefixKeys",
+    "channelPath",
+    "channelPrefixKeys",
+    "valueKind",
+    "parentEventIds",
+    "rootEventId",
+    "inputEventIds",
+    "outputArtifactIds"
+  ],
+  "properties": {
+    "kind": {"const": "event-pointer"},
+    "schema": {"const": "event-pointer-v0.1"},
+    "eventId": {"type": "string"},
+    "eventCid": {"type": "string"},
+    "payloadCid": {"type": "string"},
+    "timePath": {"type": "array", "items": {"type": "integer"}},
+    "timePrefixKeys": {"type": "array", "items": {"type": "string"}},
+    "actorPath": {"type": "array", "items": {"type": "string"}},
+    "actorPrefixKeys": {"type": "array", "items": {"type": "string"}},
+    "channelPath": {"type": "array", "items": {"type": "string"}},
+    "channelPrefixKeys": {"type": "array", "items": {"type": "string"}},
+    "valueKind": {"type": "string"},
+    "parentEventIds": {"type": "array", "items": {"type": "string"}},
+    "rootEventId": {"type": "string"},
+    "inputEventIds": {"type": "array", "items": {"type": "string"}},
+    "outputArtifactIds": {"type": "array", "items": {"type": "string"}}
+  }
+}

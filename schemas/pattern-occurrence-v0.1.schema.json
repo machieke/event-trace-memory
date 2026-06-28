@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/pattern-occurrence-v0.1.schema.json",
+  "title": "Pattern Occurrence v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "patternId",
+    "rootEventId",
+    "participatingEventIds",
+    "participatingRunIds",
+    "participatingClaimOccurrenceIds",
+    "minedBy"
+  ],
+  "properties": {
+    "kind": {"const": "pattern-occurrence"},
+    "schema": {"const": "pattern-occurrence-v0.1"},
+    "patternId": {"type": "string"},
+    "rootEventId": {"type": "string"},
+    "participatingEventIds": {"type": "array", "items": {"type": "string"}},
+    "participatingRunIds": {"type": "array", "items": {"type": "string"}},
+    "participatingClaimOccurrenceIds": {"type": "array", "items": {"type": "string"}},
+    "minedBy": {"type": "string"}
+  }
+}

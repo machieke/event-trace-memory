@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/feature-pointer-v0.1.schema.json",
+  "title": "Feature Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "featureId", "featureCid", "featureType"],
+  "properties": {
+    "kind": {"const": "feature-pointer"},
+    "schema": {"const": "feature-pointer-v0.1"},
+    "featureId": {"type": "string"},
+    "featureCid": {"type": "string"},
+    "featureType": {"type": "string"}
+  }
+}

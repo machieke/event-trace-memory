@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/event-columns-v0.1.schema.json",
+  "title": "Snapshot Event Columns v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["eventIds", "events", "eventsByRoot"],
+  "properties": {
+    "eventIds": {"type": "array", "items": {"type": "string"}},
+    "events": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "localId",
+          "eventId",
+          "eventCid",
+          "payloadCid",
+          "eventKind",
+          "actorKey",
+          "channelKey",
+          "rootEventId",
+          "timePath",
+          "inputEventIds",
+          "outputArtifactIds"
+        ],
+        "properties": {
+          "localId": {"type": "integer"},
+          "eventId": {"type": "string"},
+          "eventCid": {"type": "string"},
+          "payloadCid": {"type": "string"},
+          "eventKind": {"type": "string"},
+          "actorKey": {"type": "string"},
+          "channelKey": {"type": "string"},
+          "rootEventId": {"type": "string"},
+          "timePath": {"type": "array", "items": {"type": "integer"}},
+          "inputEventIds": {"type": "array", "items": {"type": "string"}},
+          "outputArtifactIds": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "eventsByRoot": {
+      "type": "object",
+      "additionalProperties": {"type": "array", "items": {"type": "string"}}
+    }
+  }
+}

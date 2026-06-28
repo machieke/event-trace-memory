@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/mining-snapshot-v0.1.schema.json",
+  "title": "Mining Snapshot Manifest v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "shardPath",
+    "eventDictionaryCid",
+    "eventColumnsCid",
+    "postingsCid",
+    "provenanceEdgesCid",
+    "claimOccurrencesCid",
+    "featureOccurrencesCid",
+    "sourceContract",
+    "sourceQuery",
+    "rawPayloadsScanned"
+  ],
+  "properties": {
+    "kind": {"const": "mining-snapshot"},
+    "schema": {"const": "mining-snapshot-v0.1"},
+    "shardPath": {"type": "string"},
+    "eventDictionaryCid": {"type": "string"},
+    "eventColumnsCid": {"type": "string"},
+    "postingsCid": {"type": "string"},
+    "provenanceEdgesCid": {"type": "string"},
+    "claimOccurrencesCid": {"type": "string"},
+    "featureOccurrencesCid": {"type": "string"},
+    "sourceContract": {"type": "string"},
+    "sourceQuery": {"type": "object"},
+    "rawPayloadsScanned": {"type": "boolean"}
+  }
+}

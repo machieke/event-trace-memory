@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/run-v0.1.schema.json",
+  "title": "Worker Run Body v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "runType",
+    "inputEventIds",
+    "inputSnapshotCids",
+    "tool",
+    "config",
+    "startedAt",
+    "completedAt",
+    "status",
+    "outputArtifactIds"
+  ],
+  "properties": {
+    "kind": {"const": "run"},
+    "schema": {"const": "run-v0.1"},
+    "runType": {"type": "string"},
+    "inputEventIds": {"type": "array", "items": {"type": "string"}},
+    "inputSnapshotCids": {"type": "array", "items": {"type": "string"}},
+    "tool": {"type": "object"},
+    "config": {"type": "object"},
+    "startedAt": {"type": "string"},
+    "completedAt": {"type": "string"},
+    "status": {"type": "string"},
+    "outputArtifactIds": {"type": "array", "items": {"type": "string"}}
+  }
+}

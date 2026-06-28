@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/feature-occurrences-by-event-v0.1.schema.json",
+  "title": "Feature Occurrences by Event v0.1",
+  "type": "object",
+  "additionalProperties": {"type": "array", "items": {"type": "string"}},
+  "required": [],
+  "properties": {}
+}

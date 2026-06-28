@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/event-dictionary-v0.1.schema.json",
+  "title": "Event Dictionary v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "eventIdToLocalId", "localIdToEventId"],
+  "properties": {
+    "kind": {"const": "event-dictionary"},
+    "schema": {"const": "event-dictionary-v0.1"},
+    "eventIdToLocalId": {"type": "object"},
+    "localIdToEventId": {"type": "object"}
+  }
+}

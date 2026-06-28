@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/claim-occurrence-v0.1.schema.json",
+  "title": "Claim Occurrence v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schema",
+    "claimId",
+    "claimCid",
+    "sourceEventId",
+    "sourceEventCid",
+    "sourcePayloadCid",
+    "extractionRunId",
+    "evidence",
+    "polarity",
+    "confidence",
+    "provenance"
+  ],
+  "properties": {
+    "kind": {"const": "claim-occurrence"},
+    "schema": {"const": "claim-occurrence-v0.1"},
+    "claimId": {"type": "string"},
+    "claimCid": {"type": "string"},
+    "sourceEventId": {"type": "string"},
+    "sourceEventCid": {"type": "string"},
+    "sourcePayloadCid": {"type": "string"},
+    "extractionRunId": {"type": "string"},
+    "evidence": {"type": "object"},
+    "polarity": {"type": "string"},
+    "confidence": {"type": "number"},
+    "provenance": {"type": "object"}
+  }
+}

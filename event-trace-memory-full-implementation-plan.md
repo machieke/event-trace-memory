@@ -2864,6 +2864,12 @@ omega-memory/
     mining/
 ```
 
+This repository now includes versioned schema artifacts under `schemas/` for the
+reference DA bodies, snapshot component maps, and compact contract pointers.
+`tests/test_schema_artifacts.py` loads every `*.schema.json` file and validates
+it against objects emitted by the current ingestion, derived artifact, snapshot,
+pattern mining, and reasoning flows.
+
 ### 22.3 Test fixtures
 
 Minimum fixtures:

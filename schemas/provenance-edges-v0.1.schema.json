@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/provenance-edges-v0.1.schema.json",
+  "title": "Provenance Edges v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "parentEdges"],
+  "properties": {
+    "kind": {"const": "provenance-edges"},
+    "schema": {"const": "provenance-edges-v0.1"},
+    "parentEdges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["parentEventId", "childEventId"],
+        "properties": {
+          "parentEventId": {"type": "string"},
+          "childEventId": {"type": "string"}
+        }
+      }
+    }
+  }
+}

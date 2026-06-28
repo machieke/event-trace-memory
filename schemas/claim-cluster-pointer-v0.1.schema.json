@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/claim-cluster-pointer-v0.1.schema.json",
+  "title": "Claim Cluster Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "clusterId", "clusterCid", "relation", "members", "method", "confidence"],
+  "properties": {
+    "kind": {"const": "claim-cluster-pointer"},
+    "schema": {"const": "claim-cluster-pointer-v0.1"},
+    "clusterId": {"type": "string"},
+    "clusterCid": {"type": "string"},
+    "relation": {"type": "string"},
+    "members": {"type": "array", "items": {"type": "string"}},
+    "method": {"type": "object"},
+    "confidence": {"type": "number"}
+  }
+}
