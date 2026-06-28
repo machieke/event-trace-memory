@@ -2886,6 +2886,11 @@ one sequence pattern discovery
 one NAL/PLR input generation
 ```
 
+This repository now includes that minimum corpus in
+`tests/fixtures/minimum-corpus-v0.1.json`. `tests/test_fixture_corpus.py` loads
+the fixture data and executes it through the reference ingestion, artifact,
+snapshot, pattern mining, and reasoning APIs.
+
 ---
 
 ## 23. Open design decisions

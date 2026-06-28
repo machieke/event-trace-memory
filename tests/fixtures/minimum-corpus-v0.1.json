@@ -1,0 +1,207 @@
+{
+  "kind": "event-trace-memory-fixture-corpus",
+  "schema": "fixture-corpus-v0.1",
+  "covers": [
+    "single IRC message",
+    "duplicate IRC message",
+    "same payload under different schema version",
+    "two messages same claim",
+    "one event with memory query and shell action",
+    "one extraction run with two claims",
+    "one hour snapshot with postings",
+    "one sequence pattern discovery",
+    "one NAL/PLR input generation"
+  ],
+  "ircMessages": {
+    "single": {
+      "server": "libera",
+      "room": "#chat",
+      "nick": "alice",
+      "message": "The event trace store should index by time, actor, and channel.",
+      "raw": ":alice!user@host PRIVMSG #chat :The event trace store should index by time, actor, and channel.",
+      "observedAt": "2026-06-27T14:35:00Z"
+    },
+    "duplicate": {
+      "server": "libera",
+      "room": "#chat",
+      "nick": "alice",
+      "message": "The event trace store should index by time, actor, and channel.",
+      "raw": ":alice!user@host PRIVMSG #chat :The event trace store should index by time, actor, and channel.",
+      "observedAt": "2026-06-27T14:35:00Z"
+    },
+    "sameClaimAlice": {
+      "server": "libera",
+      "room": "#chat",
+      "nick": "alice",
+      "message": "We should index event traces by time, actor, and channel.",
+      "raw": ":alice!user@host PRIVMSG #chat :We should index event traces by time, actor, and channel.",
+      "observedAt": "2026-06-27T14:36:00Z"
+    },
+    "sameClaimBob": {
+      "server": "libera",
+      "room": "#chat",
+      "nick": "bob",
+      "message": "Event traces should be indexed by time, actor, and channel.",
+      "raw": ":bob!user@host PRIVMSG #chat :Event traces should be indexed by time, actor, and channel.",
+      "observedAt": "2026-06-27T14:37:00Z"
+    }
+  },
+  "samePayloadDifferentSchemaVersion": {
+    "rawPayload": {
+      "kind": "raw-payload",
+      "schema": "raw-irc-v0.1",
+      "transport": "irc",
+      "server": "libera",
+      "room": "#chat",
+      "nick": "carol",
+      "message": "shared raw observation",
+      "raw": ":carol!user@host PRIVMSG #chat :shared raw observation",
+      "observedAt": "2026-06-27T14:35:10Z"
+    },
+    "firstInterpretation": {
+      "observedAt": "2026-06-27T14:35:10Z",
+      "actorPath": ["irc", "libera", "user", "carol"],
+      "channelPath": ["irc", "libera", "channel", "#chat"],
+      "valueKind": "message",
+      "provenance": {
+        "source": "irc",
+        "observedBy": "omega-claw",
+        "ingestionPipeline": "event-trace-v0",
+        "parser": {"name": "irc-event-parser", "version": "0.1.0"}
+      }
+    },
+    "secondInterpretation": {
+      "observedAt": "2026-06-27T14:35:10Z",
+      "actorPath": ["irc", "libera", "user", "carol"],
+      "channelPath": ["irc", "libera", "channel", "#chat"],
+      "valueKind": "message-normalized-v2",
+      "provenance": {
+        "source": "irc",
+        "observedBy": "omega-claw",
+        "ingestionPipeline": "event-trace-v0",
+        "parser": {"name": "irc-event-parser", "version": "0.2.0"}
+      }
+    }
+  },
+  "childEvents": {
+    "memoryQuery": {
+      "rawPayload": {
+        "kind": "memory-query",
+        "query": "event trace indexing",
+        "observedAt": "2026-06-27T14:35:01Z"
+      },
+      "observedAt": "2026-06-27T14:35:01Z",
+      "actorPath": ["agent", "omega-claw", "memory-worker"],
+      "channelPath": ["system", "memory", "long-term", "query"],
+      "valueKind": "memory-query-start"
+    },
+    "shellAction": {
+      "rawPayload": {
+        "kind": "shell-action",
+        "action": "read",
+        "path": "event-trace-memory-full-implementation-plan.md",
+        "observedAt": "2026-06-27T14:35:02Z"
+      },
+      "observedAt": "2026-06-27T14:35:02Z",
+      "actorPath": ["agent", "omega-claw", "shell-worker"],
+      "channelPath": ["system", "shell", "filesystem", "read"],
+      "valueKind": "shell-action-start"
+    }
+  },
+  "extractionRun": {
+    "runType": "claim-extraction",
+    "actorKey": "omega-claw-claim-extractor:0.1.0",
+    "tool": {
+      "name": "omega-claw-claim-extractor",
+      "version": "0.1.0",
+      "codeCid": "cidv0-local-sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "promptCid": "cidv0-local-sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "model": {
+        "name": "local-llm-x",
+        "version": "2026-06-01",
+        "weightsCid": "cidv0-local-sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    },
+    "config": {
+      "claimSchema": "claim-core-v0.1",
+      "includeEvidenceSpans": true,
+      "minConfidence": 0.3
+    },
+    "startedAt": "2026-06-27T14:35:03Z",
+    "completedAt": "2026-06-27T14:35:04Z"
+  },
+  "claimCores": [
+    {
+      "name": "index-by-time-actor-channel",
+      "body": {
+        "kind": "claim",
+        "schema": "claim-core-v0.1",
+        "subject": {"type": "system-component", "id": "event-trace-store"},
+        "predicate": {"id": "should-index-by"},
+        "object": {"type": "index-set", "items": ["time", "actor", "channel"]},
+        "modality": "normative",
+        "context": {"domain": "episodic-memory-architecture"}
+      }
+    },
+    {
+      "name": "store-pointers-only",
+      "body": {
+        "kind": "claim",
+        "schema": "claim-core-v0.1",
+        "subject": {"type": "system-component", "id": "event-trace-contract"},
+        "predicate": {"id": "should-store"},
+        "object": {"type": "storage-boundary", "items": ["pointers", "cids", "indexes"]},
+        "modality": "normative",
+        "context": {"domain": "episodic-memory-architecture"}
+      }
+    }
+  ],
+  "featureCore": {
+    "kind": "feature",
+    "schema": "feature-core-v0.1",
+    "featureType": "topic",
+    "value": {"id": "event-trace-indexing", "label": "event trace indexing"}
+  },
+  "snapshot": {
+    "shardPath": "/2026/06/27/14"
+  },
+  "patternMiningRun": {
+    "runType": "pattern-mining",
+    "actorKey": "omega-sequence-miner:0.1.0",
+    "tool": {
+      "name": "omega-sequence-miner",
+      "version": "0.1.0",
+      "codeCid": "cidv0-local-sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "config": {"minSupport": 1, "maxWindowSeconds": 30, "supportUnit": "root-trace"},
+    "startedAt": "2026-06-27T15:00:00Z",
+    "completedAt": "2026-06-27T15:00:07Z"
+  },
+  "pattern": {
+    "sequence": ["message", "memory-query-start", "shell-action-start", "extraction-run"],
+    "minerKey": "omega-sequence-miner:0.1.0",
+    "minSupport": 1,
+    "maxWindowSeconds": 30
+  },
+  "reasoning": {
+    "statementText": "<event-trace-store --> indexable-by-time-actor-channel>",
+    "run": {
+      "runType": "reasoning",
+      "actorKey": "plr-adapter:0.1.0",
+      "tool": {
+        "name": "plr-adapter",
+        "version": "0.1.0",
+        "codeCid": "cidv0-local-sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "config": {
+        "revisionPolicy": "evidence-weighted",
+        "decayPolicy": "time-decay-v0",
+        "sourceReliabilityPolicy": "support-vector-v0"
+      },
+      "startedAt": "2026-06-27T15:01:00Z",
+      "completedAt": "2026-06-27T15:01:01Z"
+    },
+    "truthValue": {"frequency": 1.0, "confidence": 0.84},
+    "revisionPolicy": "evidence-weighted"
+  }
+}
