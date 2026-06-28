@@ -51,6 +51,127 @@ For example, if the same claim is extracted from 100 messages:
 
 This gives you dedup without losing auditability.
 
+### 0.1 Executable implementation track
+
+This repository should contain a **local reference implementation** before attempting a
+networked Rholang/F1R3FLY deployment. The reference implementation is not a shortcut
+around the architecture; it is the executable specification for the contracts,
+workers, schemas, and acceptance criteria.
+
+The reference implementation uses:
+
+```text
+Python package               -> event_trace_memory/
+Filesystem DA store          -> content-addressed bytes under a configurable root
+In-process contract indexes  -> deterministic stand-in for EventTraceIndex and DerivedArtifactIndex
+JSON schemas                 -> schemas/
+Worker APIs                  -> event ingestion, extraction, snapshotting, mining, reasoning
+Acceptance tests             -> tests/
+```
+
+The implementation order is:
+
+```text
+1. canonical JSON, digests, CIDs, path prefixes
+2. filesystem DA put/get
+3. EventTraceIndex reference contract
+4. ingestion worker and causal trace logging
+5. DerivedArtifactIndex reference contract
+6. claim/feature extraction artifacts with exact dedup and occurrence provenance
+7. shard snapshot builder with local dictionaries and postings
+8. itemset/sequence/motif pattern miners with support vectors
+9. NAL/PLR adapter inputs and reasoning run logging
+10. Rholang contract sketches kept aligned with the tested reference behavior
+```
+
+Every acceptance checkbox in section 20 should have a corresponding automated test.
+The tests are the gate for commits. A deployment-specific Rholang implementation can
+then be validated against the same fixtures and expected index behavior.
+
+### 0.2 Concrete MVP decisions
+
+These decisions remove ambiguity for the first implementation:
+
+```text
+CID format:
+  cidv0-local-sha256:<hex-sha256>
+
+Canonical JSON:
+  UTF-8, sorted keys, compact separators, no NaN/Infinity
+
+DA codec metadata:
+  Stored alongside bytes in a manifest; CID identity is over bytes only
+
+Prefix expansion:
+  computed off-chain by worker/library and accepted by the reference contract
+
+Contract sharding:
+  single in-process index objects for MVP, with shard paths represented in snapshots
+
+Privacy:
+  public/plain path segments for MVP; hashed/encrypted paths remain a later extension
+
+Semantic dedup:
+  exact claim/feature/pattern identity first; reversible semantic clusters later
+
+Vector search:
+  vectors are DA artifacts only; no ANN implementation in the first acceptance pass
+```
+
+### 0.3 Acceptance test matrix
+
+The first complete pass is accepted when the following tests pass:
+
+```text
+test_event_memory_acceptance
+  duplicate event insertion rejection
+  raw payload in DA
+  canonical envelope in DA
+  pointer-only contract storage
+  time/actor/channel prefix queries
+  parent/root trace queries
+
+test_provenance_acceptance
+  derived artifacts point to source events
+  occurrences point to extraction runs
+  extraction runs record code/prompt/model/config identity
+  patterns point to mining runs and input snapshots
+  reasoning outputs point to reasoning input and evidence
+
+test_dedup_acceptance
+  same payload CID recognized
+  duplicate event id rejected
+  same claim core creates one ClaimNode
+  multiple evidence occurrences retained
+  semantic near-duplicates represented by cluster nodes, not destructive merges
+
+test_mining_acceptance
+  mining consumes snapshots/postings
+  support is counted with set intersections
+  new events affect only their shard snapshot
+  pattern results include support vectors
+
+test_reasoning_acceptance
+  NAL/PLR input contains claim plus evidence
+  support vectors are available
+  reasoning runs are logged as event traces
+  belief/truth state is separate from ClaimNode identity
+```
+
+### 0.4 Commit discipline
+
+Implementation should be committed and pushed in small slices:
+
+```text
+plan refinement
+core package scaffolding
+event memory acceptance
+derived artifact/provenance acceptance
+snapshot and mining acceptance
+reasoning acceptance
+documentation alignment
+```
+
 ---
 
 ## 1. Conceptual basis from the papers
