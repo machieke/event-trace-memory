@@ -1,0 +1,326 @@
+// EventTraceIndex.rho
+//
+// Canonical on-chain/index-contract anchor for event trace pointers.
+// Large payloads, event envelopes, vectors, snapshots, and logs live in DA.
+// This contract stores compact pointers and query indexes only.
+
+new eventTraceIndex,
+    stateCh,
+    uriCh,
+    insertArbitrary(`rho:registry:insertArbitrary`),
+    stdout(`rho:io:stdout`)
+in {
+  stateCh!({
+    "events": {},
+    "timeIndex": {},
+    "actorIndex": {},
+    "channelIndex": {},
+    "kindIndex": {},
+    "parentIndex": {},
+    "rootIndex": {},
+    "payloadIndex": {},
+    "eventCidIndex": {}
+  })
+
+  |
+
+  contract appendIndex(@indexMap, @keys, @value, return) = {
+    match keys {
+      [hd, ...tl] => {
+        new next in {
+          appendIndex!(
+            indexMap.set(hd, indexMap.getOrElse(hd, []) ++ [value]),
+            tl,
+            value,
+            *next
+          )
+          |
+          for (@updated <- next) {
+            return!(updated)
+          }
+        }
+      }
+      _ => {
+        return!(indexMap)
+      }
+    }
+  }
+
+  |
+
+  contract appendOne(@indexMap, @key, @value, return) = {
+    return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+  }
+
+  |
+
+  contract eventTraceIndex(@"putEvent", @eventPointer, return) = {
+    for (@state <- stateCh) {
+      eventId = eventPointer.get("eventId") |
+      eventCid = eventPointer.get("eventCid") |
+      payloadCid = eventPointer.get("payloadCid") |
+      valueKind = eventPointer.get("valueKind") |
+      rootEventId = eventPointer.getOrElse("rootEventId", eventId) |
+
+      if (state.getOrElse("events", {}).contains(eventId)) {
+        stateCh!(state)
+        |
+        return!({
+          "ok": false,
+          "error": "duplicate-event-id",
+          "eventId": eventId
+        })
+      } else {
+        if (state.getOrElse("eventCidIndex", {}).contains(eventCid)) {
+          stateCh!(state)
+          |
+          return!({
+            "ok": false,
+            "error": "duplicate-event-cid",
+            "eventCid": eventCid,
+            "eventId": state.getOrElse("eventCidIndex", {}).get(eventCid)
+          })
+        } else {
+          new timeOut, actorOut, channelOut, parentOut in {
+            appendIndex!(
+              state.getOrElse("timeIndex", {}),
+              eventPointer.getOrElse("timePrefixKeys", []),
+              eventId,
+              *timeOut
+            )
+            |
+            appendIndex!(
+              state.getOrElse("actorIndex", {}),
+              eventPointer.getOrElse("actorPrefixKeys", []),
+              eventId,
+              *actorOut
+            )
+            |
+            appendIndex!(
+              state.getOrElse("channelIndex", {}),
+              eventPointer.getOrElse("channelPrefixKeys", []),
+              eventId,
+              *channelOut
+            )
+            |
+            appendIndex!(
+              state.getOrElse("parentIndex", {}),
+              eventPointer.getOrElse("parentEventIds", []),
+              eventId,
+              *parentOut
+            )
+            |
+            for (
+              @timeIndex <- timeOut;
+              @actorIndex <- actorOut;
+              @channelIndex <- channelOut;
+              @parentIndex <- parentOut
+            ) {
+              stateCh!({
+                "events":
+                  state.getOrElse("events", {}).set(
+                    eventId,
+                    eventPointer.set("rootEventId", rootEventId)
+                  ),
+                "timeIndex": timeIndex,
+                "actorIndex": actorIndex,
+                "channelIndex": channelIndex,
+                "kindIndex":
+                  state.getOrElse("kindIndex", {}).set(
+                    valueKind,
+                    state.getOrElse("kindIndex", {}).getOrElse(valueKind, []) ++ [eventId]
+                  ),
+                "parentIndex": parentIndex,
+                "rootIndex":
+                  state.getOrElse("rootIndex", {}).set(
+                    rootEventId,
+                    state.getOrElse("rootIndex", {}).getOrElse(rootEventId, []) ++ [eventId]
+                  ),
+                "payloadIndex":
+                  state.getOrElse("payloadIndex", {}).set(
+                    payloadCid,
+                    state.getOrElse("payloadIndex", {}).getOrElse(payloadCid, []) ++ [eventId]
+                  ),
+                "eventCidIndex":
+                  state.getOrElse("eventCidIndex", {}).set(eventCid, eventId)
+              })
+              |
+              return!({
+                "ok": true,
+                "eventId": eventId,
+                "eventCid": eventCid,
+                "payloadCid": payloadCid
+              })
+            }
+          }
+        }
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"getEvent", @eventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("events", {}).contains(eventId)) {
+        return!({
+          "ok": true,
+          "event": state.getOrElse("events", {}).get(eventId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "eventId": eventId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byTimePrefix", @prefixKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "prefixKey": prefixKey,
+        "eventIds": state.getOrElse("timeIndex", {}).getOrElse(prefixKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byActorPrefix", @prefixKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "prefixKey": prefixKey,
+        "eventIds": state.getOrElse("actorIndex", {}).getOrElse(prefixKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byChannelPrefix", @prefixKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "prefixKey": prefixKey,
+        "eventIds": state.getOrElse("channelIndex", {}).getOrElse(prefixKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byKind", @valueKind, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "valueKind": valueKind,
+        "eventIds": state.getOrElse("kindIndex", {}).getOrElse(valueKind, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byParent", @parentEventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "parentEventId": parentEventId,
+        "eventIds": state.getOrElse("parentIndex", {}).getOrElse(parentEventId, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byRoot", @rootEventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "rootEventId": rootEventId,
+        "eventIds": state.getOrElse("rootIndex", {}).getOrElse(rootEventId, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byPayloadCid", @payloadCid, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "payloadCid": payloadCid,
+        "eventIds": state.getOrElse("payloadIndex", {}).getOrElse(payloadCid, [])
+      })
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"byEventCid", @eventCid, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("eventCidIndex", {}).contains(eventCid)) {
+        return!({
+          "ok": true,
+          "eventCid": eventCid,
+          "eventId": state.getOrElse("eventCidIndex", {}).get(eventCid)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "eventCid": eventCid
+        })
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceIndex(@"getStateStats", return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "events": state.getOrElse("events", {}).size(),
+        "timeKeys": state.getOrElse("timeIndex", {}).size(),
+        "actorKeys": state.getOrElse("actorIndex", {}).size(),
+        "channelKeys": state.getOrElse("channelIndex", {}).size(),
+        "rootKeys": state.getOrElse("rootIndex", {}).size()
+      })
+    }
+  }
+
+  |
+
+  insertArbitrary!(bundle+{*eventTraceIndex}, *uriCh)
+  |
+  for (@uri <- uriCh) {
+    stdout!(["EventTraceIndex URI: ", uri])
+  }
+}

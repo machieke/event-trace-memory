@@ -1,0 +1,671 @@
+// DerivedArtifactIndex.rho
+//
+// Canonical on-chain/index-contract anchor for derived memory artifact pointers.
+// Claim/feature/pattern/reasoning bodies and large outputs live in DA.
+// This contract stores compact pointers, IDs, CIDs, and provenance indexes.
+
+new derivedArtifactIndex,
+    stateCh,
+    uriCh,
+    insertArbitrary(`rho:registry:insertArbitrary`),
+    stdout(`rho:io:stdout`)
+in {
+  stateCh!({
+    "runs": {},
+    "claims": {},
+    "claimOccurrences": {},
+    "claimClusters": {},
+    "features": {},
+    "featureOccurrences": {},
+    "patterns": {},
+    "patternOccurrences": {},
+    "reasoningInputs": {},
+    "reasoningOutputs": {},
+
+    "occurrencesByClaim": {},
+    "occurrencesBySourceEvent": {},
+    "claimsBySubject": {},
+    "claimsByPredicate": {},
+    "claimsByObject": {},
+    "clustersByClaim": {},
+
+    "featureOccurrencesByFeature": {},
+    "featureOccurrencesBySourceEvent": {},
+    "featuresByType": {},
+
+    "runsByInputEvent": {},
+    "runsByOutputArtifact": {},
+    "runsByExtractor": {},
+    "runsByMiner": {},
+    "runsByReasoner": {},
+    "outputsByRun": {},
+
+    "occurrencesByPattern": {},
+    "patternsByType": {},
+    "patternsByInputSnapshot": {},
+    "patternsByMiner": {},
+    "patternOccurrencesByRoot": {},
+
+    "reasoningOutputsByClaim": {},
+    "reasoningOutputsByInput": {},
+    "reasoningOutputsByRun": {}
+  })
+
+  |
+
+  contract appendIndex(@indexMap, @keys, @value, return) = {
+    match keys {
+      [hd, ...tl] => {
+        new next in {
+          appendIndex!(
+            indexMap.set(hd, indexMap.getOrElse(hd, []) ++ [value]),
+            tl,
+            value,
+            *next
+          )
+          |
+          for (@updated <- next) {
+            return!(updated)
+          }
+        }
+      }
+      _ => {
+        return!(indexMap)
+      }
+    }
+  }
+
+  |
+
+  contract appendOne(@indexMap, @key, @value, return) = {
+    return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putRun", @runPointer, return) = {
+    for (@state <- stateCh) {
+      runId = runPointer.get("runId") |
+      if (state.getOrElse("runs", {}).contains(runId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "runId": runId})
+      } else {
+        new inputOut, outputOut in {
+          appendIndex!(
+            state.getOrElse("runsByInputEvent", {}),
+            runPointer.getOrElse("inputEventIds", []),
+            runId,
+            *inputOut
+          )
+          |
+          appendIndex!(
+            state.getOrElse("runsByOutputArtifact", {}),
+            runPointer.getOrElse("outputArtifactIds", []),
+            runId,
+            *outputOut
+          )
+          |
+          for (@runsByInputEvent <- inputOut; @runsByOutputArtifact <- outputOut) {
+            extractorKey = runPointer.getOrElse("extractorKey", "") |
+            minerKey = runPointer.getOrElse("minerKey", "") |
+            reasonerKey = runPointer.getOrElse("reasonerKey", "") |
+
+            stateCh!({
+              "runs": state.getOrElse("runs", {}).set(runId, runPointer),
+              "claims": state.getOrElse("claims", {}),
+              "claimOccurrences": state.getOrElse("claimOccurrences", {}),
+              "claimClusters": state.getOrElse("claimClusters", {}),
+              "features": state.getOrElse("features", {}),
+              "featureOccurrences": state.getOrElse("featureOccurrences", {}),
+              "patterns": state.getOrElse("patterns", {}),
+              "patternOccurrences": state.getOrElse("patternOccurrences", {}),
+              "reasoningInputs": state.getOrElse("reasoningInputs", {}),
+              "reasoningOutputs": state.getOrElse("reasoningOutputs", {}),
+
+              "occurrencesByClaim": state.getOrElse("occurrencesByClaim", {}),
+              "occurrencesBySourceEvent": state.getOrElse("occurrencesBySourceEvent", {}),
+              "claimsBySubject": state.getOrElse("claimsBySubject", {}),
+              "claimsByPredicate": state.getOrElse("claimsByPredicate", {}),
+              "claimsByObject": state.getOrElse("claimsByObject", {}),
+              "clustersByClaim": state.getOrElse("clustersByClaim", {}),
+
+              "featureOccurrencesByFeature": state.getOrElse("featureOccurrencesByFeature", {}),
+              "featureOccurrencesBySourceEvent": state.getOrElse("featureOccurrencesBySourceEvent", {}),
+              "featuresByType": state.getOrElse("featuresByType", {}),
+
+              "runsByInputEvent": runsByInputEvent,
+              "runsByOutputArtifact": runsByOutputArtifact,
+              "runsByExtractor":
+                state.getOrElse("runsByExtractor", {}).set(
+                  extractorKey,
+                  state.getOrElse("runsByExtractor", {}).getOrElse(extractorKey, []) ++ [runId]
+                ),
+              "runsByMiner":
+                state.getOrElse("runsByMiner", {}).set(
+                  minerKey,
+                  state.getOrElse("runsByMiner", {}).getOrElse(minerKey, []) ++ [runId]
+                ),
+              "runsByReasoner":
+                state.getOrElse("runsByReasoner", {}).set(
+                  reasonerKey,
+                  state.getOrElse("runsByReasoner", {}).getOrElse(reasonerKey, []) ++ [runId]
+                ),
+              "outputsByRun":
+                state.getOrElse("outputsByRun", {}).set(
+                  runId,
+                  state.getOrElse("outputsByRun", {}).getOrElse(runId, []) ++ runPointer.getOrElse("outputArtifactIds", [])
+                ),
+
+              "occurrencesByPattern": state.getOrElse("occurrencesByPattern", {}),
+              "patternsByType": state.getOrElse("patternsByType", {}),
+              "patternsByInputSnapshot": state.getOrElse("patternsByInputSnapshot", {}),
+              "patternsByMiner": state.getOrElse("patternsByMiner", {}),
+              "patternOccurrencesByRoot": state.getOrElse("patternOccurrencesByRoot", {}),
+
+              "reasoningOutputsByClaim": state.getOrElse("reasoningOutputsByClaim", {}),
+              "reasoningOutputsByInput": state.getOrElse("reasoningOutputsByInput", {}),
+              "reasoningOutputsByRun": state.getOrElse("reasoningOutputsByRun", {})
+            })
+            |
+            return!({"ok": true, "runId": runId})
+          }
+        }
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putClaim", @claimPointer, return) = {
+    for (@state <- stateCh) {
+      claimId = claimPointer.get("claimId") |
+      if (state.getOrElse("claims", {}).contains(claimId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "claimId": claimId})
+      } else {
+        stateCh!(
+          state
+            .set("claims", state.getOrElse("claims", {}).set(claimId, claimPointer))
+            .set("claimsBySubject", state.getOrElse("claimsBySubject", {}).set(
+              claimPointer.get("subjectKey"),
+              state.getOrElse("claimsBySubject", {}).getOrElse(claimPointer.get("subjectKey"), []) ++ [claimId]
+            ))
+            .set("claimsByPredicate", state.getOrElse("claimsByPredicate", {}).set(
+              claimPointer.get("predicateKey"),
+              state.getOrElse("claimsByPredicate", {}).getOrElse(claimPointer.get("predicateKey"), []) ++ [claimId]
+            ))
+            .set("claimsByObject", state.getOrElse("claimsByObject", {}).set(
+              claimPointer.get("objectKey"),
+              state.getOrElse("claimsByObject", {}).getOrElse(claimPointer.get("objectKey"), []) ++ [claimId]
+            ))
+        )
+        |
+        return!({"ok": true, "claimId": claimId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putClaimOccurrence", @occurrencePointer, return) = {
+    for (@state <- stateCh) {
+      occurrenceId = occurrencePointer.get("occurrenceId") |
+      if (state.getOrElse("claimOccurrences", {}).contains(occurrenceId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "occurrenceId": occurrenceId})
+      } else {
+        claimId = occurrencePointer.get("claimId") |
+        sourceEventId = occurrencePointer.get("sourceEventId") |
+        runId = occurrencePointer.get("extractionRunId") |
+        stateCh!(
+          state
+            .set("claimOccurrences", state.getOrElse("claimOccurrences", {}).set(occurrenceId, occurrencePointer))
+            .set("occurrencesByClaim", state.getOrElse("occurrencesByClaim", {}).set(
+              claimId,
+              state.getOrElse("occurrencesByClaim", {}).getOrElse(claimId, []) ++ [occurrenceId]
+            ))
+            .set("occurrencesBySourceEvent", state.getOrElse("occurrencesBySourceEvent", {}).set(
+              sourceEventId,
+              state.getOrElse("occurrencesBySourceEvent", {}).getOrElse(sourceEventId, []) ++ [occurrenceId]
+            ))
+            .set("outputsByRun", state.getOrElse("outputsByRun", {}).set(
+              runId,
+              state.getOrElse("outputsByRun", {}).getOrElse(runId, []) ++ [occurrenceId]
+            ))
+            .set("runsByOutputArtifact", state.getOrElse("runsByOutputArtifact", {}).set(
+              occurrenceId,
+              state.getOrElse("runsByOutputArtifact", {}).getOrElse(occurrenceId, []) ++ [runId]
+            ))
+        )
+        |
+        return!({"ok": true, "occurrenceId": occurrenceId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putClaimCluster", @clusterPointer, return) = {
+    for (@state <- stateCh) {
+      clusterId = clusterPointer.get("clusterId") |
+      if (state.getOrElse("claimClusters", {}).contains(clusterId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "clusterId": clusterId})
+      } else {
+        new clustersByClaimOut in {
+          appendIndex!(
+            state.getOrElse("clustersByClaim", {}),
+            clusterPointer.getOrElse("members", []),
+            clusterId,
+            *clustersByClaimOut
+          )
+          |
+          for (@clustersByClaim <- clustersByClaimOut) {
+            stateCh!(
+              state
+                .set("claimClusters", state.getOrElse("claimClusters", {}).set(clusterId, clusterPointer))
+                .set("clustersByClaim", clustersByClaim)
+            )
+            |
+            return!({"ok": true, "clusterId": clusterId})
+          }
+        }
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putFeature", @featurePointer, return) = {
+    for (@state <- stateCh) {
+      featureId = featurePointer.get("featureId") |
+      if (state.getOrElse("features", {}).contains(featureId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "featureId": featureId})
+      } else {
+        featureType = featurePointer.get("featureType") |
+        stateCh!(
+          state
+            .set("features", state.getOrElse("features", {}).set(featureId, featurePointer))
+            .set("featuresByType", state.getOrElse("featuresByType", {}).set(
+              featureType,
+              state.getOrElse("featuresByType", {}).getOrElse(featureType, []) ++ [featureId]
+            ))
+        )
+        |
+        return!({"ok": true, "featureId": featureId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putFeatureOccurrence", @occurrencePointer, return) = {
+    for (@state <- stateCh) {
+      occurrenceId = occurrencePointer.get("occurrenceId") |
+      if (state.getOrElse("featureOccurrences", {}).contains(occurrenceId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "occurrenceId": occurrenceId})
+      } else {
+        featureId = occurrencePointer.get("featureId") |
+        sourceEventId = occurrencePointer.get("sourceEventId") |
+        runId = occurrencePointer.get("extractionRunId") |
+        stateCh!(
+          state
+            .set("featureOccurrences", state.getOrElse("featureOccurrences", {}).set(occurrenceId, occurrencePointer))
+            .set("featureOccurrencesByFeature", state.getOrElse("featureOccurrencesByFeature", {}).set(
+              featureId,
+              state.getOrElse("featureOccurrencesByFeature", {}).getOrElse(featureId, []) ++ [occurrenceId]
+            ))
+            .set("featureOccurrencesBySourceEvent", state.getOrElse("featureOccurrencesBySourceEvent", {}).set(
+              sourceEventId,
+              state.getOrElse("featureOccurrencesBySourceEvent", {}).getOrElse(sourceEventId, []) ++ [occurrenceId]
+            ))
+            .set("outputsByRun", state.getOrElse("outputsByRun", {}).set(
+              runId,
+              state.getOrElse("outputsByRun", {}).getOrElse(runId, []) ++ [occurrenceId]
+            ))
+            .set("runsByOutputArtifact", state.getOrElse("runsByOutputArtifact", {}).set(
+              occurrenceId,
+              state.getOrElse("runsByOutputArtifact", {}).getOrElse(occurrenceId, []) ++ [runId]
+            ))
+        )
+        |
+        return!({"ok": true, "occurrenceId": occurrenceId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putPattern", @patternPointer, return) = {
+    for (@state <- stateCh) {
+      patternId = patternPointer.get("patternId") |
+      if (state.getOrElse("patterns", {}).contains(patternId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "patternId": patternId})
+      } else {
+        new snapshotsOut in {
+          appendIndex!(
+            state.getOrElse("patternsByInputSnapshot", {}),
+            patternPointer.getOrElse("inputSnapshotCids", []),
+            patternId,
+            *snapshotsOut
+          )
+          |
+          for (@patternsByInputSnapshot <- snapshotsOut) {
+            patternType = patternPointer.get("patternType") |
+            minerKey = patternPointer.getOrElse("minerKey", "") |
+            stateCh!(
+              state
+                .set("patterns", state.getOrElse("patterns", {}).set(patternId, patternPointer))
+                .set("patternsByType", state.getOrElse("patternsByType", {}).set(
+                  patternType,
+                  state.getOrElse("patternsByType", {}).getOrElse(patternType, []) ++ [patternId]
+                ))
+                .set("patternsByInputSnapshot", patternsByInputSnapshot)
+                .set("patternsByMiner", state.getOrElse("patternsByMiner", {}).set(
+                  minerKey,
+                  state.getOrElse("patternsByMiner", {}).getOrElse(minerKey, []) ++ [patternId]
+                ))
+            )
+            |
+            return!({"ok": true, "patternId": patternId})
+          }
+        }
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putPatternOccurrence", @occurrencePointer, return) = {
+    for (@state <- stateCh) {
+      occurrenceId = occurrencePointer.get("occurrenceId") |
+      if (state.getOrElse("patternOccurrences", {}).contains(occurrenceId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "occurrenceId": occurrenceId})
+      } else {
+        patternId = occurrencePointer.get("patternId") |
+        rootEventId = occurrencePointer.get("rootEventId") |
+        runId = occurrencePointer.get("minedBy") |
+        stateCh!(
+          state
+            .set("patternOccurrences", state.getOrElse("patternOccurrences", {}).set(occurrenceId, occurrencePointer))
+            .set("occurrencesByPattern", state.getOrElse("occurrencesByPattern", {}).set(
+              patternId,
+              state.getOrElse("occurrencesByPattern", {}).getOrElse(patternId, []) ++ [occurrenceId]
+            ))
+            .set("patternOccurrencesByRoot", state.getOrElse("patternOccurrencesByRoot", {}).set(
+              rootEventId,
+              state.getOrElse("patternOccurrencesByRoot", {}).getOrElse(rootEventId, []) ++ [occurrenceId]
+            ))
+            .set("outputsByRun", state.getOrElse("outputsByRun", {}).set(
+              runId,
+              state.getOrElse("outputsByRun", {}).getOrElse(runId, []) ++ [occurrenceId]
+            ))
+            .set("runsByOutputArtifact", state.getOrElse("runsByOutputArtifact", {}).set(
+              occurrenceId,
+              state.getOrElse("runsByOutputArtifact", {}).getOrElse(occurrenceId, []) ++ [runId]
+            ))
+        )
+        |
+        return!({"ok": true, "occurrenceId": occurrenceId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putReasoningInput", @inputPointer, return) = {
+    for (@state <- stateCh) {
+      inputId = inputPointer.get("inputId") |
+      if (state.getOrElse("reasoningInputs", {}).contains(inputId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "inputId": inputId})
+      } else {
+        stateCh!(
+          state.set("reasoningInputs", state.getOrElse("reasoningInputs", {}).set(inputId, inputPointer))
+        )
+        |
+        return!({"ok": true, "inputId": inputId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"putReasoningOutput", @outputPointer, return) = {
+    for (@state <- stateCh) {
+      outputId = outputPointer.get("outputId") |
+      if (state.getOrElse("reasoningOutputs", {}).contains(outputId)) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "outputId": outputId})
+      } else {
+        claimId = outputPointer.get("claimId") |
+        inputId = outputPointer.get("inputId") |
+        runId = outputPointer.get("reasoningRunId") |
+        stateCh!(
+          state
+            .set("reasoningOutputs", state.getOrElse("reasoningOutputs", {}).set(outputId, outputPointer))
+            .set("reasoningOutputsByClaim", state.getOrElse("reasoningOutputsByClaim", {}).set(
+              claimId,
+              state.getOrElse("reasoningOutputsByClaim", {}).getOrElse(claimId, []) ++ [outputId]
+            ))
+            .set("reasoningOutputsByInput", state.getOrElse("reasoningOutputsByInput", {}).set(
+              inputId,
+              state.getOrElse("reasoningOutputsByInput", {}).getOrElse(inputId, []) ++ [outputId]
+            ))
+            .set("reasoningOutputsByRun", state.getOrElse("reasoningOutputsByRun", {}).set(
+              runId,
+              state.getOrElse("reasoningOutputsByRun", {}).getOrElse(runId, []) ++ [outputId]
+            ))
+            .set("outputsByRun", state.getOrElse("outputsByRun", {}).set(
+              runId,
+              state.getOrElse("outputsByRun", {}).getOrElse(runId, []) ++ [outputId]
+            ))
+            .set("runsByOutputArtifact", state.getOrElse("runsByOutputArtifact", {}).set(
+              outputId,
+              state.getOrElse("runsByOutputArtifact", {}).getOrElse(outputId, []) ++ [runId]
+            ))
+        )
+        |
+        return!({"ok": true, "outputId": outputId})
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"bySourceEvent", @eventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "eventId": eventId,
+        "claimOccurrenceIds": state.getOrElse("occurrencesBySourceEvent", {}).getOrElse(eventId, []),
+        "featureOccurrenceIds": state.getOrElse("featureOccurrencesBySourceEvent", {}).getOrElse(eventId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byClaim", @claimId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "claimId": claimId,
+        "occurrenceIds": state.getOrElse("occurrencesByClaim", {}).getOrElse(claimId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byFeature", @featureId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "featureId": featureId,
+        "occurrenceIds": state.getOrElse("featureOccurrencesByFeature", {}).getOrElse(featureId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byRun", @runId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "runId": runId,
+        "artifactIds": state.getOrElse("outputsByRun", {}).getOrElse(runId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byExtractor", @extractorKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "extractorKey": extractorKey,
+        "runIds": state.getOrElse("runsByExtractor", {}).getOrElse(extractorKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byMiner", @minerKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "minerKey": minerKey,
+        "runIds": state.getOrElse("runsByMiner", {}).getOrElse(minerKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byReasoner", @reasonerKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "reasonerKey": reasonerKey,
+        "runIds": state.getOrElse("runsByReasoner", {}).getOrElse(reasonerKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byPattern", @patternId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "patternId": patternId,
+        "occurrenceIds": state.getOrElse("occurrencesByPattern", {}).getOrElse(patternId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"byPatternRoot", @rootEventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "rootEventId": rootEventId,
+        "occurrenceIds": state.getOrElse("patternOccurrencesByRoot", {}).getOrElse(rootEventId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"clustersForClaim", @claimId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "claimId": claimId,
+        "clusterIds": state.getOrElse("clustersByClaim", {}).getOrElse(claimId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"reasoningOutputsByInput", @inputId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "inputId": inputId,
+        "outputIds": state.getOrElse("reasoningOutputsByInput", {}).getOrElse(inputId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getStateStats", return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "runs": state.getOrElse("runs", {}).size(),
+        "claims": state.getOrElse("claims", {}).size(),
+        "claimOccurrences": state.getOrElse("claimOccurrences", {}).size(),
+        "features": state.getOrElse("features", {}).size(),
+        "featureOccurrences": state.getOrElse("featureOccurrences", {}).size(),
+        "patterns": state.getOrElse("patterns", {}).size(),
+        "patternOccurrences": state.getOrElse("patternOccurrences", {}).size(),
+        "reasoningInputs": state.getOrElse("reasoningInputs", {}).size(),
+        "reasoningOutputs": state.getOrElse("reasoningOutputs", {}).size()
+      })
+    }
+  }
+
+  |
+
+  insertArbitrary!(bundle+{*derivedArtifactIndex}, *uriCh)
+  |
+  for (@uri <- uriCh) {
+    stdout!(["DerivedArtifactIndex URI: ", uri])
+  }
+}
