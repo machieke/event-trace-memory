@@ -281,7 +281,11 @@ RHO
 build_event_deploy_smoke() {
   local out="$1"
   cat > "${out}" <<'RHO'
-new lookup(`rho:registry:lookup`), lookedUp, putAck, queryResult in {
+new lookup(`rho:registry:lookup`), lookedUp,
+    putRootAck, putChildAck,
+    timeResult, eventResult, actorResult, channelResult, kindResult,
+    parentResult, rootResult, payloadResult, eventCidResult, statsResult
+in {
   for (@uri <- @"event-trace-memory:EventTraceIndexUri") {
     @"event-trace-memory:EventTraceIndexUri"!(uri)
     |
@@ -303,17 +307,109 @@ new lookup(`rho:registry:lookup`), lookedUp, putAck, queryResult in {
           "parentEventIds": [],
           "rootEventId": "event:deploy-smoke-1"
         },
-        *putAck
+        *putRootAck
       )
       |
-      for (@_ <- putAck) {
-        @eventTraceIndex!("byTimePrefix", "/2026/06/28/13", *queryResult)
+      for (@_ <- putRootAck) {
+        @eventTraceIndex!(
+          "putEvent",
+          {
+            "kind": "event-pointer",
+            "schema": "event-pointer-v0.1",
+            "eventId": "event:deploy-smoke-child-1",
+            "eventCid": "cid:event-deploy-smoke-child-1",
+            "payloadCid": "cid:payload-deploy-smoke-child-1",
+            "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/14"],
+            "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/carol"],
+            "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23deploy-child"],
+            "valueKind": "memory-query",
+            "parentEventIds": ["event:deploy-smoke-1"],
+            "rootEventId": "event:deploy-smoke-1"
+          },
+          *putChildAck
+        )
+      }
+      |
+      for (@_ <- putChildAck) {
+        @eventTraceIndex!("byTimePrefix", "/2026/06/28/13", *timeResult)
+        |
+        @eventTraceIndex!("getEvent", "event:deploy-smoke-child-1", *eventResult)
+        |
+        @eventTraceIndex!("byActorPrefix", "/irc/libera/user/carol", *actorResult)
+        |
+        @eventTraceIndex!("byChannelPrefix", "/irc/libera/channel/%23deploy-child", *channelResult)
+        |
+        @eventTraceIndex!("byKind", "memory-query", *kindResult)
+        |
+        @eventTraceIndex!("byParent", "event:deploy-smoke-1", *parentResult)
+        |
+        @eventTraceIndex!("byRoot", "event:deploy-smoke-1", *rootResult)
+        |
+        @eventTraceIndex!("byPayloadCid", "cid:payload-deploy-smoke-child-1", *payloadResult)
+        |
+        @eventTraceIndex!("byEventCid", "cid:event-deploy-smoke-child-1", *eventCidResult)
+        |
+        @eventTraceIndex!("getStateStats", *statsResult)
       }
     }
     |
-    for (@result <- queryResult) {
+    for (@result <- timeResult) {
       if (result.get("eventIds").nth(0) == "event:deploy-smoke-1") {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:event:deploy-smoke-1"!(true)
+      }
+    }
+    |
+    for (@result <- eventResult) {
+      if (result.get("event").get("eventId") == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:getEvent"!(true)
+      }
+    }
+    |
+    for (@result <- actorResult) {
+      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byActorPrefix"!(true)
+      }
+    }
+    |
+    for (@result <- channelResult) {
+      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byChannelPrefix"!(true)
+      }
+    }
+    |
+    for (@result <- kindResult) {
+      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byKind"!(true)
+      }
+    }
+    |
+    for (@result <- parentResult) {
+      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byParent"!(true)
+      }
+    }
+    |
+    for (@result <- rootResult) {
+      if (result.get("eventIds").nth(1) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byRoot"!(true)
+      }
+    }
+    |
+    for (@result <- payloadResult) {
+      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byPayloadCid"!(true)
+      }
+    }
+    |
+    for (@result <- eventCidResult) {
+      if (result.get("eventId") == "event:deploy-smoke-child-1") {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"!(true)
+      }
+    }
+    |
+    for (@result <- statsResult) {
+      if (result.get("events") == 2) {
+        @"event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"!(true)
       }
     }
   }
@@ -324,7 +420,15 @@ RHO
 build_derived_deploy_smoke() {
   local out="$1"
   cat > "${out}" <<'RHO'
-new lookup(`rho:registry:lookup`), lookedUp, runAck, claimAck, occurrenceAck, claimResult in {
+new lookup(`rho:registry:lookup`), lookedUp,
+    runAck, claimAck, claimOccurrenceAck, clusterAck,
+    featureAck, featureOccurrenceAck, patternAck, patternOccurrenceAck,
+    reasoningInputAck, reasoningOutputAck,
+    claimReady, featureReady, patternReady, reasoningReady, clusterReady,
+    claimResult, sourceEventResult, featureResult, runResult,
+    extractorResult, minerResult, reasonerResult, patternResult, patternRootResult,
+    clusterResult, reasoningInputResult, statsResult
+in {
   for (@uri <- @"event-trace-memory:DerivedArtifactIndexUri") {
     @"event-trace-memory:DerivedArtifactIndexUri"!(uri)
     |
@@ -342,8 +446,8 @@ new lookup(`rho:registry:lookup`), lookedUp, runAck, claimAck, occurrenceAck, cl
           "inputEventIds": ["event:deploy-smoke-1"],
           "outputArtifactIds": [],
           "extractorKey": "omega-claw-claim-extractor:0.1.0",
-          "minerKey": "",
-          "reasonerKey": "",
+          "minerKey": "pattern-miner:0.1.0",
+          "reasonerKey": "nal-reasoner:0.1.0",
           "tool": {"name": "omega-claw-claim-extractor", "version": "0.1.0"},
           "config": {"claimSchema": "claim-core-v0.1"}
         },
@@ -364,6 +468,44 @@ new lookup(`rho:registry:lookup`), lookedUp, runAck, claimAck, occurrenceAck, cl
           },
           *claimAck
         )
+        |
+        @derivedArtifactIndex!(
+          "putFeature",
+          {
+            "kind": "feature-pointer",
+            "schema": "feature-pointer-v0.1",
+            "featureId": "feature:deploy-smoke-1",
+            "featureCid": "cid:feature-deploy-smoke-1",
+            "featureType": "workflow-step"
+          },
+          *featureAck
+        )
+        |
+        @derivedArtifactIndex!(
+          "putPattern",
+          {
+            "kind": "pattern-pointer",
+            "schema": "pattern-pointer-v0.1",
+            "patternId": "pattern:deploy-smoke-1",
+            "patternCid": "cid:pattern-deploy-smoke-1",
+            "patternType": "sequence",
+            "inputSnapshotCids": ["cid:snapshot-deploy-smoke-1"],
+            "minerKey": "pattern-miner:0.1.0"
+          },
+          *patternAck
+        )
+        |
+        @derivedArtifactIndex!(
+          "putReasoningInput",
+          {
+            "kind": "reasoning-input-pointer",
+            "schema": "reasoning-input-pointer-v0.1",
+            "inputId": "reasoning-input:deploy-smoke-1",
+            "inputCid": "cid:reasoning-input-deploy-smoke-1",
+            "claimId": "claim:deploy-smoke-1"
+          },
+          *reasoningInputAck
+        )
       }
       |
       for (@_ <- claimAck) {
@@ -383,18 +525,208 @@ new lookup(`rho:registry:lookup`), lookedUp, runAck, claimAck, occurrenceAck, cl
             "polarity": "asserted",
             "confidence": 82
           },
-          *occurrenceAck
+          *claimOccurrenceAck
+        )
+        |
+        @derivedArtifactIndex!(
+          "putClaimCluster",
+          {
+            "kind": "claim-cluster-pointer",
+            "schema": "claim-cluster-pointer-v0.1",
+            "clusterId": "claim-cluster:deploy-smoke-1",
+            "clusterCid": "cid:claim-cluster-deploy-smoke-1",
+            "relation": "same-subject",
+            "members": ["claim:deploy-smoke-1"]
+          },
+          *clusterAck
         )
       }
       |
-      for (@_ <- occurrenceAck) {
+      for (@_ <- featureAck) {
+        @derivedArtifactIndex!(
+          "putFeatureOccurrence",
+          {
+            "kind": "feature-occurrence-pointer",
+            "schema": "feature-occurrence-pointer-v0.1",
+            "occurrenceId": "feature-occ:deploy-smoke-1",
+            "occurrenceCid": "cid:feature-occ-deploy-smoke-1",
+            "featureId": "feature:deploy-smoke-1",
+            "featureCid": "cid:feature-deploy-smoke-1",
+            "sourceEventId": "event:deploy-smoke-1",
+            "extractionRunId": "run:deploy-smoke-1",
+            "confidence": 91
+          },
+          *featureOccurrenceAck
+        )
+      }
+      |
+      for (@_ <- patternAck) {
+        @derivedArtifactIndex!(
+          "putPatternOccurrence",
+          {
+            "kind": "pattern-occurrence-pointer",
+            "schema": "pattern-occurrence-pointer-v0.1",
+            "occurrenceId": "pattern-occ:deploy-smoke-1",
+            "occurrenceCid": "cid:pattern-occ-deploy-smoke-1",
+            "patternId": "pattern:deploy-smoke-1",
+            "patternCid": "cid:pattern-deploy-smoke-1",
+            "rootEventId": "event:deploy-smoke-1",
+            "minedBy": "run:deploy-smoke-1"
+          },
+          *patternOccurrenceAck
+        )
+      }
+      |
+      for (@_ <- reasoningInputAck) {
+        @derivedArtifactIndex!(
+          "putReasoningOutput",
+          {
+            "kind": "reasoning-output-pointer",
+            "schema": "reasoning-output-pointer-v0.1",
+            "outputId": "reasoning-output:deploy-smoke-1",
+            "outputCid": "cid:reasoning-output-deploy-smoke-1",
+            "inputId": "reasoning-input:deploy-smoke-1",
+            "claimId": "claim:deploy-smoke-1",
+            "reasoningRunId": "run:deploy-smoke-1"
+          },
+          *reasoningOutputAck
+        )
+      }
+      |
+      for (@_ <- claimOccurrenceAck) {
         @derivedArtifactIndex!("byClaim", "claim:deploy-smoke-1", *claimResult)
+        |
+        claimReady!(true)
+      }
+      |
+      for (@_ <- featureOccurrenceAck) {
+        @derivedArtifactIndex!("byFeature", "feature:deploy-smoke-1", *featureResult)
+        |
+        featureReady!(true)
+      }
+      |
+      for (@_ <- patternOccurrenceAck) {
+        @derivedArtifactIndex!("byPattern", "pattern:deploy-smoke-1", *patternResult)
+        |
+        @derivedArtifactIndex!("byPatternRoot", "event:deploy-smoke-1", *patternRootResult)
+        |
+        patternReady!(true)
+      }
+      |
+      for (@_ <- reasoningOutputAck) {
+        @derivedArtifactIndex!("reasoningOutputsByInput", "reasoning-input:deploy-smoke-1", *reasoningInputResult)
+        |
+        reasoningReady!(true)
+      }
+      |
+      for (@_ <- clusterAck) {
+        @derivedArtifactIndex!("clustersForClaim", "claim:deploy-smoke-1", *clusterResult)
+        |
+        clusterReady!(true)
+      }
+      |
+      for (_ <- claimReady; _ <- featureReady; _ <- patternReady; _ <- reasoningReady; _ <- clusterReady) {
+        @derivedArtifactIndex!("bySourceEvent", "event:deploy-smoke-1", *sourceEventResult)
+        |
+        @derivedArtifactIndex!("byRun", "run:deploy-smoke-1", *runResult)
+        |
+        @derivedArtifactIndex!("byExtractor", "omega-claw-claim-extractor:0.1.0", *extractorResult)
+        |
+        @derivedArtifactIndex!("byMiner", "pattern-miner:0.1.0", *minerResult)
+        |
+        @derivedArtifactIndex!("byReasoner", "nal-reasoner:0.1.0", *reasonerResult)
+        |
+        @derivedArtifactIndex!("getStateStats", *statsResult)
       }
     }
     |
     for (@result <- claimResult) {
       if (result.get("occurrenceIds").nth(0) == "claim-occ:deploy-smoke-1") {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"!(true)
+      }
+    }
+    |
+    for (@result <- sourceEventResult) {
+      if (result.get("claimOccurrenceIds").nth(0) == "claim-occ:deploy-smoke-1") {
+        if (result.get("featureOccurrenceIds").nth(0) == "feature-occ:deploy-smoke-1") {
+          @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:bySourceEvent"!(true)
+        }
+      }
+    }
+    |
+    for (@result <- featureResult) {
+      if (result.get("occurrenceIds").nth(0) == "feature-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byFeature"!(true)
+      }
+    }
+    |
+    for (@result <- runResult) {
+      if (result.get("artifactIds").nth(0) == "claim-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byRun"!(true)
+      }
+    }
+    |
+    for (@result <- extractorResult) {
+      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byExtractor"!(true)
+      }
+    }
+    |
+    for (@result <- minerResult) {
+      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byMiner"!(true)
+      }
+    }
+    |
+    for (@result <- reasonerResult) {
+      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byReasoner"!(true)
+      }
+    }
+    |
+    for (@result <- patternResult) {
+      if (result.get("occurrenceIds").nth(0) == "pattern-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPattern"!(true)
+      }
+    }
+    |
+    for (@result <- patternRootResult) {
+      if (result.get("occurrenceIds").nth(0) == "pattern-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPatternRoot"!(true)
+      }
+    }
+    |
+    for (@result <- clusterResult) {
+      if (result.get("clusterIds").nth(0) == "claim-cluster:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"!(true)
+      }
+    }
+    |
+    for (@result <- reasoningInputResult) {
+      if (result.get("outputIds").nth(0) == "reasoning-output:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput"!(true)
+      }
+    }
+    |
+    for (@result <- statsResult) {
+      if (result.get("runs") == 1) {
+        if (result.get("claims") == 1) {
+          if (result.get("claimOccurrences") == 1) {
+            if (result.get("features") == 1) {
+              if (result.get("featureOccurrences") == 1) {
+                if (result.get("patterns") == 1) {
+                  if (result.get("patternOccurrences") == 1) {
+                    if (result.get("reasoningInputs") == 1) {
+                      if (result.get("reasoningOutputs") == 1) {
+                        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"!(true)
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -514,6 +846,26 @@ deploy_rho_file "${TMP_DIR}/DerivedArtifactIndexDeploySmoke.rho" "DerivedArtifac
 propose_block 2
 
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:event:deploy-smoke-1"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getEvent"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byActorPrefix"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byChannelPrefix"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byKind"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byParent"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byRoot"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byPayloadCid"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:bySourceEvent"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byFeature"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byRun"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byExtractor"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byMiner"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byReasoner"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPattern"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPatternRoot"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"
 
 echo "Rholang runtime validation, deploy/propose, and registry smoke calls passed for ${#contracts[@]} contracts."

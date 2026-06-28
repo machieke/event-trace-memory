@@ -38,7 +38,8 @@ Rholang programs that exercise `putEvent`/`byTimePrefix` and
 through `deploy`/`propose`. Deployed contract registry URIs are published at
 `"event-trace-memory:EventTraceIndexUri"` and
 `"event-trace-memory:DerivedArtifactIndexUri"` so follow-up client deploys can
-look up and call the contracts.
+look up and call the contracts. The deployed smoke clients cover every public
+EventTraceIndex query and every DerivedArtifactIndex artifact/query family.
 
 The Python helper module `event_trace_memory.rholang` renders Rholang literals,
 builds registry lookup/call programs for those URI names, and wraps the
