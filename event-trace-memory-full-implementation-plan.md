@@ -2893,28 +2893,45 @@ snapshot, pattern mining, and reasoning APIs.
 
 ---
 
-## 23. Open design decisions
+## 23. Resolved MVP design decisions
 
 ### 23.1 On-chain prefix expansion
 
-Decide whether prefix keys are:
+Decision:
 
 ```text
-computed off-chain and trusted
-computed off-chain and signed
-verified on-chain
-computed on-chain
+Prefix keys are computed off-chain by trusted ingestion/snapshot workers and
+submitted as part of event pointers for the MVP.
 ```
 
-MVP recommendation:
+Rationale:
 
 ```text
-computed off-chain and accepted from trusted ingest worker
+The reference implementation and Rholang contracts already treat prefix keys as
+compact pointer fields. On-chain recomputation or signature verification can be
+added later without changing the event identity model because the canonical event
+envelope remains in DA.
+```
+
+Future hardening:
+
+```text
+signed prefix manifests
+on-chain prefix verification for public ingest authorities
+capability-gated workers for private indexes
 ```
 
 ### 23.2 Contract sharding
 
-Possible contract-per-shard layout:
+Decision:
+
+```text
+Use one EventTraceIndex contract and one DerivedArtifactIndex contract for the
+MVP. Represent shard paths in snapshots and materialized views, not as separate
+contracts yet.
+```
+
+Deferred contract-per-shard layout:
 
 ```text
 EventTraceIndexRoot
@@ -2923,26 +2940,57 @@ EventTraceIndexRoot
   -> ChannelShard /irc/libera/channel/%23chat
 ```
 
-MVP recommendation:
+MVP baseline:
 
 ```text
 single contract until index sizes justify sharding
 ```
 
-### 23.3 Private events
-
-Decide whether private events are:
+Sharding trigger:
 
 ```text
-not indexed publicly
-indexed by hashed path segments
-indexed only in private capability-controlled contract
-stored encrypted in DA
+Introduce contract shards only after measured index size, deploy cost, or query
+cost requires it.
+```
+
+### 23.3 Private events
+
+Decision:
+
+```text
+The MVP public event store accepts only non-sensitive fixture/demo data. Private
+events are excluded from the public contract indexes until a capability-gated
+private store is implemented.
+```
+
+Allowed later options:
+
+```text
+encrypted DA payloads
+hashed path segments
+private capability-controlled indexes
+public indexes only for approved non-sensitive dimensions
 ```
 
 ### 23.4 Semantic dedup policy
 
-Start with exact dedup. Add semantic clustering only after claim extraction stabilizes.
+Decision:
+
+```text
+Exact content identity is canonical for claims, features, patterns, runs, and
+occurrences. Semantic near-duplicates are represented with reversible cluster
+nodes and never destructively merged.
+```
+
+Implementation status:
+
+```text
+ClaimCluster pointers and clustersForClaim queries are implemented and tested.
+The same claim core creates one ClaimNode while multiple evidence occurrences are
+retained.
+```
+
+These decisions are recorded as ADR `docs/decisions/0001-mvp-operational-policies.md`.
 
 ---
 
