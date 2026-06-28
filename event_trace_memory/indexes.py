@@ -140,6 +140,7 @@ class DerivedArtifactIndex:
         self.pattern_occurrences_by_root: dict[str, list[str]] = {}
 
         self.reasoning_outputs_by_claim: dict[str, list[str]] = {}
+        self.reasoning_outputs_by_input: dict[str, list[str]] = {}
         self.reasoning_outputs_by_run: dict[str, list[str]] = {}
 
     def put_run(self, run_pointer: dict[str, Any]) -> dict[str, Any]:
@@ -264,6 +265,7 @@ class DerivedArtifactIndex:
         pointer = deepcopy(output_pointer)
         self.reasoning_outputs[output_id] = pointer
         _append_unique(self.reasoning_outputs_by_claim, pointer["claimId"], output_id)
+        _append_unique(self.reasoning_outputs_by_input, pointer["inputId"], output_id)
         _append_unique(self.reasoning_outputs_by_run, pointer["reasoningRunId"], output_id)
         _append_unique(self.outputs_by_run, pointer["reasoningRunId"], output_id)
         _append_unique(self.runs_by_output_artifact, output_id, pointer["reasoningRunId"])
