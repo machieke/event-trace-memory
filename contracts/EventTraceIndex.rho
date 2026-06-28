@@ -318,5 +318,7 @@ in {
   |
   for (@uri <- uriCh) {
     stdout!(["EventTraceIndex URI: ", uri])
+    |
+    @"event-trace-memory:EventTraceIndexUri"!(uri)
   }
 }

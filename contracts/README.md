@@ -31,10 +31,14 @@ Runtime validation against the F1R3FLY Docker image:
 bash scripts/validate_rholang_contracts.sh
 ```
 
-The script starts a standalone F1R3FLY node in Docker, evaluates both `.rho`
-contracts with `/opt/docker/bin/node eval`, then generates smoke-call Rholang
-programs that exercise `putEvent`/`byTimePrefix` and
-`putRun`/`putClaim`/`putClaimOccurrence`/`byClaim`.
+The script starts a bonded standalone F1R3FLY node in Docker, evaluates both
+`.rho` contracts with `/opt/docker/bin/node eval`, generates smoke-call
+Rholang programs that exercise `putEvent`/`byTimePrefix` and
+`putRun`/`putClaim`/`putClaimOccurrence`/`byClaim`, then deploys the contracts
+through `deploy`/`propose`. Deployed contract registry URIs are published at
+`"event-trace-memory:EventTraceIndexUri"` and
+`"event-trace-memory:DerivedArtifactIndexUri"` so follow-up client deploys can
+look up and call the contracts.
 
 Notes from local validation:
 

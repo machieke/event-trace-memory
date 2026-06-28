@@ -41,6 +41,7 @@ class RholangContractsTest(unittest.TestCase):
 
         self.assertIn("duplicate-event-id", source)
         self.assertIn("insertArbitrary!(bundle+{*eventTraceIndex}", source)
+        self.assertIn('@"event-trace-memory:EventTraceIndexUri"!(uri)', source)
 
     def test_derived_artifact_index_contract_api(self):
         source = (CONTRACTS / "DerivedArtifactIndex.rho").read_text(encoding="utf-8")
@@ -90,6 +91,7 @@ class RholangContractsTest(unittest.TestCase):
             self.assertIn(f'"{state_key}"', source)
 
         self.assertIn("insertArbitrary!(bundle+{*derivedArtifactIndex}", source)
+        self.assertIn('@"event-trace-memory:DerivedArtifactIndexUri"!(uri)', source)
 
     def test_contracts_are_not_plan_placeholders(self):
         for path in sorted(CONTRACTS.glob("*.rho")):
@@ -109,6 +111,14 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("EventTraceIndexSmoke.rho", source)
         self.assertIn("DerivedArtifactIndexSmoke.rho", source)
         self.assertIn("claim-occ:smoke-1", source)
+        self.assertIn("--validator-private-key", source)
+        self.assertIn("/opt/docker/bin/node deploy", source)
+        self.assertIn("/opt/docker/bin/node propose --print-unmatched-sends", source)
+        self.assertIn("/opt/docker/bin/node data-at-name", source)
+        self.assertIn("EventTraceIndexDeploySmoke.rho", source)
+        self.assertIn("DerivedArtifactIndexDeploySmoke.rho", source)
+        self.assertIn("EventTraceIndexDeploySmokeOk:event:deploy-smoke-1", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1", source)
 
 
 if __name__ == "__main__":

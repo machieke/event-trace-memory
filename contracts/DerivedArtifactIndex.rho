@@ -641,5 +641,7 @@ in {
   |
   for (@uri <- uriCh) {
     stdout!(["DerivedArtifactIndex URI: ", uri])
+    |
+    @"event-trace-memory:DerivedArtifactIndexUri"!(uri)
   }
 }
