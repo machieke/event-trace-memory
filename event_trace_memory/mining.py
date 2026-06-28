@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from event_trace_memory.artifacts import ArtifactWriter, StoredArtifact
+from event_trace_memory.ingestion import EventIngestor, IngestedEvent
 from event_trace_memory.snapshots import SnapshotView
 
 
@@ -100,6 +101,36 @@ class PatternMiner:
                 )
             )
         return MinedPattern(pattern=pattern, occurrences=occurrences, support_vector=support_vector)
+
+    def log_pattern_discovery_event(
+        self,
+        *,
+        ingestor: EventIngestor,
+        mining_run: StoredArtifact,
+        mined_pattern: MinedPattern,
+        observed_at: str,
+        parent_event_ids: list[str],
+    ) -> IngestedEvent:
+        return ingestor.log_child_event(
+            raw_payload={
+                "kind": "pattern-discovery",
+                "runId": mining_run.artifact_id,
+                "runCid": mining_run.cid,
+                "patternId": mined_pattern.pattern.artifact_id,
+                "patternCid": mined_pattern.pattern.cid,
+                "occurrenceIds": [occurrence.artifact_id for occurrence in mined_pattern.occurrences],
+                "supportVector": mined_pattern.support_vector,
+                "observedAt": observed_at,
+            },
+            observed_at=observed_at,
+            actor_path=["agent", "omega-claw", "pattern-miner", "sequence-v0"],
+            channel_path=["system", "pattern-mining", "sequence"],
+            value_kind="pattern-discovery",
+            parent_event_ids=parent_event_ids,
+            input_event_ids=parent_event_ids,
+            output_artifact_ids=[mined_pattern.pattern.artifact_id]
+            + [occurrence.artifact_id for occurrence in mined_pattern.occurrences],
+        )
 
     @staticmethod
     def _match_sequence(snapshot: SnapshotView, event_ids: list[str], sequence: list[str]) -> list[str]:

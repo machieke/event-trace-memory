@@ -133,6 +133,19 @@ class MiningAcceptanceTest(unittest.TestCase):
                 derived_index.pattern_occurrences[mined.occurrences[0].artifact_id]["participatingClaimOccurrenceIds"],
             )
 
+            discovery_event = miner.log_pattern_discovery_event(
+                ingestor=ingestor,
+                mining_run=mining_run,
+                mined_pattern=mined,
+                observed_at="2026-06-27T15:00:08Z",
+                parent_event_ids=[root.event_id],
+            )
+            self.assertIn(discovery_event.event_id, event_index.by_kind("pattern-discovery")["eventIds"])
+            self.assertEqual(
+                event_index.get_event(discovery_event.event_id)["event"]["outputArtifactIds"],
+                [mined.pattern.artifact_id, mined.occurrences[0].artifact_id],
+            )
+
             later = ingestor.ingest_irc_message(
                 server="libera",
                 room="#chat",
