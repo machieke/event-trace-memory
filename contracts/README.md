@@ -40,6 +40,10 @@ through `deploy`/`propose`. Deployed contract registry URIs are published at
 `"event-trace-memory:DerivedArtifactIndexUri"` so follow-up client deploys can
 look up and call the contracts.
 
+The Python helper module `event_trace_memory.rholang` renders Rholang literals,
+builds registry lookup/call programs for those URI names, and wraps the
+F1R3FLY `node deploy`, `propose`, and `data-at-name` client commands.
+
 Notes from local validation:
 
 - The Docker image path validates the contracts successfully.
