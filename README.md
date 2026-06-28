@@ -45,6 +45,18 @@ event-trace-memory run-fixture \
   --pretty
 ```
 
+## Worker Adapters
+
+`event_trace_memory.workers` provides adapters for integration code that wants
+to log real worker activity without bypassing provenance:
+
+- `IrcSourceWorker` ingests IRC-style source messages.
+- `MemoryQueryWorker` logs query and result events.
+- `ShellActionWorker` records explicitly permissioned shell action results and
+  stores stdout/stderr bytes in DA.
+- `ClaimFeatureExtractionWorker` records extractor run identity and writes
+  claim/feature occurrences linked to source events.
+
 ## Rholang Validation
 
 Static and reference tests:
@@ -58,4 +70,3 @@ Docker-backed Rholang runtime validation:
 ```bash
 bash scripts/validate_rholang_contracts.sh
 ```
-

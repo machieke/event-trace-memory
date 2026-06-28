@@ -10,14 +10,23 @@ from event_trace_memory.mining import PatternMiner
 from event_trace_memory.reasoning import ReasoningAdapter
 from event_trace_memory.rholang import RholangCli, build_registry_call_program, rho_literal
 from event_trace_memory.snapshots import SnapshotBuilder
+from event_trace_memory.workers import (
+    ClaimFeatureExtractionWorker,
+    IrcSourceWorker,
+    MemoryQueryWorker,
+    ShellActionWorker,
+)
 
 __all__ = [
     "ArtifactWriter",
+    "ClaimFeatureExtractionWorker",
     "DerivedArtifactIndex",
     "EventIngestor",
     "EventTraceIndex",
     "FileDA",
+    "IrcSourceWorker",
     "load_fixture_corpus",
+    "MemoryQueryWorker",
     "PatternMiner",
     "ReasoningAdapter",
     "RholangCli",
@@ -28,4 +37,5 @@ __all__ = [
     "content_id",
     "rho_literal",
     "run_fixture_corpus",
+    "ShellActionWorker",
 ]

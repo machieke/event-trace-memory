@@ -2906,6 +2906,14 @@ The console script entry point is `event-trace-memory` after package
 installation. The root `README.md` documents the unit-test, fixture-summary, and
 end-to-end fixture-runner commands.
 
+### 22.5 Worker adapters
+
+This repository now includes `event_trace_memory.workers` adapters for source
+ingestion, memory query trace logging, shell action result logging, and
+claim/feature extraction run logging. The shell adapter records observed command
+results only; it does not execute commands. stdout/stderr bytes are stored in DA
+and event traces keep only CIDs and compact metadata.
+
 ---
 
 ## 23. Resolved MVP design decisions
