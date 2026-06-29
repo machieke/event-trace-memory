@@ -57,6 +57,18 @@ to log real worker activity without bypassing provenance:
 - `ClaimFeatureExtractionWorker` records extractor run identity and writes
   claim/feature occurrences linked to source events.
 
+## Data Availability Backends
+
+The DA layer is pluggable through the `DAStore` protocol:
+
+- `FileDA` stores content-addressed objects and manifests on disk.
+- `MemoryDA` provides the same CID and manifest behavior in memory for tests and
+  embedded flows.
+
+Both backends support `verify(cid)`, which checks object digest, manifest CID,
+and manifest size metadata. `get_bytes(cid)` also verifies the content digest
+before returning bytes.
+
 ## Rholang Validation
 
 Static and reference tests:

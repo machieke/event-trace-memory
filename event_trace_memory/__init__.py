@@ -2,7 +2,7 @@
 
 from event_trace_memory.canonical import canonical_json_bytes, cid_for_bytes, content_id
 from event_trace_memory.artifacts import ArtifactWriter
-from event_trace_memory.da import FileDA
+from event_trace_memory.da import DAStore, FileDA, MemoryDA
 from event_trace_memory.fixture_flow import load_fixture_corpus, run_fixture_corpus
 from event_trace_memory.indexes import DerivedArtifactIndex, EventTraceIndex
 from event_trace_memory.ingestion import EventIngestor
@@ -20,6 +20,7 @@ from event_trace_memory.workers import (
 __all__ = [
     "ArtifactWriter",
     "ClaimFeatureExtractionWorker",
+    "DAStore",
     "DerivedArtifactIndex",
     "EventIngestor",
     "EventTraceIndex",
@@ -27,6 +28,7 @@ __all__ = [
     "IrcSourceWorker",
     "load_fixture_corpus",
     "MemoryQueryWorker",
+    "MemoryDA",
     "PatternMiner",
     "ReasoningAdapter",
     "RholangCli",

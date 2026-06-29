@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from event_trace_memory.artifacts import StoredArtifact
 from event_trace_memory.canonical import content_id
-from event_trace_memory.da import FileDA
+from event_trace_memory.da import DAStore
 from event_trace_memory.indexes import DerivedArtifactIndex, EventTraceIndex
 from event_trace_memory.ingestion import EventIngestor, IngestedEvent
 
 
 class ReasoningAdapter:
-    def __init__(self, da: FileDA, event_index: EventTraceIndex, derived_index: DerivedArtifactIndex) -> None:
+    def __init__(self, da: DAStore, event_index: EventTraceIndex, derived_index: DerivedArtifactIndex) -> None:
         self.da = da
         self.event_index = event_index
         self.derived_index = derived_index

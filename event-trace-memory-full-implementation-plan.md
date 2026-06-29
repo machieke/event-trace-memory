@@ -2914,6 +2914,13 @@ claim/feature extraction run logging. The shell adapter records observed command
 results only; it does not execute commands. stdout/stderr bytes are stored in DA
 and event traces keep only CIDs and compact metadata.
 
+### 22.6 DA backend hardening
+
+This repository now exposes a `DAStore` protocol with `FileDA` and `MemoryDA`
+implementations. Both backends produce the same local SHA-256 CID format,
+manifests, `stat(cid)` metadata, and `verify(cid)` integrity checks. The
+reference APIs accept the protocol rather than a filesystem-only implementation.
+
 ---
 
 ## 23. Resolved MVP design decisions

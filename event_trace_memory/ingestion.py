@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from event_trace_memory.canonical import canonical_json_bytes, content_id, sha256_hex
-from event_trace_memory.da import FileDA
+from event_trace_memory.da import DAStore
 from event_trace_memory.indexes import EventTraceIndex
 from event_trace_memory.paths import parse_utc_time, prefix_keys, time_prefix_keys
 
@@ -22,7 +22,7 @@ class IngestedEvent:
 
 
 class EventIngestor:
-    def __init__(self, da: FileDA, index: EventTraceIndex) -> None:
+    def __init__(self, da: DAStore, index: EventTraceIndex) -> None:
         self.da = da
         self.index = index
 

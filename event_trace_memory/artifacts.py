@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from event_trace_memory.canonical import content_id
-from event_trace_memory.da import FileDA
+from event_trace_memory.da import DAStore
 from event_trace_memory.indexes import DerivedArtifactIndex, EventTraceIndex
 
 
@@ -20,7 +20,7 @@ class StoredArtifact:
 
 
 class ArtifactWriter:
-    def __init__(self, da: FileDA, event_index: EventTraceIndex, derived_index: DerivedArtifactIndex) -> None:
+    def __init__(self, da: DAStore, event_index: EventTraceIndex, derived_index: DerivedArtifactIndex) -> None:
         self.da = da
         self.event_index = event_index
         self.derived_index = derived_index
