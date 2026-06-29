@@ -7,6 +7,7 @@
 new derivedArtifactIndex,
     appendIndex,
     appendOne,
+    appendOptionalOne,
     stateCh,
     uriCh,
     insertArbitrary(`rho:registry:insertArbitrary`),
@@ -88,6 +89,16 @@ in {
 
   |
 
+  contract appendOptionalOne(@indexMap, @key, @value, return) = {
+    if (key == "") {
+      return!(indexMap)
+    } else {
+      appendOne!(indexMap, key, value, *return)
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"putRun", @runPointer, return) = {
     for (@state <- stateCh) {
       if (state.getOrElse("runs", {}).contains(runPointer.get("runId"))) {
@@ -95,7 +106,7 @@ in {
         |
         return!({"ok": true, "duplicate": true, "runId": runPointer.get("runId")})
       } else {
-        new inputOut, outputOut in {
+        new inputOut, outputOut, extractorOut, minerOut, reasonerOut in {
           appendIndex!(
             state.getOrElse("runsByInputEvent", {}),
             runPointer.getOrElse("inputEventIds", []),
@@ -110,7 +121,34 @@ in {
             *outputOut
           )
           |
-          for (@runsByInputEvent <- inputOut; @runsByOutputArtifact <- outputOut) {
+          appendOptionalOne!(
+            state.getOrElse("runsByExtractor", {}),
+            runPointer.getOrElse("extractorKey", ""),
+            runPointer.get("runId"),
+            *extractorOut
+          )
+          |
+          appendOptionalOne!(
+            state.getOrElse("runsByMiner", {}),
+            runPointer.getOrElse("minerKey", ""),
+            runPointer.get("runId"),
+            *minerOut
+          )
+          |
+          appendOptionalOne!(
+            state.getOrElse("runsByReasoner", {}),
+            runPointer.getOrElse("reasonerKey", ""),
+            runPointer.get("runId"),
+            *reasonerOut
+          )
+          |
+          for (
+            @runsByInputEvent <- inputOut;
+            @runsByOutputArtifact <- outputOut;
+            @runsByExtractor <- extractorOut;
+            @runsByMiner <- minerOut;
+            @runsByReasoner <- reasonerOut
+          ) {
 
             stateCh!({
               "runs": state.getOrElse("runs", {}).set(runPointer.get("runId"), runPointer),
@@ -138,21 +176,9 @@ in {
 
               "runsByInputEvent": runsByInputEvent,
               "runsByOutputArtifact": runsByOutputArtifact,
-              "runsByExtractor":
-                state.getOrElse("runsByExtractor", {}).set(
-                  runPointer.getOrElse("extractorKey", ""),
-                  state.getOrElse("runsByExtractor", {}).getOrElse(runPointer.getOrElse("extractorKey", ""), []) ++ [runPointer.get("runId")]
-                ),
-              "runsByMiner":
-                state.getOrElse("runsByMiner", {}).set(
-                  runPointer.getOrElse("minerKey", ""),
-                  state.getOrElse("runsByMiner", {}).getOrElse(runPointer.getOrElse("minerKey", ""), []) ++ [runPointer.get("runId")]
-                ),
-              "runsByReasoner":
-                state.getOrElse("runsByReasoner", {}).set(
-                  runPointer.getOrElse("reasonerKey", ""),
-                  state.getOrElse("runsByReasoner", {}).getOrElse(runPointer.getOrElse("reasonerKey", ""), []) ++ [runPointer.get("runId")]
-                ),
+              "runsByExtractor": runsByExtractor,
+              "runsByMiner": runsByMiner,
+              "runsByReasoner": runsByReasoner,
               "outputsByRun":
                 state.getOrElse("outputsByRun", {}).set(
                   runPointer.get("runId"),

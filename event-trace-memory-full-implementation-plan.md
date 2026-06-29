@@ -2993,6 +2993,14 @@ The Python `EventTraceIndex` stand-in now exposes `by_event_cid`, matching the
 Rholang `byEventCid` query. Acceptance coverage verifies both successful event
 CID lookup and the not-found response shape.
 
+### 22.16 Run role index hygiene
+
+`ArtifactWriter.record_run` now keeps `extractorKey`, `minerKey`, and
+`reasonerKey` role-specific. Non-applicable roles remain present as empty strings
+for schema compatibility, while the Python and Rholang derived indexes only
+index non-empty role keys. Acceptance tests verify extraction, mining, and
+reasoning runs do not pollute unrelated role indexes.
+
 ---
 
 ## 23. Resolved MVP design decisions

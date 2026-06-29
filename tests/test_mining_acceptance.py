@@ -121,6 +121,9 @@ class MiningAcceptanceTest(unittest.TestCase):
             assert mined is not None
             self.assertEqual(mined.support_vector["rootTraceSupport"], 1)
             self.assertEqual(mined.support_vector["eventSupport"], 4)
+            self.assertEqual(mining_run.pointer["extractorKey"], "")
+            self.assertEqual(mining_run.pointer["minerKey"], "omega-sequence-miner:0.1.0")
+            self.assertEqual(mining_run.pointer["reasonerKey"], "")
             self.assertEqual(derived_index.patterns[mined.pattern.artifact_id]["inputSnapshotCids"], [snapshot.cid])
             self.assertEqual(derived_index.patterns[mined.pattern.artifact_id]["minedBy"], mining_run.artifact_id)
             self.assertEqual(derived_index.by_miner("omega-sequence-miner:0.1.0")["runIds"], [mining_run.artifact_id])

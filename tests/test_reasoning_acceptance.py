@@ -94,6 +94,9 @@ class ReasoningAcceptanceTest(unittest.TestCase):
                 derived_index.reasoning_outputs_for_input(reasoning_input.artifact_id)["outputIds"],
                 [reasoning_output.artifact_id],
             )
+            self.assertEqual(reasoning_run.pointer["extractorKey"], "")
+            self.assertEqual(reasoning_run.pointer["minerKey"], "")
+            self.assertEqual(reasoning_run.pointer["reasonerKey"], "plr-adapter:0.1.0")
             self.assertEqual(derived_index.by_run(reasoning_run.artifact_id)["artifactIds"], [reasoning_output.artifact_id])
             self.assertEqual(derived_index.by_reasoner("plr-adapter:0.1.0")["runIds"], [reasoning_run.artifact_id])
 

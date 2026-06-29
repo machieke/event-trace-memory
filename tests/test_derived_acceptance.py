@@ -115,6 +115,8 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.by_extractor("omega-claw-claim-extractor:0.1.0")["runIds"],
                 [run.artifact_id],
             )
+            self.assertEqual(derived_index.by_miner("omega-claw-claim-extractor:0.1.0")["runIds"], [])
+            self.assertEqual(derived_index.by_reasoner("omega-claw-claim-extractor:0.1.0")["runIds"], [])
             self.assertEqual(
                 derived_index.by_run(run.artifact_id)["artifactIds"],
                 [occurrence_one.artifact_id, occurrence_two.artifact_id],

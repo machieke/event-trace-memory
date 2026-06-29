@@ -54,6 +54,7 @@ class ArtifactWriter:
         }
         cid = self.da.put_json(body)
         run_id = content_id("run", body)
+        role_keys = self._role_keys(run_type, actor_key)
         pointer = {
             "kind": "run-pointer",
             "schema": "run-pointer-v0.1",
@@ -63,15 +64,23 @@ class ArtifactWriter:
             "inputEventIds": input_event_ids,
             "inputSnapshotCids": input_snapshot_cids or [],
             "outputArtifactIds": output_artifact_ids or [],
-            "extractorKey": actor_key,
-            "minerKey": actor_key,
-            "reasonerKey": actor_key,
+            "extractorKey": role_keys["extractorKey"],
+            "minerKey": role_keys["minerKey"],
+            "reasonerKey": role_keys["reasonerKey"],
             "tool": tool,
             "config": config,
             "status": status,
         }
         ack = self.derived_index.put_run(pointer)
         return StoredArtifact(run_id, cid, body, pointer, ack)
+
+    @staticmethod
+    def _role_keys(run_type: str, actor_key: str) -> dict[str, str]:
+        return {
+            "extractorKey": actor_key if "extraction" in run_type else "",
+            "minerKey": actor_key if "mining" in run_type else "",
+            "reasonerKey": actor_key if "reasoning" in run_type else "",
+        }
 
     def put_claim(self, claim_core: dict[str, Any]) -> StoredArtifact:
         cid = self.da.put_json(claim_core)
