@@ -158,7 +158,7 @@ class ReasoningAdapter:
             "claimId": claim_id,
             "outputIds": [output.artifact_id for output in reasoning_outputs],
         }
-        ack = {"ok": True, "historyId": history_id}
+        ack = self.derived_index.put_belief_revision_history(pointer)
         return StoredArtifact(history_id, cid, body, pointer, ack)
 
     def log_reasoning_event(

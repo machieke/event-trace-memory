@@ -423,11 +423,11 @@ build_derived_deploy_smoke() {
 new lookup(`rho:registry:lookup`), lookedUp,
     runAck, claimAck, claimOccurrenceAck, clusterAck,
     featureAck, featureOccurrenceAck, patternAck, patternOccurrenceAck,
-    reasoningInputAck, reasoningOutputAck,
+    reasoningInputAck, reasoningOutputAck, beliefHistoryAck,
     claimReady, featureReady, patternReady, reasoningReady, clusterReady,
     claimResult, sourceEventResult, featureResult, runResult,
     extractorResult, minerResult, reasonerResult, patternResult, patternRootResult,
-    clusterResult, reasoningInputResult, statsResult
+    clusterResult, reasoningInputResult, beliefClaimResult, beliefOutputResult, statsResult
 in {
   for (@uri <- @"event-trace-memory:DerivedArtifactIndexUri") {
     @"event-trace-memory:DerivedArtifactIndexUri"!(uri)
@@ -614,7 +614,26 @@ in {
       }
       |
       for (@_ <- reasoningOutputAck) {
+        @derivedArtifactIndex!(
+          "putBeliefRevisionHistory",
+          {
+            "kind": "belief-revision-history-pointer",
+            "schema": "belief-revision-history-pointer-v0.1",
+            "historyId": "belief-revision-history:deploy-smoke-1",
+            "historyCid": "cid:belief-revision-history-deploy-smoke-1",
+            "claimId": "claim:deploy-smoke-1",
+            "outputIds": ["reasoning-output:deploy-smoke-1"]
+          },
+          *beliefHistoryAck
+        )
+      }
+      |
+      for (@_ <- beliefHistoryAck) {
         @derivedArtifactIndex!("reasoningOutputsByInput", "reasoning-input:deploy-smoke-1", *reasoningInputResult)
+        |
+        @derivedArtifactIndex!("beliefHistoriesByClaim", "claim:deploy-smoke-1", *beliefClaimResult)
+        |
+        @derivedArtifactIndex!("beliefHistoriesByOutput", "reasoning-output:deploy-smoke-1", *beliefOutputResult)
         |
         reasoningReady!(true)
       }
@@ -708,6 +727,18 @@ in {
       }
     }
     |
+    for (@result <- beliefClaimResult) {
+      if (result.get("historyIds").nth(0) == "belief-revision-history:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByClaim"!(true)
+      }
+    }
+    |
+    for (@result <- beliefOutputResult) {
+      if (result.get("historyIds").nth(0) == "belief-revision-history:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput"!(true)
+      }
+    }
+    |
     for (@result <- statsResult) {
       if (result.get("runs") == 1) {
         if (result.get("claims") == 1) {
@@ -718,7 +749,9 @@ in {
                   if (result.get("patternOccurrences") == 1) {
                     if (result.get("reasoningInputs") == 1) {
                       if (result.get("reasoningOutputs") == 1) {
-                        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"!(true)
+                        if (result.get("beliefRevisionHistories") == 1) {
+                          @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"!(true)
+                        }
                       }
                     }
                   }
@@ -866,6 +899,8 @@ assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPatt
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPatternRoot"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByClaim"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"
 
 echo "Rholang runtime validation, deploy/propose, and registry smoke calls passed for ${#contracts[@]} contracts."

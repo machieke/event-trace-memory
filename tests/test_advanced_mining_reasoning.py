@@ -232,6 +232,18 @@ class AdvancedMiningReasoningTest(unittest.TestCase):
         self.assertEqual(history.body["states"][1]["truthValue"]["confidence"], 0.9)
         self.assertEqual(history.pointer["outputIds"], [first_output.artifact_id, second_output.artifact_id])
         self.assertEqual(da.get_json(history.cid), history.body)
+        self.assertEqual(
+            derived_index.belief_histories_by_claim(claim_id)["historyIds"],
+            [history.artifact_id],
+        )
+        self.assertEqual(
+            derived_index.belief_histories_by_output(second_output.artifact_id)["historyIds"],
+            [history.artifact_id],
+        )
+        self.assertEqual(
+            derived_index.put_belief_revision_history(history.pointer),
+            {"ok": True, "duplicate": True, "historyId": history.artifact_id},
+        )
 
         other_claim_output = dict(second_output.body)
         other_claim_output["claimId"] = "claim:other"

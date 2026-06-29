@@ -57,6 +57,7 @@ class RholangContractsTest(unittest.TestCase):
             "putPatternOccurrence",
             "putReasoningInput",
             "putReasoningOutput",
+            "putBeliefRevisionHistory",
             "bySourceEvent",
             "byClaim",
             "byFeature",
@@ -68,6 +69,8 @@ class RholangContractsTest(unittest.TestCase):
             "byPatternRoot",
             "clustersForClaim",
             "reasoningOutputsByInput",
+            "beliefHistoriesByClaim",
+            "beliefHistoriesByOutput",
             "getStateStats",
         ]:
             self.assertRegex(source, rf'contract\s+derivedArtifactIndex\(@"{method}"')
@@ -83,10 +86,13 @@ class RholangContractsTest(unittest.TestCase):
             "patternOccurrences",
             "reasoningInputs",
             "reasoningOutputs",
+            "beliefRevisionHistories",
             "occurrencesByClaim",
             "occurrencesBySourceEvent",
             "patternsByInputSnapshot",
             "reasoningOutputsByInput",
+            "beliefRevisionHistoriesByClaim",
+            "beliefRevisionHistoriesByOutput",
         ]:
             self.assertIn(f'"{state_key}"', source)
 
@@ -138,6 +144,8 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byPatternRoot", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:clustersForClaim", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByClaim", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getStateStats", source)
 
 

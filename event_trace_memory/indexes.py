@@ -116,6 +116,7 @@ class DerivedArtifactIndex:
         self.pattern_occurrences: dict[str, dict[str, Any]] = {}
         self.reasoning_inputs: dict[str, dict[str, Any]] = {}
         self.reasoning_outputs: dict[str, dict[str, Any]] = {}
+        self.belief_revision_histories: dict[str, dict[str, Any]] = {}
 
         self.occurrences_by_claim: dict[str, list[str]] = {}
         self.occurrences_by_source_event: dict[str, list[str]] = {}
@@ -142,6 +143,8 @@ class DerivedArtifactIndex:
         self.reasoning_outputs_by_claim: dict[str, list[str]] = {}
         self.reasoning_outputs_by_input: dict[str, list[str]] = {}
         self.reasoning_outputs_by_run: dict[str, list[str]] = {}
+        self.belief_revision_histories_by_claim: dict[str, list[str]] = {}
+        self.belief_revision_histories_by_output: dict[str, list[str]] = {}
 
     def put_run(self, run_pointer: dict[str, Any]) -> dict[str, Any]:
         run_id = run_pointer["runId"]
@@ -271,6 +274,18 @@ class DerivedArtifactIndex:
         _append_unique(self.runs_by_output_artifact, output_id, pointer["reasoningRunId"])
         return {"ok": True, "outputId": output_id}
 
+    def put_belief_revision_history(self, history_pointer: dict[str, Any]) -> dict[str, Any]:
+        history_id = history_pointer["historyId"]
+        if history_id in self.belief_revision_histories:
+            return {"ok": True, "duplicate": True, "historyId": history_id}
+
+        pointer = deepcopy(history_pointer)
+        self.belief_revision_histories[history_id] = pointer
+        _append_unique(self.belief_revision_histories_by_claim, pointer["claimId"], history_id)
+        for output_id in pointer.get("outputIds", []):
+            _append_unique(self.belief_revision_histories_by_output, output_id, history_id)
+        return {"ok": True, "historyId": history_id}
+
     def by_source_event(self, event_id: str) -> dict[str, Any]:
         return {
             "ok": True,
@@ -304,6 +319,20 @@ class DerivedArtifactIndex:
 
     def clusters_for_claim(self, claim_id: str) -> dict[str, Any]:
         return {"ok": True, "claimId": claim_id, "clusterIds": list(self.clusters_by_claim.get(claim_id, []))}
+
+    def belief_histories_by_claim(self, claim_id: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "claimId": claim_id,
+            "historyIds": list(self.belief_revision_histories_by_claim.get(claim_id, [])),
+        }
+
+    def belief_histories_by_output(self, output_id: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "outputId": output_id,
+            "historyIds": list(self.belief_revision_histories_by_output.get(output_id, [])),
+        }
 
     @staticmethod
     def stable_key(label: str, value: Any) -> str:

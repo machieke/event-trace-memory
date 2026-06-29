@@ -8,14 +8,16 @@ memory indexes.
 - `EventTraceIndex.rho` stores event pointers and query indexes by time, actor,
   channel, kind, parent/root trace, payload CID, and event CID.
 - `DerivedArtifactIndex.rho` stores derived artifact pointers and provenance
-  indexes for runs, claims, features, patterns, reasoning inputs, and reasoning
-  outputs.
+  indexes for runs, claims, features, patterns, reasoning inputs, reasoning
+  outputs, and belief revision histories.
 
 ## Storage Boundary
 
 The contracts store compact pointers only. Raw payloads, canonical envelopes,
 large artifacts, vectors, snapshots, extraction outputs, mining outputs, and
-reasoning outputs remain in the DA layer and are referenced by CIDs.
+reasoning outputs remain in the DA layer and are referenced by CIDs. Belief
+revision history bodies also remain in DA; the contract stores compact history
+pointers and lookup indexes by claim/output.
 
 ## Validation
 

@@ -101,7 +101,8 @@ snapshots:
   parent-child provenance edges.
 
 `ReasoningAdapter.record_revision_history` stores ordered belief-state updates
-for a claim as DA-backed `belief-revision-history` artifacts.
+for a claim as DA-backed `belief-revision-history` artifacts and indexes their
+compact pointers by claim and reasoning output.
 
 ## Rholang Validation
 

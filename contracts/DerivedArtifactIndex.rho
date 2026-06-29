@@ -23,6 +23,7 @@ in {
     "patternOccurrences": {},
     "reasoningInputs": {},
     "reasoningOutputs": {},
+    "beliefRevisionHistories": {},
 
     "occurrencesByClaim": {},
     "occurrencesBySourceEvent": {},
@@ -50,7 +51,9 @@ in {
 
     "reasoningOutputsByClaim": {},
     "reasoningOutputsByInput": {},
-    "reasoningOutputsByRun": {}
+    "reasoningOutputsByRun": {},
+    "beliefRevisionHistoriesByClaim": {},
+    "beliefRevisionHistoriesByOutput": {}
   })
 
   |
@@ -120,6 +123,7 @@ in {
               "patternOccurrences": state.getOrElse("patternOccurrences", {}),
               "reasoningInputs": state.getOrElse("reasoningInputs", {}),
               "reasoningOutputs": state.getOrElse("reasoningOutputs", {}),
+              "beliefRevisionHistories": state.getOrElse("beliefRevisionHistories", {}),
 
               "occurrencesByClaim": state.getOrElse("occurrencesByClaim", {}),
               "occurrencesBySourceEvent": state.getOrElse("occurrencesBySourceEvent", {}),
@@ -163,7 +167,9 @@ in {
 
               "reasoningOutputsByClaim": state.getOrElse("reasoningOutputsByClaim", {}),
               "reasoningOutputsByInput": state.getOrElse("reasoningOutputsByInput", {}),
-              "reasoningOutputsByRun": state.getOrElse("reasoningOutputsByRun", {})
+              "reasoningOutputsByRun": state.getOrElse("reasoningOutputsByRun", {}),
+              "beliefRevisionHistoriesByClaim": state.getOrElse("beliefRevisionHistoriesByClaim", {}),
+              "beliefRevisionHistoriesByOutput": state.getOrElse("beliefRevisionHistoriesByOutput", {})
             })
             |
             return!({"ok": true, "runId": runPointer.get("runId")})
@@ -461,6 +467,41 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"putBeliefRevisionHistory", @historyPointer, return) = {
+    for (@state <- stateCh) {
+      if (state.getOrElse("beliefRevisionHistories", {}).contains(historyPointer.get("historyId"))) {
+        stateCh!(state)
+        |
+        return!({"ok": true, "duplicate": true, "historyId": historyPointer.get("historyId")})
+      } else {
+        new historiesByOutputOut in {
+          appendIndex!(
+            state.getOrElse("beliefRevisionHistoriesByOutput", {}),
+            historyPointer.getOrElse("outputIds", []),
+            historyPointer.get("historyId"),
+            *historiesByOutputOut
+          )
+          |
+          for (@beliefRevisionHistoriesByOutput <- historiesByOutputOut) {
+            stateCh!(
+              state
+                .set("beliefRevisionHistories", state.getOrElse("beliefRevisionHistories", {}).set(historyPointer.get("historyId"), historyPointer))
+                .set("beliefRevisionHistoriesByClaim", state.getOrElse("beliefRevisionHistoriesByClaim", {}).set(
+                  historyPointer.get("claimId"),
+                  state.getOrElse("beliefRevisionHistoriesByClaim", {}).getOrElse(historyPointer.get("claimId"), []) ++ [historyPointer.get("historyId")]
+                ))
+                .set("beliefRevisionHistoriesByOutput", beliefRevisionHistoriesByOutput)
+            )
+            |
+            return!({"ok": true, "historyId": historyPointer.get("historyId")})
+          }
+        }
+      }
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"bySourceEvent", @eventId, return) = {
     for (@state <- stateCh) {
       stateCh!(state)
@@ -616,6 +657,34 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"beliefHistoriesByClaim", @claimId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "claimId": claimId,
+        "historyIds": state.getOrElse("beliefRevisionHistoriesByClaim", {}).getOrElse(claimId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"beliefHistoriesByOutput", @outputId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "outputId": outputId,
+        "historyIds": state.getOrElse("beliefRevisionHistoriesByOutput", {}).getOrElse(outputId, [])
+      })
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"getStateStats", return) = {
     for (@state <- stateCh) {
       stateCh!(state)
@@ -630,7 +699,8 @@ in {
         "patterns": state.getOrElse("patterns", {}).size(),
         "patternOccurrences": state.getOrElse("patternOccurrences", {}).size(),
         "reasoningInputs": state.getOrElse("reasoningInputs", {}).size(),
-        "reasoningOutputs": state.getOrElse("reasoningOutputs", {}).size()
+        "reasoningOutputs": state.getOrElse("reasoningOutputs", {}).size(),
+        "beliefRevisionHistories": state.getOrElse("beliefRevisionHistories", {}).size()
       })
     }
   }

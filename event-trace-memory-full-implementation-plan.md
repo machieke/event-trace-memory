@@ -2956,6 +2956,15 @@ The reasoning adapter also now writes DA-backed belief revision history artifact
 with ordered reasoning output states for a claim. Versioned JSON schemas cover
 both revision-history bodies and pointers.
 
+### 22.11 Belief revision history contract indexing
+
+This repository now keeps belief revision histories aligned with the pointer
+contract model. `DerivedArtifactIndex` stores compact revision-history pointers,
+indexes them by claim and reasoning output, and exposes matching query methods in
+both the Python reference contract and `contracts/DerivedArtifactIndex.rho`.
+Runtime Rholang smoke generation now exercises the revision-history put/query
+paths and verifies the new state counter.
+
 ---
 
 ## 23. Resolved MVP design decisions
