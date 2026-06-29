@@ -307,7 +307,11 @@ in {
         "timeKeys": state.getOrElse("timeIndex", {}).size(),
         "actorKeys": state.getOrElse("actorIndex", {}).size(),
         "channelKeys": state.getOrElse("channelIndex", {}).size(),
-        "rootKeys": state.getOrElse("rootIndex", {}).size()
+        "kindKeys": state.getOrElse("kindIndex", {}).size(),
+        "parentKeys": state.getOrElse("parentIndex", {}).size(),
+        "rootKeys": state.getOrElse("rootIndex", {}).size(),
+        "payloadKeys": state.getOrElse("payloadIndex", {}).size(),
+        "eventCidKeys": state.getOrElse("eventCidIndex", {}).size()
       })
     }
   }

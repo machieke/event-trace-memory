@@ -3035,6 +3035,13 @@ pointer-family counters returned by the Rholang `getStateStats` query. Rholang
 stats now include `claimClusters`, and both acceptance tests and the
 deploy/propose smoke harness verify the complete derived artifact count surface.
 
+### 22.21 Event state stats parity
+
+The Python `EventTraceIndex.state_stats()` and Rholang `getStateStats` now
+report all event index families: time, actor, channel, kind, parent, root,
+payload CID, and event CID. Acceptance and deploy/propose smoke checks verify
+that duplicate event CID rejections do not inflate these counters.
+
 ---
 
 ## 23. Resolved MVP design decisions

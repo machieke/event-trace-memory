@@ -39,6 +39,19 @@ class RholangContractsTest(unittest.TestCase):
         ]:
             self.assertIn(f'"{state_key}"', source)
 
+        for stat_key in [
+            "events",
+            "timeKeys",
+            "actorKeys",
+            "channelKeys",
+            "kindKeys",
+            "parentKeys",
+            "rootKeys",
+            "payloadKeys",
+            "eventCidKeys",
+        ]:
+            self.assertIn(f'"{stat_key}"', source)
+
         self.assertIn("duplicate-event-id", source)
         self.assertIn("duplicate-event-cid", source)
         self.assertIn("insertArbitrary!(bundle+{*eventTraceIndex}", source)

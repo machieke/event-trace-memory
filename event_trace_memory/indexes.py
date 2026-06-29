@@ -106,7 +106,11 @@ class EventTraceIndex:
             "timeKeys": len(self.time_index),
             "actorKeys": len(self.actor_index),
             "channelKeys": len(self.channel_index),
+            "kindKeys": len(self.kind_index),
+            "parentKeys": len(self.parent_index),
             "rootKeys": len(self.root_index),
+            "payloadKeys": len(self.payload_index),
+            "eventCidKeys": len(self.event_cid_index),
         }
 
 

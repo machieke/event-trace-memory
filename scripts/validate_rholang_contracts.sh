@@ -435,7 +435,23 @@ in {
     |
     for (@result <- statsResult) {
       if (result.get("events") == 2) {
-        @"event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"!(true)
+        if (result.get("timeKeys") == 5) {
+          if (result.get("actorKeys") == 5) {
+            if (result.get("channelKeys") == 5) {
+              if (result.get("kindKeys") == 2) {
+                if (result.get("parentKeys") == 1) {
+                  if (result.get("rootKeys") == 1) {
+                    if (result.get("payloadKeys") == 2) {
+                      if (result.get("eventCidKeys") == 2) {
+                        @"event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"!(true)
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

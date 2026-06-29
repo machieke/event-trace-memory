@@ -51,7 +51,20 @@ class EventMemoryAcceptanceTest(unittest.TestCase):
                     "eventId": root.event_id,
                 },
             )
-            self.assertEqual(index.state_stats()["events"], 1)
+            self.assertEqual(
+                index.state_stats(),
+                {
+                    "events": 1,
+                    "timeKeys": 4,
+                    "actorKeys": 4,
+                    "channelKeys": 4,
+                    "kindKeys": 1,
+                    "parentKeys": 0,
+                    "rootKeys": 1,
+                    "payloadKeys": 1,
+                    "eventCidKeys": 1,
+                },
+            )
 
             self.assertEqual(index.by_time_prefix("/2026/06/27/14")["eventIds"], [root.event_id])
             self.assertEqual(index.by_actor_prefix("/irc/libera/user/alice")["eventIds"], [root.event_id])
