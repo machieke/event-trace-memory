@@ -2937,6 +2937,13 @@ before DA writes or index updates. Hashed-path ingestion supports public indexes
 that hide actor/channel path labels; payload encryption remains an upstream
 responsibility before publishing public pointers.
 
+### 22.9 Scaling and sharding readiness
+
+This repository now includes `event_trace_memory.scaling` helpers for event index
+metrics, snapshot metrics, threshold-based sharding recommendations, and
+delta-compressed posting lists. Contract sharding remains deferred until these
+measurements cross explicit thresholds.
+
 ---
 
 ## 23. Resolved MVP design decisions

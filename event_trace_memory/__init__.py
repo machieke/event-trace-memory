@@ -23,6 +23,15 @@ from event_trace_memory.rholang_deployment import (
     load_rholang_deployment_config,
     rholang_deployment_plan,
 )
+from event_trace_memory.scaling import (
+    ScalingThresholds,
+    compact_snapshot_postings,
+    compress_postings,
+    decompress_postings,
+    measure_event_index,
+    measure_snapshot,
+    recommend_sharding,
+)
 from event_trace_memory.snapshots import SnapshotBuilder
 from event_trace_memory.workers import (
     ClaimFeatureExtractionWorker,
@@ -52,14 +61,21 @@ __all__ = [
     "RholangDeployTarget",
     "RholangDeploymentConfig",
     "RholangDeploymentResult",
+    "ScalingThresholds",
     "SnapshotBuilder",
     "build_registry_call_program",
     "canonical_json_bytes",
     "cid_for_bytes",
+    "compact_snapshot_postings",
+    "compress_postings",
     "content_id",
+    "decompress_postings",
     "deploy_rholang_contracts",
     "hash_path_segment",
     "load_rholang_deployment_config",
+    "measure_event_index",
+    "measure_snapshot",
+    "recommend_sharding",
     "rho_literal",
     "rholang_deployment_plan",
     "run_fixture_corpus",

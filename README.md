@@ -81,6 +81,15 @@ before returning bytes.
 This does not encrypt payloads by itself. Private payload bytes should be
 encrypted or stored outside the public DA path before publishing a public pointer.
 
+## Scaling Helpers
+
+`event_trace_memory.scaling` provides measurement and compaction helpers for
+when indexes or snapshots get large:
+
+- `measure_event_index` and `measure_snapshot` produce sizing metrics.
+- `recommend_sharding` compares metrics against explicit thresholds.
+- `compress_postings` stores sorted posting lists as delta-encoded integers.
+
 ## Rholang Validation
 
 Static and reference tests:
