@@ -2944,6 +2944,18 @@ metrics, snapshot metrics, threshold-based sharding recommendations, and
 delta-compressed posting lists. Contract sharding remains deferred until these
 measurements cross explicit thresholds.
 
+### 22.10 Advanced mining and reasoning
+
+This repository now implements the full MVP mining surface from Phase 5:
+sequence mining, posting-token itemset mining, and parent-child graph motif
+mining over materialized snapshots. Itemset support is computed from snapshot
+postings, graph motifs are computed from snapshot provenance edges, and pattern
+occurrences preserve supporting events and claim occurrences.
+
+The reasoning adapter also now writes DA-backed belief revision history artifacts
+with ordered reasoning output states for a claim. Versioned JSON schemas cover
+both revision-history bodies and pointers.
+
 ---
 
 ## 23. Resolved MVP design decisions

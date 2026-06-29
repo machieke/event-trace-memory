@@ -116,6 +116,51 @@ class ReasoningAdapter:
         ack = self.derived_index.put_reasoning_output(pointer)
         return StoredArtifact(output_id, cid, body, pointer, ack)
 
+    def record_revision_history(
+        self,
+        *,
+        claim_id: str,
+        reasoning_outputs: list[StoredArtifact],
+        revision_policy: str,
+    ) -> StoredArtifact:
+        states = []
+        for output in reasoning_outputs:
+            if output.body["claimId"] != claim_id:
+                actual_claim_id = output.body["claimId"]
+                raise ValueError(
+                    f"reasoning output {output.artifact_id} belongs to claim {actual_claim_id}, not {claim_id}"
+                )
+            states.append(
+                {
+                    "outputId": output.artifact_id,
+                    "outputCid": output.cid,
+                    "reasoningRunId": output.body["reasoningRunId"],
+                    "beliefStateId": output.body["beliefStateId"],
+                    "truthValue": output.body["truthValue"],
+                    "evidenceOccurrenceIds": output.body["evidenceOccurrenceIds"],
+                }
+            )
+
+        body = {
+            "kind": "belief-revision-history",
+            "schema": "belief-revision-history-v0.1",
+            "claimId": claim_id,
+            "revisionPolicy": revision_policy,
+            "states": states,
+        }
+        cid = self.da.put_json(body)
+        history_id = content_id("belief-revision-history", body)
+        pointer = {
+            "kind": "belief-revision-history-pointer",
+            "schema": "belief-revision-history-pointer-v0.1",
+            "historyId": history_id,
+            "historyCid": cid,
+            "claimId": claim_id,
+            "outputIds": [output.artifact_id for output in reasoning_outputs],
+        }
+        ack = {"ok": True, "historyId": history_id}
+        return StoredArtifact(history_id, cid, body, pointer, ack)
+
     def log_reasoning_event(
         self,
         *,

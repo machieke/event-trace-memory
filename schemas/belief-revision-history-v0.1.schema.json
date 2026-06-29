@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/belief-revision-history-v0.1.schema.json",
+  "title": "Belief Revision History v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "claimId", "revisionPolicy", "states"],
+  "properties": {
+    "kind": {"const": "belief-revision-history"},
+    "schema": {"const": "belief-revision-history-v0.1"},
+    "claimId": {"type": "string"},
+    "revisionPolicy": {"type": "string"},
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "outputId",
+          "outputCid",
+          "reasoningRunId",
+          "beliefStateId",
+          "truthValue",
+          "evidenceOccurrenceIds"
+        ],
+        "properties": {
+          "outputId": {"type": "string"},
+          "outputCid": {"type": "string"},
+          "reasoningRunId": {"type": "string"},
+          "beliefStateId": {"type": "string"},
+          "truthValue": {"type": "object"},
+          "evidenceOccurrenceIds": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

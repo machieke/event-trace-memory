@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://event-trace-memory.local/schemas/belief-revision-history-pointer-v0.1.schema.json",
+  "title": "Belief Revision History Pointer v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["kind", "schema", "historyId", "historyCid", "claimId", "outputIds"],
+  "properties": {
+    "kind": {"const": "belief-revision-history-pointer"},
+    "schema": {"const": "belief-revision-history-pointer-v0.1"},
+    "historyId": {"type": "string"},
+    "historyCid": {"type": "string"},
+    "claimId": {"type": "string"},
+    "outputIds": {"type": "array", "items": {"type": "string"}}
+  }
+}

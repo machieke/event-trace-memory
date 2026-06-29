@@ -102,6 +102,140 @@ class PatternMiner:
             )
         return MinedPattern(pattern=pattern, occurrences=occurrences, support_vector=support_vector)
 
+    def mine_itemset(
+        self,
+        *,
+        snapshot: SnapshotView,
+        tokens: list[str],
+        mining_run_id: str,
+        miner_key: str,
+        min_support: int = 1,
+    ) -> MinedPattern | None:
+        support = self.support_for_tokens(snapshot, tokens)
+        if support.support < min_support:
+            return None
+
+        support_vector = self._support_vector(snapshot, support.event_ids)
+        support_vector["itemsetSupport"] = support.support
+        support_vector["occurrenceSupport"] = support.support
+        support_vector["rootTraceSupport"] = len(
+            {snapshot.event_columns["events"][event_id]["rootEventId"] for event_id in support.event_ids}
+        )
+
+        pattern_core = {
+            "kind": "pattern",
+            "schema": "pattern-core-v0.1",
+            "patternType": "itemset",
+            "body": [{"postingToken": token} for token in tokens],
+            "constraints": {
+                "supportStrategy": support.strategy,
+            },
+        }
+        pattern = self.writer.put_pattern(
+            pattern_core=pattern_core,
+            input_snapshot_cids=[snapshot.cid],
+            mining_run_id=mining_run_id,
+            miner_key=miner_key,
+            support_vector=support_vector,
+        )
+
+        by_root: dict[str, list[str]] = {}
+        for event_id in support.event_ids:
+            root_event_id = snapshot.event_columns["events"][event_id]["rootEventId"]
+            by_root.setdefault(root_event_id, []).append(event_id)
+
+        occurrences: list[StoredArtifact] = []
+        for root_event_id, participating_event_ids in by_root.items():
+            occurrences.append(
+                self.writer.put_pattern_occurrence(
+                    pattern_id=pattern.artifact_id,
+                    root_event_id=root_event_id,
+                    participating_event_ids=participating_event_ids,
+                    participating_claim_occurrence_ids=self._claim_occurrences_for_events(
+                        snapshot,
+                        participating_event_ids,
+                    ),
+                    mined_by=mining_run_id,
+                )
+            )
+        return MinedPattern(pattern=pattern, occurrences=occurrences, support_vector=support_vector)
+
+    def mine_parent_child_motif(
+        self,
+        *,
+        snapshot: SnapshotView,
+        parent_kind: str,
+        child_kind: str,
+        mining_run_id: str,
+        miner_key: str,
+        min_support: int = 1,
+    ) -> MinedPattern | None:
+        matches: list[tuple[str, str]] = []
+        for edge in snapshot.provenance_edges["parentEdges"]:
+            parent_event_id = edge["parentEventId"]
+            child_event_id = edge["childEventId"]
+            parent = snapshot.event_columns["events"].get(parent_event_id)
+            child = snapshot.event_columns["events"].get(child_event_id)
+            if not parent or not child:
+                continue
+            if parent["eventKind"] == parent_kind and child["eventKind"] == child_kind:
+                matches.append((parent_event_id, child_event_id))
+
+        if len(matches) < min_support:
+            return None
+
+        matched_event_ids = [event_id for match in matches for event_id in match]
+        support_vector = self._support_vector(snapshot, matched_event_ids)
+        support_vector["edgeSupport"] = len(matches)
+        support_vector["occurrenceSupport"] = len(matches)
+        support_vector["rootTraceSupport"] = len(
+            {
+                snapshot.event_columns["events"][parent_event_id]["rootEventId"]
+                for parent_event_id, _ in matches
+            }
+        )
+
+        pattern_core = {
+            "kind": "pattern",
+            "schema": "pattern-core-v0.1",
+            "patternType": "graph-motif",
+            "body": [
+                {
+                    "edge": "parent-child",
+                    "parentEventKind": parent_kind,
+                    "childEventKind": child_kind,
+                }
+            ],
+            "constraints": {
+                "edgeType": "parentEventId",
+            },
+        }
+        pattern = self.writer.put_pattern(
+            pattern_core=pattern_core,
+            input_snapshot_cids=[snapshot.cid],
+            mining_run_id=mining_run_id,
+            miner_key=miner_key,
+            support_vector=support_vector,
+        )
+
+        occurrences: list[StoredArtifact] = []
+        for parent_event_id, child_event_id in matches:
+            participating_event_ids = [parent_event_id, child_event_id]
+            root_event_id = snapshot.event_columns["events"][parent_event_id]["rootEventId"]
+            occurrences.append(
+                self.writer.put_pattern_occurrence(
+                    pattern_id=pattern.artifact_id,
+                    root_event_id=root_event_id,
+                    participating_event_ids=participating_event_ids,
+                    participating_claim_occurrence_ids=self._claim_occurrences_for_events(
+                        snapshot,
+                        participating_event_ids,
+                    ),
+                    mined_by=mining_run_id,
+                )
+            )
+        return MinedPattern(pattern=pattern, occurrences=occurrences, support_vector=support_vector)
+
     def log_pattern_discovery_event(
         self,
         *,
@@ -144,6 +278,13 @@ class PatternMiner:
                 matched.append(event_id)
                 search_index += 1
         return matched if search_index == len(sequence) else []
+
+    @staticmethod
+    def _claim_occurrences_for_events(snapshot: SnapshotView, event_ids: list[str]) -> list[str]:
+        occurrence_ids: list[str] = []
+        for event_id in event_ids:
+            occurrence_ids.extend(snapshot.claim_occurrences.get(event_id, []))
+        return occurrence_ids
 
     @staticmethod
     def _support_vector(snapshot: SnapshotView, event_ids: list[str]) -> dict[str, int]:

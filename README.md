@@ -90,6 +90,19 @@ when indexes or snapshots get large:
 - `recommend_sharding` compares metrics against explicit thresholds.
 - `compress_postings` stores sorted posting lists as delta-encoded integers.
 
+## Advanced Mining and Reasoning
+
+`PatternMiner` now supports the full MVP mining surface over materialized
+snapshots:
+
+- `mine_sequence` finds ordered event-kind workflows within root traces.
+- `mine_itemset` creates itemset patterns from posting-token intersections.
+- `mine_parent_child_motif` creates graph-motif patterns from snapshot
+  parent-child provenance edges.
+
+`ReasoningAdapter.record_revision_history` stores ordered belief-state updates
+for a claim as DA-backed `belief-revision-history` artifacts.
+
 ## Rholang Validation
 
 Static and reference tests:

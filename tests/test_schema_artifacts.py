@@ -240,6 +240,11 @@ def build_reference_samples() -> dict[str, Any]:
             truth_value={"frequency": 1.0, "confidence": 0.84},
             revision_policy="evidence-weighted",
         )
+        revision_history = adapter.record_revision_history(
+            claim_id=claim.artifact_id,
+            reasoning_outputs=[reasoning_output],
+            revision_policy="evidence-weighted",
+        )
 
         return {
             "raw-irc-v0.1.schema.json": da.get_json(root.payload_cid),
@@ -272,6 +277,8 @@ def build_reference_samples() -> dict[str, Any]:
             "reasoning-input-pointer-v0.1.schema.json": reasoning_input.pointer,
             "reasoning-output-v0.1.schema.json": reasoning_output.body,
             "reasoning-output-pointer-v0.1.schema.json": reasoning_output.pointer,
+            "belief-revision-history-v0.1.schema.json": revision_history.body,
+            "belief-revision-history-pointer-v0.1.schema.json": revision_history.pointer,
         }
 
 
