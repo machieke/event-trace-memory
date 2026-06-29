@@ -2921,6 +2921,14 @@ implementations. Both backends produce the same local SHA-256 CID format,
 manifests, `stat(cid)` metadata, and `verify(cid)` integrity checks. The
 reference APIs accept the protocol rather than a filesystem-only implementation.
 
+### 22.7 Rholang deployment configuration
+
+This repository now includes `configs/rholang-local-docker.json` and
+`event_trace_memory.rholang_deployment` helpers for config-driven contract
+deployment. `python3 -m event_trace_memory.cli rholang-plan` prints a redacted
+deploy/propose plan, while `rholang-deploy` executes the same config through the
+`RholangCli` wrapper.
+
 ---
 
 ## 23. Resolved MVP design decisions

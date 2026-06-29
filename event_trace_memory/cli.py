@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any, Optional, Sequence, TextIO
 
 from event_trace_memory.fixture_flow import EXPECTED_COVERAGE, load_fixture_corpus, run_fixture_corpus
+from event_trace_memory.rholang_deployment import (
+    deploy_rholang_contracts,
+    load_rholang_deployment_config,
+    rholang_deployment_plan,
+)
 
 
 DEFAULT_FIXTURE = Path("tests/fixtures/minimum-corpus-v0.1.json")
@@ -26,6 +31,10 @@ def main(argv: Optional[Sequence[str]] = None, stdout: Optional[TextIO] = None, 
             return fixture_summary(args, stdout)
         if args.command == "run-fixture":
             return run_fixture(args, stdout)
+        if args.command == "rholang-plan":
+            return rholang_plan(args, stdout)
+        if args.command == "rholang-deploy":
+            return rholang_deploy(args, stdout)
     except Exception as exc:
         stderr.write(f"error: {exc}\n")
         return 1
@@ -47,6 +56,14 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--da-root", help="filesystem DA root; uses a temporary directory when omitted")
     run.add_argument("--pretty", action="store_true", help="pretty-print JSON output")
 
+    plan = subcommands.add_parser("rholang-plan", help="print a redacted Rholang deployment plan")
+    add_rholang_config_argument(plan)
+    plan.add_argument("--pretty", action="store_true", help="pretty-print JSON output")
+
+    deploy = subcommands.add_parser("rholang-deploy", help="deploy configured Rholang contracts")
+    add_rholang_config_argument(deploy)
+    deploy.add_argument("--pretty", action="store_true", help="pretty-print JSON output")
+
     return parser
 
 
@@ -55,6 +72,14 @@ def add_fixture_argument(parser: argparse.ArgumentParser) -> None:
         "--fixture",
         default=str(DEFAULT_FIXTURE),
         help=f"fixture corpus JSON path (default: {DEFAULT_FIXTURE})",
+    )
+
+
+def add_rholang_config_argument(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--config",
+        default="configs/rholang-local-docker.json",
+        help="Rholang deployment config JSON path",
     )
 
 
@@ -86,6 +111,27 @@ def run_fixture(args: argparse.Namespace, stdout: TextIO) -> int:
         summary = run_fixture_corpus(corpus, Path(temp_dir) / "da")
         summary["ephemeralDaRoot"] = True
         write_json(summary, stdout, pretty=args.pretty)
+    return 0
+
+
+def rholang_plan(args: argparse.Namespace, stdout: TextIO) -> int:
+    config = load_rholang_deployment_config(args.config)
+    write_json(rholang_deployment_plan(config), stdout, pretty=args.pretty)
+    return 0
+
+
+def rholang_deploy(args: argparse.Namespace, stdout: TextIO) -> int:
+    config = load_rholang_deployment_config(args.config)
+    result = deploy_rholang_contracts(config)
+    write_json(
+        {
+            "ok": True,
+            "deployIds": [deploy.deploy_id for deploy in result.deploys],
+            "blockHash": result.propose.block_hash if result.propose else None,
+        },
+        stdout,
+        pretty=args.pretty,
+    )
     return 0
 
 

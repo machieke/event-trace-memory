@@ -1,0 +1,21 @@
+{
+  "nodeBin": "/opt/docker/bin/node",
+  "privateKey": "event-trace-memory-local-dev-private-key",
+  "privateKeyPath": "/tmp/event-trace-memory-unused-private-key-path",
+  "shardId": "root",
+  "phloLimit": 1000000000,
+  "phloPrice": 1,
+  "validAfterBlock": 0,
+  "proposeAfterDeploys": true,
+  "printUnmatchedSends": true,
+  "contracts": [
+    {
+      "name": "EventTraceIndex",
+      "path": "contracts/EventTraceIndex.rho"
+    },
+    {
+      "name": "DerivedArtifactIndex",
+      "path": "contracts/DerivedArtifactIndex.rho"
+    }
+  ]
+}

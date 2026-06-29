@@ -82,3 +82,19 @@ Docker-backed Rholang runtime validation:
 ```bash
 bash scripts/validate_rholang_contracts.sh
 ```
+
+Print a redacted deployment plan from config:
+
+```bash
+python3 -m event_trace_memory.cli rholang-plan \
+  --config configs/rholang-local-docker.json \
+  --pretty
+```
+
+Deploy from the same config when pointed at a live node environment:
+
+```bash
+python3 -m event_trace_memory.cli rholang-deploy \
+  --config configs/rholang-local-docker.json \
+  --pretty
+```
