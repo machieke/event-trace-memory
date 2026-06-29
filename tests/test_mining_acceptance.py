@@ -123,7 +123,9 @@ class MiningAcceptanceTest(unittest.TestCase):
             self.assertEqual(mined.support_vector["eventSupport"], 4)
             self.assertEqual(derived_index.patterns[mined.pattern.artifact_id]["inputSnapshotCids"], [snapshot.cid])
             self.assertEqual(derived_index.patterns[mined.pattern.artifact_id]["minedBy"], mining_run.artifact_id)
+            self.assertEqual(derived_index.by_miner("omega-sequence-miner:0.1.0")["runIds"], [mining_run.artifact_id])
             self.assertEqual(derived_index.by_pattern(mined.pattern.artifact_id)["occurrenceIds"], [mined.occurrences[0].artifact_id])
+            self.assertEqual(derived_index.by_pattern_root(root.event_id)["occurrenceIds"], [mined.occurrences[0].artifact_id])
             self.assertEqual(
                 derived_index.pattern_occurrences[mined.occurrences[0].artifact_id]["participatingEventIds"],
                 [root.event_id, memory_query.event_id, shell_action.event_id, extraction_event.event_id],

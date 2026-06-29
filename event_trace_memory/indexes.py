@@ -132,6 +132,8 @@ class DerivedArtifactIndex:
         self.runs_by_input_event: dict[str, list[str]] = {}
         self.runs_by_output_artifact: dict[str, list[str]] = {}
         self.runs_by_extractor: dict[str, list[str]] = {}
+        self.runs_by_miner: dict[str, list[str]] = {}
+        self.runs_by_reasoner: dict[str, list[str]] = {}
         self.outputs_by_run: dict[str, list[str]] = {}
 
         self.occurrences_by_pattern: dict[str, list[str]] = {}
@@ -161,6 +163,12 @@ class DerivedArtifactIndex:
         extractor_key = pointer.get("extractorKey")
         if extractor_key:
             _append_unique(self.runs_by_extractor, extractor_key, run_id)
+        miner_key = pointer.get("minerKey")
+        if miner_key:
+            _append_unique(self.runs_by_miner, miner_key, run_id)
+        reasoner_key = pointer.get("reasonerKey")
+        if reasoner_key:
+            _append_unique(self.runs_by_reasoner, reasoner_key, run_id)
         return {"ok": True, "runId": run_id}
 
     def put_claim(self, claim_pointer: dict[str, Any]) -> dict[str, Any]:
@@ -310,6 +318,12 @@ class DerivedArtifactIndex:
     def by_extractor(self, extractor_key: str) -> dict[str, Any]:
         return {"ok": True, "extractorKey": extractor_key, "runIds": list(self.runs_by_extractor.get(extractor_key, []))}
 
+    def by_miner(self, miner_key: str) -> dict[str, Any]:
+        return {"ok": True, "minerKey": miner_key, "runIds": list(self.runs_by_miner.get(miner_key, []))}
+
+    def by_reasoner(self, reasoner_key: str) -> dict[str, Any]:
+        return {"ok": True, "reasonerKey": reasoner_key, "runIds": list(self.runs_by_reasoner.get(reasoner_key, []))}
+
     def by_pattern(self, pattern_id: str) -> dict[str, Any]:
         return {
             "ok": True,
@@ -317,8 +331,22 @@ class DerivedArtifactIndex:
             "occurrenceIds": list(self.occurrences_by_pattern.get(pattern_id, [])),
         }
 
+    def by_pattern_root(self, root_event_id: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "rootEventId": root_event_id,
+            "occurrenceIds": list(self.pattern_occurrences_by_root.get(root_event_id, [])),
+        }
+
     def clusters_for_claim(self, claim_id: str) -> dict[str, Any]:
         return {"ok": True, "claimId": claim_id, "clusterIds": list(self.clusters_by_claim.get(claim_id, []))}
+
+    def reasoning_outputs_for_input(self, input_id: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "inputId": input_id,
+            "outputIds": list(self.reasoning_outputs_by_input.get(input_id, [])),
+        }
 
     def belief_histories_by_claim(self, claim_id: str) -> dict[str, Any]:
         return {

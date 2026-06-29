@@ -2980,6 +2980,13 @@ Operators can inspect pattern support vectors or belief revision history IDs
 without manually filtering the full fixture summary JSON. The default remains the
 complete summary for backwards-compatible automation.
 
+### 22.14 Reference index contract parity
+
+The Python `DerivedArtifactIndex` stand-in now mirrors the Rholang contract query
+families for miner runs, reasoner runs, pattern occurrences by root, and reasoning
+outputs by input. Acceptance tests assert these helper APIs alongside the
+existing direct index maps.
+
 ---
 
 ## 23. Resolved MVP design decisions

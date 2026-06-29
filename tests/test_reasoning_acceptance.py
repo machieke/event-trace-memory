@@ -90,7 +90,12 @@ class ReasoningAcceptanceTest(unittest.TestCase):
             self.assertNotEqual(reasoning_output.pointer["beliefStateId"], claim_id)
             self.assertNotIn("truthValue", derived_index.claims[claim_id])
             self.assertEqual(derived_index.reasoning_outputs_by_input[reasoning_input.artifact_id], [reasoning_output.artifact_id])
+            self.assertEqual(
+                derived_index.reasoning_outputs_for_input(reasoning_input.artifact_id)["outputIds"],
+                [reasoning_output.artifact_id],
+            )
             self.assertEqual(derived_index.by_run(reasoning_run.artifact_id)["artifactIds"], [reasoning_output.artifact_id])
+            self.assertEqual(derived_index.by_reasoner("plr-adapter:0.1.0")["runIds"], [reasoning_run.artifact_id])
 
             reasoning_event = adapter.log_reasoning_event(
                 ingestor=ingestor,
