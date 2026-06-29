@@ -40,6 +40,18 @@ class EventMemoryAcceptanceTest(unittest.TestCase):
                     "eventId": root.event_id,
                 },
             )
+            duplicate_cid_pointer = dict(root.pointer)
+            duplicate_cid_pointer["eventId"] = "event:duplicate-cid"
+            self.assertEqual(
+                index.put_event(duplicate_cid_pointer),
+                {
+                    "ok": False,
+                    "error": "duplicate-event-cid",
+                    "eventCid": root.event_cid,
+                    "eventId": root.event_id,
+                },
+            )
+            self.assertEqual(index.state_stats()["events"], 1)
 
             self.assertEqual(index.by_time_prefix("/2026/06/27/14")["eventIds"], [root.event_id])
             self.assertEqual(index.by_actor_prefix("/irc/libera/user/alice")["eventIds"], [root.event_id])

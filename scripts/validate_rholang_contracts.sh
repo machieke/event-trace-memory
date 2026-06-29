@@ -282,7 +282,7 @@ build_event_deploy_smoke() {
   local out="$1"
   cat > "${out}" <<'RHO'
 new lookup(`rho:registry:lookup`), lookedUp,
-    putRootAck, putChildAck,
+    putRootAck, putChildAck, duplicateCidResult,
     timeResult, eventResult, actorResult, channelResult, kindResult,
     parentResult, rootResult, payloadResult, eventCidResult, statsResult
 in {
@@ -349,6 +349,24 @@ in {
         |
         @eventTraceIndex!("byEventCid", "cid:event-deploy-smoke-child-1", *eventCidResult)
         |
+        @eventTraceIndex!(
+          "putEvent",
+          {
+            "kind": "event-pointer",
+            "schema": "event-pointer-v0.1",
+            "eventId": "event:deploy-smoke-duplicate-cid",
+            "eventCid": "cid:event-deploy-smoke-child-1",
+            "payloadCid": "cid:payload-deploy-smoke-duplicate-cid",
+            "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/14"],
+            "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/dave"],
+            "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23deploy-duplicate"],
+            "valueKind": "message",
+            "parentEventIds": [],
+            "rootEventId": "event:deploy-smoke-duplicate-cid"
+          },
+          *duplicateCidResult
+        )
+        |
         @eventTraceIndex!("getStateStats", *statsResult)
       }
     }
@@ -404,6 +422,14 @@ in {
     for (@result <- eventCidResult) {
       if (result.get("eventId") == "event:deploy-smoke-child-1") {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"!(true)
+      }
+    }
+    |
+    for (@result <- duplicateCidResult) {
+      if (result.get("error") == "duplicate-event-cid") {
+        if (result.get("eventId") == "event:deploy-smoke-child-1") {
+          @"event-trace-memory:EventTraceIndexDeploySmokeOk:duplicateEventCid"!(true)
+        }
       }
     }
     |
@@ -1071,6 +1097,7 @@ assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byParent"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byRoot"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byPayloadCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"
+assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:duplicateEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRun"

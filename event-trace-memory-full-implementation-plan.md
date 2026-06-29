@@ -3020,6 +3020,14 @@ by claim/run. The Rholang deploy/propose smoke harness checks each query marker,
 and pattern miner indexes now skip empty miner keys for parity with the Python
 reference implementation.
 
+### 22.19 Event CID duplicate rejection parity
+
+The Python `EventTraceIndex` now rejects event pointers whose `eventCid` is
+already indexed under a different event id, matching the Rholang contract's
+`duplicate-event-cid` behavior. Acceptance coverage verifies that the duplicate
+CID does not alter state, and the deploy/propose smoke harness checks the
+Rholang rejection marker alongside the existing `byEventCid` query.
+
 ---
 
 ## 23. Resolved MVP design decisions

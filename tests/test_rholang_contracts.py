@@ -40,6 +40,7 @@ class RholangContractsTest(unittest.TestCase):
             self.assertIn(f'"{state_key}"', source)
 
         self.assertIn("duplicate-event-id", source)
+        self.assertIn("duplicate-event-cid", source)
         self.assertIn("insertArbitrary!(bundle+{*eventTraceIndex}", source)
         self.assertIn('@"event-trace-memory:EventTraceIndexUri"!(uri)', source)
 
@@ -166,6 +167,7 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("EventTraceIndexDeploySmokeOk:byRoot", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:byPayloadCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:byEventCid", source)
+        self.assertIn("EventTraceIndexDeploySmokeOk:duplicateEventCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:getStateStats", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getRun", source)

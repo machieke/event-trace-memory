@@ -36,6 +36,13 @@ class EventTraceIndex:
 
         if event_id in self.events:
             return {"ok": False, "error": "duplicate-event-id", "eventId": event_id}
+        if event_cid in self.event_cid_index:
+            return {
+                "ok": False,
+                "error": "duplicate-event-cid",
+                "eventCid": event_cid,
+                "eventId": self.event_cid_index[event_cid],
+            }
 
         pointer = deepcopy(event_pointer)
         pointer["rootEventId"] = root_event_id
