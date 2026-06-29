@@ -50,6 +50,53 @@ class CliTest(unittest.TestCase):
         self.assertIn("outputId", payload["reasoning"])
         self.assertIn("revisionHistoryId", payload["reasoning"])
 
+    def test_run_fixture_can_output_pattern_section(self):
+        stdout = io.StringIO()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            exit_code = main(
+                [
+                    "run-fixture",
+                    "--fixture",
+                    str(FIXTURE_PATH),
+                    "--da-root",
+                    f"{temp_dir}/da",
+                    "--section",
+                    "patterns",
+                ],
+                stdout=stdout,
+            )
+
+        self.assertEqual(exit_code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["section"], "patterns")
+        self.assertIn("patternId", payload["pattern"])
+        self.assertIn("itemsetPatternId", payload["advancedPatterns"])
+        self.assertNotIn("reasoning", payload)
+
+    def test_run_fixture_can_output_reasoning_section(self):
+        stdout = io.StringIO()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            exit_code = main(
+                [
+                    "run-fixture",
+                    "--fixture",
+                    str(FIXTURE_PATH),
+                    "--da-root",
+                    f"{temp_dir}/da",
+                    "--section",
+                    "reasoning",
+                ],
+                stdout=stdout,
+            )
+
+        self.assertEqual(exit_code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["section"], "reasoning")
+        self.assertIn("revisionHistoryId", payload["reasoning"])
+        self.assertNotIn("pattern", payload)
+
 
 if __name__ == "__main__":
     unittest.main()

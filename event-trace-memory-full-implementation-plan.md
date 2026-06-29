@@ -2973,6 +2973,13 @@ patterns from the same materialized snapshot, records multiple reasoning outputs
 stores an indexed belief revision history, and exposes all IDs/support vectors in
 the CLI summary checks.
 
+### 22.13 Fixture summary inspection
+
+The CLI now supports `run-fixture --section all|patterns|reasoning|checks`.
+Operators can inspect pattern support vectors or belief revision history IDs
+without manually filtering the full fixture summary JSON. The default remains the
+complete summary for backwards-compatible automation.
+
 ---
 
 ## 23. Resolved MVP design decisions

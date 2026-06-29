@@ -35,6 +35,15 @@ pattern plus itemset/graph-motif patterns, and generates reasoning input/output
 artifacts with a belief revision history. The JSON summary contains IDs, CIDs,
 support vectors, and checks for the expected acceptance properties.
 
+Inspect just the pattern or reasoning sections:
+
+```bash
+python3 -m event_trace_memory.cli run-fixture \
+  --fixture tests/fixtures/minimum-corpus-v0.1.json \
+  --section patterns \
+  --pretty
+```
+
 After package installation, the same commands are available through the console
 script:
 

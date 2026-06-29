@@ -54,6 +54,12 @@ def build_parser() -> argparse.ArgumentParser:
     run = subcommands.add_parser("run-fixture", help="execute the minimum fixture corpus")
     add_fixture_argument(run)
     run.add_argument("--da-root", help="filesystem DA root; uses a temporary directory when omitted")
+    run.add_argument(
+        "--section",
+        choices=["all", "patterns", "reasoning", "checks"],
+        default="all",
+        help="limit output to one fixture summary section",
+    )
     run.add_argument("--pretty", action="store_true", help="pretty-print JSON output")
 
     plan = subcommands.add_parser("rholang-plan", help="print a redacted Rholang deployment plan")
@@ -104,14 +110,33 @@ def run_fixture(args: argparse.Namespace, stdout: TextIO) -> int:
     if args.da_root:
         summary = run_fixture_corpus(corpus, args.da_root)
         summary["ephemeralDaRoot"] = False
-        write_json(summary, stdout, pretty=args.pretty)
+        write_json(select_fixture_summary_section(summary, args.section), stdout, pretty=args.pretty)
         return 0
 
     with tempfile.TemporaryDirectory() as temp_dir:
         summary = run_fixture_corpus(corpus, Path(temp_dir) / "da")
         summary["ephemeralDaRoot"] = True
-        write_json(summary, stdout, pretty=args.pretty)
+        write_json(select_fixture_summary_section(summary, args.section), stdout, pretty=args.pretty)
     return 0
+
+
+def select_fixture_summary_section(summary: dict[str, Any], section: str) -> dict[str, Any]:
+    if section == "all":
+        return summary
+
+    selected: dict[str, Any] = {
+        "ok": summary["ok"],
+        "section": section,
+        "ephemeralDaRoot": summary["ephemeralDaRoot"],
+    }
+    if section == "patterns":
+        selected["pattern"] = summary["pattern"]
+        selected["advancedPatterns"] = summary["advancedPatterns"]
+    elif section == "reasoning":
+        selected["reasoning"] = summary["reasoning"]
+    elif section == "checks":
+        selected["checks"] = summary["checks"]
+    return selected
 
 
 def rholang_plan(args: argparse.Namespace, stdout: TextIO) -> int:
