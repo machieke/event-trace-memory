@@ -2987,6 +2987,12 @@ families for miner runs, reasoner runs, pattern occurrences by root, and reasoni
 outputs by input. Acceptance tests assert these helper APIs alongside the
 existing direct index maps.
 
+### 22.15 Event CID lookup parity
+
+The Python `EventTraceIndex` stand-in now exposes `by_event_cid`, matching the
+Rholang `byEventCid` query. Acceptance coverage verifies both successful event
+CID lookup and the not-found response shape.
+
 ---
 
 ## 23. Resolved MVP design decisions

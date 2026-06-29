@@ -45,6 +45,14 @@ class EventMemoryAcceptanceTest(unittest.TestCase):
             self.assertEqual(index.by_actor_prefix("/irc/libera/user/alice")["eventIds"], [root.event_id])
             self.assertEqual(index.by_channel_prefix("/irc/libera/channel/%23chat")["eventIds"], [root.event_id])
             self.assertEqual(index.by_payload_cid(root.payload_cid)["eventIds"], [root.event_id])
+            self.assertEqual(
+                index.by_event_cid(root.event_cid),
+                {"ok": True, "eventCid": root.event_cid, "eventId": root.event_id},
+            )
+            self.assertEqual(
+                index.by_event_cid("cidv0-local-sha256:" + "0" * 64),
+                {"ok": False, "error": "not-found", "eventCid": "cidv0-local-sha256:" + "0" * 64},
+            )
 
             memory_query = ingestor.log_child_event(
                 raw_payload={

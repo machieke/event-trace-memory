@@ -88,6 +88,11 @@ class EventTraceIndex:
     def by_payload_cid(self, payload_cid: str) -> dict[str, Any]:
         return {"ok": True, "payloadCid": payload_cid, "eventIds": list(self.payload_index.get(payload_cid, []))}
 
+    def by_event_cid(self, event_cid: str) -> dict[str, Any]:
+        if event_cid not in self.event_cid_index:
+            return {"ok": False, "error": "not-found", "eventCid": event_cid}
+        return {"ok": True, "eventCid": event_cid, "eventId": self.event_cid_index[event_cid]}
+
     def state_stats(self) -> dict[str, int]:
         return {
             "events": len(self.events),
