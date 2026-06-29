@@ -69,6 +69,18 @@ Both backends support `verify(cid)`, which checks object digest, manifest CID,
 and manifest size metadata. `get_bytes(cid)` also verifies the content digest
 before returning bytes.
 
+## Privacy Policy
+
+`PrivacyAwareIngestor` wraps `EventIngestor` for public-index safety:
+
+- `ingest_public_event` rejects payloads marked `private`, `confidential`, or
+  `secret` before they reach DA or contract indexes.
+- `ingest_hashed_path_event` indexes hashed actor/channel path segments for
+  payloads that should not expose clear path labels publicly.
+
+This does not encrypt payloads by itself. Private payload bytes should be
+encrypted or stored outside the public DA path before publishing a public pointer.
+
 ## Rholang Validation
 
 Static and reference tests:

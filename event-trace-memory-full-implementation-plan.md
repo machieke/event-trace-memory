@@ -2929,6 +2929,14 @@ deployment. `python3 -m event_trace_memory.cli rholang-plan` prints a redacted
 deploy/propose plan, while `rholang-deploy` executes the same config through the
 `RholangCli` wrapper.
 
+### 22.8 Privacy policy
+
+This repository now includes `PrivacyAwareIngestor` and `PublicIndexPolicy`.
+Public ingestion rejects payloads marked `private`, `confidential`, or `secret`
+before DA writes or index updates. Hashed-path ingestion supports public indexes
+that hide actor/channel path labels; payload encryption remains an upstream
+responsibility before publishing public pointers.
+
 ---
 
 ## 23. Resolved MVP design decisions

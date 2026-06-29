@@ -7,6 +7,12 @@ from event_trace_memory.fixture_flow import load_fixture_corpus, run_fixture_cor
 from event_trace_memory.indexes import DerivedArtifactIndex, EventTraceIndex
 from event_trace_memory.ingestion import EventIngestor
 from event_trace_memory.mining import PatternMiner
+from event_trace_memory.privacy import (
+    PrivacyAwareIngestor,
+    PrivacyPolicyError,
+    PublicIndexPolicy,
+    hash_path_segment,
+)
 from event_trace_memory.reasoning import ReasoningAdapter
 from event_trace_memory.rholang import RholangCli, build_registry_call_program, rho_literal
 from event_trace_memory.rholang_deployment import (
@@ -38,6 +44,9 @@ __all__ = [
     "MemoryQueryWorker",
     "MemoryDA",
     "PatternMiner",
+    "PrivacyAwareIngestor",
+    "PrivacyPolicyError",
+    "PublicIndexPolicy",
     "ReasoningAdapter",
     "RholangCli",
     "RholangDeployTarget",
@@ -49,6 +58,7 @@ __all__ = [
     "cid_for_bytes",
     "content_id",
     "deploy_rholang_contracts",
+    "hash_path_segment",
     "load_rholang_deployment_config",
     "rho_literal",
     "rholang_deployment_plan",
