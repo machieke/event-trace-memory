@@ -24,7 +24,10 @@ EXPECTED_COVERAGE = [
     "one extraction run with two claims",
     "one hour snapshot with postings",
     "one sequence pattern discovery",
+    "one itemset pattern discovery",
+    "one parent-child graph motif discovery",
     "one NAL/PLR input generation",
+    "one belief revision history",
 ]
 
 
@@ -140,6 +143,27 @@ def run_fixture_corpus(corpus: dict[str, Any], da_root: Any) -> dict[str, Any]:
     if mined is None:
         raise ValueError("fixture corpus did not produce the expected sequence pattern")
 
+    itemset = miner.mine_itemset(
+        snapshot=snapshot,
+        tokens=corpus["advancedPatterns"]["itemset"]["tokens"],
+        mining_run_id=mining_run.artifact_id,
+        miner_key=corpus["advancedPatterns"]["itemset"]["minerKey"],
+        min_support=corpus["advancedPatterns"]["itemset"]["minSupport"],
+    )
+    if itemset is None:
+        raise ValueError("fixture corpus did not produce the expected itemset pattern")
+
+    graph_motif = miner.mine_parent_child_motif(
+        snapshot=snapshot,
+        parent_kind=corpus["advancedPatterns"]["parentChildMotif"]["parentKind"],
+        child_kind=corpus["advancedPatterns"]["parentChildMotif"]["childKind"],
+        mining_run_id=mining_run.artifact_id,
+        miner_key=corpus["advancedPatterns"]["parentChildMotif"]["minerKey"],
+        min_support=corpus["advancedPatterns"]["parentChildMotif"]["minSupport"],
+    )
+    if graph_motif is None:
+        raise ValueError("fixture corpus did not produce the expected parent-child motif")
+
     discovery_event = miner.log_pattern_discovery_event(
         ingestor=ingestor,
         mining_run=mining_run,
@@ -152,7 +176,11 @@ def run_fixture_corpus(corpus: dict[str, Any], da_root: Any) -> dict[str, Any]:
     reasoning_input = adapter.build_input(
         claim_id=occurrence_one.pointer["claimId"],
         statement_text=corpus["reasoning"]["statementText"],
-        derived_from_patterns=[mined.pattern.artifact_id],
+        derived_from_patterns=[
+            mined.pattern.artifact_id,
+            itemset.pattern.artifact_id,
+            graph_motif.pattern.artifact_id,
+        ],
     )
     reasoning_run = record_run_fixture(
         writer,
@@ -163,6 +191,22 @@ def run_fixture_corpus(corpus: dict[str, Any], da_root: Any) -> dict[str, Any]:
         reasoning_input=reasoning_input,
         reasoning_run_id=reasoning_run.artifact_id,
         truth_value=corpus["reasoning"]["truthValue"],
+        revision_policy=corpus["reasoning"]["revisionPolicy"],
+    )
+    revision_run = record_run_fixture(
+        writer,
+        corpus["reasoning"]["revisionRun"],
+        input_event_ids=[root.event_id],
+    )
+    revised_output = adapter.record_output(
+        reasoning_input=reasoning_input,
+        reasoning_run_id=revision_run.artifact_id,
+        truth_value=corpus["reasoning"]["revisedTruthValue"],
+        revision_policy=corpus["reasoning"]["revisionPolicy"],
+    )
+    revision_history = adapter.record_revision_history(
+        claim_id=occurrence_one.pointer["claimId"],
+        reasoning_outputs=[reasoning_output, revised_output],
         revision_policy=corpus["reasoning"]["revisionPolicy"],
     )
 
@@ -212,10 +256,26 @@ def run_fixture_corpus(corpus: dict[str, Any], da_root: Any) -> dict[str, Any]:
             "occurrenceIds": [occurrence.artifact_id for occurrence in mined.occurrences],
             "supportVector": mined.support_vector,
         },
+        "advancedPatterns": {
+            "itemsetPatternId": itemset.pattern.artifact_id,
+            "itemsetOccurrenceIds": [occurrence.artifact_id for occurrence in itemset.occurrences],
+            "itemsetSupportVector": itemset.support_vector,
+            "graphMotifPatternId": graph_motif.pattern.artifact_id,
+            "graphMotifOccurrenceIds": [occurrence.artifact_id for occurrence in graph_motif.occurrences],
+            "graphMotifSupportVector": graph_motif.support_vector,
+        },
         "reasoning": {
             "runId": reasoning_run.artifact_id,
             "inputId": reasoning_input.artifact_id,
             "outputId": reasoning_output.artifact_id,
+            "revisionRunId": revision_run.artifact_id,
+            "revisedOutputId": revised_output.artifact_id,
+            "revisionHistoryId": revision_history.artifact_id,
+            "revisionHistoryOutputIds": revision_history.pointer["outputIds"],
+            "historiesByClaim": derived_index.belief_histories_by_claim(occurrence_one.pointer["claimId"])["historyIds"],
+            "historiesByRevisedOutput": derived_index.belief_histories_by_output(revised_output.artifact_id)[
+                "historyIds"
+            ],
             "positiveOccurrences": reasoning_input.body["evidence"]["positiveOccurrences"],
             "derivedFromPatterns": reasoning_input.body["derivedFromPatterns"],
         },
@@ -229,8 +289,14 @@ def run_fixture_corpus(corpus: dict[str, Any], da_root: Any) -> dict[str, Any]:
             == [occurrence_one.artifact_id, occurrence_two.artifact_id],
             "snapshotHasPostings": bool(snapshot.postings),
             "patternDiscovered": bool(mined.occurrences),
+            "itemsetDiscovered": bool(itemset.occurrences),
+            "graphMotifDiscovered": bool(graph_motif.occurrences),
             "reasoningInputHasEvidence": reasoning_input.body["evidence"]["positiveOccurrences"]
             == [occurrence_one.artifact_id, occurrence_two.artifact_id],
+            "revisionHistoryIndexed": derived_index.belief_histories_by_output(revised_output.artifact_id)[
+                "historyIds"
+            ]
+            == [revision_history.artifact_id],
         },
     }
 

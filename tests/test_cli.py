@@ -45,7 +45,10 @@ class CliTest(unittest.TestCase):
         self.assertFalse(payload["ephemeralDaRoot"])
         self.assertTrue(all(payload["checks"].values()), payload["checks"])
         self.assertIn("patternId", payload["pattern"])
+        self.assertIn("itemsetPatternId", payload["advancedPatterns"])
+        self.assertIn("graphMotifPatternId", payload["advancedPatterns"])
         self.assertIn("outputId", payload["reasoning"])
+        self.assertIn("revisionHistoryId", payload["reasoning"])
 
 
 if __name__ == "__main__":

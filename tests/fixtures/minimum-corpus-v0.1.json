@@ -10,7 +10,10 @@
     "one extraction run with two claims",
     "one hour snapshot with postings",
     "one sequence pattern discovery",
-    "one NAL/PLR input generation"
+    "one itemset pattern discovery",
+    "one parent-child graph motif discovery",
+    "one NAL/PLR input generation",
+    "one belief revision history"
   ],
   "ircMessages": {
     "single": {
@@ -183,6 +186,19 @@
     "minSupport": 1,
     "maxWindowSeconds": 30
   },
+  "advancedPatterns": {
+    "itemset": {
+      "tokens": ["event.kind:message", "channel:/irc/libera/channel/%23chat"],
+      "minerKey": "omega-sequence-miner:0.1.0",
+      "minSupport": 1
+    },
+    "parentChildMotif": {
+      "parentKind": "message",
+      "childKind": "memory-query-start",
+      "minerKey": "omega-sequence-miner:0.1.0",
+      "minSupport": 1
+    }
+  },
   "reasoning": {
     "statementText": "<event-trace-store --> indexable-by-time-actor-channel>",
     "run": {
@@ -201,7 +217,24 @@
       "startedAt": "2026-06-27T15:01:00Z",
       "completedAt": "2026-06-27T15:01:01Z"
     },
+    "revisionRun": {
+      "runType": "reasoning",
+      "actorKey": "plr-adapter:0.1.0",
+      "tool": {
+        "name": "plr-adapter",
+        "version": "0.1.0",
+        "codeCid": "cidv0-local-sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      },
+      "config": {
+        "revisionPolicy": "evidence-weighted",
+        "decayPolicy": "time-decay-v0",
+        "sourceReliabilityPolicy": "support-vector-v0"
+      },
+      "startedAt": "2026-06-27T15:02:00Z",
+      "completedAt": "2026-06-27T15:02:01Z"
+    },
     "truthValue": {"frequency": 1.0, "confidence": 0.84},
+    "revisedTruthValue": {"frequency": 1.0, "confidence": 0.9},
     "revisionPolicy": "evidence-weighted"
   }
 }

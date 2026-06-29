@@ -31,9 +31,9 @@ python3 -m event_trace_memory.cli run-fixture \
 
 The fixture runner ingests IRC events, logs memory and shell child events,
 records derived claims/features, builds an hour snapshot, mines a sequence
-pattern, and generates reasoning input/output artifacts. The JSON summary
-contains IDs, CIDs, support vectors, and checks for the expected acceptance
-properties.
+pattern plus itemset/graph-motif patterns, and generates reasoning input/output
+artifacts with a belief revision history. The JSON summary contains IDs, CIDs,
+support vectors, and checks for the expected acceptance properties.
 
 After package installation, the same commands are available through the console
 script:

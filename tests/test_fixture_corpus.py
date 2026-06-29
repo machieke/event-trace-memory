@@ -29,7 +29,12 @@ class FixtureCorpusTest(unittest.TestCase):
         self.assertEqual(summary["derivedArtifacts"]["claimCount"], 2)
         self.assertEqual(summary["snapshot"]["shardPath"], "/2026/06/27/14")
         self.assertEqual(summary["pattern"]["supportVector"]["rootTraceSupport"], 1)
+        self.assertEqual(summary["advancedPatterns"]["itemsetSupportVector"]["itemsetSupport"], 4)
+        self.assertEqual(summary["advancedPatterns"]["graphMotifSupportVector"]["edgeSupport"], 1)
         self.assertEqual(len(summary["reasoning"]["positiveOccurrences"]), 2)
+        self.assertEqual(len(summary["reasoning"]["derivedFromPatterns"]), 3)
+        self.assertEqual(summary["reasoning"]["revisionHistoryOutputIds"][-1], summary["reasoning"]["revisedOutputId"])
+        self.assertEqual(summary["reasoning"]["historiesByRevisedOutput"], [summary["reasoning"]["revisionHistoryId"]])
 
 
 if __name__ == "__main__":

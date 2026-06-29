@@ -2965,6 +2965,14 @@ both the Python reference contract and `contracts/DerivedArtifactIndex.rho`.
 Runtime Rholang smoke generation now exercises the revision-history put/query
 paths and verifies the new state counter.
 
+### 22.12 Advanced fixture coverage
+
+The minimum fixture corpus now exercises the advanced implementation paths end to
+end. The fixture runner mines sequence, itemset, and parent-child graph motif
+patterns from the same materialized snapshot, records multiple reasoning outputs,
+stores an indexed belief revision history, and exposes all IDs/support vectors in
+the CLI summary checks.
+
 ---
 
 ## 23. Resolved MVP design decisions
