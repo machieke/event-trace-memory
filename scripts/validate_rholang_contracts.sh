@@ -425,6 +425,10 @@ new lookup(`rho:registry:lookup`), lookedUp,
     featureAck, featureOccurrenceAck, patternAck, patternOccurrenceAck,
     reasoningInputAck, reasoningOutputAck, beliefHistoryAck,
     claimReady, featureReady, patternReady, reasoningReady, clusterReady,
+    runLookupResult, claimLookupResult, claimOccurrenceLookupResult,
+    clusterLookupResult, featureLookupResult, featureOccurrenceLookupResult,
+    patternLookupResult, patternOccurrenceLookupResult,
+    reasoningInputLookupResult, reasoningOutputLookupResult, beliefHistoryLookupResult,
     claimResult, sourceEventResult, featureResult, runResult,
     extractorResult, minerResult, reasonerResult, patternResult, patternRootResult,
     clusterResult, reasoningInputResult, beliefClaimResult, beliefOutputResult, statsResult
@@ -645,6 +649,28 @@ in {
       }
       |
       for (_ <- claimReady; _ <- featureReady; _ <- patternReady; _ <- reasoningReady; _ <- clusterReady) {
+        @derivedArtifactIndex!("getRun", "run:deploy-smoke-1", *runLookupResult)
+        |
+        @derivedArtifactIndex!("getClaim", "claim:deploy-smoke-1", *claimLookupResult)
+        |
+        @derivedArtifactIndex!("getClaimOccurrence", "claim-occ:deploy-smoke-1", *claimOccurrenceLookupResult)
+        |
+        @derivedArtifactIndex!("getClaimCluster", "claim-cluster:deploy-smoke-1", *clusterLookupResult)
+        |
+        @derivedArtifactIndex!("getFeature", "feature:deploy-smoke-1", *featureLookupResult)
+        |
+        @derivedArtifactIndex!("getFeatureOccurrence", "feature-occ:deploy-smoke-1", *featureOccurrenceLookupResult)
+        |
+        @derivedArtifactIndex!("getPattern", "pattern:deploy-smoke-1", *patternLookupResult)
+        |
+        @derivedArtifactIndex!("getPatternOccurrence", "pattern-occ:deploy-smoke-1", *patternOccurrenceLookupResult)
+        |
+        @derivedArtifactIndex!("getReasoningInput", "reasoning-input:deploy-smoke-1", *reasoningInputLookupResult)
+        |
+        @derivedArtifactIndex!("getReasoningOutput", "reasoning-output:deploy-smoke-1", *reasoningOutputLookupResult)
+        |
+        @derivedArtifactIndex!("getBeliefRevisionHistory", "belief-revision-history:deploy-smoke-1", *beliefHistoryLookupResult)
+        |
         @derivedArtifactIndex!("bySourceEvent", "event:deploy-smoke-1", *sourceEventResult)
         |
         @derivedArtifactIndex!("byRun", "run:deploy-smoke-1", *runResult)
@@ -662,6 +688,72 @@ in {
     for (@result <- claimResult) {
       if (result.get("occurrenceIds").nth(0) == "claim-occ:deploy-smoke-1") {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"!(true)
+      }
+    }
+    |
+    for (@result <- runLookupResult) {
+      if (result.get("run").get("runId") == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRun"!(true)
+      }
+    }
+    |
+    for (@result <- claimLookupResult) {
+      if (result.get("claim").get("claimId") == "claim:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaim"!(true)
+      }
+    }
+    |
+    for (@result <- claimOccurrenceLookupResult) {
+      if (result.get("claimOccurrence").get("occurrenceId") == "claim-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaimOccurrence"!(true)
+      }
+    }
+    |
+    for (@result <- clusterLookupResult) {
+      if (result.get("claimCluster").get("clusterId") == "claim-cluster:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaimCluster"!(true)
+      }
+    }
+    |
+    for (@result <- featureLookupResult) {
+      if (result.get("feature").get("featureId") == "feature:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getFeature"!(true)
+      }
+    }
+    |
+    for (@result <- featureOccurrenceLookupResult) {
+      if (result.get("featureOccurrence").get("occurrenceId") == "feature-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getFeatureOccurrence"!(true)
+      }
+    }
+    |
+    for (@result <- patternLookupResult) {
+      if (result.get("pattern").get("patternId") == "pattern:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getPattern"!(true)
+      }
+    }
+    |
+    for (@result <- patternOccurrenceLookupResult) {
+      if (result.get("patternOccurrence").get("occurrenceId") == "pattern-occ:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getPatternOccurrence"!(true)
+      }
+    }
+    |
+    for (@result <- reasoningInputLookupResult) {
+      if (result.get("reasoningInput").get("inputId") == "reasoning-input:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getReasoningInput"!(true)
+      }
+    }
+    |
+    for (@result <- reasoningOutputLookupResult) {
+      if (result.get("reasoningOutput").get("outputId") == "reasoning-output:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getReasoningOutput"!(true)
+      }
+    }
+    |
+    for (@result <- beliefHistoryLookupResult) {
+      if (result.get("beliefRevisionHistory").get("historyId") == "belief-revision-history:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getBeliefRevisionHistory"!(true)
       }
     }
     |
@@ -889,6 +981,17 @@ assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byPayloadCi
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRun"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaim"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaimOccurrence"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaimCluster"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getFeature"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getFeatureOccurrence"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getPattern"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getPatternOccurrence"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getReasoningInput"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getReasoningOutput"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getBeliefRevisionHistory"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:bySourceEvent"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byFeature"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byRun"

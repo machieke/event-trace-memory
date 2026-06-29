@@ -3001,6 +3001,15 @@ for schema compatibility, while the Python and Rholang derived indexes only
 index non-empty role keys. Acceptance tests verify extraction, mining, and
 reasoning runs do not pollute unrelated role indexes.
 
+### 22.17 Derived pointer direct lookup parity
+
+`DerivedArtifactIndex` now exposes direct `get*` pointer lookups for every
+derived artifact family: runs, claims, claim occurrences, claim clusters,
+features, feature occurrences, patterns, pattern occurrences, reasoning inputs,
+reasoning outputs, and belief revision histories. The Python reference contract,
+Rholang contract, acceptance tests, and deploy/propose smoke harness all verify
+the same not-found and pointer-return behavior.
+
 ---
 
 ## 23. Resolved MVP design decisions

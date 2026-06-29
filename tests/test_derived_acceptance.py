@@ -111,6 +111,13 @@ class DerivedAcceptanceTest(unittest.TestCase):
             self.assertEqual(stored_run["tool"]["promptCid"], "cidv0-local-sha256:" + "2" * 64)
             self.assertEqual(stored_run["tool"]["model"]["weightsCid"], "cidv0-local-sha256:" + "3" * 64)
             self.assertEqual(stored_run["config"]["claimSchema"], "claim-core-v0.1")
+            self.assertEqual(derived_index.get_run(run.artifact_id)["run"], run.pointer)
+            self.assertEqual(derived_index.get_run("run:missing"), {"ok": False, "error": "not-found", "runId": "run:missing"})
+            self.assertEqual(
+                derived_index.get_claim(occurrence_one.pointer["claimId"])["claim"],
+                derived_index.claims[occurrence_one.pointer["claimId"]],
+            )
+            self.assertEqual(derived_index.get_claim_occurrence(occurrence_one.artifact_id)["claimOccurrence"], occurrence_one.pointer)
             self.assertEqual(
                 derived_index.by_extractor("omega-claw-claim-extractor:0.1.0")["runIds"],
                 [run.artifact_id],
@@ -152,6 +159,8 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.by_feature(feature_occurrence.pointer["featureId"])["occurrenceIds"],
                 [feature_occurrence.artifact_id],
             )
+            self.assertEqual(derived_index.get_feature(feature_occurrence.pointer["featureId"])["feature"], derived_index.features[feature_occurrence.pointer["featureId"]])
+            self.assertEqual(derived_index.get_feature_occurrence(feature_occurrence.artifact_id)["featureOccurrence"], feature_occurrence.pointer)
 
             near_duplicate = writer.put_claim(claim_core(["actor", "channel", "time"]))
             cluster = writer.put_claim_cluster(
@@ -168,6 +177,7 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.clusters_for_claim(near_duplicate.artifact_id)["clusterIds"],
                 [cluster.artifact_id],
             )
+            self.assertEqual(derived_index.get_claim_cluster(cluster.artifact_id)["claimCluster"], cluster.pointer)
 
 
 if __name__ == "__main__":

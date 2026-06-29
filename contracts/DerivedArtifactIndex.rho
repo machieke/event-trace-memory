@@ -528,6 +528,237 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"getRun", @runId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("runs", {}).contains(runId)) {
+        return!({
+          "ok": true,
+          "run": state.getOrElse("runs", {}).get(runId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "runId": runId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getClaim", @claimId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("claims", {}).contains(claimId)) {
+        return!({
+          "ok": true,
+          "claim": state.getOrElse("claims", {}).get(claimId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "claimId": claimId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getClaimOccurrence", @occurrenceId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("claimOccurrences", {}).contains(occurrenceId)) {
+        return!({
+          "ok": true,
+          "claimOccurrence": state.getOrElse("claimOccurrences", {}).get(occurrenceId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "occurrenceId": occurrenceId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getClaimCluster", @clusterId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("claimClusters", {}).contains(clusterId)) {
+        return!({
+          "ok": true,
+          "claimCluster": state.getOrElse("claimClusters", {}).get(clusterId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "clusterId": clusterId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getFeature", @featureId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("features", {}).contains(featureId)) {
+        return!({
+          "ok": true,
+          "feature": state.getOrElse("features", {}).get(featureId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "featureId": featureId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getFeatureOccurrence", @occurrenceId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("featureOccurrences", {}).contains(occurrenceId)) {
+        return!({
+          "ok": true,
+          "featureOccurrence": state.getOrElse("featureOccurrences", {}).get(occurrenceId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "occurrenceId": occurrenceId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getPattern", @patternId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("patterns", {}).contains(patternId)) {
+        return!({
+          "ok": true,
+          "pattern": state.getOrElse("patterns", {}).get(patternId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "patternId": patternId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getPatternOccurrence", @occurrenceId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("patternOccurrences", {}).contains(occurrenceId)) {
+        return!({
+          "ok": true,
+          "patternOccurrence": state.getOrElse("patternOccurrences", {}).get(occurrenceId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "occurrenceId": occurrenceId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getReasoningInput", @inputId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("reasoningInputs", {}).contains(inputId)) {
+        return!({
+          "ok": true,
+          "reasoningInput": state.getOrElse("reasoningInputs", {}).get(inputId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "inputId": inputId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getReasoningOutput", @outputId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("reasoningOutputs", {}).contains(outputId)) {
+        return!({
+          "ok": true,
+          "reasoningOutput": state.getOrElse("reasoningOutputs", {}).get(outputId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "outputId": outputId
+        })
+      }
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"getBeliefRevisionHistory", @historyId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      if (state.getOrElse("beliefRevisionHistories", {}).contains(historyId)) {
+        return!({
+          "ok": true,
+          "beliefRevisionHistory": state.getOrElse("beliefRevisionHistories", {}).get(historyId)
+        })
+      } else {
+        return!({
+          "ok": false,
+          "error": "not-found",
+          "historyId": historyId
+        })
+      }
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"bySourceEvent", @eventId, return) = {
     for (@state <- stateCh) {
       stateCh!(state)

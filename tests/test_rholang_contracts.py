@@ -58,6 +58,17 @@ class RholangContractsTest(unittest.TestCase):
             "putReasoningInput",
             "putReasoningOutput",
             "putBeliefRevisionHistory",
+            "getRun",
+            "getClaim",
+            "getClaimOccurrence",
+            "getClaimCluster",
+            "getFeature",
+            "getFeatureOccurrence",
+            "getPattern",
+            "getPatternOccurrence",
+            "getReasoningInput",
+            "getReasoningOutput",
+            "getBeliefRevisionHistory",
             "bySourceEvent",
             "byClaim",
             "byFeature",
@@ -136,6 +147,17 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("EventTraceIndexDeploySmokeOk:byEventCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:getStateStats", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getRun", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getClaim", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getClaimOccurrence", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getClaimCluster", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getFeature", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getFeatureOccurrence", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getPattern", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getPatternOccurrence", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getReasoningInput", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getReasoningOutput", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:getBeliefRevisionHistory", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:bySourceEvent", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byFeature", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byRun", source)

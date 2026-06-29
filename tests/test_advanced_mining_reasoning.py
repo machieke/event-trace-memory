@@ -241,6 +241,10 @@ class AdvancedMiningReasoningTest(unittest.TestCase):
             [history.artifact_id],
         )
         self.assertEqual(
+            derived_index.get_belief_revision_history(history.artifact_id)["beliefRevisionHistory"],
+            history.pointer,
+        )
+        self.assertEqual(
             derived_index.put_belief_revision_history(history.pointer),
             {"ok": True, "duplicate": True, "historyId": history.artifact_id},
         )

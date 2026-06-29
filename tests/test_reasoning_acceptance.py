@@ -64,6 +64,10 @@ class ReasoningAcceptanceTest(unittest.TestCase):
             self.assertEqual(reasoning_input.body["evidence"]["supportVector"]["eventSupport"], 1)
             self.assertNotIn("truthValue", reasoning_input.body)
             self.assertEqual(derived_index.reasoning_inputs[reasoning_input.artifact_id]["supportVector"]["occurrenceSupport"], 1)
+            self.assertEqual(
+                derived_index.get_reasoning_input(reasoning_input.artifact_id)["reasoningInput"],
+                reasoning_input.pointer,
+            )
 
             reasoning_run = writer.record_run(
                 run_type="reasoning",
@@ -99,6 +103,10 @@ class ReasoningAcceptanceTest(unittest.TestCase):
             self.assertEqual(reasoning_run.pointer["reasonerKey"], "plr-adapter:0.1.0")
             self.assertEqual(derived_index.by_run(reasoning_run.artifact_id)["artifactIds"], [reasoning_output.artifact_id])
             self.assertEqual(derived_index.by_reasoner("plr-adapter:0.1.0")["runIds"], [reasoning_run.artifact_id])
+            self.assertEqual(
+                derived_index.get_reasoning_output(reasoning_output.artifact_id)["reasoningOutput"],
+                reasoning_output.pointer,
+            )
 
             reasoning_event = adapter.log_reasoning_event(
                 ingestor=ingestor,

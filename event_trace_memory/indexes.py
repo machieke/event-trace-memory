@@ -299,6 +299,44 @@ class DerivedArtifactIndex:
             _append_unique(self.belief_revision_histories_by_output, output_id, history_id)
         return {"ok": True, "historyId": history_id}
 
+    def get_run(self, run_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.runs, run_id, "runId", "run")
+
+    def get_claim(self, claim_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.claims, claim_id, "claimId", "claim")
+
+    def get_claim_occurrence(self, occurrence_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.claim_occurrences, occurrence_id, "occurrenceId", "claimOccurrence")
+
+    def get_claim_cluster(self, cluster_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.claim_clusters, cluster_id, "clusterId", "claimCluster")
+
+    def get_feature(self, feature_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.features, feature_id, "featureId", "feature")
+
+    def get_feature_occurrence(self, occurrence_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.feature_occurrences, occurrence_id, "occurrenceId", "featureOccurrence")
+
+    def get_pattern(self, pattern_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.patterns, pattern_id, "patternId", "pattern")
+
+    def get_pattern_occurrence(self, occurrence_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.pattern_occurrences, occurrence_id, "occurrenceId", "patternOccurrence")
+
+    def get_reasoning_input(self, input_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.reasoning_inputs, input_id, "inputId", "reasoningInput")
+
+    def get_reasoning_output(self, output_id: str) -> dict[str, Any]:
+        return self._get_pointer(self.reasoning_outputs, output_id, "outputId", "reasoningOutput")
+
+    def get_belief_revision_history(self, history_id: str) -> dict[str, Any]:
+        return self._get_pointer(
+            self.belief_revision_histories,
+            history_id,
+            "historyId",
+            "beliefRevisionHistory",
+        )
+
     def by_source_event(self, event_id: str) -> dict[str, Any]:
         return {
             "ok": True,
@@ -370,3 +408,14 @@ class DerivedArtifactIndex:
     @staticmethod
     def stable_key(label: str, value: Any) -> str:
         return _stable_key(label, value)
+
+    @staticmethod
+    def _get_pointer(
+        pointers: dict[str, dict[str, Any]],
+        artifact_id: str,
+        id_key: str,
+        result_key: str,
+    ) -> dict[str, Any]:
+        if artifact_id not in pointers:
+            return {"ok": False, "error": "not-found", id_key: artifact_id}
+        return {"ok": True, result_key: deepcopy(pointers[artifact_id])}
