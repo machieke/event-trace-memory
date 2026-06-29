@@ -103,9 +103,12 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.by_source_event(event_one.event_id)["claimOccurrenceIds"],
                 [occurrence_one.artifact_id],
             )
+            self.assertEqual(derived_index.runs_for_input_event(event_one.event_id)["runIds"], [run.artifact_id])
             self.assertEqual(occurrence_one.pointer["sourceEventId"], event_one.event_id)
             self.assertEqual(occurrence_one.pointer["extractionRunId"], run.artifact_id)
 
+            claim_id = occurrence_one.pointer["claimId"]
+            claim_pointer = derived_index.claims[claim_id]
             stored_run = derived_index.runs[run.artifact_id]
             self.assertEqual(stored_run["tool"]["codeCid"], "cidv0-local-sha256:" + "1" * 64)
             self.assertEqual(stored_run["tool"]["promptCid"], "cidv0-local-sha256:" + "2" * 64)
@@ -114,10 +117,13 @@ class DerivedAcceptanceTest(unittest.TestCase):
             self.assertEqual(derived_index.get_run(run.artifact_id)["run"], run.pointer)
             self.assertEqual(derived_index.get_run("run:missing"), {"ok": False, "error": "not-found", "runId": "run:missing"})
             self.assertEqual(
-                derived_index.get_claim(occurrence_one.pointer["claimId"])["claim"],
-                derived_index.claims[occurrence_one.pointer["claimId"]],
+                derived_index.get_claim(claim_id)["claim"],
+                claim_pointer,
             )
             self.assertEqual(derived_index.get_claim_occurrence(occurrence_one.artifact_id)["claimOccurrence"], occurrence_one.pointer)
+            self.assertEqual(derived_index.by_claim_subject(claim_pointer["subjectKey"])["claimIds"], [claim_id])
+            self.assertEqual(derived_index.by_claim_predicate(claim_pointer["predicateKey"])["claimIds"], [claim_id])
+            self.assertEqual(derived_index.by_claim_object(claim_pointer["objectKey"])["claimIds"], [claim_id])
             self.assertEqual(
                 derived_index.by_extractor("omega-claw-claim-extractor:0.1.0")["runIds"],
                 [run.artifact_id],
@@ -128,6 +134,7 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.by_run(run.artifact_id)["artifactIds"],
                 [occurrence_one.artifact_id, occurrence_two.artifact_id],
             )
+            self.assertEqual(derived_index.runs_for_output_artifact(occurrence_one.artifact_id)["runIds"], [run.artifact_id])
 
             feature_run = writer.record_run(
                 run_type="feature-extraction",
@@ -159,6 +166,7 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 derived_index.by_feature(feature_occurrence.pointer["featureId"])["occurrenceIds"],
                 [feature_occurrence.artifact_id],
             )
+            self.assertEqual(derived_index.by_feature_type("topic")["featureIds"], [feature_occurrence.pointer["featureId"]])
             self.assertEqual(derived_index.get_feature(feature_occurrence.pointer["featureId"])["feature"], derived_index.features[feature_occurrence.pointer["featureId"]])
             self.assertEqual(derived_index.get_feature_occurrence(feature_occurrence.artifact_id)["featureOccurrence"], feature_occurrence.pointer)
 

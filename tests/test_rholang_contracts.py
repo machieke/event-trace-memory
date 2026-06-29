@@ -70,16 +70,27 @@ class RholangContractsTest(unittest.TestCase):
             "getReasoningOutput",
             "getBeliefRevisionHistory",
             "bySourceEvent",
+            "runsByInputEvent",
+            "runsByOutputArtifact",
             "byClaim",
+            "claimsBySubject",
+            "claimsByPredicate",
+            "claimsByObject",
             "byFeature",
+            "featuresByType",
             "byRun",
             "byExtractor",
             "byMiner",
             "byReasoner",
             "byPattern",
             "byPatternRoot",
+            "patternsByType",
+            "patternsByInputSnapshot",
+            "patternsByMiner",
             "clustersForClaim",
             "reasoningOutputsByInput",
+            "reasoningOutputsByClaim",
+            "reasoningOutputsByRun",
             "beliefHistoriesByClaim",
             "beliefHistoriesByOutput",
             "getStateStats",
@@ -100,8 +111,18 @@ class RholangContractsTest(unittest.TestCase):
             "beliefRevisionHistories",
             "occurrencesByClaim",
             "occurrencesBySourceEvent",
+            "claimsBySubject",
+            "claimsByPredicate",
+            "claimsByObject",
+            "featuresByType",
+            "runsByInputEvent",
+            "runsByOutputArtifact",
             "patternsByInputSnapshot",
+            "patternsByType",
+            "patternsByMiner",
             "reasoningOutputsByInput",
+            "reasoningOutputsByClaim",
+            "reasoningOutputsByRun",
             "beliefRevisionHistoriesByClaim",
             "beliefRevisionHistoriesByOutput",
         ]:
@@ -159,15 +180,26 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getReasoningOutput", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getBeliefRevisionHistory", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:bySourceEvent", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:runsByInputEvent", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:runsByOutputArtifact", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:claimsBySubject", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:claimsByPredicate", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:claimsByObject", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byFeature", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:featuresByType", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byRun", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byExtractor", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byMiner", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byReasoner", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byPattern", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:byPatternRoot", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:patternsByType", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:patternsByInputSnapshot", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:patternsByMiner", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:clustersForClaim", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByClaim", source)
+        self.assertIn("DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByRun", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByClaim", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getStateStats", source)

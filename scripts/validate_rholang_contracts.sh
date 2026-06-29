@@ -429,6 +429,10 @@ new lookup(`rho:registry:lookup`), lookedUp,
     clusterLookupResult, featureLookupResult, featureOccurrenceLookupResult,
     patternLookupResult, patternOccurrenceLookupResult,
     reasoningInputLookupResult, reasoningOutputLookupResult, beliefHistoryLookupResult,
+    runsByInputResult, runsByOutputResult,
+    claimsBySubjectResult, claimsByPredicateResult, claimsByObjectResult,
+    featuresByTypeResult, patternsByTypeResult, patternsBySnapshotResult, patternsByMinerResult,
+    reasoningClaimResult, reasoningRunResult,
     claimResult, sourceEventResult, featureResult, runResult,
     extractorResult, minerResult, reasonerResult, patternResult, patternRootResult,
     clusterResult, reasoningInputResult, beliefClaimResult, beliefOutputResult, statsResult
@@ -673,6 +677,18 @@ in {
         |
         @derivedArtifactIndex!("bySourceEvent", "event:deploy-smoke-1", *sourceEventResult)
         |
+        @derivedArtifactIndex!("runsByInputEvent", "event:deploy-smoke-1", *runsByInputResult)
+        |
+        @derivedArtifactIndex!("runsByOutputArtifact", "claim-occ:deploy-smoke-1", *runsByOutputResult)
+        |
+        @derivedArtifactIndex!("claimsBySubject", "subject:event-trace-store", *claimsBySubjectResult)
+        |
+        @derivedArtifactIndex!("claimsByPredicate", "predicate:should-index-by", *claimsByPredicateResult)
+        |
+        @derivedArtifactIndex!("claimsByObject", "object:time-actor-channel", *claimsByObjectResult)
+        |
+        @derivedArtifactIndex!("featuresByType", "workflow-step", *featuresByTypeResult)
+        |
         @derivedArtifactIndex!("byRun", "run:deploy-smoke-1", *runResult)
         |
         @derivedArtifactIndex!("byExtractor", "omega-claw-claim-extractor:0.1.0", *extractorResult)
@@ -680,6 +696,16 @@ in {
         @derivedArtifactIndex!("byMiner", "pattern-miner:0.1.0", *minerResult)
         |
         @derivedArtifactIndex!("byReasoner", "nal-reasoner:0.1.0", *reasonerResult)
+        |
+        @derivedArtifactIndex!("patternsByType", "sequence", *patternsByTypeResult)
+        |
+        @derivedArtifactIndex!("patternsByInputSnapshot", "cid:snapshot-deploy-smoke-1", *patternsBySnapshotResult)
+        |
+        @derivedArtifactIndex!("patternsByMiner", "pattern-miner:0.1.0", *patternsByMinerResult)
+        |
+        @derivedArtifactIndex!("reasoningOutputsByClaim", "claim:deploy-smoke-1", *reasoningClaimResult)
+        |
+        @derivedArtifactIndex!("reasoningOutputsByRun", "run:deploy-smoke-1", *reasoningRunResult)
         |
         @derivedArtifactIndex!("getStateStats", *statsResult)
       }
@@ -765,9 +791,45 @@ in {
       }
     }
     |
+    for (@result <- runsByInputResult) {
+      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:runsByInputEvent"!(true)
+      }
+    }
+    |
+    for (@result <- runsByOutputResult) {
+      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:runsByOutputArtifact"!(true)
+      }
+    }
+    |
+    for (@result <- claimsBySubjectResult) {
+      if (result.get("claimIds").nth(0) == "claim:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsBySubject"!(true)
+      }
+    }
+    |
+    for (@result <- claimsByPredicateResult) {
+      if (result.get("claimIds").nth(0) == "claim:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsByPredicate"!(true)
+      }
+    }
+    |
+    for (@result <- claimsByObjectResult) {
+      if (result.get("claimIds").nth(0) == "claim:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsByObject"!(true)
+      }
+    }
+    |
     for (@result <- featureResult) {
       if (result.get("occurrenceIds").nth(0) == "feature-occ:deploy-smoke-1") {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byFeature"!(true)
+      }
+    }
+    |
+    for (@result <- featuresByTypeResult) {
+      if (result.get("featureIds").nth(0) == "feature:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:featuresByType"!(true)
       }
     }
     |
@@ -807,6 +869,24 @@ in {
       }
     }
     |
+    for (@result <- patternsByTypeResult) {
+      if (result.get("patternIds").nth(0) == "pattern:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByType"!(true)
+      }
+    }
+    |
+    for (@result <- patternsBySnapshotResult) {
+      if (result.get("patternIds").nth(0) == "pattern:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByInputSnapshot"!(true)
+      }
+    }
+    |
+    for (@result <- patternsByMinerResult) {
+      if (result.get("patternIds").nth(0) == "pattern:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByMiner"!(true)
+      }
+    }
+    |
     for (@result <- clusterResult) {
       if (result.get("clusterIds").nth(0) == "claim-cluster:deploy-smoke-1") {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"!(true)
@@ -816,6 +896,18 @@ in {
     for (@result <- reasoningInputResult) {
       if (result.get("outputIds").nth(0) == "reasoning-output:deploy-smoke-1") {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput"!(true)
+      }
+    }
+    |
+    for (@result <- reasoningClaimResult) {
+      if (result.get("outputIds").nth(0) == "reasoning-output:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByClaim"!(true)
+      }
+    }
+    |
+    for (@result <- reasoningRunResult) {
+      if (result.get("outputIds").nth(0) == "reasoning-output:deploy-smoke-1") {
+        @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByRun"!(true)
       }
     }
     |
@@ -993,15 +1085,26 @@ assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRea
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getReasoningOutput"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getBeliefRevisionHistory"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:bySourceEvent"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:runsByInputEvent"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:runsByOutputArtifact"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsBySubject"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsByPredicate"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claimsByObject"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byFeature"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:featuresByType"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byRun"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byExtractor"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byMiner"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byReasoner"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPattern"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:byPatternRoot"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByType"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByInputSnapshot"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByMiner"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByInput"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByClaim"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:reasoningOutputsByRun"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByClaim"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"

@@ -3010,6 +3010,16 @@ reasoning outputs, and belief revision histories. The Python reference contract,
 Rholang contract, acceptance tests, and deploy/propose smoke harness all verify
 the same not-found and pointer-return behavior.
 
+### 22.18 Derived reverse index query parity
+
+All maintained `DerivedArtifactIndex` reverse indexes now have public query
+methods in both the Python reference contract and Rholang contract. This covers
+runs by input event/output artifact, claims by subject/predicate/object keys,
+features by type, patterns by type/input snapshot/miner, and reasoning outputs
+by claim/run. The Rholang deploy/propose smoke harness checks each query marker,
+and pattern miner indexes now skip empty miner keys for parity with the Python
+reference implementation.
+
 ---
 
 ## 23. Resolved MVP design decisions

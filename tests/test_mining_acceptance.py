@@ -128,6 +128,10 @@ class MiningAcceptanceTest(unittest.TestCase):
             self.assertEqual(derived_index.patterns[mined.pattern.artifact_id]["minedBy"], mining_run.artifact_id)
             self.assertEqual(derived_index.by_miner("omega-sequence-miner:0.1.0")["runIds"], [mining_run.artifact_id])
             self.assertEqual(derived_index.get_pattern(mined.pattern.artifact_id)["pattern"], mined.pattern.pointer)
+            self.assertEqual(derived_index.by_pattern_type("sequence")["patternIds"], [mined.pattern.artifact_id])
+            self.assertEqual(derived_index.by_pattern_input_snapshot(snapshot.cid)["patternIds"], [mined.pattern.artifact_id])
+            self.assertEqual(derived_index.by_pattern_miner("omega-sequence-miner:0.1.0")["patternIds"], [mined.pattern.artifact_id])
+            self.assertEqual(derived_index.by_pattern_miner("")["patternIds"], [])
             self.assertEqual(derived_index.by_pattern(mined.pattern.artifact_id)["occurrenceIds"], [mined.occurrences[0].artifact_id])
             self.assertEqual(
                 derived_index.get_pattern_occurrence(mined.occurrences[0].artifact_id)["patternOccurrence"],

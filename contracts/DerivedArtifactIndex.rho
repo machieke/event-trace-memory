@@ -369,7 +369,7 @@ in {
         |
         return!({"ok": true, "duplicate": true, "patternId": patternPointer.get("patternId")})
       } else {
-        new snapshotsOut in {
+        new snapshotsOut, minerOut in {
           appendIndex!(
             state.getOrElse("patternsByInputSnapshot", {}),
             patternPointer.getOrElse("inputSnapshotCids", []),
@@ -377,7 +377,14 @@ in {
             *snapshotsOut
           )
           |
-          for (@patternsByInputSnapshot <- snapshotsOut) {
+          appendOptionalOne!(
+            state.getOrElse("patternsByMiner", {}),
+            patternPointer.getOrElse("minerKey", ""),
+            patternPointer.get("patternId"),
+            *minerOut
+          )
+          |
+          for (@patternsByInputSnapshot <- snapshotsOut; @patternsByMiner <- minerOut) {
             stateCh!(
               state
                 .set("patterns", state.getOrElse("patterns", {}).set(patternPointer.get("patternId"), patternPointer))
@@ -386,10 +393,7 @@ in {
                   state.getOrElse("patternsByType", {}).getOrElse(patternPointer.get("patternType"), []) ++ [patternPointer.get("patternId")]
                 ))
                 .set("patternsByInputSnapshot", patternsByInputSnapshot)
-                .set("patternsByMiner", state.getOrElse("patternsByMiner", {}).set(
-                  patternPointer.getOrElse("minerKey", ""),
-                  state.getOrElse("patternsByMiner", {}).getOrElse(patternPointer.getOrElse("minerKey", ""), []) ++ [patternPointer.get("patternId")]
-                ))
+                .set("patternsByMiner", patternsByMiner)
             )
             |
             return!({"ok": true, "patternId": patternPointer.get("patternId")})
@@ -774,6 +778,34 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"runsByInputEvent", @eventId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "eventId": eventId,
+        "runIds": state.getOrElse("runsByInputEvent", {}).getOrElse(eventId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"runsByOutputArtifact", @artifactId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "artifactId": artifactId,
+        "runIds": state.getOrElse("runsByOutputArtifact", {}).getOrElse(artifactId, [])
+      })
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"byClaim", @claimId, return) = {
     for (@state <- stateCh) {
       stateCh!(state)
@@ -788,6 +820,48 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"claimsBySubject", @subjectKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "subjectKey": subjectKey,
+        "claimIds": state.getOrElse("claimsBySubject", {}).getOrElse(subjectKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"claimsByPredicate", @predicateKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "predicateKey": predicateKey,
+        "claimIds": state.getOrElse("claimsByPredicate", {}).getOrElse(predicateKey, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"claimsByObject", @objectKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "objectKey": objectKey,
+        "claimIds": state.getOrElse("claimsByObject", {}).getOrElse(objectKey, [])
+      })
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"byFeature", @featureId, return) = {
     for (@state <- stateCh) {
       stateCh!(state)
@@ -796,6 +870,20 @@ in {
         "ok": true,
         "featureId": featureId,
         "occurrenceIds": state.getOrElse("featureOccurrencesByFeature", {}).getOrElse(featureId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"featuresByType", @featureType, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "featureType": featureType,
+        "featureIds": state.getOrElse("featuresByType", {}).getOrElse(featureType, [])
       })
     }
   }
@@ -886,6 +974,48 @@ in {
 
   |
 
+  contract derivedArtifactIndex(@"patternsByType", @patternType, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "patternType": patternType,
+        "patternIds": state.getOrElse("patternsByType", {}).getOrElse(patternType, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"patternsByInputSnapshot", @snapshotCid, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "snapshotCid": snapshotCid,
+        "patternIds": state.getOrElse("patternsByInputSnapshot", {}).getOrElse(snapshotCid, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"patternsByMiner", @minerKey, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "minerKey": minerKey,
+        "patternIds": state.getOrElse("patternsByMiner", {}).getOrElse(minerKey, [])
+      })
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"clustersForClaim", @claimId, return) = {
     for (@state <- stateCh) {
       stateCh!(state)
@@ -908,6 +1038,34 @@ in {
         "ok": true,
         "inputId": inputId,
         "outputIds": state.getOrElse("reasoningOutputsByInput", {}).getOrElse(inputId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"reasoningOutputsByClaim", @claimId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "claimId": claimId,
+        "outputIds": state.getOrElse("reasoningOutputsByClaim", {}).getOrElse(claimId, [])
+      })
+    }
+  }
+
+  |
+
+  contract derivedArtifactIndex(@"reasoningOutputsByRun", @runId, return) = {
+    for (@state <- stateCh) {
+      stateCh!(state)
+      |
+      return!({
+        "ok": true,
+        "runId": runId,
+        "outputIds": state.getOrElse("reasoningOutputsByRun", {}).getOrElse(runId, [])
       })
     }
   }

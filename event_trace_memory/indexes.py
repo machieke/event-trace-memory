@@ -345,8 +345,27 @@ class DerivedArtifactIndex:
             "featureOccurrenceIds": list(self.feature_occurrences_by_source_event.get(event_id, [])),
         }
 
+    def runs_for_input_event(self, event_id: str) -> dict[str, Any]:
+        return {"ok": True, "eventId": event_id, "runIds": list(self.runs_by_input_event.get(event_id, []))}
+
+    def runs_for_output_artifact(self, artifact_id: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "artifactId": artifact_id,
+            "runIds": list(self.runs_by_output_artifact.get(artifact_id, [])),
+        }
+
     def by_claim(self, claim_id: str) -> dict[str, Any]:
         return {"ok": True, "claimId": claim_id, "occurrenceIds": list(self.occurrences_by_claim.get(claim_id, []))}
+
+    def by_claim_subject(self, subject_key: str) -> dict[str, Any]:
+        return {"ok": True, "subjectKey": subject_key, "claimIds": list(self.claims_by_subject.get(subject_key, []))}
+
+    def by_claim_predicate(self, predicate_key: str) -> dict[str, Any]:
+        return {"ok": True, "predicateKey": predicate_key, "claimIds": list(self.claims_by_predicate.get(predicate_key, []))}
+
+    def by_claim_object(self, object_key: str) -> dict[str, Any]:
+        return {"ok": True, "objectKey": object_key, "claimIds": list(self.claims_by_object.get(object_key, []))}
 
     def by_feature(self, feature_id: str) -> dict[str, Any]:
         return {
@@ -354,6 +373,9 @@ class DerivedArtifactIndex:
             "featureId": feature_id,
             "occurrenceIds": list(self.feature_occurrences_by_feature.get(feature_id, [])),
         }
+
+    def by_feature_type(self, feature_type: str) -> dict[str, Any]:
+        return {"ok": True, "featureType": feature_type, "featureIds": list(self.features_by_type.get(feature_type, []))}
 
     def by_run(self, run_id: str) -> dict[str, Any]:
         return {"ok": True, "runId": run_id, "artifactIds": list(self.outputs_by_run.get(run_id, []))}
@@ -381,6 +403,19 @@ class DerivedArtifactIndex:
             "occurrenceIds": list(self.pattern_occurrences_by_root.get(root_event_id, [])),
         }
 
+    def by_pattern_type(self, pattern_type: str) -> dict[str, Any]:
+        return {"ok": True, "patternType": pattern_type, "patternIds": list(self.patterns_by_type.get(pattern_type, []))}
+
+    def by_pattern_input_snapshot(self, snapshot_cid: str) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "snapshotCid": snapshot_cid,
+            "patternIds": list(self.patterns_by_input_snapshot.get(snapshot_cid, [])),
+        }
+
+    def by_pattern_miner(self, miner_key: str) -> dict[str, Any]:
+        return {"ok": True, "minerKey": miner_key, "patternIds": list(self.patterns_by_miner.get(miner_key, []))}
+
     def clusters_for_claim(self, claim_id: str) -> dict[str, Any]:
         return {"ok": True, "claimId": claim_id, "clusterIds": list(self.clusters_by_claim.get(claim_id, []))}
 
@@ -390,6 +425,12 @@ class DerivedArtifactIndex:
             "inputId": input_id,
             "outputIds": list(self.reasoning_outputs_by_input.get(input_id, [])),
         }
+
+    def reasoning_outputs_for_claim(self, claim_id: str) -> dict[str, Any]:
+        return {"ok": True, "claimId": claim_id, "outputIds": list(self.reasoning_outputs_by_claim.get(claim_id, []))}
+
+    def reasoning_outputs_for_run(self, run_id: str) -> dict[str, Any]:
+        return {"ok": True, "runId": run_id, "outputIds": list(self.reasoning_outputs_by_run.get(run_id, []))}
 
     def belief_histories_by_claim(self, claim_id: str) -> dict[str, Any]:
         return {
