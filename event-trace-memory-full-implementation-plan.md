@@ -3042,6 +3042,15 @@ report all event index families: time, actor, channel, kind, parent, root,
 payload CID, and event CID. Acceptance and deploy/propose smoke checks verify
 that duplicate event CID rejections do not inflate these counters.
 
+### 22.22 Unique posting parity
+
+Rholang event and derived index helpers now match the Python reference
+contract's unique-posting behavior when a single pointer contains repeated
+prefixes, parent ids, input events, output artifacts, cluster members, snapshot
+CIDs, or belief-history output ids. Acceptance tests cover the Python behavior,
+and deploy/propose smoke checks verify exact one-item postings for repeated-key
+Rholang fixtures.
+
 ---
 
 ## 23. Resolved MVP design decisions

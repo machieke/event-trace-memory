@@ -5,6 +5,36 @@ from event_trace_memory import EventIngestor, EventTraceIndex, FileDA
 
 
 class EventMemoryAcceptanceTest(unittest.TestCase):
+    def test_event_index_postings_are_unique_for_repeated_pointer_keys(self):
+        index = EventTraceIndex()
+        pointer = {
+            "kind": "event-pointer",
+            "schema": "event-pointer-v0.1",
+            "eventId": "event:repeated-keys",
+            "eventCid": "cid:event-repeated-keys",
+            "payloadCid": "cid:payload-repeated-keys",
+            "timePrefixKeys": ["/2026", "/2026", "/2026/06"],
+            "actorPrefixKeys": ["/irc", "/irc", "/irc/libera"],
+            "channelPrefixKeys": ["/irc", "/irc", "/irc/libera"],
+            "valueKind": "message",
+            "parentEventIds": ["event:root", "event:root"],
+            "rootEventId": "event:root",
+        }
+
+        self.assertEqual(
+            index.put_event(pointer),
+            {
+                "ok": True,
+                "eventId": "event:repeated-keys",
+                "eventCid": "cid:event-repeated-keys",
+                "payloadCid": "cid:payload-repeated-keys",
+            },
+        )
+        self.assertEqual(index.by_time_prefix("/2026")["eventIds"], ["event:repeated-keys"])
+        self.assertEqual(index.by_actor_prefix("/irc")["eventIds"], ["event:repeated-keys"])
+        self.assertEqual(index.by_channel_prefix("/irc")["eventIds"], ["event:repeated-keys"])
+        self.assertEqual(index.by_parent("event:root")["eventIds"], ["event:repeated-keys"])
+
     def test_event_memory_acceptance(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             da = FileDA(f"{temp_dir}/da")

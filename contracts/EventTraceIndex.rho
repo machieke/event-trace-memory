@@ -7,6 +7,7 @@
 new eventTraceIndex,
     appendIndex,
     appendOne,
+    containsValue,
     stateCh,
     uriCh,
     insertArbitrary(`rho:registry:insertArbitrary`),
@@ -26,19 +27,31 @@ in {
 
   |
 
+  contract containsValue(@items, @value, return) = {
+    match items {
+      [hd, ...tl] => {
+        if (hd == value) {
+          return!(true)
+        } else {
+          containsValue!(tl, value, *return)
+        }
+      }
+      _ => {
+        return!(false)
+      }
+    }
+  }
+
+  |
+
   contract appendIndex(@indexMap, @keys, @value, return) = {
     match keys {
       [hd, ...tl] => {
-        new next in {
-          appendIndex!(
-            indexMap.set(hd, indexMap.getOrElse(hd, []) ++ [value]),
-            tl,
-            value,
-            *next
-          )
+        new updated in {
+          appendOne!(indexMap, hd, value, *updated)
           |
-          for (@updated <- next) {
-            return!(updated)
+          for (@nextIndexMap <- updated) {
+            appendIndex!(nextIndexMap, tl, value, *return)
           }
         }
       }
@@ -51,7 +64,17 @@ in {
   |
 
   contract appendOne(@indexMap, @key, @value, return) = {
-    return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+    new exists in {
+      containsValue!(indexMap.getOrElse(key, []), value, *exists)
+      |
+      for (@alreadyIndexed <- exists) {
+        if (alreadyIndexed) {
+          return!(indexMap)
+        } else {
+          return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+        }
+      }
+    }
   }
 
   |

@@ -8,6 +8,8 @@ new derivedArtifactIndex,
     appendIndex,
     appendOne,
     appendOptionalOne,
+    appendValues,
+    containsValue,
     stateCh,
     uriCh,
     insertArbitrary(`rho:registry:insertArbitrary`),
@@ -59,19 +61,31 @@ in {
 
   |
 
+  contract containsValue(@items, @value, return) = {
+    match items {
+      [hd, ...tl] => {
+        if (hd == value) {
+          return!(true)
+        } else {
+          containsValue!(tl, value, *return)
+        }
+      }
+      _ => {
+        return!(false)
+      }
+    }
+  }
+
+  |
+
   contract appendIndex(@indexMap, @keys, @value, return) = {
     match keys {
       [hd, ...tl] => {
-        new next in {
-          appendIndex!(
-            indexMap.set(hd, indexMap.getOrElse(hd, []) ++ [value]),
-            tl,
-            value,
-            *next
-          )
+        new updated in {
+          appendOne!(indexMap, hd, value, *updated)
           |
-          for (@updated <- next) {
-            return!(updated)
+          for (@nextIndexMap <- updated) {
+            appendIndex!(nextIndexMap, tl, value, *return)
           }
         }
       }
@@ -84,7 +98,17 @@ in {
   |
 
   contract appendOne(@indexMap, @key, @value, return) = {
-    return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+    new exists in {
+      containsValue!(indexMap.getOrElse(key, []), value, *exists)
+      |
+      for (@alreadyIndexed <- exists) {
+        if (alreadyIndexed) {
+          return!(indexMap)
+        } else {
+          return!(indexMap.set(key, indexMap.getOrElse(key, []) ++ [value]))
+        }
+      }
+    }
   }
 
   |
@@ -99,6 +123,25 @@ in {
 
   |
 
+  contract appendValues(@indexMap, @key, @values, return) = {
+    match values {
+      [hd, ...tl] => {
+        new updated in {
+          appendOne!(indexMap, key, hd, *updated)
+          |
+          for (@nextIndexMap <- updated) {
+            appendValues!(nextIndexMap, key, tl, *return)
+          }
+        }
+      }
+      _ => {
+        return!(indexMap)
+      }
+    }
+  }
+
+  |
+
   contract derivedArtifactIndex(@"putRun", @runPointer, return) = {
     for (@state <- stateCh) {
       if (state.getOrElse("runs", {}).contains(runPointer.get("runId"))) {
@@ -106,7 +149,7 @@ in {
         |
         return!({"ok": true, "duplicate": true, "runId": runPointer.get("runId")})
       } else {
-        new inputOut, outputOut, extractorOut, minerOut, reasonerOut in {
+        new inputOut, outputOut, outputsByRunOut, extractorOut, minerOut, reasonerOut in {
           appendIndex!(
             state.getOrElse("runsByInputEvent", {}),
             runPointer.getOrElse("inputEventIds", []),
@@ -119,6 +162,13 @@ in {
             runPointer.getOrElse("outputArtifactIds", []),
             runPointer.get("runId"),
             *outputOut
+          )
+          |
+          appendValues!(
+            state.getOrElse("outputsByRun", {}),
+            runPointer.get("runId"),
+            runPointer.getOrElse("outputArtifactIds", []),
+            *outputsByRunOut
           )
           |
           appendOptionalOne!(
@@ -145,6 +195,7 @@ in {
           for (
             @runsByInputEvent <- inputOut;
             @runsByOutputArtifact <- outputOut;
+            @outputsByRun <- outputsByRunOut;
             @runsByExtractor <- extractorOut;
             @runsByMiner <- minerOut;
             @runsByReasoner <- reasonerOut
@@ -179,11 +230,7 @@ in {
               "runsByExtractor": runsByExtractor,
               "runsByMiner": runsByMiner,
               "runsByReasoner": runsByReasoner,
-              "outputsByRun":
-                state.getOrElse("outputsByRun", {}).set(
-                  runPointer.get("runId"),
-                  state.getOrElse("outputsByRun", {}).getOrElse(runPointer.get("runId"), []) ++ runPointer.getOrElse("outputArtifactIds", [])
-                ),
+              "outputsByRun": outputsByRun,
 
               "occurrencesByPattern": state.getOrElse("occurrencesByPattern", {}),
               "patternsByType": state.getOrElse("patternsByType", {}),

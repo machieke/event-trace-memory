@@ -17,6 +17,78 @@ def claim_core(object_items):
 
 
 class DerivedAcceptanceTest(unittest.TestCase):
+    def test_derived_index_postings_are_unique_for_repeated_pointer_keys(self):
+        index = DerivedArtifactIndex()
+
+        self.assertEqual(
+            index.put_run(
+                {
+                    "kind": "run-pointer",
+                    "schema": "run-pointer-v0.1",
+                    "runId": "run:repeated-keys",
+                    "runCid": "cid:run-repeated-keys",
+                    "runType": "claim-extraction",
+                    "inputEventIds": ["event:1", "event:1"],
+                    "outputArtifactIds": ["artifact:1", "artifact:1"],
+                    "extractorKey": "extractor:1",
+                    "minerKey": "",
+                    "reasonerKey": "",
+                    "tool": {"name": "extractor", "version": "0.1.0"},
+                    "config": {},
+                }
+            ),
+            {"ok": True, "runId": "run:repeated-keys"},
+        )
+        self.assertEqual(index.runs_for_input_event("event:1")["runIds"], ["run:repeated-keys"])
+        self.assertEqual(index.runs_for_output_artifact("artifact:1")["runIds"], ["run:repeated-keys"])
+        self.assertEqual(index.by_run("run:repeated-keys")["artifactIds"], ["artifact:1"])
+
+        self.assertEqual(
+            index.put_claim_cluster(
+                {
+                    "kind": "claim-cluster-pointer",
+                    "schema": "claim-cluster-pointer-v0.1",
+                    "clusterId": "cluster:repeated-keys",
+                    "clusterCid": "cid:cluster-repeated-keys",
+                    "relation": "same-subject",
+                    "members": ["claim:1", "claim:1"],
+                }
+            ),
+            {"ok": True, "clusterId": "cluster:repeated-keys"},
+        )
+        self.assertEqual(index.clusters_for_claim("claim:1")["clusterIds"], ["cluster:repeated-keys"])
+
+        self.assertEqual(
+            index.put_pattern(
+                {
+                    "kind": "pattern-pointer",
+                    "schema": "pattern-pointer-v0.1",
+                    "patternId": "pattern:repeated-keys",
+                    "patternCid": "cid:pattern-repeated-keys",
+                    "patternType": "sequence",
+                    "inputSnapshotCids": ["cid:snapshot-1", "cid:snapshot-1"],
+                    "minerKey": "miner:1",
+                }
+            ),
+            {"ok": True, "patternId": "pattern:repeated-keys"},
+        )
+        self.assertEqual(index.by_pattern_input_snapshot("cid:snapshot-1")["patternIds"], ["pattern:repeated-keys"])
+
+        self.assertEqual(
+            index.put_belief_revision_history(
+                {
+                    "kind": "belief-revision-history-pointer",
+                    "schema": "belief-revision-history-pointer-v0.1",
+                    "historyId": "history:repeated-keys",
+                    "historyCid": "cid:history-repeated-keys",
+                    "claimId": "claim:1",
+                    "outputIds": ["output:1", "output:1"],
+                }
+            ),
+            {"ok": True, "historyId": "history:repeated-keys"},
+        )
+        self.assertEqual(index.belief_histories_by_output("output:1")["historyIds"], ["history:repeated-keys"])
+
     def test_provenance_and_dedup_acceptance(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             da = FileDA(f"{temp_dir}/da")

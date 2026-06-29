@@ -300,7 +300,7 @@ in {
           "eventId": "event:deploy-smoke-1",
           "eventCid": "cid:event-deploy-smoke-1",
           "payloadCid": "cid:payload-deploy-smoke-1",
-          "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/13"],
+          "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/13", "/2026/06/28/13"],
           "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/bob"],
           "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23deploy"],
           "valueKind": "message",
@@ -320,10 +320,10 @@ in {
             "eventCid": "cid:event-deploy-smoke-child-1",
             "payloadCid": "cid:payload-deploy-smoke-child-1",
             "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/14"],
-            "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/carol"],
-            "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23deploy-child"],
+            "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/carol", "/irc/libera/user/carol"],
+            "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23deploy-child", "/irc/libera/channel/%23deploy-child"],
             "valueKind": "memory-query",
-            "parentEventIds": ["event:deploy-smoke-1"],
+            "parentEventIds": ["event:deploy-smoke-1", "event:deploy-smoke-1"],
             "rootEventId": "event:deploy-smoke-1"
           },
           *putChildAck
@@ -372,7 +372,7 @@ in {
     }
     |
     for (@result <- timeResult) {
-      if (result.get("eventIds").nth(0) == "event:deploy-smoke-1") {
+      if (result.get("eventIds") == ["event:deploy-smoke-1"]) {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:event:deploy-smoke-1"!(true)
       }
     }
@@ -384,13 +384,13 @@ in {
     }
     |
     for (@result <- actorResult) {
-      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+      if (result.get("eventIds") == ["event:deploy-smoke-child-1"]) {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:byActorPrefix"!(true)
       }
     }
     |
     for (@result <- channelResult) {
-      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+      if (result.get("eventIds") == ["event:deploy-smoke-child-1"]) {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:byChannelPrefix"!(true)
       }
     }
@@ -402,7 +402,7 @@ in {
     }
     |
     for (@result <- parentResult) {
-      if (result.get("eventIds").nth(0) == "event:deploy-smoke-child-1") {
+      if (result.get("eventIds") == ["event:deploy-smoke-child-1"]) {
         @"event-trace-memory:EventTraceIndexDeploySmokeOk:byParent"!(true)
       }
     }
@@ -463,14 +463,15 @@ build_derived_deploy_smoke() {
   local out="$1"
   cat > "${out}" <<'RHO'
 new lookup(`rho:registry:lookup`), lookedUp,
-    runAck, claimAck, claimOccurrenceAck, clusterAck,
+    runAck, dedupeRunAck, claimAck, claimOccurrenceAck, clusterAck,
     featureAck, featureOccurrenceAck, patternAck, patternOccurrenceAck,
     reasoningInputAck, reasoningOutputAck, beliefHistoryAck,
-    claimReady, featureReady, patternReady, reasoningReady, clusterReady,
+    claimReady, featureReady, patternReady, reasoningReady, clusterReady, dedupeReady,
     runLookupResult, claimLookupResult, claimOccurrenceLookupResult,
     clusterLookupResult, featureLookupResult, featureOccurrenceLookupResult,
     patternLookupResult, patternOccurrenceLookupResult,
     reasoningInputLookupResult, reasoningOutputLookupResult, beliefHistoryLookupResult,
+    dedupeRunResult, dedupeOutputResult,
     runsByInputResult, runsByOutputResult,
     claimsBySubjectResult, claimsByPredicateResult, claimsByObjectResult,
     featuresByTypeResult, patternsByTypeResult, patternsBySnapshotResult, patternsByMinerResult,
@@ -493,7 +494,7 @@ in {
           "runId": "run:deploy-smoke-1",
           "runCid": "cid:run-deploy-smoke-1",
           "runType": "claim-extraction",
-          "inputEventIds": ["event:deploy-smoke-1"],
+          "inputEventIds": ["event:deploy-smoke-1", "event:deploy-smoke-1"],
           "outputArtifactIds": [],
           "extractorKey": "omega-claw-claim-extractor:0.1.0",
           "minerKey": "pattern-miner:0.1.0",
@@ -505,6 +506,25 @@ in {
       )
       |
       for (@_ <- runAck) {
+        @derivedArtifactIndex!(
+          "putRun",
+          {
+            "kind": "run-pointer",
+            "schema": "run-pointer-v0.1",
+            "runId": "run:deploy-smoke-dedupe",
+            "runCid": "cid:run-deploy-smoke-dedupe",
+            "runType": "dedupe-smoke",
+            "inputEventIds": ["event:deploy-smoke-dedupe", "event:deploy-smoke-dedupe"],
+            "outputArtifactIds": ["artifact:deploy-smoke-dedupe-output", "artifact:deploy-smoke-dedupe-output"],
+            "extractorKey": "",
+            "minerKey": "",
+            "reasonerKey": "",
+            "tool": {"name": "dedupe-smoke", "version": "0.1.0"},
+            "config": {}
+          },
+          *dedupeRunAck
+        )
+        |
         @derivedArtifactIndex!(
           "putClaim",
           {
@@ -539,7 +559,7 @@ in {
             "patternId": "pattern:deploy-smoke-1",
             "patternCid": "cid:pattern-deploy-smoke-1",
             "patternType": "sequence",
-            "inputSnapshotCids": ["cid:snapshot-deploy-smoke-1"],
+            "inputSnapshotCids": ["cid:snapshot-deploy-smoke-1", "cid:snapshot-deploy-smoke-1"],
             "minerKey": "pattern-miner:0.1.0"
           },
           *patternAck
@@ -586,7 +606,7 @@ in {
             "clusterId": "claim-cluster:deploy-smoke-1",
             "clusterCid": "cid:claim-cluster-deploy-smoke-1",
             "relation": "same-subject",
-            "members": ["claim:deploy-smoke-1"]
+            "members": ["claim:deploy-smoke-1", "claim:deploy-smoke-1"]
           },
           *clusterAck
         )
@@ -672,7 +692,7 @@ in {
             "historyId": "belief-revision-history:deploy-smoke-1",
             "historyCid": "cid:belief-revision-history-deploy-smoke-1",
             "claimId": "claim:deploy-smoke-1",
-            "outputIds": ["reasoning-output:deploy-smoke-1"]
+            "outputIds": ["reasoning-output:deploy-smoke-1", "reasoning-output:deploy-smoke-1"]
           },
           *beliefHistoryAck
         )
@@ -694,7 +714,15 @@ in {
         clusterReady!(true)
       }
       |
-      for (_ <- claimReady; _ <- featureReady; _ <- patternReady; _ <- reasoningReady; _ <- clusterReady) {
+      for (@_ <- dedupeRunAck) {
+        @derivedArtifactIndex!("byRun", "run:deploy-smoke-dedupe", *dedupeRunResult)
+        |
+        @derivedArtifactIndex!("runsByOutputArtifact", "artifact:deploy-smoke-dedupe-output", *dedupeOutputResult)
+        |
+        dedupeReady!(true)
+      }
+      |
+      for (_ <- claimReady; _ <- featureReady; _ <- patternReady; _ <- reasoningReady; _ <- clusterReady; _ <- dedupeReady) {
         @derivedArtifactIndex!("getRun", "run:deploy-smoke-1", *runLookupResult)
         |
         @derivedArtifactIndex!("getClaim", "claim:deploy-smoke-1", *claimLookupResult)
@@ -750,6 +778,14 @@ in {
         @derivedArtifactIndex!("reasoningOutputsByRun", "run:deploy-smoke-1", *reasoningRunResult)
         |
         @derivedArtifactIndex!("getStateStats", *statsResult)
+      }
+    }
+    |
+    for (@byRun <- dedupeRunResult; @byOutput <- dedupeOutputResult) {
+      if (byRun.get("artifactIds") == ["artifact:deploy-smoke-dedupe-output"]) {
+        if (byOutput.get("runIds") == ["run:deploy-smoke-dedupe"]) {
+          @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:dedupePostings"!(true)
+        }
       }
     }
     |
@@ -834,7 +870,7 @@ in {
     }
     |
     for (@result <- runsByInputResult) {
-      if (result.get("runIds").nth(0) == "run:deploy-smoke-1") {
+      if (result.get("runIds") == ["run:deploy-smoke-1"]) {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:runsByInputEvent"!(true)
       }
     }
@@ -918,7 +954,7 @@ in {
     }
     |
     for (@result <- patternsBySnapshotResult) {
-      if (result.get("patternIds").nth(0) == "pattern:deploy-smoke-1") {
+      if (result.get("patternIds") == ["pattern:deploy-smoke-1"]) {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:patternsByInputSnapshot"!(true)
       }
     }
@@ -930,7 +966,7 @@ in {
     }
     |
     for (@result <- clusterResult) {
-      if (result.get("clusterIds").nth(0) == "claim-cluster:deploy-smoke-1") {
+      if (result.get("clusterIds") == ["claim-cluster:deploy-smoke-1"]) {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:clustersForClaim"!(true)
       }
     }
@@ -960,13 +996,13 @@ in {
     }
     |
     for (@result <- beliefOutputResult) {
-      if (result.get("historyIds").nth(0) == "belief-revision-history:deploy-smoke-1") {
+      if (result.get("historyIds") == ["belief-revision-history:deploy-smoke-1"]) {
         @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:beliefHistoriesByOutput"!(true)
       }
     }
     |
     for (@result <- statsResult) {
-      if (result.get("runs") == 1) {
+      if (result.get("runs") == 2) {
         if (result.get("claims") == 1) {
           if (result.get("claimOccurrences") == 1) {
             if (result.get("claimClusters") == 1) {
@@ -1118,6 +1154,7 @@ assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:duplicateEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"
+assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:dedupePostings"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRun"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaim"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getClaimOccurrence"
