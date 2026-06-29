@@ -953,14 +953,16 @@ in {
       if (result.get("runs") == 1) {
         if (result.get("claims") == 1) {
           if (result.get("claimOccurrences") == 1) {
-            if (result.get("features") == 1) {
-              if (result.get("featureOccurrences") == 1) {
-                if (result.get("patterns") == 1) {
-                  if (result.get("patternOccurrences") == 1) {
-                    if (result.get("reasoningInputs") == 1) {
-                      if (result.get("reasoningOutputs") == 1) {
-                        if (result.get("beliefRevisionHistories") == 1) {
-                          @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"!(true)
+            if (result.get("claimClusters") == 1) {
+              if (result.get("features") == 1) {
+                if (result.get("featureOccurrences") == 1) {
+                  if (result.get("patterns") == 1) {
+                    if (result.get("patternOccurrences") == 1) {
+                      if (result.get("reasoningInputs") == 1) {
+                        if (result.get("reasoningOutputs") == 1) {
+                          if (result.get("beliefRevisionHistories") == 1) {
+                            @"event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getStateStats"!(true)
+                          }
                         }
                       }
                     }

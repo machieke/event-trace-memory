@@ -453,6 +453,21 @@ class DerivedArtifactIndex:
             "historyIds": list(self.belief_revision_histories_by_output.get(output_id, [])),
         }
 
+    def state_stats(self) -> dict[str, int]:
+        return {
+            "runs": len(self.runs),
+            "claims": len(self.claims),
+            "claimOccurrences": len(self.claim_occurrences),
+            "claimClusters": len(self.claim_clusters),
+            "features": len(self.features),
+            "featureOccurrences": len(self.feature_occurrences),
+            "patterns": len(self.patterns),
+            "patternOccurrences": len(self.pattern_occurrences),
+            "reasoningInputs": len(self.reasoning_inputs),
+            "reasoningOutputs": len(self.reasoning_outputs),
+            "beliefRevisionHistories": len(self.belief_revision_histories),
+        }
+
     @staticmethod
     def stable_key(label: str, value: Any) -> str:
         return _stable_key(label, value)

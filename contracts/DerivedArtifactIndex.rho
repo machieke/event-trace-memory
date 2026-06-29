@@ -1109,6 +1109,7 @@ in {
         "runs": state.getOrElse("runs", {}).size(),
         "claims": state.getOrElse("claims", {}).size(),
         "claimOccurrences": state.getOrElse("claimOccurrences", {}).size(),
+        "claimClusters": state.getOrElse("claimClusters", {}).size(),
         "features": state.getOrElse("features", {}).size(),
         "featureOccurrences": state.getOrElse("featureOccurrences", {}).size(),
         "patterns": state.getOrElse("patterns", {}).size(),

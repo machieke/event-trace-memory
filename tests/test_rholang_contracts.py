@@ -132,6 +132,7 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("insertArbitrary!(bundle+{*derivedArtifactIndex}", source)
         self.assertIn("appendOptionalOne", source)
         self.assertIn('if (key == "")', source)
+        self.assertIn('"claimClusters": state.getOrElse("claimClusters", {}).size()', source)
         self.assertIn('@"event-trace-memory:DerivedArtifactIndexUri"!(uri)', source)
 
     def test_contracts_are_not_plan_placeholders(self):

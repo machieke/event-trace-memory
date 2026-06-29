@@ -3028,6 +3028,13 @@ already indexed under a different event id, matching the Rholang contract's
 CID does not alter state, and the deploy/propose smoke harness checks the
 Rholang rejection marker alongside the existing `byEventCid` query.
 
+### 22.20 Derived state stats parity
+
+The Python `DerivedArtifactIndex` now exposes `state_stats()` for the same
+pointer-family counters returned by the Rholang `getStateStats` query. Rholang
+stats now include `claimClusters`, and both acceptance tests and the
+deploy/propose smoke harness verify the complete derived artifact count surface.
+
 ---
 
 ## 23. Resolved MVP design decisions

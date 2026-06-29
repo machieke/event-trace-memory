@@ -186,6 +186,22 @@ class DerivedAcceptanceTest(unittest.TestCase):
                 [cluster.artifact_id],
             )
             self.assertEqual(derived_index.get_claim_cluster(cluster.artifact_id)["claimCluster"], cluster.pointer)
+            self.assertEqual(
+                derived_index.state_stats(),
+                {
+                    "runs": 2,
+                    "claims": 2,
+                    "claimOccurrences": 2,
+                    "claimClusters": 1,
+                    "features": 1,
+                    "featureOccurrences": 1,
+                    "patterns": 0,
+                    "patternOccurrences": 0,
+                    "reasoningInputs": 0,
+                    "reasoningOutputs": 0,
+                    "beliefRevisionHistories": 0,
+                },
+            )
 
 
 if __name__ == "__main__":
