@@ -142,3 +142,14 @@ python3 -m event_trace_memory.cli rholang-deploy \
   --config configs/rholang-local-docker.json \
   --pretty
 ```
+
+The deployment config includes two event-ingestion contract shapes:
+
+- `EventTraceIndex.rho` is the reference correctness contract. It keeps mutable
+  query indexes in one state cell and is intentionally easy to compare with the
+  Python reference implementation.
+- `EventTraceRSpaceIndex.rho` is the performance-oriented RSpace-native path. It
+  emits immutable batch anchors, event facts, and posting facts at deterministic
+  public names such as `event-trace-memory:RSpacePosting:<index>:<key>`, with
+  dedupe and rich query planning handled by DA manifests and off-chain
+  materializers.

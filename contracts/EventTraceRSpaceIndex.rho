@@ -1,0 +1,152 @@
+// EventTraceRSpaceIndex.rho
+//
+// Append-only RSpace-native event trace anchor.
+// This contract avoids one shared state cell, list membership scans, and
+// list append/copy updates. It writes immutable facts to deterministic public
+// names. Query workers read those names with data-at-name or use DA manifests.
+
+new eventTraceRSpaceIndex,
+    postKeys,
+    postEvent,
+    postEvents,
+    uriCh,
+    insertArbitrary(`rho:registry:insertArbitrary`),
+    stdout(`rho:io:stdout`)
+in {
+  contract postKeys(@indexName, @keys, @eventId, return) = {
+    match keys {
+      [hd, ...tl] => {
+        @("event-trace-memory:RSpacePosting:" ++ indexName ++ ":" ++ hd)!(eventId)
+        |
+        postKeys!(indexName, tl, eventId, *return)
+      }
+      _ => {
+        return!(true)
+      }
+    }
+  }
+
+  |
+
+  contract postEvent(@eventPointer, return) = {
+    new timeDone, actorDone, channelDone, parentDone in {
+      @("event-trace-memory:RSpaceEvent:" ++ eventPointer.get("eventId"))!(eventPointer)
+      |
+      @("event-trace-memory:RSpaceEventCid:" ++ eventPointer.get("eventCid"))!(eventPointer.get("eventId"))
+      |
+      @("event-trace-memory:RSpacePosting:kind:" ++ eventPointer.get("valueKind"))!(eventPointer.get("eventId"))
+      |
+      @("event-trace-memory:RSpacePosting:root:" ++ eventPointer.getOrElse("rootEventId", eventPointer.get("eventId")))!(eventPointer.get("eventId"))
+      |
+      @("event-trace-memory:RSpacePosting:payload:" ++ eventPointer.get("payloadCid"))!(eventPointer.get("eventId"))
+      |
+      postKeys!("time", eventPointer.getOrElse("timePrefixKeys", []), eventPointer.get("eventId"), *timeDone)
+      |
+      postKeys!("actor", eventPointer.getOrElse("actorPrefixKeys", []), eventPointer.get("eventId"), *actorDone)
+      |
+      postKeys!("channel", eventPointer.getOrElse("channelPrefixKeys", []), eventPointer.get("eventId"), *channelDone)
+      |
+      postKeys!("parent", eventPointer.getOrElse("parentEventIds", []), eventPointer.get("eventId"), *parentDone)
+      |
+      for (@timeOk <- timeDone; @actorOk <- actorDone; @channelOk <- channelDone; @parentOk <- parentDone) {
+        return!({
+          "ok": true,
+          "eventId": eventPointer.get("eventId"),
+          "eventCid": eventPointer.get("eventCid"),
+          "storage": "append-only-rspace-facts",
+          "dedupe": "off-chain"
+        })
+      }
+    }
+  }
+
+  |
+
+  contract postEvents(@events, return) = {
+    match events {
+      [hd, ...tl] => {
+        new posted in {
+          postEvent!(hd, *posted)
+          |
+          for (@_ <- posted) {
+            postEvents!(tl, *return)
+          }
+        }
+      }
+      _ => {
+        return!(true)
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceRSpaceIndex(@"putBatchAnchor", @batchAnchor, return) = {
+    @("event-trace-memory:RSpaceBatch:" ++ batchAnchor.get("batchId"))!(batchAnchor)
+    |
+    @("event-trace-memory:RSpaceBatchByShard:" ++ batchAnchor.get("shardPath"))!(batchAnchor.get("batchId"))
+    |
+    @("event-trace-memory:RSpaceBatchByEventManifest:" ++ batchAnchor.get("eventManifestCid"))!(batchAnchor.get("batchId"))
+    |
+    @("event-trace-memory:RSpaceBatchByPostingsManifest:" ++ batchAnchor.get("postingsManifestCid"))!(batchAnchor.get("batchId"))
+    |
+    @("event-trace-memory:RSpaceBatchByMerkleRoot:" ++ batchAnchor.get("merkleRoot"))!(batchAnchor.get("batchId"))
+    |
+    return!({
+      "ok": true,
+      "batchId": batchAnchor.get("batchId"),
+      "eventCount": batchAnchor.get("eventCount"),
+      "storage": "batch-anchor",
+      "dedupe": "off-chain"
+    })
+  }
+
+  |
+
+  contract eventTraceRSpaceIndex(@"putEventFact", @eventPointer, return) = {
+    postEvent!(eventPointer, *return)
+  }
+
+  |
+
+  contract eventTraceRSpaceIndex(@"putBatchEvents", @batchAnchor, @events, return) = {
+    new anchorDone, eventsDone in {
+      eventTraceRSpaceIndex!("putBatchAnchor", batchAnchor, *anchorDone)
+      |
+      postEvents!(events, *eventsDone)
+      |
+      for (@anchor <- anchorDone; @eventsOk <- eventsDone) {
+        return!({
+          "ok": true,
+          "batchId": batchAnchor.get("batchId"),
+          "eventCount": batchAnchor.get("eventCount"),
+          "storage": "batch-anchor-and-append-only-rspace-facts",
+          "dedupe": "off-chain"
+        })
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceRSpaceIndex(@"getNameHints", @batchId, @eventId, return) = {
+    return!({
+      "ok": true,
+      "batch": "event-trace-memory:RSpaceBatch:" ++ batchId,
+      "event": "event-trace-memory:RSpaceEvent:" ++ eventId,
+      "eventCid": "event-trace-memory:RSpaceEventCid:<eventCid>",
+      "posting": "event-trace-memory:RSpacePosting:<index>:<key>",
+      "shard": "event-trace-memory:RSpaceBatchByShard:<shardPath>"
+    })
+  }
+
+  |
+
+  insertArbitrary!(bundle+{*eventTraceRSpaceIndex}, *uriCh)
+  |
+  for (@uri <- uriCh) {
+    stdout!(["EventTraceRSpaceIndex URI: ", uri])
+    |
+    @"event-trace-memory:EventTraceRSpaceIndexUri"!(uri)
+  }
+}

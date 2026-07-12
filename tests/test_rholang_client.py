@@ -3,6 +3,7 @@ import unittest
 
 from event_trace_memory.rholang import (
     EVENT_TRACE_INDEX,
+    EVENT_TRACE_RSPACE_INDEX,
     RholangCli,
     build_registry_call_program,
     data_at_name_argument,
@@ -38,6 +39,29 @@ class RholangClientTest(unittest.TestCase):
         self.assertIn("lookup!(uri, *lookedUp)", program)
         self.assertIn('@eventTraceIndex!("byTimePrefix", "/2026/06/28/13", *result)', program)
         self.assertIn('@"event-trace-memory:client-result"!(value)', program)
+
+    def test_registry_call_program_supports_rspace_index_binding(self):
+        program = build_registry_call_program(
+            EVENT_TRACE_RSPACE_INDEX,
+            "putBatchAnchor",
+            [
+                {
+                    "batchId": "batch:1",
+                    "eventCount": 10,
+                    "eventManifestCid": "cid:event-manifest",
+                    "merkleRoot": "merkle:root",
+                    "postingsManifestCid": "cid:postings",
+                    "shardPath": "/2026/06/28/13",
+                }
+            ],
+            "event-trace-memory:rspace-client-result",
+        )
+
+        self.assertIn('for (@uri <- @"event-trace-memory:EventTraceRSpaceIndexUri")', program)
+        self.assertIn('@"event-trace-memory:EventTraceRSpaceIndexUri"!(uri)', program)
+        self.assertIn('@eventTraceRSpaceIndex!("putBatchAnchor"', program)
+        self.assertIn('"batchId": "batch:1"', program)
+        self.assertIn('@"event-trace-memory:rspace-client-result"!(value)', program)
 
     def test_cli_deploy_and_propose_parse_outputs(self):
         calls = []

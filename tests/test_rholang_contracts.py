@@ -59,6 +59,40 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("insertArbitrary!(bundle+{*eventTraceIndex}", source)
         self.assertIn('@"event-trace-memory:EventTraceIndexUri"!(uri)', source)
 
+    def test_event_trace_rspace_index_contract_api(self):
+        source = (CONTRACTS / "EventTraceRSpaceIndex.rho").read_text(encoding="utf-8")
+
+        for method in [
+            "putBatchAnchor",
+            "putEventFact",
+            "putBatchEvents",
+            "getNameHints",
+        ]:
+            self.assertRegex(source, rf'contract\s+eventTraceRSpaceIndex\(@"{method}"')
+
+        for public_name in [
+            "event-trace-memory:RSpaceBatch:",
+            "event-trace-memory:RSpaceBatchByShard:",
+            "event-trace-memory:RSpaceBatchByEventManifest:",
+            "event-trace-memory:RSpaceBatchByPostingsManifest:",
+            "event-trace-memory:RSpaceBatchByMerkleRoot:",
+            "event-trace-memory:RSpaceEvent:",
+            "event-trace-memory:RSpaceEventCid:",
+            "event-trace-memory:RSpacePosting:",
+        ]:
+            self.assertIn(public_name, source)
+
+        self.assertIn("contract postKeys", source)
+        self.assertIn("contract postEvent", source)
+        self.assertIn("contract postEvents", source)
+        self.assertIn('"append-only-rspace-facts"', source)
+        self.assertIn('"dedupe": "off-chain"', source)
+        self.assertIn("insertArbitrary!(bundle+{*eventTraceRSpaceIndex}", source)
+        self.assertIn('@"event-trace-memory:EventTraceRSpaceIndexUri"!(uri)', source)
+        self.assertNotIn("stateCh!", source)
+        self.assertNotIn("contract containsValue", source)
+        self.assertNotIn("++ [", source)
+
     def test_derived_artifact_index_contract_api(self):
         source = (CONTRACTS / "DerivedArtifactIndex.rho").read_text(encoding="utf-8")
 
@@ -156,7 +190,11 @@ class RholangContractsTest(unittest.TestCase):
         for path in sorted(CONTRACTS.glob("*.rho")):
             source = path.read_text(encoding="utf-8")
             self.assertNotRegex(source, re.compile(r"\bTODO\b|pseudocode|appendAll", re.IGNORECASE))
-            self.assertIn("stateCh!", source)
+            if path.name == "EventTraceRSpaceIndex.rho":
+                self.assertNotIn("stateCh!", source)
+                self.assertIn("append-only-rspace-facts", source)
+            else:
+                self.assertIn("stateCh!", source)
             self.assertIn("return!", source)
             source.encode("ascii")
 
@@ -165,6 +203,7 @@ class RholangContractsTest(unittest.TestCase):
         source = script.read_text(encoding="utf-8")
         self.assertIn("f1r3flyindustries/f1r3fly-rust-node:latest", source)
         self.assertIn("EventTraceIndex.rho", source)
+        self.assertIn("EventTraceRSpaceIndex.rho", source)
         self.assertIn("DerivedArtifactIndex.rho", source)
         self.assertIn("/opt/docker/bin/node eval --print-unmatched-sends-only", source)
         self.assertIn("EventTraceIndexSmoke.rho", source)
@@ -175,6 +214,7 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("/opt/docker/bin/node propose --print-unmatched-sends", source)
         self.assertIn("/opt/docker/bin/node data-at-name", source)
         self.assertIn("EventTraceIndexDeploySmoke.rho", source)
+        self.assertIn("EventTraceRSpaceIndexDeploySmoke.rho", source)
         self.assertIn("DerivedArtifactIndexDeploySmoke.rho", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:event:deploy-smoke-1", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:getEvent", source)
@@ -187,6 +227,8 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("EventTraceIndexDeploySmokeOk:byEventCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:duplicateEventCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:getStateStats", source)
+        self.assertIn("EventTraceRSpaceIndexDeploySmokeOk:putBatchEvents", source)
+        self.assertIn("event-trace-memory:RSpacePosting:time:/2026/06/28/13", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:dedupePostings", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:getRun", source)

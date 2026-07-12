@@ -14,7 +14,13 @@ from event_trace_memory.privacy import (
     hash_path_segment,
 )
 from event_trace_memory.reasoning import ReasoningAdapter
-from event_trace_memory.rholang import RholangCli, build_registry_call_program, rho_literal
+from event_trace_memory.rholang import (
+    EVENT_TRACE_RSPACE_INDEX,
+    EVENT_TRACE_RSPACE_INDEX_URI_NAME,
+    RholangCli,
+    build_registry_call_program,
+    rho_literal,
+)
 from event_trace_memory.rholang_deployment import (
     RholangDeployTarget,
     RholangDeploymentConfig,
@@ -47,6 +53,8 @@ __all__ = [
     "DerivedArtifactIndex",
     "EventIngestor",
     "EventTraceIndex",
+    "EVENT_TRACE_RSPACE_INDEX",
+    "EVENT_TRACE_RSPACE_INDEX_URI_NAME",
     "FileDA",
     "IrcSourceWorker",
     "load_fixture_corpus",

@@ -11,6 +11,7 @@ from typing import Any, Callable, Optional, Sequence
 
 
 EVENT_TRACE_INDEX_URI_NAME = "event-trace-memory:EventTraceIndexUri"
+EVENT_TRACE_RSPACE_INDEX_URI_NAME = "event-trace-memory:EventTraceRSpaceIndexUri"
 DERIVED_ARTIFACT_INDEX_URI_NAME = "event-trace-memory:DerivedArtifactIndexUri"
 
 
@@ -25,6 +26,7 @@ class RholangContractBinding:
 
 
 EVENT_TRACE_INDEX = RholangContractBinding(EVENT_TRACE_INDEX_URI_NAME, "eventTraceIndex")
+EVENT_TRACE_RSPACE_INDEX = RholangContractBinding(EVENT_TRACE_RSPACE_INDEX_URI_NAME, "eventTraceRSpaceIndex")
 DERIVED_ARTIFACT_INDEX = RholangContractBinding(DERIVED_ARTIFACT_INDEX_URI_NAME, "derivedArtifactIndex")
 
 

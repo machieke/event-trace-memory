@@ -21,7 +21,10 @@ class RholangDeploymentTest(unittest.TestCase):
         config = load_rholang_deployment_config(CONFIG)
         plan = rholang_deployment_plan(config)
 
-        self.assertEqual([contract.name for contract in config.contracts], ["EventTraceIndex", "DerivedArtifactIndex"])
+        self.assertEqual(
+            [contract.name for contract in config.contracts],
+            ["EventTraceIndex", "EventTraceRSpaceIndex", "DerivedArtifactIndex"],
+        )
         self.assertEqual(plan["privateKey"], "<redacted>")
         self.assertNotIn(config.private_key, json.dumps(plan))
         self.assertEqual(plan["contracts"][0]["deployCommand"][1], "deploy")
@@ -34,9 +37,16 @@ class RholangDeploymentTest(unittest.TestCase):
 
         result = deploy_rholang_contracts(config, cli=fake)
 
-        self.assertEqual([deploy.deploy_id for deploy in result.deploys], ["deploy-1", "deploy-2"])
+        self.assertEqual([deploy.deploy_id for deploy in result.deploys], ["deploy-1", "deploy-2", "deploy-3"])
         self.assertEqual(result.propose.block_hash, "block-1")
-        self.assertEqual([call["location"] for call in fake.deploy_calls], ["contracts/EventTraceIndex.rho", "contracts/DerivedArtifactIndex.rho"])
+        self.assertEqual(
+            [call["location"] for call in fake.deploy_calls],
+            [
+                "contracts/EventTraceIndex.rho",
+                "contracts/EventTraceRSpaceIndex.rho",
+                "contracts/DerivedArtifactIndex.rho",
+            ],
+        )
         self.assertEqual(fake.deploy_calls[0]["private_key"], config.private_key)
         self.assertEqual(fake.deploy_calls[0]["phlo_limit"], 1000000000)
         self.assertEqual(fake.propose_calls, [{"print_unmatched_sends": True}])
@@ -50,7 +60,7 @@ class RholangDeploymentTest(unittest.TestCase):
         payload = json.loads(stdout.getvalue())
         self.assertEqual(payload["privateKey"], "<redacted>")
         self.assertNotIn("event-trace-memory-local-dev-private-key", stdout.getvalue())
-        self.assertEqual(len(payload["contracts"]), 2)
+        self.assertEqual(len(payload["contracts"]), 3)
 
 
 class FakeRholangCli:

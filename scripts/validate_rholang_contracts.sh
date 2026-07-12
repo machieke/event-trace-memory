@@ -13,6 +13,7 @@ CONFIG_PATH=""
 
 contracts=(
   "EventTraceIndex.rho"
+  "EventTraceRSpaceIndex.rho"
   "DerivedArtifactIndex.rho"
 )
 TMP_DIR=""
@@ -201,6 +202,50 @@ build_event_smoke() {
     for (@_ <- putAck) {
       eventTraceIndex!("byTimePrefix", "/2026/06/27/14", *queryResult)
     }
+  }
+}
+RHO
+}
+
+build_rspace_event_smoke() {
+  local out="$1"
+  sed '$d' "${ROOT_DIR}/contracts/EventTraceRSpaceIndex.rho" > "${out}"
+  cat >> "${out}" <<'RHO'
+
+  |
+
+  new batchAck in {
+    eventTraceRSpaceIndex!(
+      "putBatchEvents",
+      {
+        "kind": "event-trace-batch-anchor",
+        "schema": "event-trace-batch-anchor-v0.1",
+        "batchId": "batch:rspace-smoke-1",
+        "shardPath": "/2026/06/27/14",
+        "eventCount": 1,
+        "minObservedAt": "2026-06-27T14:35:00Z",
+        "maxObservedAt": "2026-06-27T14:35:00Z",
+        "eventManifestCid": "cid:event-manifest-rspace-smoke-1",
+        "postingsManifestCid": "cid:postings-rspace-smoke-1",
+        "merkleRoot": "merkle:rspace-smoke-1"
+      },
+      [
+        {
+          "kind": "event-pointer",
+          "schema": "event-pointer-v0.1",
+          "eventId": "event:rspace-smoke-1",
+          "eventCid": "cid:event-rspace-smoke-1",
+          "payloadCid": "cid:payload-rspace-smoke-1",
+          "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/27", "/2026/06/27/14"],
+          "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/alice"],
+          "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23chat"],
+          "valueKind": "message",
+          "parentEventIds": [],
+          "rootEventId": "event:rspace-smoke-1"
+        }
+      ],
+      *batchAck
+    )
   }
 }
 RHO
@@ -452,6 +497,69 @@ in {
             }
           }
         }
+      }
+    }
+  }
+}
+RHO
+}
+
+build_rspace_event_deploy_smoke() {
+  local out="$1"
+  cat > "${out}" <<'RHO'
+new lookup(`rho:registry:lookup`), lookedUp, putAck, hintsResult in {
+  for (@uri <- @"event-trace-memory:EventTraceRSpaceIndexUri") {
+    @"event-trace-memory:EventTraceRSpaceIndexUri"!(uri)
+    |
+    lookup!(uri, *lookedUp)
+    |
+    for (@eventTraceRSpaceIndex <- lookedUp) {
+      @eventTraceRSpaceIndex!(
+        "putBatchEvents",
+        {
+          "kind": "event-trace-batch-anchor",
+          "schema": "event-trace-batch-anchor-v0.1",
+          "batchId": "batch:rspace-deploy-smoke-1",
+          "shardPath": "/2026/06/28/13",
+          "eventCount": 1,
+          "minObservedAt": "2026-06-28T13:00:00Z",
+          "maxObservedAt": "2026-06-28T13:00:00Z",
+          "eventManifestCid": "cid:event-manifest-rspace-deploy-smoke-1",
+          "postingsManifestCid": "cid:postings-rspace-deploy-smoke-1",
+          "merkleRoot": "merkle:rspace-deploy-smoke-1"
+        },
+        [
+          {
+            "kind": "event-pointer",
+            "schema": "event-pointer-v0.1",
+            "eventId": "event:rspace-deploy-smoke-1",
+            "eventCid": "cid:event-rspace-deploy-smoke-1",
+            "payloadCid": "cid:payload-rspace-deploy-smoke-1",
+            "timePrefixKeys": ["/2026", "/2026/06", "/2026/06/28", "/2026/06/28/13"],
+            "actorPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/user", "/irc/libera/user/rspace"],
+            "channelPrefixKeys": ["/irc", "/irc/libera", "/irc/libera/channel", "/irc/libera/channel/%23rspace"],
+            "valueKind": "message",
+            "parentEventIds": [],
+            "rootEventId": "event:rspace-deploy-smoke-1"
+          }
+        ],
+        *putAck
+      )
+      |
+      @eventTraceRSpaceIndex!("getNameHints", "batch:rspace-deploy-smoke-1", "event:rspace-deploy-smoke-1", *hintsResult)
+    }
+    |
+    for (@result <- putAck) {
+      if (result.get("ok")) {
+        if (result.get("batchId") == "batch:rspace-deploy-smoke-1") {
+          @"event-trace-memory:EventTraceRSpaceIndexDeploySmokeOk:putBatchEvents"!(true)
+        }
+      }
+    }
+    |
+    for (@hints <- hintsResult) {
+      if (hints.get("batch") == "event-trace-memory:RSpaceBatch:batch:rspace-deploy-smoke-1") {
+        @"event-trace-memory:EventTraceRSpaceIndexDeploySmokeOk:getNameHints"!(true)
       }
     }
   }
@@ -1095,6 +1203,7 @@ propose_block() {
 
 assert_data_at_name() {
   local name="$1"
+  local expected_size="${2:-1}"
   local output
   local status
 
@@ -1108,8 +1217,8 @@ assert_data_at_name() {
     echo "data-at-name failed for ${name}" >&2
     exit 1
   fi
-  if ! grep -q "Initial data size: 1" <<<"${output}"; then
-    echo "Expected data at public name ${name}" >&2
+  if ! grep -q "Initial data size: ${expected_size}" <<<"${output}"; then
+    echo "Expected data size ${expected_size} at public name ${name}" >&2
     exit 1
   fi
 }
@@ -1123,24 +1232,30 @@ for contract in "${contracts[@]}"; do
 done
 
 build_event_smoke "${TMP_DIR}/EventTraceIndexSmoke.rho"
+build_rspace_event_smoke "${TMP_DIR}/EventTraceRSpaceIndexSmoke.rho"
 build_derived_smoke "${TMP_DIR}/DerivedArtifactIndexSmoke.rho"
 
 eval_rho_file "${TMP_DIR}/EventTraceIndexSmoke.rho" "EventTraceIndexSmoke.rho" "event:smoke-1"
+eval_rho_file "${TMP_DIR}/EventTraceRSpaceIndexSmoke.rho" "EventTraceRSpaceIndexSmoke.rho" "event:rspace-smoke-1"
 eval_rho_file "${TMP_DIR}/DerivedArtifactIndexSmoke.rho" "DerivedArtifactIndexSmoke.rho" "claim-occ:smoke-1"
 
 deploy_rho_file "${ROOT_DIR}/contracts/EventTraceIndex.rho" "EventTraceIndexDeploy.rho" 0
+deploy_rho_file "${ROOT_DIR}/contracts/EventTraceRSpaceIndex.rho" "EventTraceRSpaceIndexDeploy.rho" 0
 deploy_rho_file "${ROOT_DIR}/contracts/DerivedArtifactIndex.rho" "DerivedArtifactIndexDeploy.rho" 0
-propose_block 2
+propose_block 3
 
 assert_data_at_name "event-trace-memory:EventTraceIndexUri"
+assert_data_at_name "event-trace-memory:EventTraceRSpaceIndexUri"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexUri"
 
 build_event_deploy_smoke "${TMP_DIR}/EventTraceIndexDeploySmoke.rho"
+build_rspace_event_deploy_smoke "${TMP_DIR}/EventTraceRSpaceIndexDeploySmoke.rho"
 build_derived_deploy_smoke "${TMP_DIR}/DerivedArtifactIndexDeploySmoke.rho"
 
 deploy_rho_file "${TMP_DIR}/EventTraceIndexDeploySmoke.rho" "EventTraceIndexDeploySmoke.rho" 1
+deploy_rho_file "${TMP_DIR}/EventTraceRSpaceIndexDeploySmoke.rho" "EventTraceRSpaceIndexDeploySmoke.rho" 1
 deploy_rho_file "${TMP_DIR}/DerivedArtifactIndexDeploySmoke.rho" "DerivedArtifactIndexDeploySmoke.rho" 1
-propose_block 2
+propose_block 3
 
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:event:deploy-smoke-1"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getEvent"
@@ -1153,6 +1268,21 @@ assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byPayloadCi
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:byEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:duplicateEventCid"
 assert_data_at_name "event-trace-memory:EventTraceIndexDeploySmokeOk:getStateStats"
+assert_data_at_name "event-trace-memory:EventTraceRSpaceIndexDeploySmokeOk:putBatchEvents"
+assert_data_at_name "event-trace-memory:EventTraceRSpaceIndexDeploySmokeOk:getNameHints"
+assert_data_at_name "event-trace-memory:RSpaceBatch:batch:rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpaceBatchByShard:/2026/06/28/13"
+assert_data_at_name "event-trace-memory:RSpaceBatchByEventManifest:cid:event-manifest-rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpaceBatchByPostingsManifest:cid:postings-rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpaceBatchByMerkleRoot:merkle:rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpaceEvent:event:rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpaceEventCid:cid:event-rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpacePosting:time:/2026/06/28/13"
+assert_data_at_name "event-trace-memory:RSpacePosting:actor:/irc/libera/user/rspace"
+assert_data_at_name "event-trace-memory:RSpacePosting:channel:/irc/libera/channel/%23rspace"
+assert_data_at_name "event-trace-memory:RSpacePosting:kind:message"
+assert_data_at_name "event-trace-memory:RSpacePosting:root:event:rspace-deploy-smoke-1"
+assert_data_at_name "event-trace-memory:RSpacePosting:payload:cid:payload-rspace-deploy-smoke-1"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:dedupePostings"
 assert_data_at_name "event-trace-memory:DerivedArtifactIndexDeploySmokeOk:getRun"
