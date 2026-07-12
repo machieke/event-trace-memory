@@ -20,6 +20,40 @@ The 100-event integration run was slow for two independent reasons:
 The first issue is a repository/contract design problem. The second is shard
 health/liveness behavior in the local F1R3 node run.
 
+Quantified attribution:
+
+| Component | Duration / Cost | Share |
+| --- | ---: | ---: |
+| End-to-end first deploy to event finality | `6337.481s` | `100.00%` |
+| Event-block proposal execution | `3504.429s` | `55.30%` |
+| Event-block `compute-state` inside proposal execution | `3496.341s` | `55.17%` |
+| Non-compute proposal overhead for event blocks | `8.088s` | `0.13%` |
+| Last event block added to event finality | `2831.687s` | `44.68%` |
+| Validator stale-latest warning window | `2680.223s` | `42.29%` of end-to-end, `94.65%` of post-inclusion wait |
+| Actual finalizer sweep once progress resumed | `0.586s` | `0.02%` of post-inclusion wait |
+
+Within Rholang execution, the measured deploy cost growth is explained by
+posting-list growth, not payload size:
+
+| Model variable | First batch | Last batch | Growth | Correlation with deploy cost | R2 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Rholang term chars | `17,395` | `17,484` | `1.005x` | `0.483` | `0.234` |
+| Event JSON chars | `10,641` | `10,732` | `1.009x` | `0.495` | `0.245` |
+| Ingestion list scan/copy cells | `1,051` | `18,021` | `17.15x` | `0.995` | `0.990` |
+| Total modeled list cells, including validation query scans/returns | `1,117` | `18,703` | `16.74x` | `0.995` | `0.991` |
+| Observed deploy cost | `9,127,224` | `178,711,203` | `19.58x` | n/a | n/a |
+
+Simple linear fit:
+
+```text
+deploy_cost ~= -5,136,828 + 9,813.1 * total_modeled_list_cells
+R2 = 0.990568
+```
+
+That model predicts the last batch within `0.18%` of observed cost. It is not a
+perfect mechanistic profiler, but it is strong enough to identify the dominant
+variable: list-backed posting growth.
+
 ## Evidence
 
 ### Stable Payload Size, Exploding Cost
@@ -77,6 +111,43 @@ Correlation between modeled list work and deploy cost: `0.995`.
 The model grew `17.15x` from first to last batch. The measured cost grew
 `19.58x`. The remaining difference is consistent with broader state growth,
 RSpace term/state serialization, validation checks, and fixed execution overhead.
+
+Including validation query list scans and returned list lengths changes the
+metric only slightly:
+
+| Batch | Ingestion list cells | Validation query scan cells | Validation query return cells | Total modeled list cells | Deploy cost |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `batch-00` | `1,051` | `33` | `33` | `1,117` | `9,127,224` |
+| `batch-01` | `3,326` | `102` | `102` | `3,530` | `23,714,765` |
+| `batch-02` | `5,334` | `73` | `73` | `5,480` | `39,209,857` |
+| `batch-03` | `5,521` | `93` | `93` | `5,707` | `53,455,281` |
+| `batch-04` | `7,557` | `76` | `76` | `7,709` | `70,473,028` |
+| `batch-05` | `8,118` | `126` | `126` | `8,370` | `86,945,670` |
+| `batch-06` | `10,701` | `175` | `175` | `11,051` | `107,560,177` |
+| `batch-07` | `13,531` | `194` | `194` | `13,919` | `130,125,823` |
+| `batch-08` | `16,182` | `246` | `246` | `16,674` | `154,666,645` |
+| `batch-09` | `18,021` | `341` | `341` | `18,703` | `178,711,203` |
+
+Across all 10 deploys:
+
+- Ingestion list work: `89,342` cells, `96.84%` of modeled list work.
+- Validation query scan/return work: `2,918` cells, `3.16%`.
+- First-to-last modeled list-work growth: `17,586` cells.
+- First-to-last growth from ingestion updates: `16,970` cells, `96.50%`.
+- First-to-last growth from validation scans/returns: `616` cells, `3.50%`.
+
+Using the fitted slope of `9,813.1` cost units per modeled list cell:
+
+- Ingestion list-growth contribution to first-to-last deploy cost growth:
+  about `166.5M` cost units.
+- Validation scan/return growth contribution:
+  about `6.0M` cost units.
+- Observed first-to-last deploy cost growth:
+  `169.6M` cost units.
+
+So the validation queries are not the dominant growth driver. They add fixed
+contract-call overhead and a small variable scan/return component, but the
+measured growth is overwhelmingly hot posting-list ingestion.
 
 ### Hot Posting Keys
 
@@ -182,11 +253,13 @@ also performed correctness checks:
 
 - 10 runtime `putEvent` calls through the recursive `ingestAll` helper.
 - 9 query calls after ingestion.
-- 8 client-side `containsValue` scans over query result lists.
+- 7 client-side `containsValue` scans over posting-list query results.
 
 That validation is useful for correctness, but it should not be part of a
-production ingestion benchmark. It amplifies the same posting-list cost because
-queries over hot indexes return growing event-id lists.
+production ingestion benchmark. Quantitatively, its list scan/return component
+was small compared with ingestion list updates: `3.16%` of total modeled list
+work and `3.50%` of first-to-last modeled list-work growth. It is a benchmark
+contaminant, but not the root cause of the `19.58x` deploy cost growth.
 
 ## Block-Level Effects
 
@@ -232,6 +305,16 @@ Root cause for the finality component:
   46 minutes after the verifier.
 - Once validator proposals resumed, finalization of the event blocks happened
   immediately in the next finalizer sweep.
+
+Quantitatively:
+
+| Segment | Duration | Share of post-inclusion wait |
+| --- | ---: | ---: |
+| Last event block added to event finality | `2831.687s` | `100.00%` |
+| Verifier block added to event finality | `2766.553s` | `97.70%` |
+| Validator3 stale-latest warning window | `2680.223s` | `94.65%` |
+| New-parent heartbeat to event finality | `1.546s` | `0.05%` |
+| Actual finalizer sweep | `0.586s` | `0.02%` |
 
 This is a local shard health/liveness issue, not an event-contract compute
 issue. It still matters operationally because end-to-end ingestion-to-finality
