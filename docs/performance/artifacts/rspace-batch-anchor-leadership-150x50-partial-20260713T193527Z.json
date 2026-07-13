@@ -1,0 +1,102 @@
+{
+  "created_at": "2026-07-13T19:45:29Z",
+  "status": "partial_no_inclusion",
+  "run_id": "rspace-leadership-150x50-20260713T193527Z",
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260713T140641Z",
+  "container": "rnode.validator1",
+  "runner": {
+    "command": "python3 scripts/benchmark_rspace_batch_anchor.py --container rnode.validator1 --existing-uri event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260713T140641Z --skip-contract-check --workload 150x50 --poll-seconds 10 --timeout-seconds 3600",
+    "interrupted": true,
+    "interrupted_reason": "Stopped after a 10-minute no-inclusion lower bound; the normal benchmark JSON artifact was not emitted."
+  },
+  "workload": {
+    "deploys": 150,
+    "batch_size": 50,
+    "events": 7500,
+    "valid_after": 633
+  },
+  "submission": {
+    "submit_span_s": 47.082,
+    "accepted_deploys": 150,
+    "first_submit_approx_iso": "2026-07-13T19:35:27Z",
+    "all_submitted_approx_iso": "2026-07-13T19:36:14Z",
+    "deploys_per_second": 3.185933477337411,
+    "declared_events_per_second": 159.29667386687052
+  },
+  "observed": {
+    "last_zero_inclusion_observation_iso": "2026-07-13T19:45:29Z",
+    "included_batches": 0,
+    "finalized_batches": 0,
+    "hit_block_count": 0,
+    "finalized_hit_block_count": 0,
+    "first_inclusion_lower_bound_s": 602.0,
+    "canonical_inclusion_lower_bound_s": 602.0,
+    "finality_lower_bound_s": 602.0,
+    "finality_throughput_upper_bound_events_per_s": 12.458471760797342
+  },
+  "chain_state": {
+    "last_finalized_block_number": 633,
+    "last_finalized_hash_prefix": "1c6ded0e12d",
+    "latest_seen_block_number": 648,
+    "latest_seen_blocks": "New blocks above the LFB were empty, non-final support/recovery blocks. The old 100x75 non-final deploy blocks at 631-643 remained visible.",
+    "no_150x50_hit_blocks_observed": true
+  },
+  "log_evidence": [
+    {
+      "timestamp": "2026-07-13T19:35:27Z",
+      "message": "Benchmark started submitting rspace-leadership-150x50-20260713T193527Z with validAfter=633."
+    },
+    {
+      "timestamp": "2026-07-13T19:36:14Z",
+      "message": "Runner reported 150/150 deploys submitted in 47.082s."
+    },
+    {
+      "timestamp": "2026-07-13T19:36:03Z..2026-07-13T19:36:14Z",
+      "message": "validator1 logs contained 150 Received DeployData entries for the run id."
+    },
+    {
+      "timestamp": "2026-07-13T19:40:49.861651Z",
+      "message": "Deploy selection for block #641: pool=0, valid=0, alreadyInScope=0, selected=0 after ordinary user deploy selection was deferred to the deploy-inclusion leader."
+    },
+    {
+      "timestamp": "2026-07-13T19:42:18.675121Z",
+      "message": "Deploy selection for block #647: pool=0, valid=0, alreadyInScope=0, selected=0; proposals continued as finality support only."
+    },
+    {
+      "timestamp": "2026-07-13T19:43:27.404309Z",
+      "message": "A separate recovery proposal selected 5 recovered deploys for block #642, but the benchmark scanner still found 0 hit blocks for this 150x50 run id."
+    }
+  ],
+  "comparison": {
+    "versus_100x75": {
+      "same_declared_events": true,
+      "deploys_previous": 100,
+      "deploys_current": 150,
+      "submit_span_previous_s": 81.494,
+      "submit_span_current_s": 47.082,
+      "submit_span_ratio": 0.5777357842295138,
+      "previous_included_batches": 100,
+      "current_included_batches": 0,
+      "previous_finalized_batches": 0,
+      "current_finalized_batches": 0,
+      "interpretation": "150x50 submitted faster than 100x75 but regressed before Rholang execution: no deploy-carrying block for this run was observed."
+    },
+    "versus_100x50_leadership": {
+      "batch_size_same": true,
+      "events_previous": 5000,
+      "events_current": 7500,
+      "deploys_previous": 100,
+      "deploys_current": 150,
+      "previous_finality_s": 208.419,
+      "current_no_inclusion_lower_bound_s": 602.0,
+      "lower_bound_ratio_to_previous_finality": 2.8884146848401504,
+      "previous_finality_throughput_events_per_s": 23.99,
+      "current_finality_throughput_upper_bound_events_per_s": 12.458471760797342
+    }
+  },
+  "notes": [
+    "This is not a clean 150x50 performance benchmark because the shard was already stuck with LFB 633 and non-final 100x75 deploy branches.",
+    "The useful measurement is that 150 deploys were accepted quickly, but no block carrying the 150x50 run id appeared within the 602s observation window.",
+    "Because no hit block was found, phlo cost, Rholang compute, queryability, and finalized canonical coverage were not measurable for this run."
+  ]
+}

@@ -32,6 +32,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-10x-20260713T142407Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x50-20260713T143346Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x75-partial-20260713T182238Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-partial-20260713T193527Z.json`
 
 Related earlier analysis:
 
@@ -68,6 +69,8 @@ recovery-aware coverage instead of trusting first inclusion.
 | `10x25` batch-anchor, deploy-inclusion leadership | Batch anchor | 250 | 1 | yes | `1,333,420` | `5,334` | `20.592s` | `104.799s` | `2.386 events/s` |
 | `10x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 500 | 1 | yes | `2,181,020` | `4,362` | `17.984s` | `72.796s` | `6.869 events/s` |
 | `100x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 5,000 | 4 | yes | `21,918,700` | `4,384` | `183.729s` | `208.419s` | `23.990 events/s` |
+| `100x75` batch-anchor, leadership probe | Batch anchor | 7,500 | 0 finalized, 8 non-final hits | no | n/a | n/a | non-final only | `>2,075s` | `<3.615 events/s` |
+| `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>602s` | `>602s` | `<12.459 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -506,6 +509,74 @@ cost `9,742,784`, or about `304,462` phlo per deploy and `4,059` phlo per
 declared event. The problem was operational: larger deploy terms made each
 selected block expensive enough that inclusion and recovery/finality became
 unstable.
+
+### 150x50 Degraded-Shard Probe
+
+Run id: `rspace-leadership-150x50-20260713T193527Z`
+
+This probe kept the total declared event count equal to `100x75` but split it
+into more deploys: 150 deploys with 50 event pointers each, for 7,500 declared
+events. It was run after the `100x75` branch had already left the shard with LFB
+stuck at block `633` and multiple non-final deploy-carrying branches.
+
+The first attempt against `rnode.validator3` submitted nothing because
+validator3 restarted before `last-finalized-block` could be read. The measured
+attempt used `rnode.validator1`, which was stable and connected to the shard.
+The runner was stopped after a 10-minute no-inclusion lower bound.
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `150` |
+| Batch size | `50` |
+| Valid after | `633` |
+| Submit span | `47.082s` |
+| DeployData entries received by validator1 | `150` |
+| First inclusion by `19:45:29Z` | none |
+| Hit blocks by `19:45:29Z` | `0` |
+| Included batches by `19:45:29Z` | `0 / 150` |
+| Finalized batches by `19:45:29Z` | `0 / 150` |
+| First submit to last zero-inclusion observation | `>602s` |
+| Finality throughput upper bound | `<12.459 events/s` |
+
+This is not a clean `150x50` throughput benchmark. It is a degraded-shard
+failure probe. The useful result is where the path failed:
+
+- client submission was fast: `150` deploys in `47.082s`, or `3.186 deploys/s`;
+- validator1 logs confirmed `150` received deploy payloads for the run id;
+- the benchmark scanner found no block containing the `150x50` run id;
+- block proposal logs repeatedly showed finality-support-only proposals with
+  `pool=0`, `valid=0`, and `selected=0` after ordinary deploy selection was
+  deferred to the deploy-inclusion leader;
+- LFB remained at block `633`, while new visible blocks above it were empty and
+  non-final.
+
+Representative log evidence:
+
+| Time | Evidence |
+| --- | --- |
+| `19:36:14Z` | Runner reported `150/150` deploys submitted in `47.082s`. |
+| `19:40:49Z` | Block `#641` proposal: `pool=0`, `valid=0`, `selected=0` after deploy selection was deferred. |
+| `19:42:18Z` | Block `#647` proposal: `pool=0`, `valid=0`, `selected=0`; still finality support only. |
+| `19:43:27Z` | A separate recovery proposal selected 5 recovered deploys, but the scanner still found 0 blocks for the `150x50` run id. |
+| `19:45:29Z` | LFB still `633`; no `150x50` hit block observed. |
+
+Compared with `100x75`, `150x50` had a better client submit span but a worse
+chain outcome:
+
+| Metric | `100x75` | `150x50` |
+| --- | ---: | ---: |
+| Declared events | `7,500` | `7,500` |
+| Deploys | `100` | `150` |
+| Submit span | `81.494s` | `47.082s` |
+| Included batches | `100 / 100` non-final | `0 / 150` |
+| Finalized batches | `0 / 100` | `0 / 150` |
+| Observation lower bound | `>2,075s` no finality | `>602s` no inclusion |
+
+So the `150x50` comparison does not show that smaller deploy terms fixed the
+`100x75` problem. On the contrary, under the current shard state, the bottleneck
+moved earlier: deploys were accepted by the node but did not enter any observed
+deploy-carrying block for that run before the measurement was stopped.
 
 ## Cross-Run Analysis
 
