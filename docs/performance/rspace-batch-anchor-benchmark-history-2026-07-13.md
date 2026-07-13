@@ -29,6 +29,8 @@ Primary sources:
 - Raw benchmark artifacts:
   - `docs/performance/artifacts/rspace-batch-anchor-recovery-aware-20260713T111154Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-100x50-20260713T124204Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-10x-20260713T142407Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x50-20260713T143346Z.json`
 
 Related earlier analysis:
 
@@ -61,6 +63,10 @@ recovery-aware coverage instead of trusting first inclusion.
 | `10x25` batch-anchor, restarted shard | Batch anchor | 250 | 1 | yes | `1,370,550` | `5,482` | `52.826s` | `68.318s` | `3.659 events/s` |
 | `10x50` batch-anchor, restarted shard | Batch anchor | 500 | 2 | yes | `2,259,850` | `4,520` | `11.445s` | `49.190s` | `10.165 events/s` |
 | `100x50` batch-anchor, restarted shard | Batch anchor | 5,000 | 4 | yes | `22,815,500` | `4,563` | `552.458s` | `594.821s` | `8.406 events/s` |
+| `10x10` batch-anchor, deploy-inclusion leadership | Batch anchor | 100 | 2 | yes | `824,700` | `8,247` | `88.669s` | `334.446s` | `0.299 events/s` |
+| `10x25` batch-anchor, deploy-inclusion leadership | Batch anchor | 250 | 1 | yes | `1,333,420` | `5,334` | `20.592s` | `104.799s` | `2.386 events/s` |
+| `10x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 500 | 1 | yes | `2,181,020` | `4,362` | `17.984s` | `72.796s` | `6.869 events/s` |
+| `100x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 5,000 | 4 | yes | `21,918,700` | `4,384` | `183.729s` | `208.419s` | `23.990 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -386,6 +392,59 @@ the same run.
 The long support proposals happened while a large pending/recovery set was in
 scope. That time is part of the practical throughput limit for this local shard.
 
+## Deploy-Inclusion Leadership Retest
+
+The shard was retested after the f1r3fly-rust deploy-inclusion leadership
+change. In this build, non-leader validators defer ordinary user-deploy
+packaging and spend their proposals on finality support while the selected
+deploy-inclusion leader packages user deploys.
+
+The run reused the finalized scoped registry name:
+
+```text
+event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260713T140641Z
+```
+
+The test submitted the same `10x10`, `10x25`, `10x50`, and `100x50`
+batch-anchor workloads against the running shard. Each workload completed with
+`errored: false` for the finalized canonical blocks.
+
+### Leadership Retest Summary
+
+| Run | Events | Submit span | Hit blocks | Finalized hit blocks | Canonical blocks | Cost/event | Canonical added | Finality | Finality throughput |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `10x10` | 100 | `5.046s` | 5 | 2 | 2 | `8,247` | `88.669s` | `334.446s` | `0.299 events/s` |
+| `10x25` | 250 | `2.287s` | 6 | 1 | 1 | `5,334` | `20.592s` | `104.799s` | `2.386 events/s` |
+| `10x50` | 500 | `2.055s` | 3 | 1 | 1 | `4,362` | `17.984s` | `72.796s` | `6.869 events/s` |
+| `100x50` | 5,000 | `33.823s` | 5 | 4 | 4 | `4,384` | `183.729s` | `208.419s` | `23.990 events/s` |
+
+### Leadership Versus Restarted Baseline
+
+| Run | Baseline finality | Leadership finality | Finality ratio | Baseline canonical added | Leadership canonical added | Cost/event change |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `10x10` | `52.748s` | `334.446s` | `6.34x slower` | `33.158s` | `88.669s` | `-1.45%` |
+| `10x25` | `68.318s` | `104.799s` | `1.53x slower` | `52.826s` | `20.592s` | `-2.71%` |
+| `10x50` | `49.190s` | `72.796s` | `1.48x slower` | `11.445s` | `17.984s` | `-3.49%` |
+| `100x50` | `594.821s` | `208.419s` | `0.35x` | `552.458s` | `183.729s` | `-3.93%` |
+
+The leadership change helped the large 100-deploy burst substantially:
+
+- finality dropped from `594.821s` to `208.419s`,
+- canonical coverage dropped from `552.458s` to `183.729s`,
+- finality throughput improved from `8.406 events/s` to `23.990 events/s`,
+- canonical block count stayed at 4, but the shard needed only 5 hit blocks
+  instead of 15 observed hit blocks in the earlier recovery-aware run.
+
+The 10-deploy runs did not show the same end-to-end improvement. They packaged
+cleanly enough, and cost fell slightly, but finality remained dominated by
+branch/recovery behavior. The `10x10` leadership run was especially poor: it
+needed 5 hit blocks and finalized as 2 deploy-carrying blocks, which stretched
+first deploy to finality to `334.446s`.
+
+The conclusion is therefore workload-dependent. Deploy-inclusion leadership
+reduces large-burst canonicalization time, but it does not eliminate finality
+variance or non-final duplicate candidates on this local shard.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -497,6 +556,11 @@ should therefore report two separate numbers:
    Multiple runs first appeared in non-final blocks and later reappeared in
    finalized blocks. All future benchmark reports should distinguish first
    inclusion from canonical finalized coverage.
+
+7. Deploy-inclusion leadership materially improved the large burst but did not
+   make small bursts uniformly faster. The `100x50` finality latency improved
+   from `594.821s` to `208.419s`, while `10x10`, `10x25`, and `10x50` all had
+   slower finality than the restarted baseline.
 
 ## Recommendations
 
