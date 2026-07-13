@@ -70,7 +70,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `10x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 500 | 1 | yes | `2,181,020` | `4,362` | `17.984s` | `72.796s` | `6.869 events/s` |
 | `100x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 5,000 | 4 | yes | `21,918,700` | `4,384` | `183.729s` | `208.419s` | `23.990 events/s` |
 | `100x75` batch-anchor, leadership probe | Batch anchor | 7,500 | 0 finalized, 8 non-final hits | no | n/a | n/a | non-final only | `>2,075s` | `<3.615 events/s` |
-| `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>602s` | `>602s` | `<12.459 events/s` |
+| `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>593s` | `>593s` | `<12.648 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -522,7 +522,9 @@ stuck at block `633` and multiple non-final deploy-carrying branches.
 The first attempt against `rnode.validator3` submitted nothing because
 validator3 restarted before `last-finalized-block` could be read. The measured
 attempt used `rnode.validator1`, which was stable and connected to the shard.
-The runner was stopped after a 10-minute no-inclusion lower bound.
+The runner was stopped after a no-inclusion lower bound. Validator1 restarted
+near the end of the observation window, so the conservative lower bound below
+uses the time before that restart.
 
 | Metric | Value |
 | --- | ---: |
@@ -532,12 +534,12 @@ The runner was stopped after a 10-minute no-inclusion lower bound.
 | Valid after | `633` |
 | Submit span | `47.082s` |
 | DeployData entries received by validator1 | `150` |
-| First inclusion by `19:45:29Z` | none |
-| Hit blocks by `19:45:29Z` | `0` |
-| Included batches by `19:45:29Z` | `0 / 150` |
-| Finalized batches by `19:45:29Z` | `0 / 150` |
-| First submit to last zero-inclusion observation | `>602s` |
-| Finality throughput upper bound | `<12.459 events/s` |
+| First inclusion before validator1 restart at `19:45:20Z` | none |
+| Hit blocks before validator1 restart | `0` |
+| Included batches before validator1 restart | `0 / 150` |
+| Finalized batches before validator1 restart | `0 / 150` |
+| First submit to last pre-restart zero-inclusion observation | `>593s` |
+| Finality throughput upper bound | `<12.648 events/s` |
 
 This is not a clean `150x50` throughput benchmark. It is a degraded-shard
 failure probe. The useful result is where the path failed:
@@ -559,7 +561,8 @@ Representative log evidence:
 | `19:40:49Z` | Block `#641` proposal: `pool=0`, `valid=0`, `selected=0` after deploy selection was deferred. |
 | `19:42:18Z` | Block `#647` proposal: `pool=0`, `valid=0`, `selected=0`; still finality support only. |
 | `19:43:27Z` | A separate recovery proposal selected 5 recovered deploys, but the scanner still found 0 blocks for the `150x50` run id. |
-| `19:45:29Z` | LFB still `633`; no `150x50` hit block observed. |
+| `19:45:20Z` | Validator1 restarted; no `150x50` hit block had been observed before restart. |
+| `19:47:21Z` | Validator1 restarted again after the run was stopped; both observed exits were clean (`exit=0`, `oom=false`). |
 
 Compared with `100x75`, `150x50` had a better client submit span but a worse
 chain outcome:
@@ -571,7 +574,7 @@ chain outcome:
 | Submit span | `81.494s` | `47.082s` |
 | Included batches | `100 / 100` non-final | `0 / 150` |
 | Finalized batches | `0 / 100` | `0 / 150` |
-| Observation lower bound | `>2,075s` no finality | `>602s` no inclusion |
+| Observation lower bound | `>2,075s` no finality | `>593s` no inclusion before restart |
 
 So the `150x50` comparison does not show that smaller deploy terms fixed the
 `100x75` problem. On the contrary, under the current shard state, the bottleneck
