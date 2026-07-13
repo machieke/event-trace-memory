@@ -1,0 +1,116 @@
+{
+  "created_at": "2026-07-13T18:58:00Z",
+  "status": "partial_no_finality",
+  "run_id": "rspace-leadership-100x75-20260713T182238Z",
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260713T140641Z",
+  "workload": {
+    "deploys": 100,
+    "batch_size": 75,
+    "events": 7500,
+    "valid_after": 617
+  },
+  "observed": {
+    "submit_span_s": 81.494,
+    "included_batches": 100,
+    "finalized_batches": 0,
+    "hit_block_count": 8,
+    "finalized_hit_block_count": 0,
+    "finality_lower_bound_s": 2075.0,
+    "finality_throughput_upper_bound_events_per_s": 3.6144578313253013,
+    "first_submit_approx_iso": "2026-07-13T18:22:38Z",
+    "last_no_finality_observation_iso": "2026-07-13T18:57:13Z"
+  },
+  "hit_blocks": [
+    {
+      "number": 631,
+      "hash_prefix": "a39e23086140",
+      "finalized": false,
+      "deploy_count": 32,
+      "batch_count": 32,
+      "cost_sum": 9742784
+    },
+    {
+      "number": 632,
+      "hash_prefix": "e8e1359baeb7",
+      "finalized": false,
+      "deploy_count": 32,
+      "batch_count": 32,
+      "cost_sum": 9742784
+    },
+    {
+      "number": 634,
+      "hash_prefix": "0b0bb5b0a9ee",
+      "finalized": false,
+      "deploy_count": 32,
+      "batch_count": 32,
+      "cost_sum": 9742784
+    },
+    {
+      "number": 635,
+      "hash_prefix": "19e9624e9280",
+      "finalized": false,
+      "deploy_count": 9,
+      "batch_count": 9,
+      "cost_sum": 2740158
+    },
+    {
+      "number": 638,
+      "hash_prefix": "cda6504cde22",
+      "finalized": false,
+      "deploy_count": 32,
+      "batch_count": 32,
+      "cost_sum": 9742784
+    },
+    {
+      "number": 639,
+      "hash_prefix": "3cf89c5e6bcd",
+      "finalized": false,
+      "deploy_count": 32,
+      "batch_count": 32,
+      "cost_sum": 9742784
+    },
+    {
+      "number": 640,
+      "hash_prefix": "613225a91eab",
+      "finalized": false,
+      "deploy_count": 31,
+      "batch_count": 31,
+      "cost_sum": 9438322
+    },
+    {
+      "number": 643,
+      "hash_prefix": "13fef763e382",
+      "finalized": false,
+      "deploy_count": 5,
+      "batch_count": 5,
+      "cost_sum": 1522310
+    }
+  ],
+  "log_evidence": [
+    {
+      "timestamp": "2026-07-13T18:24:39.918189Z",
+      "message": "Deploy selection for block #631: pool=100, valid=100, alreadyInScope=0, selected=100"
+    },
+    {
+      "timestamp": "2026-07-13T18:24:39.920121Z",
+      "message": "Deploy selection capped for block #631: selected=32, deferred=68, cap=32"
+    },
+    {
+      "timestamp": "2026-07-13T18:26:31.913535Z",
+      "message": "compute-state-started for the first 32-deploy block"
+    },
+    {
+      "timestamp": "2026-07-13T18:27:55.423158Z",
+      "message": "compute-state-finished for the first 32-deploy block"
+    },
+    {
+      "timestamp": "2026-07-13T18:47:52.548211883Z",
+      "message": "rnode.validator3 restarted while the benchmark runner was polling"
+    }
+  ],
+  "notes": [
+    "The benchmark runner did not produce a normal final artifact because rnode.validator3 restarted during polling.",
+    "A read-only scan from validator1, validator2, and the restarted validator3 all found the same eight non-final hit blocks and zero finalized batch coverage.",
+    "The first complete non-final coverage set appears to be blocks 631, 632, 634, and 635; those blocks cover all 100 logical batches but were not finalized."
+  ]
+}

@@ -31,6 +31,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-100x50-20260713T124204Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-10x-20260713T142407Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x50-20260713T143346Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x75-partial-20260713T182238Z.json`
 
 Related earlier analysis:
 
@@ -444,6 +445,67 @@ first deploy to finality to `334.446s`.
 The conclusion is therefore workload-dependent. Deploy-inclusion leadership
 reduces large-burst canonicalization time, but it does not eliminate finality
 variance or non-final duplicate candidates on this local shard.
+
+### 100x75 Leadership Probe
+
+Run id: `rspace-leadership-100x75-20260713T182238Z`
+
+This probe increased only the batch size: 100 deploys with 75 event pointers
+per deploy, for 7,500 declared events. It did not complete as a finalized
+benchmark.
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `100` |
+| Submit span | `81.494s` |
+| First selection | block `631`, `100` valid deploys |
+| Selection cap | `32` deploys per block |
+| Non-final hit blocks | `8` |
+| Included batches | `100 / 100` |
+| Finalized batches by `18:57:13Z` | `0 / 100` |
+| First submit to last no-finality observation | `>2,075s` |
+| Finality throughput upper bound | `<3.615 events/s` |
+
+Observed non-final deploy blocks:
+
+| Block | Hash prefix | Deploys | Batches | Cost | Finalized |
+| ---: | --- | ---: | ---: | ---: | --- |
+| `631` | `a39e23086140...` | 32 | 32 | `9,742,784` | no |
+| `632` | `e8e1359baeb7...` | 32 | 32 | `9,742,784` | no |
+| `634` | `0b0bb5b0a9ee...` | 32 | 32 | `9,742,784` | no |
+| `635` | `19e9624e9280...` | 9 | 9 | `2,740,158` | no |
+| `638` | `cda6504cde22...` | 32 | 32 | `9,742,784` | no |
+| `639` | `3cf89c5e6bcd...` | 32 | 32 | `9,742,784` | no |
+| `640` | `613225a91eab...` | 31 | 31 | `9,438,322` | no |
+| `643` | `13fef763e382...` | 5 | 5 | `1,522,310` | no |
+
+The first 32-deploy candidate illustrates the new bottleneck. Validator3
+selected all 100 deploys at `18:24:39Z`, capped the block to 32 deploys, then
+spent about `83.5s` in Rholang compute for that candidate
+(`18:26:31Z` to `18:27:55Z`). The later 32-deploy candidates were similarly
+expensive. Full logical inclusion arrived, but no deploy-carrying hit block was
+finalized by the time polling stopped.
+
+Validator3 restarted at `18:47:52Z` while the benchmark runner was polling, so
+there is no normal finalized benchmark artifact for this run. A read-only scan
+from validator1, validator2, and the restarted validator3 all showed the same
+state: 8 non-final hit blocks, 100/100 included batches, and 0/100 finalized
+batches.
+
+Compared with `100x50`, `100x75` is a regression on this local shard:
+
+- client submit span increased from `33.823s` to `81.494s`,
+- canonical finality did not complete, versus `208.419s` for `100x50`,
+- the finality-throughput upper bound fell below `3.615 events/s`, versus
+  `23.990 events/s` for `100x50`,
+- branch churn increased from 5 hit blocks to at least 8 non-final hit blocks.
+
+The candidate phlo cost itself did not explode: a 32-deploy, 75-event candidate
+cost `9,742,784`, or about `304,462` phlo per deploy and `4,059` phlo per
+declared event. The problem was operational: larger deploy terms made each
+selected block expensive enough that inclusion and recovery/finality became
+unstable.
 
 ## Cross-Run Analysis
 

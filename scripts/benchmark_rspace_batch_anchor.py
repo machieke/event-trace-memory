@@ -227,10 +227,10 @@ def scan_blocks_for_text(container: str, needle: str, *, depth: int = 250) -> li
     return sorted(hits, key=lambda item: item.get("number") or 0)
 
 
-def wait_for_finalized_contract(container: str, uri_name: str, *, timeout_s: int) -> dict[str, Any]:
+def wait_for_finalized_contract(container: str, uri_name: str, *, timeout_s: int, depth: int) -> dict[str, Any]:
     start = utc_now()
     while (utc_now() - start).total_seconds() < timeout_s:
-        hits = scan_blocks_for_text(container, uri_name, depth=250)
+        hits = scan_blocks_for_text(container, uri_name, depth=depth)
         finalized_hits = [hit for hit in hits if hit.get("finalized")]
         if finalized_hits:
             hit = finalized_hits[-1]
@@ -607,6 +607,17 @@ def main(argv: list[str]) -> int:
         "--existing-uri",
         help="Use an already-finalized EventTraceRSpaceIndex registry URI instead of deploying a new scoped contract.",
     )
+    parser.add_argument(
+        "--contract-scan-depth",
+        type=int,
+        default=250,
+        help="Recent block depth to scan when confirming the scoped contract binding.",
+    )
+    parser.add_argument(
+        "--skip-contract-check",
+        action="store_true",
+        help="Skip block scanning for an existing contract URI that was already verified externally.",
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
 
@@ -629,12 +640,22 @@ def main(argv: list[str]) -> int:
             contract_deploy = deploy_file(args.container, contract, contract.name, contract_valid_after)
             print(f"Scoped contract deploy id: {contract_deploy['deploy_id']}", flush=True)
 
-        contract_block = wait_for_finalized_contract(args.container, uri_name, timeout_s=600)
-        binding_wait_s = contract_block["elapsed_s"]
-        print(
-            f"Scoped contract available in finalized block {contract_block.get('number')} after {binding_wait_s:.3f}s",
-            flush=True,
-        )
+        if args.skip_contract_check:
+            contract_block = None
+            binding_wait_s = 0.0
+            print("Skipped scoped contract block scan", flush=True)
+        else:
+            contract_block = wait_for_finalized_contract(
+                args.container,
+                uri_name,
+                timeout_s=600,
+                depth=args.contract_scan_depth,
+            )
+            binding_wait_s = contract_block["elapsed_s"]
+            print(
+                f"Scoped contract available in finalized block {contract_block.get('number')} after {binding_wait_s:.3f}s",
+                flush=True,
+            )
 
         results = []
         for workload in workloads:
