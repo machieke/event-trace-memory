@@ -154,3 +154,7 @@ The deployment config includes two event-ingestion contract shapes:
   explicit lookup calls such as `putEventFact` or `putBatchEventFacts`, but bulk
   ingestion should keep detailed lookup data in DA manifests and use on-chain
   anchors for verification and discovery.
+
+See [contracts/README.md](contracts/README.md) for the batch-anchor-first
+RSpace-native data model plus concrete Rholang examples for ingestion, anchor
+lookup, DA-backed query resolution, and optional detailed materialization.
