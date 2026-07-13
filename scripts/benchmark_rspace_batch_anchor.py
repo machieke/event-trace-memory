@@ -216,7 +216,11 @@ def scan_blocks_for_text(container: str, needle: str, *, depth: int = 250) -> li
         if light["hash"] in seen_hashes or int(light.get("deploy_count") or 0) == 0:
             continue
         seen_hashes.add(light["hash"])
-        output = show_block(container, light["hash"])
+        try:
+            output = show_block(container, light["hash"])
+        except RuntimeError as exc:
+            print(f"scan skipped block {light['hash'][:12]} after show-block failure: {exc}", flush=True)
+            continue
         if needle not in output:
             continue
         summary = block_summary_from_output(light["hash"], output)
@@ -355,7 +359,8 @@ def find_deploy(container: str, deploy_id: str) -> list[dict[str, Any]]:
 
 def is_finalized(container: str, block_hash: str) -> bool:
     output = docker_exec(container, ["/opt/docker/bin/node", "is-finalized", block_hash], timeout=30, check=False)
-    return "true" in output.lower()
+    lowered = output.lower()
+    return "true" in lowered or "block is finalized" in lowered
 
 
 def show_block(container: str, block_hash: str) -> str:
@@ -447,13 +452,26 @@ def poll_workload(
     first_all_included: dict[str, Any] | None = None
     timeline: list[dict[str, Any]] = []
     expected_batches = set(range(workload.deploys))
+    known_hits: dict[str, dict[str, Any]] = {}
 
     while time.monotonic() - start_monotonic < timeout_s:
         now = utc_now()
-        hits = scan_blocks_for_text(container, run_id, depth=300)
-        for hit in hits:
-            hit["batch_ids"] = sorted(batch_ids_from_block_output(run_id, show_block(container, hit["hash"])))
+        recent_hits = scan_blocks_for_text(container, run_id, depth=100)
+        for hit in recent_hits:
+            try:
+                block_output = show_block(container, hit["hash"])
+            except RuntimeError as exc:
+                print(f"{workload.label}: skipped hit refresh for {hit['hash'][:12]}: {exc}", flush=True)
+                continue
+            hit["batch_ids"] = sorted(batch_ids_from_block_output(run_id, block_output))
             hit["batch_count"] = len(hit["batch_ids"])
+            known_hits[hit["hash"]] = hit
+
+        for hit in known_hits.values():
+            if not hit.get("finalized"):
+                hit["finalized"] = is_finalized(container, hit["hash"])
+
+        hits = sorted(known_hits.values(), key=lambda item: item.get("number") or 0)
 
         included_batches: set[int] = set()
         finalized_batches: set[int] = set()
@@ -530,7 +548,46 @@ def poll_workload(
 
         time.sleep(poll_s)
 
-    raise TimeoutError(f"timed out waiting for {workload.label} finality")
+    timed_out_at = utc_now()
+    included_batches = set()
+    finalized_batches = set()
+    for hit in known_hits.values():
+        included_batches.update(hit.get("batch_ids") or [])
+        if hit.get("finalized"):
+            finalized_batches.update(hit.get("batch_ids") or [])
+    hits = sorted(known_hits.values(), key=lambda item: item.get("number") or 0)
+    finalized_hits = [hit for hit in hits if hit.get("finalized")]
+    cost_sum = sum(block["cost_sum"] for block in finalized_hits)
+    total_size = sum(block["block_size"] or 0 for block in finalized_hits)
+    elapsed_s = (timed_out_at - first_submit).total_seconds()
+    return {
+        "label": workload.label,
+        "events": workload.events,
+        "deploys_submitted": workload.deploys,
+        "batch_size": workload.batch_size,
+        "timed_out": True,
+        "timeout_s": timeout_s,
+        "included_batches": len(included_batches),
+        "finalized_batches": len(finalized_batches),
+        "first_inclusion_s": first_inclusion["elapsed_s"] if first_inclusion else None,
+        "all_included_s": first_all_included["elapsed_s"] if first_all_included else None,
+        "canonical_added_s": first_all_included["elapsed_s"] if first_all_included else None,
+        "finality_s": None,
+        "observed_elapsed_s": elapsed_s,
+        "events_per_s_to_canonical_added": workload.events / first_all_included["elapsed_s"] if first_all_included else None,
+        "events_per_s_to_finality": None,
+        "total_cost_sum": cost_sum,
+        "cost_avg": cost_sum / workload.deploys if workload.deploys else None,
+        "cost_per_event": cost_sum / workload.events if workload.events else None,
+        "total_block_size": total_size,
+        "canonical_block_count": len(finalized_hits),
+        "canonical_blocks": finalized_hits,
+        "first_inclusion": first_inclusion,
+        "first_all_included": first_all_included,
+        "timeline": timeline,
+        "all_hits": hits,
+        "errored_true_count": sum(block["errors"] for block in finalized_hits),
+    }
 
 
 def batch_ids_from_block_output(run_id: str, output: str) -> set[int]:
