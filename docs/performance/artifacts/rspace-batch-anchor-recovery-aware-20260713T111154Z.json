@@ -1,0 +1,524 @@
+{
+  "comparison": {
+    "10x10": {
+      "current_block_size": 1107453,
+      "current_canonical_blocks": 1,
+      "current_compute_s": 5.098314,
+      "current_cost_avg": 83685,
+      "current_cost_sum": 836850,
+      "current_finalized": true,
+      "current_first_deploy_to_added_s": 33.158491,
+      "current_first_deploy_to_finality_s": 52.747672,
+      "current_propose_total_s": 5.826,
+      "current_submit_span_s": 1.911,
+      "previous": {
+        "included": false,
+        "note": "pre-restart blocks failed with NeglectedInvalidBlock; compute ~2.6-3.6s, propose ~8.0-8.7s"
+      }
+    },
+    "10x25": {
+      "block_size_delta": -1714101,
+      "block_size_ratio": 0.42675409099224226,
+      "compute_s_delta": -19.089697,
+      "compute_s_ratio": 0.24350498698225387,
+      "cost_avg_delta": -1600995,
+      "cost_avg_ratio": 0.0788556140502287,
+      "cost_sum_delta": -16009950,
+      "cost_sum_ratio": 0.0788556140502287,
+      "current_block_size": 1276066,
+      "current_canonical_blocks": 1,
+      "current_compute_s": 6.144702,
+      "current_cost_avg": 137055,
+      "current_cost_sum": 1370550,
+      "current_finalized": true,
+      "current_first_deploy_to_added_s": 52.825635,
+      "current_first_deploy_to_finality_s": 68.318159,
+      "current_propose_total_s": 6.944,
+      "current_submit_span_s": 1.614389,
+      "first_deploy_to_added_s_delta": 19.141635,
+      "first_deploy_to_added_s_ratio": 1.5682708407552548,
+      "first_deploy_to_finality_s_delta": -88.447841,
+      "first_deploy_to_finality_s_ratio": 0.43579704145031445,
+      "previous": {
+        "added_to_finality_s": 123.082,
+        "block_size": 2990167,
+        "compute_s": 25.234399,
+        "cost_avg": 1738050,
+        "cost_sum": 17380500,
+        "events": 250,
+        "finalized": true,
+        "first_deploy_to_added_s": 33.684,
+        "first_deploy_to_finality_s": 156.766,
+        "included": true,
+        "propose_total_s": 32.212,
+        "submit_span_s": 1.26
+      },
+      "propose_total_s_delta": -25.268000000000004,
+      "propose_total_s_ratio": 0.21557183658263998,
+      "submit_span_s_delta": 0.35438900000000007,
+      "submit_span_s_ratio": 1.2812611111111112
+    },
+    "10x50": {
+      "block_size_delta": -3507099,
+      "block_size_ratio": 0.2916973397290834,
+      "cost_avg_delta": -4800532.5,
+      "cost_avg_ratio": 0.044958562265027424,
+      "cost_sum_delta": -48005325,
+      "cost_sum_ratio": 0.044958562265027424,
+      "current_block_size": 1444314,
+      "current_canonical_blocks": 2,
+      "current_compute_s": null,
+      "current_cost_avg": 225985,
+      "current_cost_sum": 2259850,
+      "current_finalized": true,
+      "current_first_deploy_to_added_s": 11.445296,
+      "current_first_deploy_to_finality_s": 49.189927,
+      "current_propose_total_s": null,
+      "current_submit_span_s": 3.889698,
+      "first_deploy_to_added_s_delta": -70.796704,
+      "first_deploy_to_added_s_ratio": 0.1391660708640354,
+      "previous": {
+        "block_size": 4951413,
+        "compute_s": 63.742042,
+        "cost_avg": 5026517.5,
+        "cost_sum": 50265175,
+        "events": 500,
+        "finalized": false,
+        "first_deploy_to_added_s": 82.242,
+        "included": true,
+        "not_finalized_after_s": 6720,
+        "propose_total_s": 80.484,
+        "submit_span_s": 1.541
+      },
+      "submit_span_s_delta": 2.348698,
+      "submit_span_s_ratio": 2.524138870863076
+    }
+  },
+  "results": {
+    "10x10": {
+      "all_finalized": true,
+      "all_hits": [
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1107084,
+          "cost_sum": 836850,
+          "errors": 0,
+          "finalized": false,
+          "hash": "57292e93930d0e31c40a37895129ac65237eb6b607f3094677d1de2c5342a3bc",
+          "number": 192
+        },
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1107453,
+          "cost_sum": 836850,
+          "errors": 0,
+          "finalized": true,
+          "hash": "5e491df6ff20e9e8a4a303de0105754e65b027ba4640a43ec080bf754955606d",
+          "number": 195
+        }
+      ],
+      "canonical_added_to_finality_s": 19.589181,
+      "canonical_block_count": 1,
+      "canonical_compute_s": 5.098314,
+      "canonical_logs": [
+        {
+          "compute_finish_iso": "2026-07-13T11:04:54.589109Z",
+          "compute_s": 5.098314,
+          "compute_start_iso": "2026-07-13T11:04:49.490795Z",
+          "finality_log_iso": "2026-07-13T11:05:14.863672Z",
+          "finality_log_observed_deploys": 0,
+          "finish_iso": "2026-07-13T11:04:55.274491Z",
+          "found": true,
+          "propose_core_s": 5.816,
+          "propose_start_iso": "2026-07-13T11:04:49.430713Z",
+          "propose_start_to_finish_s": 5.843778,
+          "propose_total_s": 5.826,
+          "snapshot_s": 0.004,
+          "timing_iso": "2026-07-13T11:04:55.257580Z"
+        }
+      ],
+      "canonical_propose_total_s": 5.826,
+      "cost_avg": 83685,
+      "cost_max": 83685,
+      "cost_min": 83685,
+      "deploys_submitted": null,
+      "errored_true_count": 0,
+      "events": 100,
+      "finalized_blocks": [
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "hash": "5e491df6ff20e9e8a4a303de0105754e65b027ba4640a43ec080bf754955606d",
+          "number": 195
+        }
+      ],
+      "first_block_log": {
+        "compute_finish_iso": "2026-07-13T11:04:29.040110Z",
+        "compute_s": 4.943456,
+        "compute_start_iso": "2026-07-13T11:04:24.096654Z",
+        "finish_iso": "2026-07-13T11:04:29.710541Z",
+        "found": true,
+        "propose_core_s": 5.703,
+        "propose_start_iso": "2026-07-13T11:04:23.969704Z",
+        "propose_start_to_finish_s": 5.740837,
+        "propose_total_s": 5.716,
+        "snapshot_s": 0.003,
+        "timing_iso": "2026-07-13T11:04:29.686529Z"
+      },
+      "first_deploy_to_canonical_added_s": 33.158491,
+      "first_deploy_to_finality_s": 52.747672,
+      "first_deploy_to_first_added_s": 7.594541,
+      "first_inclusion": {
+        "finalized": false,
+        "hash": "57292e93930d0e31c40a37895129ac65237eb6b607f3094677d1de2c5342a3bc",
+        "number": 192
+      },
+      "label": "10x10",
+      "manual_propose": null,
+      "run_id": "rspace-scale-10x10-20260713T110421Z",
+      "submit_elapsed_sum_s": null,
+      "submit_span_s": 1.911,
+      "total_block_size": 1107453,
+      "total_cost_sum": 836850,
+      "total_term_bytes": 90330,
+      "valid_after": 190
+    },
+    "10x25": {
+      "all_finalized": true,
+      "all_hits": [
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1228342,
+          "cost_sum": 1370550,
+          "errors": 0,
+          "finalized": false,
+          "hash": "4c6132aada1420c38a1e4c0ba4770c5053e503750b7a238175210fd48ef1d34f",
+          "number": 243
+        },
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1228045,
+          "cost_sum": 1370550,
+          "errors": 0,
+          "finalized": false,
+          "hash": "3755be7e2052d5b3aeaaaa9b0e226f2bfa973bd039f7f0e9c4411108ced60496",
+          "number": 247
+        },
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1276066,
+          "cost_sum": 1370550,
+          "errors": 0,
+          "finalized": true,
+          "hash": "c67b188dbc110caa5e75aab6909332edb82778a0cdee70ad72268573e9706179",
+          "number": 250
+        }
+      ],
+      "canonical_added_to_finality_s": 15.492524,
+      "canonical_block_count": 1,
+      "canonical_compute_s": 6.144702,
+      "canonical_logs": [
+        {
+          "compute_finish_iso": "2026-07-13T11:10:36.931020Z",
+          "compute_s": 6.144702,
+          "compute_start_iso": "2026-07-13T11:10:30.786318Z",
+          "finality_log_iso": "2026-07-13T11:10:53.164159Z",
+          "finality_log_observed_deploys": 0,
+          "finish_iso": "2026-07-13T11:10:37.671635Z",
+          "found": true,
+          "propose_core_s": 6.933,
+          "propose_start_iso": "2026-07-13T11:10:30.685681Z",
+          "propose_start_to_finish_s": 6.985954,
+          "propose_total_s": 6.944,
+          "snapshot_s": 0.005,
+          "timing_iso": "2026-07-13T11:10:37.630090Z"
+        }
+      ],
+      "canonical_propose_total_s": 6.944,
+      "cost_avg": 137055,
+      "cost_max": 137055,
+      "cost_min": 137055,
+      "deploys_submitted": 10,
+      "errored_true_count": 0,
+      "events": 250,
+      "finalized_blocks": [
+        {
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "hash": "c67b188dbc110caa5e75aab6909332edb82778a0cdee70ad72268573e9706179",
+          "number": 250
+        }
+      ],
+      "first_block_log": {
+        "compute_finish_iso": "2026-07-13T11:09:51.973343Z",
+        "compute_s": 5.459477,
+        "compute_start_iso": "2026-07-13T11:09:46.513866Z",
+        "finish_iso": "2026-07-13T11:09:53.018475Z",
+        "found": true,
+        "propose_core_s": 6.569,
+        "propose_start_iso": "2026-07-13T11:09:46.364966Z",
+        "propose_start_to_finish_s": 6.653509,
+        "propose_total_s": 6.59,
+        "snapshot_s": 0.01,
+        "timing_iso": "2026-07-13T11:09:52.955501Z"
+      },
+      "first_deploy_to_canonical_added_s": 52.825635,
+      "first_deploy_to_finality_s": 68.318159,
+      "first_deploy_to_first_added_s": 8.172475,
+      "first_inclusion": {
+        "finalized": false,
+        "hash": "4c6132aada1420c38a1e4c0ba4770c5053e503750b7a238175210fd48ef1d34f",
+        "number": 243
+      },
+      "label": "10x25",
+      "manual_propose": {
+        "block_hash": "829508494ef11866b80e1ebb9841a9abbe9291c03317ca57c65e1dc61c0be553",
+        "elapsed_s": 8.266927688848227,
+        "end_iso": "2026-07-13T11:09:54.632005Z",
+        "ok": true,
+        "start_iso": "2026-07-13T11:09:46.365404Z",
+        "tail": ""
+      },
+      "run_id": "rspace-scale-10x25-20260713T110944Z",
+      "submit_elapsed_sum_s": 1.4268487135414034,
+      "submit_span_s": 1.614389,
+      "total_block_size": 1276066,
+      "total_cost_sum": 1370550,
+      "total_term_bytes": 210900,
+      "valid_after": 242
+    },
+    "10x50": {
+      "all_finalized": true,
+      "all_hits": [
+        {
+          "batch_ids": [
+            0
+          ],
+          "block_size": 156365,
+          "cost_sum": 225985,
+          "errors": 0,
+          "finalized": true,
+          "hash": "8d451d77b924c52b0124442df58551eceedf0853c9418d9df02e6307c848dd98",
+          "number": 255
+        },
+        {
+          "batch_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1287949,
+          "cost_sum": 2033865,
+          "errors": 0,
+          "finalized": true,
+          "hash": "0437f2fb7eed4379ec93d2c9c49f55b2e2b4808eebc7efa7f25e749d23b41319",
+          "number": 256
+        },
+        {
+          "batch_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "block_size": 1287358,
+          "cost_sum": 2033865,
+          "errors": 0,
+          "finalized": false,
+          "hash": "2d3f3401b23eb4f7491ad5124fd917f5ae433bd4d511923a265b88b45470919f",
+          "number": 258
+        }
+      ],
+      "canonical_added_to_finality_s": 37.744631,
+      "canonical_block_count": 2,
+      "canonical_logs": [
+        {
+          "compute_finish_iso": "2026-07-13T11:11:06.509861Z",
+          "compute_s": 0.994566,
+          "compute_start_iso": "2026-07-13T11:11:05.515295Z",
+          "finality_log_iso": "2026-07-13T11:11:18.177133Z",
+          "finality_log_observed_deploys": 0,
+          "finish_iso": "2026-07-13T11:11:06.686186Z",
+          "found": true,
+          "propose_core_s": 1.444,
+          "propose_start_iso": "2026-07-13T11:11:05.222151Z",
+          "propose_start_to_finish_s": 1.464035,
+          "propose_total_s": 1.461,
+          "snapshot_s": 0.016,
+          "timing_iso": "2026-07-13T11:11:06.684036Z"
+        },
+        {
+          "compute_finish_iso": "2026-07-13T11:11:15.419954Z",
+          "compute_s": 6.711518,
+          "compute_start_iso": "2026-07-13T11:11:08.708436Z",
+          "finality_log_iso": "2026-07-13T11:11:53.816927Z",
+          "finality_log_observed_deploys": 0,
+          "finish_iso": "2026-07-13T11:11:16.072296Z",
+          "found": true,
+          "propose_core_s": 7.523,
+          "propose_start_iso": "2026-07-13T11:11:08.436577Z",
+          "propose_start_to_finish_s": 7.635719,
+          "propose_total_s": 7.618,
+          "snapshot_s": 0.09,
+          "timing_iso": "2026-07-13T11:11:16.055178Z"
+        }
+      ],
+      "cost_avg": 225985,
+      "cost_max": 225985,
+      "cost_min": 225985,
+      "deploys_submitted": 10,
+      "errored_true_count": 0,
+      "events": 500,
+      "finalized_blocks": [
+        {
+          "batch_ids": [
+            0
+          ],
+          "hash": "8d451d77b924c52b0124442df58551eceedf0853c9418d9df02e6307c848dd98",
+          "number": 255
+        },
+        {
+          "batch_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "hash": "0437f2fb7eed4379ec93d2c9c49f55b2e2b4808eebc7efa7f25e749d23b41319",
+          "number": 256
+        }
+      ],
+      "first_block_log": {
+        "compute_finish_iso": "2026-07-13T11:11:06.509861Z",
+        "compute_s": 0.994566,
+        "compute_start_iso": "2026-07-13T11:11:05.515295Z",
+        "finality_log_iso": "2026-07-13T11:11:18.177133Z",
+        "finality_log_observed_deploys": 0,
+        "finish_iso": "2026-07-13T11:11:06.686186Z",
+        "found": true,
+        "propose_core_s": 1.444,
+        "propose_start_iso": "2026-07-13T11:11:05.222151Z",
+        "propose_start_to_finish_s": 1.464035,
+        "propose_total_s": 1.461,
+        "snapshot_s": 0.016,
+        "timing_iso": "2026-07-13T11:11:06.684036Z"
+      },
+      "first_deploy_to_canonical_added_s": 11.445296,
+      "first_deploy_to_finality_s": 49.189927,
+      "first_deploy_to_first_added_s": 2.059186,
+      "first_inclusion": {
+        "finalized": true,
+        "hash": "8d451d77b924c52b0124442df58551eceedf0853c9418d9df02e6307c848dd98",
+        "number": 255
+      },
+      "label": "10x50",
+      "manual_propose": {
+        "block_hash": "0437f2fb7eed4379ec93d2c9c49f55b2e2b4808eebc7efa7f25e749d23b41319",
+        "elapsed_s": 7.737542992923409,
+        "end_iso": "2026-07-13T11:11:16.085074Z",
+        "ok": true,
+        "start_iso": "2026-07-13T11:11:08.347567Z",
+        "tail": ""
+      },
+      "run_id": "rspace-scale-10x50-20260713T111104Z",
+      "submit_elapsed_sum_s": 3.4173817003611475,
+      "submit_span_s": 3.889698,
+      "total_block_size": 1444314,
+      "total_cost_sum": 2259850,
+      "total_term_bytes": 411850,
+      "valid_after": 253
+    }
+  },
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:restart-20260713T105845Z"
+}
