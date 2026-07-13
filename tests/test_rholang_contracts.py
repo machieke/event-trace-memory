@@ -66,6 +66,7 @@ class RholangContractsTest(unittest.TestCase):
             "putBatchAnchor",
             "putEventFact",
             "putBatchEvents",
+            "putBatchEventFacts",
             "getNameHints",
         ]:
             self.assertRegex(source, rf'contract\s+eventTraceRSpaceIndex\(@"{method}"')
@@ -85,10 +86,26 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("contract postKeys", source)
         self.assertIn("contract postEvent", source)
         self.assertIn("contract postEvents", source)
-        self.assertIn('"append-only-rspace-facts"', source)
+        self.assertIn('"batch-anchor-and-da-manifests"', source)
+        self.assertIn('"detailed-rspace-facts"', source)
+        self.assertIn('"batch-anchor-and-detailed-rspace-facts"', source)
+        self.assertIn('"primaryDetailLookup"', source)
+        self.assertIn('"optionalOnChainWriters"', source)
         self.assertIn('"dedupe": "off-chain"', source)
         self.assertIn("insertArbitrary!(bundle+{*eventTraceRSpaceIndex}", source)
         self.assertIn('@"event-trace-memory:EventTraceRSpaceIndexUri"!(uri)', source)
+
+        batch_events_section = source.split('contract eventTraceRSpaceIndex(@"putBatchEvents"')[1].split(
+            'contract eventTraceRSpaceIndex(@"putBatchEventFacts"'
+        )[0]
+        self.assertNotIn("postEvents!", batch_events_section)
+        self.assertIn('eventTraceRSpaceIndex!("putBatchAnchor"', batch_events_section)
+
+        batch_event_facts_section = source.split('contract eventTraceRSpaceIndex(@"putBatchEventFacts"')[1].split(
+            'contract eventTraceRSpaceIndex(@"getNameHints"'
+        )[0]
+        self.assertIn("postEvents!", batch_event_facts_section)
+
         self.assertNotIn("stateCh!", source)
         self.assertNotIn("contract containsValue", source)
         self.assertNotIn("++ [", source)
@@ -192,7 +209,8 @@ class RholangContractsTest(unittest.TestCase):
             self.assertNotRegex(source, re.compile(r"\bTODO\b|pseudocode|appendAll", re.IGNORECASE))
             if path.name == "EventTraceRSpaceIndex.rho":
                 self.assertNotIn("stateCh!", source)
-                self.assertIn("append-only-rspace-facts", source)
+                self.assertIn("batch-anchor-and-da-manifests", source)
+                self.assertIn("putBatchEventFacts", source)
             else:
                 self.assertIn("stateCh!", source)
             self.assertIn("return!", source)
@@ -228,6 +246,7 @@ class RholangContractsTest(unittest.TestCase):
         self.assertIn("EventTraceIndexDeploySmokeOk:duplicateEventCid", source)
         self.assertIn("EventTraceIndexDeploySmokeOk:getStateStats", source)
         self.assertIn("EventTraceRSpaceIndexDeploySmokeOk:putBatchEvents", source)
+        self.assertIn("EventTraceRSpaceIndexDeploySmokeOk:putEventFact", source)
         self.assertIn("event-trace-memory:RSpacePosting:time:/2026/06/28/13", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:claim-occ:deploy-smoke-1", source)
         self.assertIn("DerivedArtifactIndexDeploySmokeOk:dedupePostings", source)

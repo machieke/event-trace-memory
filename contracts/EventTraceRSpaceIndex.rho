@@ -1,9 +1,9 @@
 // EventTraceRSpaceIndex.rho
 //
-// Append-only RSpace-native event trace anchor.
-// This contract avoids one shared state cell, list membership scans, and
-// list append/copy updates. It writes immutable facts to deterministic public
-// names. Query workers read those names with data-at-name or use DA manifests.
+// Batch-first RSpace-native event trace anchor.
+// The hot ingestion path stores compact batch anchors and DA manifest pointers.
+// Detailed event/posting facts are still available through explicit opt-in
+// methods for small batches, debugging, or selected materialized lookups.
 
 new eventTraceRSpaceIndex,
     postKeys,
@@ -53,7 +53,7 @@ in {
           "ok": true,
           "eventId": eventPointer.get("eventId"),
           "eventCid": eventPointer.get("eventCid"),
-          "storage": "append-only-rspace-facts",
+          "storage": "detailed-rspace-facts",
           "dedupe": "off-chain"
         })
       }
@@ -96,7 +96,11 @@ in {
       "ok": true,
       "batchId": batchAnchor.get("batchId"),
       "eventCount": batchAnchor.get("eventCount"),
-      "storage": "batch-anchor",
+      "storage": "batch-anchor-and-da-manifests",
+      "eventManifestCid": batchAnchor.get("eventManifestCid"),
+      "postingsManifestCid": batchAnchor.get("postingsManifestCid"),
+      "merkleRoot": batchAnchor.get("merkleRoot"),
+      "onChainEventFacts": false,
       "dedupe": "off-chain"
     })
   }
@@ -110,6 +114,29 @@ in {
   |
 
   contract eventTraceRSpaceIndex(@"putBatchEvents", @batchAnchor, @events, return) = {
+    new anchorDone in {
+      eventTraceRSpaceIndex!("putBatchAnchor", batchAnchor, *anchorDone)
+      |
+      for (@anchor <- anchorDone) {
+        return!({
+          "ok": true,
+          "batchId": batchAnchor.get("batchId"),
+          "eventCount": batchAnchor.get("eventCount"),
+          "storage": "batch-anchor-and-da-manifests",
+          "detailLookup": "read eventManifestCid and postingsManifestCid from DA",
+          "eventManifestCid": batchAnchor.get("eventManifestCid"),
+          "postingsManifestCid": batchAnchor.get("postingsManifestCid"),
+          "merkleRoot": batchAnchor.get("merkleRoot"),
+          "onChainEventFacts": false,
+          "dedupe": "off-chain"
+        })
+      }
+    }
+  }
+
+  |
+
+  contract eventTraceRSpaceIndex(@"putBatchEventFacts", @batchAnchor, @events, return) = {
     new anchorDone, eventsDone in {
       eventTraceRSpaceIndex!("putBatchAnchor", batchAnchor, *anchorDone)
       |
@@ -120,7 +147,11 @@ in {
           "ok": true,
           "batchId": batchAnchor.get("batchId"),
           "eventCount": batchAnchor.get("eventCount"),
-          "storage": "batch-anchor-and-append-only-rspace-facts",
+          "storage": "batch-anchor-and-detailed-rspace-facts",
+          "eventManifestCid": batchAnchor.get("eventManifestCid"),
+          "postingsManifestCid": batchAnchor.get("postingsManifestCid"),
+          "merkleRoot": batchAnchor.get("merkleRoot"),
+          "onChainEventFacts": true,
           "dedupe": "off-chain"
         })
       }
@@ -133,9 +164,14 @@ in {
     return!({
       "ok": true,
       "batch": "event-trace-memory:RSpaceBatch:" ++ batchId,
-      "event": "event-trace-memory:RSpaceEvent:" ++ eventId,
-      "eventCid": "event-trace-memory:RSpaceEventCid:<eventCid>",
-      "posting": "event-trace-memory:RSpacePosting:<index>:<key>",
+      "batchByEventManifest": "event-trace-memory:RSpaceBatchByEventManifest:<eventManifestCid>",
+      "batchByPostingsManifest": "event-trace-memory:RSpaceBatchByPostingsManifest:<postingsManifestCid>",
+      "batchByMerkleRoot": "event-trace-memory:RSpaceBatchByMerkleRoot:<merkleRoot>",
+      "primaryDetailLookup": "DA event/posting manifests from the batch anchor",
+      "optionalOnChainEvent": "event-trace-memory:RSpaceEvent:" ++ eventId,
+      "optionalOnChainEventCid": "event-trace-memory:RSpaceEventCid:<eventCid>",
+      "optionalOnChainPosting": "event-trace-memory:RSpacePosting:<index>:<key>",
+      "optionalOnChainWriters": "putEventFact or putBatchEventFacts",
       "shard": "event-trace-memory:RSpaceBatchByShard:<shardPath>"
     })
   }

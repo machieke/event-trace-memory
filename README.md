@@ -149,7 +149,8 @@ The deployment config includes two event-ingestion contract shapes:
   query indexes in one state cell and is intentionally easy to compare with the
   Python reference implementation.
 - `EventTraceRSpaceIndex.rho` is the performance-oriented RSpace-native path. It
-  emits immutable batch anchors, event facts, and posting facts at deterministic
-  public names such as `event-trace-memory:RSpacePosting:<index>:<key>`, with
-  dedupe and rich query planning handled by DA manifests and off-chain
-  materializers.
+  stores immutable batch anchors and DA manifest pointers as the default
+  on-chain path. Detailed event and posting facts can still be materialized with
+  explicit lookup calls such as `putEventFact` or `putBatchEventFacts`, but bulk
+  ingestion should keep detailed lookup data in DA manifests and use on-chain
+  anchors for verification and discovery.
