@@ -50,6 +50,7 @@ Related earlier analysis:
 - `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-13.md`
 - `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-14.md`
 - `docs/performance/rspace-stored-events-root-cause-analysis-2026-07-14.md`
+- `docs/performance/rspace-stored-events-expiry-root-cause-analysis-2026-07-14.md`
 
 ## Terms
 
