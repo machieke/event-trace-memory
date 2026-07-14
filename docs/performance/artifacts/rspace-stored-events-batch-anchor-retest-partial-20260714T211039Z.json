@@ -1,0 +1,1532 @@
+{
+  "container": "rnode.validator3",
+  "contract_deploy": {
+    "binding_wait_s": 195.564,
+    "deploy_id": "3045022100ea0f219786788e899f5ce7d5a177a461d96e75a655352b42a9b8c0b28fe43b8a0220376c6702fc93856f3a42f675d702bd8a27304dd8e69e2ae13ee02802f205a51e",
+    "finalized_block_number": 215,
+    "valid_after": 204
+  },
+  "created_at": "2026-07-14T21:53:11Z",
+  "event_summary": {
+    "actor_top": [
+      [
+        "/device/moto-g84-5g/camera/0",
+        28862
+      ],
+      [
+        "/server/percept-memory/face-id",
+        8981
+      ],
+      [
+        "/device/moto-g84-5g/microphone/0",
+        4357
+      ],
+      [
+        "/server/percept-memory/speaker-id",
+        2952
+      ],
+      [
+        "/device/moto-g84-5g/imu/0",
+        1625
+      ],
+      [
+        "/device/moto-g84-5g/light/0",
+        1316
+      ],
+      [
+        "/server/percept-memory/asr/parakeet",
+        1138
+      ],
+      [
+        "/device/moto-g84-5g/location/0",
+        1048
+      ],
+      [
+        "/server/percept-memory/vehicle-id",
+        882
+      ],
+      [
+        "/server/percept-memory/reasoner/location-binder-v0",
+        863
+      ],
+      [
+        "/server/percept-memory/vlm",
+        554
+      ],
+      [
+        "/server/percept-memory/reasoner/place-recurrence-v0",
+        386
+      ],
+      [
+        "/server/percept-memory/speaker-attributor",
+        266
+      ],
+      [
+        "/server/percept-memory/reasoner/activity-classifier-v0",
+        235
+      ],
+      [
+        "/server/percept-memory/reasoner/entity-resolver-v0",
+        220
+      ],
+      [
+        "/server/percept-memory/identity-resolver",
+        134
+      ],
+      [
+        "/server/percept-memory/reasoner/recurrence-v0",
+        106
+      ],
+      [
+        "/device/moto-g84-5g/proximity/0",
+        90
+      ],
+      [
+        "/server/percept-memory/llm",
+        71
+      ],
+      [
+        "/device/moto-g84-5g/app/percept",
+        68
+      ]
+    ],
+    "hour_top": [
+      [
+        "/2026/07/07/17",
+        8430
+      ],
+      [
+        "/2026/07/09/15",
+        4911
+      ],
+      [
+        "/2026/07/09/14",
+        4113
+      ],
+      [
+        "/2026/07/11/08",
+        4052
+      ],
+      [
+        "/2026/07/09/16",
+        3811
+      ],
+      [
+        "/2026/07/11/06",
+        3766
+      ],
+      [
+        "/2026/07/11/07",
+        3334
+      ],
+      [
+        "/2026/07/11/10",
+        3131
+      ],
+      [
+        "/2026/07/07/18",
+        2886
+      ],
+      [
+        "/2026/07/07/08",
+        2719
+      ],
+      [
+        "/2026/07/09/10",
+        2155
+      ],
+      [
+        "/2026/07/08/14",
+        2094
+      ],
+      [
+        "/2026/07/08/10",
+        1883
+      ],
+      [
+        "/2026/07/08/15",
+        1359
+      ],
+      [
+        "/2026/07/09/17",
+        1208
+      ],
+      [
+        "/2026/07/10/15",
+        1028
+      ],
+      [
+        "/2026/07/07/12",
+        767
+      ],
+      [
+        "/2026/07/10/13",
+        753
+      ],
+      [
+        "/2026/07/09/07",
+        665
+      ],
+      [
+        "/2026/01/01/00",
+        364
+      ]
+    ],
+    "root_event_count": 2118,
+    "session_top": [
+      [
+        "sess-20260707-171356",
+        11022
+      ],
+      [
+        "sess-20260709-143754",
+        7878
+      ],
+      [
+        "sess-20260709-160429",
+        3725
+      ],
+      [
+        "sess-20260711-100737",
+        3120
+      ],
+      [
+        "sess-20260711-065419",
+        2600
+      ],
+      [
+        "sess-20260711-074926",
+        2451
+      ],
+      [
+        "sess-20260707-084850",
+        2251
+      ],
+      [
+        "sess-20260709-101031",
+        2085
+      ],
+      [
+        "sess-20260708-140319",
+        1965
+      ],
+      [
+        "sess-20260711-080724",
+        1909
+      ],
+      [
+        "sess-20260708-102448",
+        1845
+      ],
+      [
+        "sess-20260711-081945",
+        1792
+      ],
+      [
+        "sess-20260708-154439",
+        1298
+      ],
+      [
+        "sess-20260711-063549",
+        1249
+      ],
+      [
+        "sess-20260709-175051",
+        1169
+      ],
+      [
+        "sess-20260711-064705",
+        1018
+      ],
+      [
+        "sess-20260710-151201",
+        1015
+      ],
+      [
+        "location-binder-v0",
+        863
+      ],
+      [
+        "sess-20260710-134053",
+        723
+      ],
+      [
+        "sess-20260707-123646",
+        663
+      ]
+    ],
+    "value_kind_top": [
+      [
+        "track-segment",
+        24871
+      ],
+      [
+        "face-observation",
+        8981
+      ],
+      [
+        "scene-change",
+        3991
+      ],
+      [
+        "audio-tag-segment",
+        3136
+      ],
+      [
+        "speaker-observation",
+        2952
+      ],
+      [
+        "asr-segment",
+        2118
+      ],
+      [
+        "conclusion",
+        2083
+      ],
+      [
+        "ambient-light",
+        1316
+      ],
+      [
+        "location-fix",
+        1048
+      ],
+      [
+        "motion-segment",
+        924
+      ],
+      [
+        "vehicle-observation",
+        882
+      ],
+      [
+        "camera-pose",
+        701
+      ],
+      [
+        "scene-caption",
+        554
+      ],
+      [
+        "audio-chunk",
+        312
+      ],
+      [
+        "speaker-attribution",
+        266
+      ],
+      [
+        "identity-resolution",
+        134
+      ],
+      [
+        "proximity",
+        90
+      ],
+      [
+        "place-observation",
+        62
+      ],
+      [
+        "item-observation",
+        60
+      ],
+      [
+        "power-state",
+        59
+      ]
+    ]
+  },
+  "interruption_reason": "runner stopped after repeated polls at 160/547 and proposer logs showed pool=0 after block-expiring remaining validAfter=219 deploys",
+  "last_finalized_after": {
+    "rnode.bootstrap": {
+      "hash": "06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126",
+      "number": 283,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126\",\n            sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            seq_num: 242,\n            sig: \"3044022049a3e18c946943f73df2914708e7ddfce0141a7620e51589a093a7808a2f58aa02202e1e2e30fd8d709c39556b95aba261cce4d00e898f9ccee1fb5f160e75e84c01\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784065480525,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n            ],\n            block_number: 283,\n            pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                },\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    },
+    "rnode.readonly": {
+      "hash": "06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126",
+      "number": 283,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126\",\n            sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            seq_num: 242,\n            sig: \"3044022049a3e18c946943f73df2914708e7ddfce0141a7620e51589a093a7808a2f58aa02202e1e2e30fd8d709c39556b95aba261cce4d00e898f9ccee1fb5f160e75e84c01\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784065480525,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n            ],\n            block_number: 283,\n            pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                },\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    },
+    "rnode.validator1": {
+      "hash": "8fb20088921f222882ee4c02d42c80d3e089af44928feebb69047d1edc536553",
+      "number": 279,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"8fb20088921f222882ee4c02d42c80d3e089af44928feebb69047d1edc536553\",\n            sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            seq_num: 238,\n            sig: \"304402206ee8b63c2098d60135186ffcf9621cfb8dc3942dd2c28954665404e2517b5c3b0220474d6f93e241d167b9e2eca715d512ef3ad150dfada906ff29f9ff0d4136b0f0\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784065386266,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"770c4c4addee3771ee5ff3163ae5000f18193db9e28c8a7e682247a9466f0a6e\",\n                \"ac1b4f2447a599e72e3545a1d751630d962aff662450f01348eb8ab8b0b7d44a\",\n                \"f1fe4015c208a396f0cf0fc7a9b2038c637f6e8a8e446947df52c338c83ab369\",\n            ],\n            block_number: 279,\n            pre_state_hash: \"73029dc1f630ac1a5ac0e3ab1021b610b86423fdb7eb4d505ae882ba517a8c92\",\n            post_state_hash: \"73029dc1f630ac1a5ac0e3ab1021b610b86423fdb7eb4d505ae882ba517a8c92\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"770c4c4addee3771ee5ff3163ae5000f18193db9e28c8a7e682247a9466f0a6e\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"ac1b4f2447a599e72e3545a1d751630d962aff662450f01348eb8ab8b0b7d44a\",\n                },\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"f1fe4015c208a396f0cf0fc7a9b2038c637f6e8a8e446947df52c338c83ab369\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    },
+    "rnode.validator2": {
+      "hash": "06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126",
+      "number": 283,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"06def378932fcab1a1fb83ea603cae7e71a0db8d2025dbf1425fdeba7693e126\",\n            sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            seq_num: 242,\n            sig: \"3044022049a3e18c946943f73df2914708e7ddfce0141a7620e51589a093a7808a2f58aa02202e1e2e30fd8d709c39556b95aba261cce4d00e898f9ccee1fb5f160e75e84c01\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784065480525,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n            ],\n            block_number: 283,\n            pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"145eac5e32b398c2a73613699c1dca7a431944f19b7d14494a0c79350821947d\",\n                },\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"49afc41ccfad83fe4cdd6aad776c80be0dbba334c25b8a550d5ed54f920c3cfe\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    },
+    "rnode.validator3": {
+      "hash": "2d4007de8ff2190d314180c9000ca18245c2647d1c38be5fbd07bb98993645af",
+      "number": 280,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"2d4007de8ff2190d314180c9000ca18245c2647d1c38be5fbd07bb98993645af\",\n            sender: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            seq_num: 249,\n            sig: \"3044022026d8ae4a50421a1d8bed58b343d404ebde8d3643b9393394e8e0daf9e7a30e27022074a0916e0a2417b817d2ef4d435d4fcfcc910a6388fd99ac31d79fcac8306b5c\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784065562474,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"117a424d29822b1072ef5195e2f087a775c7ba3bb6e87db5013729f085eb6d61\",\n                \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n                \"ac1b4f2447a599e72e3545a1d751630d962aff662450f01348eb8ab8b0b7d44a\",\n            ],\n            block_number: 280,\n            pre_state_hash: \"73029dc1f630ac1a5ac0e3ab1021b610b86423fdb7eb4d505ae882ba517a8c92\",\n            post_state_hash: \"d6e1f1062d117e15e85b317d94dfce980479adbccbb96b86d31e18d78a81e879\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"63411\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"117a424d29822b1072ef5195e2f087a775c7ba3bb6e87db5013729f085eb6d61\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"ac1b4f2447a599e72e3545a1d751630d962aff662450f01348eb8ab8b0b7d44a\",\n                },\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"574a4925619d8d0157e6d8860a85eb853f97f253664bac1e7ffaebd2a6931ec3\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    }
+  },
+  "latest_block_after": {
+    "rnode.bootstrap": {
+      "hash": "49c8bd83f934c46b50db1d82a3038c32519ffcb559020ad41bfd215c5b7848c8",
+      "number": 295,
+      "raw": "\n------------- block 295 ---------------\nLightBlockInfo {\n    block_hash: \"49c8bd83f934c46b50db1d82a3038c32519ffcb559020ad41bfd215c5b7848c8\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 254,\n    sig: \"304402205db1e338594b5258b0e0bfe33c776b46b065b8878b5ec87aab671df51315224902207a8bd422dc041fa0907703992634ca55f6d8e87d39de4cd606d3d12b95224916\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065917056,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"7188039a12ffdb437d41fc059bc4cb214662273ab08051db7c6c65d514106327\",\n        \"89d22a876affdb70281091359bafeb65c88a8c614e26f93a2de5769b978739a7\",\n        \"c68e58ac48ab1d2228e3768720f86dbc807d7246a61d85c8ccb9e7f2d7682d3d\",\n    ],\n    block_number: 295,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"15093\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"89d22a876affdb70281091359bafeb65c88a8c614e26f93a2de5769b978739a7\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"c68e58ac48ab1d2228e3768720f86dbc807d7246a61d85c8ccb9e7f2d7682d3d\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"7188039a12ffdb437d41fc059bc4cb214662273ab08051db7c6c65d514106327\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+    },
+    "rnode.readonly": {
+      "hash": "70dcf5c4295a9f1de9f0e3b09f4e90bc14c46bf4649557c8f107755ef8861ed2",
+      "number": 292,
+      "raw": "\n------------- block 292 ---------------\nLightBlockInfo {\n    block_hash: \"70dcf5c4295a9f1de9f0e3b09f4e90bc14c46bf4649557c8f107755ef8861ed2\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 251,\n    sig: \"3045022100abc48a91918a2b43636570046c85ae49e3806cb01361ab8037a2c6c6fc4e8d41022019037231b20e11db47fa760dd1ff80bb57849425323efcabc0cc850891766255\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065804555,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"5cfe6357670949fd6b2473c8e5aeec3871e04496833f2c63928bf36ff2a1d790\",\n        \"780ac7896746804c74a9a89817044a40fce2f4ef2de8273858ae1fd1fe51f29c\",\n        \"ed3fa5a4dc885e99cddf12ebb843a8ae81b6ae700ab974fb19c59d65ec8f0417\",\n    ],\n    block_number: 292,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"15094\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"ed3fa5a4dc885e99cddf12ebb843a8ae81b6ae700ab974fb19c59d65ec8f0417\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"780ac7896746804c74a9a89817044a40fce2f4ef2de8273858ae1fd1fe51f29c\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"5cfe6357670949fd6b2473c8e5aeec3871e04496833f2c63928bf36ff2a1d790\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+    },
+    "rnode.validator1": {
+      "hash": "ab700746a20f36a3cefa5268f41361fde5de99d36354f8f0903f63a7a103663d",
+      "number": 290,
+      "raw": "\n------------- block 290 ---------------\nLightBlockInfo {\n    block_hash: \"ab700746a20f36a3cefa5268f41361fde5de99d36354f8f0903f63a7a103663d\",\n    sender: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n    seq_num: 255,\n    sig: \"304402203357078cbe399bd34a60cfc4515ef1c09eb0baf920c4274402479d0bd69357440220056fa4b1c68872e6e29105be388e63dc2194a8c56346756fe032a95ce73bd02b\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065914769,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"6323de609a3623004b6899f023277489bb0ffcafd1ca9586f403af3f6b82cb66\",\n        \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        \"ed3fa5a4dc885e99cddf12ebb843a8ae81b6ae700ab974fb19c59d65ec8f0417\",\n    ],\n    block_number: 290,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"c7abfdb08a0a20475d8efd47488c7d6408489d6c98ab248f16e9840fbd78de02\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63263\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"ed3fa5a4dc885e99cddf12ebb843a8ae81b6ae700ab974fb19c59d65ec8f0417\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"6323de609a3623004b6899f023277489bb0ffcafd1ca9586f403af3f6b82cb66\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\n\n------------- block 290 ---------------\nLightBlockInfo {\n    block_hash: \"182d1dab7c9b64a358586f813860906acdd7a3cac23203cb573d8c405b6fd868\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 249,\n    sig: \"304402203f0aa7b65ef116577b080477971b21b146d0b7d4e166525bdf10c62099d5275402203e0eb7f90b4d19a0ca552518d25df3d4b7129acb359f8de21e4f6933dcc31228\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065706792,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"0f2ab71f565a7361f7ec72a3223d91795583530bff53aeb8d249e45810c61410\",\n        \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        \"9bcf72c9e4e928095e82d10e70b3bed955427ee5f4d7c04e16cdbe7e3bc79462\",\n    ],\n    block_number: 290,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"b0de7022e935a5c3cf17f3e70d4a11ecf692c373b9983827fbc3b8569deb6726\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63411\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"0f2ab71f565a7361f7ec72a3223d91795583530bff53aeb8d249e45810c61410\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"9bcf72c9e4e928095e82d10e70b3bed955427ee5f4d7c04e16cdbe7e3bc79462\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 2\n\n"
+    },
+    "rnode.validator2": {
+      "hash": "49c8bd83f934c46b50db1d82a3038c32519ffcb559020ad41bfd215c5b7848c8",
+      "number": 295,
+      "raw": "\n------------- block 295 ---------------\nLightBlockInfo {\n    block_hash: \"49c8bd83f934c46b50db1d82a3038c32519ffcb559020ad41bfd215c5b7848c8\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 254,\n    sig: \"304402205db1e338594b5258b0e0bfe33c776b46b065b8878b5ec87aab671df51315224902207a8bd422dc041fa0907703992634ca55f6d8e87d39de4cd606d3d12b95224916\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065917056,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"7188039a12ffdb437d41fc059bc4cb214662273ab08051db7c6c65d514106327\",\n        \"89d22a876affdb70281091359bafeb65c88a8c614e26f93a2de5769b978739a7\",\n        \"c68e58ac48ab1d2228e3768720f86dbc807d7246a61d85c8ccb9e7f2d7682d3d\",\n    ],\n    block_number: 295,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"15093\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"89d22a876affdb70281091359bafeb65c88a8c614e26f93a2de5769b978739a7\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"c68e58ac48ab1d2228e3768720f86dbc807d7246a61d85c8ccb9e7f2d7682d3d\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"7188039a12ffdb437d41fc059bc4cb214662273ab08051db7c6c65d514106327\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+    },
+    "rnode.validator3": {
+      "hash": "182d1dab7c9b64a358586f813860906acdd7a3cac23203cb573d8c405b6fd868",
+      "number": 290,
+      "raw": "\n------------- block 290 ---------------\nLightBlockInfo {\n    block_hash: \"182d1dab7c9b64a358586f813860906acdd7a3cac23203cb573d8c405b6fd868\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 249,\n    sig: \"304402203f0aa7b65ef116577b080477971b21b146d0b7d4e166525bdf10c62099d5275402203e0eb7f90b4d19a0ca552518d25df3d4b7129acb359f8de21e4f6933dcc31228\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784065706792,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"0f2ab71f565a7361f7ec72a3223d91795583530bff53aeb8d249e45810c61410\",\n        \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        \"9bcf72c9e4e928095e82d10e70b3bed955427ee5f4d7c04e16cdbe7e3bc79462\",\n    ],\n    block_number: 290,\n    pre_state_hash: \"4c6ccade4caaf91d1a1ef9047532e0aa35deec4f66d930cd8c1f34034b68b912\",\n    post_state_hash: \"b0de7022e935a5c3cf17f3e70d4a11ecf692c373b9983827fbc3b8569deb6726\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63411\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"0f2ab71f565a7361f7ec72a3223d91795583530bff53aeb8d249e45810c61410\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"78c96687cf8844ad441ece21e0442f5c6f69f641db296cb27746d356575d99cb\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"9bcf72c9e4e928095e82d10e70b3bed955427ee5f4d7c04e16cdbe7e3bc79462\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+    }
+  },
+  "node_status_after": {
+    "rnode.bootstrap": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://54d63db4522a37891a4ab3fd66834c7b6bd1ec80@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"54d63db4522a37891a4ab3fd66834c7b6bd1ec80\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 283,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 28,\n    epoch_length: 10,\n}\n",
+    "rnode.readonly": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://54d63db4522a37891a4ab3fd66834c7b6bd1ec80@rnode.readonly?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 283,\n    is_validator: false,\n    is_read_only: true,\n    is_ready: true,\n    current_epoch: 28,\n    epoch_length: 10,\n}\n",
+    "rnode.validator1": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://54d63db4522a37891a4ab3fd66834c7b6bd1ec80@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"54d63db4522a37891a4ab3fd66834c7b6bd1ec80\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 279,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 27,\n    epoch_length: 10,\n}\n",
+    "rnode.validator2": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://54d63db4522a37891a4ab3fd66834c7b6bd1ec80@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"54d63db4522a37891a4ab3fd66834c7b6bd1ec80\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 283,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 28,\n    epoch_length: 10,\n}\n",
+    "rnode.validator3": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://54d63db4522a37891a4ab3fd66834c7b6bd1ec80@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"54d63db4522a37891a4ab3fd66834c7b6bd1ec80\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 280,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 28,\n    epoch_length: 10,\n}\n"
+  },
+  "pointer_source": {
+    "bad_json_lines": 0,
+    "container": "percept-memory",
+    "duplicate_event_ids": 0,
+    "line_count": 54661,
+    "pointer_log": "/data/pointers.jsonl",
+    "pointer_log_sha256": "24aa95e44acd0f1555aac79c128c97bc058d33d1fad33841dafc05a28540bdf2",
+    "unique_event_count": 54661
+  },
+  "proposer_log_analysis": {
+    "block_expired_filter_count_valid_after_219": 399,
+    "deploy_block_count": 40,
+    "deploy_block_propose_total_ms": {
+      "avg": 35297.8,
+      "count": 40,
+      "max": 63949,
+      "median": 33179.5,
+      "min": 24643
+    },
+    "deploy_blocks": [
+      227,
+      228,
+      229,
+      231,
+      232,
+      234,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247,
+      248,
+      249,
+      250,
+      251,
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266,
+      267,
+      268
+    ],
+    "empty_pool_after_expiry": [
+      {
+        "already_in_scope": 0,
+        "block": 270,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #270: pool=0, future=0 (validAfterBlockNumber >= 270), blockExpired=0 (validAfterBlockNumber <= 220), timeExpired=0 (expirationTimestamp <= 1784065188869), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:39:51.906476Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 271,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #271: pool=0, future=0 (validAfterBlockNumber >= 271), blockExpired=0 (validAfterBlockNumber <= 221), timeExpired=0 (expirationTimestamp <= 1784065219262), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:40:21.158791Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 272,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #272: pool=0, future=0 (validAfterBlockNumber >= 272), blockExpired=0 (validAfterBlockNumber <= 222), timeExpired=0 (expirationTimestamp <= 1784065239301), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:40:41.867484Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 273,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #273: pool=0, future=0 (validAfterBlockNumber >= 273), blockExpired=0 (validAfterBlockNumber <= 223), timeExpired=0 (expirationTimestamp <= 1784065271475), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:41:13.535273Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 274,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #274: pool=0, future=0 (validAfterBlockNumber >= 274), blockExpired=0 (validAfterBlockNumber <= 224), timeExpired=0 (expirationTimestamp <= 1784065309248), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:41:51.895980Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 275,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #275: pool=0, future=0 (validAfterBlockNumber >= 275), blockExpired=0 (validAfterBlockNumber <= 225), timeExpired=0 (expirationTimestamp <= 1784065359766), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:42:43.190430Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 276,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #276: pool=0, future=0 (validAfterBlockNumber >= 276), blockExpired=0 (validAfterBlockNumber <= 226), timeExpired=0 (expirationTimestamp <= 1784065393268), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:43:16.184237Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 277,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #277: pool=0, future=0 (validAfterBlockNumber >= 277), blockExpired=0 (validAfterBlockNumber <= 227), timeExpired=0 (expirationTimestamp <= 1784065442688), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:44:05.411072Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 278,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #278: pool=0, future=0 (validAfterBlockNumber >= 278), blockExpired=0 (validAfterBlockNumber <= 228), timeExpired=0 (expirationTimestamp <= 1784065487989), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:44:51.065409Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 279,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #279: pool=0, future=0 (validAfterBlockNumber >= 279), blockExpired=0 (validAfterBlockNumber <= 229), timeExpired=0 (expirationTimestamp <= 1784065528497), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:45:32.050948Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 280,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #280: pool=0, future=0 (validAfterBlockNumber >= 280), blockExpired=0 (validAfterBlockNumber <= 230), timeExpired=0 (expirationTimestamp <= 1784065562474), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:46:04.262121Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 281,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #281: pool=0, future=0 (validAfterBlockNumber >= 281), blockExpired=0 (validAfterBlockNumber <= 231), timeExpired=0 (expirationTimestamp <= 1784065595600), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:46:37.305062Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 282,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #282: pool=0, future=0 (validAfterBlockNumber >= 282), blockExpired=0 (validAfterBlockNumber <= 232), timeExpired=0 (expirationTimestamp <= 1784065637429), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:47:19.890742Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 284,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #284: pool=0, future=0 (validAfterBlockNumber >= 284), blockExpired=0 (validAfterBlockNumber <= 234), timeExpired=0 (expirationTimestamp <= 1784065695088), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:48:16.541471Z",
+        "valid": 0
+      },
+      {
+        "already_in_scope": 0,
+        "block": 285,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #285: pool=0, future=0 (validAfterBlockNumber >= 285), blockExpired=0 (validAfterBlockNumber <= 235), timeExpired=0 (expirationTimestamp <= 1784065751280), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:49:13.989756Z",
+        "valid": 0
+      }
+    ],
+    "expiry_block": {
+      "block": 269,
+      "selection": {
+        "already_in_scope": 0,
+        "block": 269,
+        "block_expired": 399,
+        "future": 0,
+        "message": "Deploy selection for block #269: pool=399, future=0 (validAfterBlockNumber >= 269), blockExpired=399 (validAfterBlockNumber <= 219), timeExpired=0 (expirationTimestamp <= 1784065174066), valid=0, alreadyInScope=0, selected=0",
+        "pool": 399,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:39:35.369293Z",
+        "valid": 0
+      },
+      "timing": {
+        "block": 269,
+        "hash_prefix": "47bf6c0f44",
+        "propose_core_ms": 13851,
+        "snapshot_ms": 97,
+        "timestamp": "2026-07-14T21:39:47.917902Z",
+        "total_ms": 13950
+      }
+    },
+    "last_deploy_block": {
+      "block": 268,
+      "selected": {
+        "already_in_scope": 12,
+        "block": 268,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #268: pool=403, future=0 (validAfterBlockNumber >= 268), blockExpired=0 (validAfterBlockNumber <= 218), timeExpired=0 (expirationTimestamp <= 1784065104443), valid=403, alreadyInScope=12, selected=4",
+        "pool": 403,
+        "selected": 4,
+        "timestamp": "2026-07-14T21:38:30.334267Z",
+        "valid": 403
+      },
+      "timing": {
+        "block": 268,
+        "hash_prefix": "18093a806a",
+        "propose_core_ms": 41763,
+        "snapshot_ms": 345,
+        "timestamp": "2026-07-14T21:39:06.207701Z",
+        "total_ms": 42125
+      }
+    },
+    "selection_summaries": {
+      "227": {
+        "already_in_scope": 0,
+        "block": 227,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #227: pool=17, future=0 (validAfterBlockNumber >= 227), blockExpired=0 (validAfterBlockNumber <= 177), timeExpired=0 (expirationTimestamp <= 1784063665596), valid=17, alreadyInScope=0, selected=4",
+        "pool": 17,
+        "selected": 4,
+        "timestamp": "2026-07-14T21:14:25.978863Z",
+        "valid": 17
+      },
+      "228": {
+        "already_in_scope": 4,
+        "block": 228,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #228: pool=51, future=0 (validAfterBlockNumber >= 228), blockExpired=0 (validAfterBlockNumber <= 178), timeExpired=0 (expirationTimestamp <= 1784063714316), valid=51, alreadyInScope=4, selected=4",
+        "pool": 51,
+        "selected": 4,
+        "timestamp": "2026-07-14T21:15:15.315794Z",
+        "valid": 51
+      },
+      "229": {
+        "already_in_scope": 8,
+        "block": 229,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #229: pool=89, future=0 (validAfterBlockNumber >= 229), blockExpired=0 (validAfterBlockNumber <= 179), timeExpired=0 (expirationTimestamp <= 1784063767289), valid=89, alreadyInScope=8, selected=4",
+        "pool": 89,
+        "selected": 4,
+        "timestamp": "2026-07-14T21:16:08.700328Z",
+        "valid": 89
+      },
+      "268": {
+        "already_in_scope": 12,
+        "block": 268,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #268: pool=403, future=0 (validAfterBlockNumber >= 268), blockExpired=0 (validAfterBlockNumber <= 218), timeExpired=0 (expirationTimestamp <= 1784065104443), valid=403, alreadyInScope=12, selected=4",
+        "pool": 403,
+        "selected": 4,
+        "timestamp": "2026-07-14T21:38:30.334267Z",
+        "valid": 403
+      },
+      "269": {
+        "already_in_scope": 0,
+        "block": 269,
+        "block_expired": 399,
+        "future": 0,
+        "message": "Deploy selection for block #269: pool=399, future=0 (validAfterBlockNumber >= 269), blockExpired=399 (validAfterBlockNumber <= 219), timeExpired=0 (expirationTimestamp <= 1784065174066), valid=0, alreadyInScope=0, selected=0",
+        "pool": 399,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:39:35.369293Z",
+        "valid": 0
+      },
+      "270": {
+        "already_in_scope": 0,
+        "block": 270,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #270: pool=0, future=0 (validAfterBlockNumber >= 270), blockExpired=0 (validAfterBlockNumber <= 220), timeExpired=0 (expirationTimestamp <= 1784065188869), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:39:51.906476Z",
+        "valid": 0
+      },
+      "271": {
+        "already_in_scope": 0,
+        "block": 271,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #271: pool=0, future=0 (validAfterBlockNumber >= 271), blockExpired=0 (validAfterBlockNumber <= 221), timeExpired=0 (expirationTimestamp <= 1784065219262), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:40:21.158791Z",
+        "valid": 0
+      },
+      "278": {
+        "already_in_scope": 0,
+        "block": 278,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #278: pool=0, future=0 (validAfterBlockNumber >= 278), blockExpired=0 (validAfterBlockNumber <= 228), timeExpired=0 (expirationTimestamp <= 1784065487989), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:44:51.065409Z",
+        "valid": 0
+      },
+      "285": {
+        "already_in_scope": 0,
+        "block": 285,
+        "block_expired": 0,
+        "future": 0,
+        "message": "Deploy selection for block #285: pool=0, future=0 (validAfterBlockNumber >= 285), blockExpired=0 (validAfterBlockNumber <= 235), timeExpired=0 (expirationTimestamp <= 1784065751280), valid=0, alreadyInScope=0, selected=0",
+        "pool": 0,
+        "selected": 0,
+        "timestamp": "2026-07-14T21:49:13.989756Z",
+        "valid": 0
+      }
+    },
+    "timing_summaries": {
+      "227": {
+        "block": 227,
+        "hash_prefix": "e331df7d5c",
+        "propose_core_ms": 47498,
+        "snapshot_ms": 178,
+        "timestamp": "2026-07-14T21:15:13.097175Z",
+        "total_ms": 47692
+      },
+      "228": {
+        "block": 228,
+        "hash_prefix": "378b0c00cb",
+        "propose_core_ms": 50874,
+        "snapshot_ms": 307,
+        "timestamp": "2026-07-14T21:16:05.193328Z",
+        "total_ms": 51185
+      },
+      "229": {
+        "block": 229,
+        "hash_prefix": "6c3172c35a",
+        "propose_core_ms": 37164,
+        "snapshot_ms": 451,
+        "timestamp": "2026-07-14T21:16:44.485881Z",
+        "total_ms": 37648
+      },
+      "268": {
+        "block": 268,
+        "hash_prefix": "18093a806a",
+        "propose_core_ms": 41763,
+        "snapshot_ms": 345,
+        "timestamp": "2026-07-14T21:39:06.207701Z",
+        "total_ms": 42125
+      },
+      "269": {
+        "block": 269,
+        "hash_prefix": "47bf6c0f44",
+        "propose_core_ms": 13851,
+        "snapshot_ms": 97,
+        "timestamp": "2026-07-14T21:39:47.917902Z",
+        "total_ms": 13950
+      },
+      "270": {
+        "block": 270,
+        "hash_prefix": "53333688cd",
+        "propose_core_ms": 17627,
+        "snapshot_ms": 247,
+        "timestamp": "2026-07-14T21:40:06.497107Z",
+        "total_ms": 17877
+      }
+    }
+  },
+  "result": {
+    "batch_size": 100,
+    "block_bytes_per_finalized_event": 2186.882625,
+    "canonical_block_count": 40,
+    "canonical_blocks": [
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "block_size": 865505,
+        "cost_sum": 2197465,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "e331df7d5c346a44ffebb6bb3447ae883689fd8d99da4649a99a5212229e879c",
+        "number": 227
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "block_size": 865319,
+        "cost_sum": 2200150,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "378b0c00cbf75068e25d3faca7712a3a9da09ce23743cfd46edf540fa25b322b",
+        "number": 228
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "block_size": 868399,
+        "cost_sum": 2211404,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "6c3172c35ae2b0975d7ccc6d5edf640500b70a24821c8c268d475b28209e32e5",
+        "number": 229
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "block_size": 868687,
+        "cost_sum": 2212352,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "77303ff28317d54cd21b82d8f5e71e820d947061c57f5191f1656986744cba78",
+        "number": 231
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "block_size": 866539,
+        "cost_sum": 2204365,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "b427c47da43714a370e473f101c9e2295c3147f7c7cdec03788b81bd222aff33",
+        "number": 232
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          20,
+          21,
+          22,
+          23
+        ],
+        "block_size": 867005,
+        "cost_sum": 2205655,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "8e03104535947fde8f93fef41c42ff675874a718218b56ab221caa7f6f0830ba",
+        "number": 234
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          24,
+          25,
+          26,
+          27
+        ],
+        "block_size": 866032,
+        "cost_sum": 2200638,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "598146105d77b310d79cc310656826f4d7fb548d6f79367be8cb3c3e496b23ce",
+        "number": 235
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          28,
+          29,
+          30,
+          31
+        ],
+        "block_size": 868461,
+        "cost_sum": 2209780,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "3d3c3d4f67da399e90a1cdb6f9c1c391170d276f923c41c554cddfa351b88a10",
+        "number": 236
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "block_size": 864007,
+        "cost_sum": 2190299,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "21fda30d02e20a4c72cf9400e8191f3a6ba32cf38deefd80d8b8daa66a8944ac",
+        "number": 237
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          36,
+          37,
+          38,
+          39
+        ],
+        "block_size": 870125,
+        "cost_sum": 2216840,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "5ed1e5ed758f1ee5d7dbb282442f1c3eb7a0af47710c323f4836bb07235d717b",
+        "number": 238
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          40,
+          41,
+          42,
+          43
+        ],
+        "block_size": 870188,
+        "cost_sum": 2217707,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "e4f0e183c7320bec9b1581e45e32cf4478ce5482e4882f643d5d93d3f04a1ccb",
+        "number": 239
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          44,
+          45,
+          46,
+          47
+        ],
+        "block_size": 919102,
+        "cost_sum": 2220948,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "95832abdda6548d64003731ef953bc0c580a9e59dccb8a2983e9e88351a2d0b7",
+        "number": 240
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          48,
+          49,
+          50,
+          51
+        ],
+        "block_size": 870881,
+        "cost_sum": 2220040,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "a8ddb2e6205c586629979c51e6c8d0698cee3c5146517fcf8cb9cee729816e15",
+        "number": 241
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          52,
+          53,
+          54,
+          55
+        ],
+        "block_size": 871062,
+        "cost_sum": 2221295,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "64de3034319982e616a2d358ee93239b8d16b9e1f820cddd9e0147e6451fe884",
+        "number": 242
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          56,
+          57,
+          58,
+          59
+        ],
+        "block_size": 870972,
+        "cost_sum": 2220186,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "09eb7f9bfece6fd6fda8fb60c75e4e4623b1416493de9b18e28d5f4276f0c5b4",
+        "number": 243
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          60,
+          61,
+          62,
+          63
+        ],
+        "block_size": 870418,
+        "cost_sum": 2218897,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "a3a36ee569c2d74605433bbb1bd08e662b44aba8893d87fe78c65c858288e80e",
+        "number": 244
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          64,
+          65,
+          66,
+          67
+        ],
+        "block_size": 869020,
+        "cost_sum": 2212553,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "f4e325554e32a3d97becda6c17b7ed528911632c0a0b90c44c51db7a0625e5f5",
+        "number": 245
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          68,
+          69,
+          70,
+          71
+        ],
+        "block_size": 870962,
+        "cost_sum": 2221068,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "9dee908aba2f97c80351a22666c7cff152eeb3c73a3ca2d9b09fb35e8a095c8d",
+        "number": 246
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          72,
+          73,
+          74,
+          75
+        ],
+        "block_size": 871391,
+        "cost_sum": 2221622,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "9928bfb0b2071fc648e5831e14785c5ec04ffaa120619b45c7823aa4d3ee85cc",
+        "number": 247
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          76,
+          77,
+          78,
+          79
+        ],
+        "block_size": 870777,
+        "cost_sum": 2219307,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "94acdf9c620693f278365bab14617cfabe8545edea11c4f0c054e1189b7f3d09",
+        "number": 248
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          80,
+          81,
+          82,
+          83
+        ],
+        "block_size": 867827,
+        "cost_sum": 2204134,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "323eed60342b0453de39c2260d4b8d266e9935bc106b7ffe438e39392ad0f0fc",
+        "number": 249
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          84,
+          85,
+          86,
+          87
+        ],
+        "block_size": 914283,
+        "cost_sum": 2194536,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "f684b64213d2957f2b1edca711c98307e6ce96494b39545e68517fb597a69a77",
+        "number": 250
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          88,
+          89,
+          90,
+          91
+        ],
+        "block_size": 866196,
+        "cost_sum": 2194264,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "83cab0cd436f5c0aa9b0bafbe6dec90f33f6fb237f50efc46ded23c9860ecc94",
+        "number": 251
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          92,
+          93,
+          94,
+          95
+        ],
+        "block_size": 865875,
+        "cost_sum": 2194472,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "18bf439a993930f872ecaa7078abd0552860f4988f2231eb50a9f3208fae5d8a",
+        "number": 252
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          96,
+          97,
+          98,
+          99
+        ],
+        "block_size": 866042,
+        "cost_sum": 2194536,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "7c9077c804b98e6ac6af08d9b1aac4fc43d2c8b047c75a9aed356a9014128a02",
+        "number": 253
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          100,
+          101,
+          102,
+          103
+        ],
+        "block_size": 867097,
+        "cost_sum": 2200266,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "760ef4b50a5d415a65c35d3a8d77f431de067eb8a8299eeab295f2774255f26b",
+        "number": 254
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          104,
+          105,
+          106,
+          107
+        ],
+        "block_size": 873214,
+        "cost_sum": 2231347,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "372f2f5dc3396a37ad3d4991cfc47d6c8b7a63d78a9ad76dad106508ec09a5d4",
+        "number": 255
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          108,
+          109,
+          110,
+          111
+        ],
+        "block_size": 873143,
+        "cost_sum": 2230070,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "1a50d701917e56f4677da7264425fba9a38989917196ecafcb7177396cc738c5",
+        "number": 256
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          112,
+          113,
+          114,
+          115
+        ],
+        "block_size": 873183,
+        "cost_sum": 2231501,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "53253eb68e1a9c2a86352ac21ddb6a5dbf3821b04498b505dac05a352ae488e0",
+        "number": 257
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          116,
+          117,
+          118,
+          119
+        ],
+        "block_size": 873057,
+        "cost_sum": 2229364,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "50ae2c57a47cb84bb0abab7a08ab02e909ec09db858d67c6617ab75511dcfd99",
+        "number": 258
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          120,
+          121,
+          122,
+          123
+        ],
+        "block_size": 886398,
+        "cost_sum": 2283289,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "9b24ca67392aa3d36b71794496b53ddf635db01dd813b5177148694f0ae041b7",
+        "number": 259
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          124,
+          125,
+          126,
+          127
+        ],
+        "block_size": 931581,
+        "cost_sum": 2270936,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "2f677c014a27441ab72eecef2cc15e08a90a05a40aaa62e796b5ee9e72c060d5",
+        "number": 260
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          128,
+          129,
+          130,
+          131
+        ],
+        "block_size": 867619,
+        "cost_sum": 2205102,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "280ba65c8f90cc59f05eb242bded464cf22cfecca083a337007baf98a371580e",
+        "number": 261
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          132,
+          133,
+          134,
+          135
+        ],
+        "block_size": 869530,
+        "cost_sum": 2211882,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "dcfaf8771f4bb11ad54fa5fa17d4a18df8d8dbd01d62abc68a4e08d56849edbc",
+        "number": 262
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          136,
+          137,
+          138,
+          139
+        ],
+        "block_size": 870126,
+        "cost_sum": 2218281,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "6f062aa5243e87d97b682b607bd573813522726e0893cda9cf56074d73daa5ef",
+        "number": 263
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          140,
+          141,
+          142,
+          143
+        ],
+        "block_size": 869220,
+        "cost_sum": 2213770,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "5ab8eeaeccabb05c00726b230b3dd08420c2d68c504bd35cb079fc575b0c5df8",
+        "number": 264
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          144,
+          145,
+          146,
+          147
+        ],
+        "block_size": 867010,
+        "cost_sum": 2203340,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "9cf3a1ffc6d7dce5aea3d51bee9fe0e8cb42666f3f92c1237efadae9b446df1d",
+        "number": 265
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          148,
+          149,
+          150,
+          151
+        ],
+        "block_size": 877874,
+        "cost_sum": 2246840,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "12b1aae61e5611d984ab57693b897f31407989844fe90c2fea4499ffcd8a8822",
+        "number": 266
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          152,
+          153,
+          154,
+          155
+        ],
+        "block_size": 879896,
+        "cost_sum": 2256423,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "8a38f81f736b17a64dc54a0b25750bd6a07ec147748d716786908430d1e62ee7",
+        "number": 267
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          156,
+          157,
+          158,
+          159
+        ],
+        "block_size": 906099,
+        "cost_sum": 2364614,
+        "deploy_count": 4,
+        "errors": 0,
+        "finalized": true,
+        "hash": "18093a806a8ace4e2e248c7820407d3dd11211d2c37a2c30a085382cee25e246",
+        "number": 268
+      }
+    ],
+    "cost_per_finalized_event": 5551.346125,
+    "cost_per_submitted_event": 1625.368968104379,
+    "deploys_submitted": 547,
+    "errored_true_count": 0,
+    "events": 54647,
+    "finalized_batches": 160,
+    "finalized_events": 16000,
+    "included_batch_range": [
+      0,
+      159
+    ],
+    "included_batches": 160,
+    "included_events": 16000,
+    "missing_batch_range": [
+      160,
+      546
+    ],
+    "missing_batches": 387,
+    "missing_events": 38647,
+    "partial": true,
+    "timed_out": false,
+    "total_block_size": 34990122,
+    "total_cost_sum": 88821538
+  },
+  "run_id": "rspace-stored-events-batch-anchor-20260714T211039Z",
+  "scan_container": "rnode.validator1",
+  "status": "partial_failed_block_lifespan_expiry",
+  "summary": {
+    "block_bytes_per_finalized_event": 2186.882625,
+    "block_expired_at": {
+      "already_in_scope": 0,
+      "block": 269,
+      "block_expired": 399,
+      "future": 0,
+      "message": "Deploy selection for block #269: pool=399, future=0 (validAfterBlockNumber >= 269), blockExpired=399 (validAfterBlockNumber <= 219), timeExpired=0 (expirationTimestamp <= 1784065174066), valid=0, alreadyInScope=0, selected=0",
+      "pool": 399,
+      "selected": 0,
+      "timestamp": "2026-07-14T21:39:35.369293Z",
+      "valid": 0
+    },
+    "cost_per_finalized_event": 5551.346125,
+    "deploy_batches_finalized": 160,
+    "deploy_batches_missing": 387,
+    "deploys_submitted": 547,
+    "events_finalized": 16000,
+    "events_missing": 38647,
+    "events_submitted": 54647,
+    "root_cause": "validAfter lifespan expired before the 524 KiB deploy-byte-budget-limited proposer could package more than 160 of 547 accepted deploys",
+    "submit_events_per_s": 92.01303238733468
+  },
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:stored-events-20260714T211039Z",
+  "workload": {
+    "batch_size": 100,
+    "deploys_submitted": 547,
+    "events": 54647,
+    "submit_events_per_s": 92.01303238733468,
+    "submit_span_s": 593.905,
+    "valid_after": 219
+  }
+}

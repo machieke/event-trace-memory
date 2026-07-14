@@ -41,6 +41,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-existing-uri-20260714T145930Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-retest-20260714T175559Z.json`
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-partial-20260714T181331Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-partial-20260714T211039Z.json`
 
 Related earlier analysis:
 
@@ -90,6 +91,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x100` batch-anchor, deploy-aware parent support | Batch anchor | 10,000 | 16 | yes | `39,183,400` | `3,918` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
 | `100x100` batch-anchor, post-restart retest | Batch anchor | 10,000 | 8 | yes | `39,183,300` | `3,918` | `416.995s` | `465.644s` | `21.476 events/s` |
 | Stored percept events, batch-anchor partial | Batch anchor | 54,543 | 4 finalized, 3 non-final hits | partial | `14,334,161` finalized / `89,923,367` observed | `5,513` finalized-event normalized | non-final only, max observed batch `205` | stalled at LFB `223` | no full-run finality |
+| Stored percept events, post-restart retest | Batch anchor | 54,647 | 40 finalized | partial | `88,821,538` finalized | `5,551` finalized-event normalized | `160 / 547` batches canonical | stopped by deploy expiry at block `269` | no full-run finality |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1318,6 +1320,83 @@ remaining deploys were accepted but treated as already in DAG scope, while
 support-only recovery proposals did not finalize the branch or reselect the
 missing work before the run was stopped.
 
+### Stored Percept Events Post-Restart Retest
+
+Run id: `rspace-stored-events-batch-anchor-20260714T211039Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-partial-20260714T211039Z.json`
+
+This retest used the same stored-event runner after the shard had been
+restarted again. It read a new live `percept-memory:/data/pointers.jsonl`
+snapshot and submitted all events as 100-event `putBatchEvents` deploys.
+
+| Metric | Value |
+| --- | ---: |
+| Pointer-log snapshot | `54,647` unique events |
+| Pointer-log SHA-256 | `7e96ba80697c859c426f612c93af89971458d53fbd8d8c3f14c2feb982bc4e4e` |
+| Batch size | `100` events/deploy |
+| Deploys submitted | `547` |
+| Submit span | `593.905s` |
+| Submit acceptance rate | `92.013 events/s` |
+| Contract binding wait | `195.564s` |
+| Workload `validAfter` | `219` |
+| Finalized batches | `160 / 547` |
+| Finalized events | `16,000 / 54,647` |
+| Missing batches | `387 / 547` |
+| Missing events | `38,647 / 54,647` |
+| Canonical deploy blocks | `40` |
+| Rholang errors | `0` |
+
+The canonicalized subset consisted of batches `0-159` in 40 finalized blocks.
+Each canonical deploy block carried 4 batch deploys. Aggregates for the
+finalized subset:
+
+| Metric | Value |
+| --- | ---: |
+| Cost sum | `88,821,538` |
+| Cost per finalized event | `5,551.346` |
+| Block bytes | `34,990,122` |
+| Block bytes per finalized event | `2,186.883` |
+| Deploy-block propose total, average | `35.298s` |
+| Deploy-block propose total, median | `33.180s` |
+| Deploy-block propose total, min/max | `24.643s` / `63.949s` |
+
+The retest improved over the previous full-snapshot probe in one important
+way: finalized coverage advanced from `26` batches to `160` batches, and the
+included work finalized cleanly. The failure moved from non-final branch
+canonicality to deploy lifespan exhaustion.
+
+The decisive proposer log sequence was:
+
+| Block | Pool | Block-expired | Valid | Already in scope | Selected | Notes |
+| ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `268` | `403` | `0` | `403` | `12` | `4` | Last deploy-carrying block; byte budget selected 4 and deferred 387. |
+| `269` | `399` | `399` | `0` | `0` | `0` | All remaining `validAfter=219` deploys expired when `earliestBlock=219`. |
+| `270+` | `0` | `0` | `0` | `0` | `0` | Proposer continued creating empty/support blocks. |
+
+The byte-budget line for block `268` was:
+
+```text
+selected_bytes=490961, deferred_bytes=45055798, byte_budget=524288, selected=4, deferred=387
+```
+
+That explains the capacity limit. At the current term size, the 524 KiB deploy
+byte budget admits only 4 stored-event batch deploys per deploy-carrying block.
+The workload needed `ceil(547 / 4) = 137` deploy-carrying blocks, but only 40
+deploy-carrying blocks were finalized before the `validAfter=219` lifespan
+crossed the expiry boundary.
+
+The root cause for this retest is therefore quantified:
+
+- Client submission was not the bottleneck: all `54,647` events were accepted
+  at `92.013 events/s`.
+- Rholang execution was not failing: finalized deploy blocks had `0` errors.
+- Finality for included work recovered: all observed run batches were finalized.
+- The bottleneck was proposer capacity versus deploy lifespan: 4 deploys/block
+  and average `35.298s` deploy-block proposal time could not drain a 547-deploy
+  burst before expiry.
+
 ## Query-Latency Coverage
 
 These batch runs measured ingestion, inclusion, and finality. They did not
@@ -1401,6 +1480,12 @@ should therefore report two separate numbers:
     reported already-in-scope deploys or support-only proposals while LFB stayed
     at `223`.
 
+12. The post-restart stored-event retest moved the bottleneck to deploy
+    lifespan. It submitted all `54,647` events in `547` deploys, finalized
+    `160` batches with no Rholang errors, then block-expired the remaining
+    `399` pending deploys at block `269` because the 524 KiB byte budget was
+    only selecting 4 real-size batch deploys per deploy-carrying block.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -1445,3 +1530,17 @@ should therefore report two separate numbers:
    submit at least `546x100` real-size terms or an equivalent byte volume, force
    a non-final deploy block of roughly `25-30MB`, and assert that support
    proposals either finalize that branch or make the deploys selectable again.
+
+10. Add a deploy-lifespan regression for real-size stored-event terms:
+    submit `547x100` with `validAfter` fixed at the LFB, keep the current
+    524 KiB byte budget, and assert that pending deploys are not silently lost
+    at the `earliestBlock == validAfter` boundary. Either the valid-after
+    lifespan must be long enough for byte-budget-limited drain, or the proposer
+    must reject/pace bursts that cannot be included before expiry.
+
+11. For the production ingestion path, reduce on-chain deploy bytes before
+    raising burst size. The retest selected only 4 real stored-event batches per
+    block because each deploy carried inline event pointers. A stricter
+    batch-anchor path should put the detailed event list in DA and deploy only
+    the anchor plus manifest CIDs when full detailed on-chain lookup is not
+    required.
