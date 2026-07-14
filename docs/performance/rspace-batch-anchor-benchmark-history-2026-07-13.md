@@ -34,6 +34,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x75-partial-20260713T182238Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-partial-20260713T193527Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-20260714T080823Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T092913Z.json`
 
 Related earlier analysis:
 
@@ -74,6 +75,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x75` batch-anchor, leadership probe | Batch anchor | 7,500 | 0 finalized, 8 non-final hits | no | n/a | n/a | non-final only | `>2,075s` | `<3.615 events/s` |
 | `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>593s` | `>593s` | `<12.648 events/s` |
 | `150x50` batch-anchor, post-fix retest | Batch anchor | 7,500 | 5 finalized, 15 total hits | yes | `32,933,050` | `4,391` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
+| `150x50` batch-anchor, 2026-07-14 failed retest | Batch anchor | 7,500 | 0 finalized, non-final scope only | no | n/a | n/a | non-final only | stalled at LFB `81` | `0 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -660,6 +662,62 @@ the `150x50` path fast enough for a high-throughput ingestion target. The
 remaining problem is duplicate branch packaging plus finality lag, not Rholang
 contract execution cost.
 
+### 150x50 Current-Shard Retest Failure
+
+Run id: `leadership-20260714T092913Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T092913Z.json`
+
+This run was started after another shard restart and additional deploy-inclusion
+changes. It did not produce a valid finalized throughput number.
+
+Useful early signals:
+
+- the scoped contract binding finalized in block `70` after `44.240s`;
+- all `150` workload deploys were submitted in `56.290s`;
+- proposer selection packed the workload as `15 + 49 + 86` selected deploys in
+  observed blocks `77`, `81`, and `83`;
+- validator1's benchmark output reached `150 / 150` included before a transient
+  `show-blocks 100` failure aborted artifact writing.
+
+The clean result failed after that point:
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `150` |
+| Finalized deploys | `0 / 150` |
+| LFB during health watch | pinned at block `81` |
+| Health watch window | `2026-07-14T09:40:15Z` to `2026-07-14T09:45:54Z` |
+| Validator1 restarts by `09:45:54Z` | `13` |
+| Validator2 restarts by `09:45:54Z` | `11` |
+| Observed hard-kill exit code | `137` |
+| Observed high RSS | validator1 `27.36GiB`, validator2 `28.04GiB` |
+
+The important behavioral failure is canonical reinclusion suppression. The DAG
+contained user-deploy blocks such as:
+
+| Block | Hash prefix | Deploys | Size | Finalized |
+| ---: | --- | ---: | ---: | --- |
+| `81` | `c3e5af67fb5d` | `49` | `6,858,798` | no |
+| `83` | `225bd723fae2` | `86` | `12,038,226` | no |
+
+The finalized branch's LFB hash was `4648a5ead8941dd2`, while the user-deploy
+blocks above were not finalized. Subsequent block `84` proposals logged
+`pool=150`, `valid=150`, `alreadyInScope=150`, `selected=0`. In other words,
+the deploys were present in DAG scope but absent from canonical finalized
+coverage, and the duplicate-scope filter prevented a leader from repackaging
+them onto the branch that could finalize.
+
+The retest therefore regressed from "slow but finalized" to "non-final
+inclusion plus validator memory blow-up." It should not be compared as a
+throughput improvement. The next shard fix should make deploy scope
+canonical-aware, or otherwise allow deploys from non-final/losing branches to
+be repackaged until finalized coverage exists. It should also cap or stream
+DAG/scope processing; the alternating validator1/validator2 `27-28GiB` RSS
+spikes and exit `137` restarts make large-run finality unrecoverable.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -695,6 +753,7 @@ That is the expected behavior for an anchor-first path.
 | Restarted `10x50` | 500 | `3.890s` | `2.059s` | `11.445s` | `49.190s` | `10.165 events/s` |
 | Restarted `100x50` | 5,000 | `33.632s` | `11.614s` | `552.458s` | `594.821s` | `8.406 events/s` |
 | Post-fix `150x50` | 7,500 | `105.702s` | `208.940s` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
+| Failed 2026-07-14 `150x50` retest | 7,500 | `56.290s` | non-final only | none | stalled at LFB `81` | `0 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
@@ -780,6 +839,12 @@ should therefore report two separate numbers:
    from `594.821s` to `208.419s`, while `10x10`, `10x25`, and `10x50` all had
    slower finality than the restarted baseline.
 
+8. The 2026-07-14 failed `150x50` retest exposed a worse canonicality bug:
+   non-final deploy branches can suppress canonical reinclusion. All `150`
+   deploys were filtered as `alreadyInScope` in later proposals, while
+   finalized coverage remained `0 / 150` and validator1/validator2 entered
+   exit-`137` restart loops with roughly `27-28GiB` RSS spikes.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -809,3 +874,8 @@ should therefore report two separate numbers:
 6. For the next benchmark, test larger anchor batches with fewer deploys, for
    example `10x100`, `10x250`, and `10x500`, to separate per-deploy shard
    overhead from per-byte Rholang term overhead.
+
+7. Before running another large burst, fix scope filtering so non-final or
+   losing-branch deploys remain eligible for canonical reinclusion until a
+   finalized block covers them. A clean retest should not start while LFB is
+   pinned and validators are cycling through exit `137`.

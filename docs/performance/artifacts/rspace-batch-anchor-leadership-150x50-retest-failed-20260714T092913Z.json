@@ -1,0 +1,155 @@
+{
+  "run_id": "leadership-20260714T092913Z",
+  "recorded_at_utc": "2026-07-14T09:45:54Z",
+  "status": "failed",
+  "reason": "Shard liveness failure during retest; no clean finalized throughput result.",
+  "workload": {
+    "name": "150x50",
+    "deploys": 150,
+    "traces_per_deploy": 50,
+    "events": 7500
+  },
+  "contract": {
+    "scoped_registry_uri": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T092913Z",
+    "deploy_id": "3045022100c0b7691b29e23356c7aeceeeee7ddd7ff3ae7132341dc82e787fe435129bcd3d02204daf51121dee1d059c2cfa9133d9ef85b099398420bcda38912d4a9dae4c9286",
+    "finalized_block": 70,
+    "finality_latency_seconds": 44.240
+  },
+  "submission": {
+    "submitted_deploys": 150,
+    "submit_span_seconds": 56.290
+  },
+  "observed_inclusion": {
+    "validator1_before_benchmark_abort": {
+      "included_deploys": 150,
+      "finalized_deploys": 0,
+      "note": "Benchmark output reached 150/150 included before a transient show-blocks failure aborted artifact writing."
+    },
+    "validator2_rescan_after_restarts": {
+      "included_deploys": 64,
+      "finalized_deploys": 0,
+      "hit_blocks": [
+        {
+          "block_number": 77,
+          "hash_prefix": "d04182d2cd94",
+          "deploys": 15,
+          "finalized": false
+        },
+        {
+          "block_number": 81,
+          "hash_prefix": "c3e5af67fb5d",
+          "deploys": 49,
+          "finalized": false
+        }
+      ]
+    },
+    "validator3_dag_scan": {
+      "last_finalized_hash_prefix": "4648a5ead8941dd2",
+      "non_final_user_deploy_blocks": [
+        {
+          "block_number": 81,
+          "hash_prefix": "c3e5af67fb5d",
+          "deploys": 49,
+          "block_size_bytes": 6858798,
+          "finalized": false
+        },
+        {
+          "block_number": 83,
+          "hash_prefix": "225bd723fae2",
+          "deploys": 86,
+          "block_size_bytes": 12038226,
+          "finalized": false
+        }
+      ],
+      "support_blocks": [
+        {
+          "block_number": 83,
+          "hash_prefix": "9898dbea2330",
+          "deploys": 0,
+          "finalized": false
+        }
+      ]
+    }
+  },
+  "finality": {
+    "last_finalized_block_number_at_2026_07_14T094554Z": 81,
+    "finalized_deploys": 0,
+    "throughput_events_per_second": 0.0
+  },
+  "proposer_observations": [
+    {
+      "block": 77,
+      "selected_deploys": 15
+    },
+    {
+      "block": 81,
+      "selected_deploys": 49,
+      "already_in_scope": 15
+    },
+    {
+      "block": 83,
+      "selected_deploys": 86,
+      "already_in_scope": 64
+    },
+    {
+      "block": 84,
+      "selected_deploys": 0,
+      "already_in_scope": 150,
+      "message": "Ordinary user deploy selection remains enabled while user deploy work is in flight; per-deploy scope filters suppressed duplicates."
+    }
+  ],
+  "node_health": {
+    "lfb_pinned_window_utc": {
+      "from": "2026-07-14T09:40:15Z",
+      "to": "2026-07-14T09:45:54Z",
+      "last_finalized_block_number": 81
+    },
+    "restart_counts_at_2026_07_14T094554Z": {
+      "rnode.bootstrap": 1,
+      "rnode.validator1": 13,
+      "rnode.validator2": 11,
+      "rnode.validator3": 0,
+      "rnode.readonly": 1
+    },
+    "hard_kill_events": [
+      {
+        "container": "rnode.validator2",
+        "event_time_epoch_seconds": 1784022134,
+        "exit_code": 137,
+        "exec_duration_seconds": 49
+      },
+      {
+        "container": "rnode.validator1",
+        "event_time_epoch_seconds": 1784022265,
+        "exit_code": 137,
+        "exec_duration_seconds": 50
+      },
+      {
+        "container": "rnode.validator2",
+        "event_time_epoch_seconds": 1784022288,
+        "exit_code": 137,
+        "exec_duration_seconds": 49
+      }
+    ],
+    "memory_pressure_samples": [
+      {
+        "observed_at_utc": "2026-07-14T09:45:00Z",
+        "rnode.validator1_rss": "320.9MiB",
+        "rnode.validator2_rss": "28.04GiB",
+        "rnode.validator3_rss": "9.524GiB"
+      },
+      {
+        "observed_at_utc": "2026-07-14T09:45:54Z",
+        "rnode.validator1_rss": "27.36GiB",
+        "rnode.validator2_rss": "322.2MiB",
+        "rnode.validator3_rss": "9.551GiB"
+      }
+    ]
+  },
+  "interpretation": {
+    "clean_benchmark_completed": false,
+    "positive_signal": "Contract binding finalized in 44.240s and submitting 150 deploys took 56.290s, both better than the previous 150x50 post-fix run's 105.702s submit span.",
+    "failure_mode": "The deploys were placed into non-final branches. Later proposals filtered all 150 as already in scope, while the finalized branch did not cover them. Finality stayed pinned and validator1/validator2 entered an exit-137 restart loop with high memory use.",
+    "next_action": "Fix deploy-scope filtering so non-final or losing-branch deploys do not suppress canonical reinclusion, and cap or stream DAG/scope processing to avoid validator memory blow-up."
+  }
+}

@@ -180,7 +180,19 @@ def wait_for_data_at_name(container: str, name: str, *, timeout_s: int) -> float
 
 
 def light_blocks(container: str, depth: int) -> list[dict[str, Any]]:
-    output = docker_exec(container, ["/opt/docker/bin/node", "show-blocks", str(depth)], timeout=120)
+    output = ""
+    for attempt in range(1, 6):
+        try:
+            output = docker_exec(container, ["/opt/docker/bin/node", "show-blocks", str(depth)], timeout=120)
+            break
+        except RuntimeError as exc:
+            if attempt == 5:
+                raise
+            print(
+                f"show-blocks {depth} failed on attempt {attempt}/5; retrying: {exc}",
+                flush=True,
+            )
+            time.sleep(min(2 * attempt, 10))
     blocks: list[dict[str, Any]] = []
     current: dict[str, Any] = {}
     for raw_line in output.splitlines():
