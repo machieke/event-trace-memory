@@ -40,6 +40,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x75-existing-uri-20260714T142710Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-existing-uri-20260714T145930Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-retest-20260714T175559Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-partial-20260714T181331Z.json`
 
 Related earlier analysis:
 
@@ -87,6 +88,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x75` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 13 | yes | `30,446,800` | `4,060` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 | `100x100` batch-anchor, deploy-aware parent support | Batch anchor | 10,000 | 16 | yes | `39,183,400` | `3,918` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
 | `100x100` batch-anchor, post-restart retest | Batch anchor | 10,000 | 8 | yes | `39,183,300` | `3,918` | `416.995s` | `465.644s` | `21.476 events/s` |
+| Stored percept events, batch-anchor partial | Batch anchor | 54,543 | 4 finalized, 3 non-final hits | partial | `14,334,161` finalized / `89,923,367` observed | `5,513` finalized-event normalized | non-final only after batch `161` | stalled at LFB `223` | no full-run finality |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1236,6 +1238,85 @@ The restart changed the operational profile dramatically. The same
 batch-anchor contract path became cheaper and finalized reliably, but the
 larger `100x50` workload still exposed deploy recovery as a scaling limit.
 
+### Stored Percept Events Full Snapshot Probe
+
+Run id: `rspace-stored-events-batch-anchor-20260714T181331Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-partial-20260714T181331Z.json`
+
+This probe deployed a live snapshot of the local `percept-memory` pointer log
+through the batch-anchor path. The runner read
+`percept-memory:/data/pointers.jsonl` once at start and preserved pointer-log
+order.
+
+| Metric | Value |
+| --- | ---: |
+| Pointer-log snapshot | `54,543` unique events |
+| Pointer-log SHA-256 | `efb7bb5aefda223dd4d404b150aedfb5994824ef2a0b5d2660818d8e38bab73f` |
+| Batch size | `100` events/deploy |
+| Deploys submitted | `546` |
+| Submit span | `469.636s` |
+| Submit acceptance rate | `116.143 events/s` |
+| Contract binding wait | `80.613s` |
+| Workload `validAfter` | `206` |
+| Finalized batches | `26 / 546` |
+| Finalized events | `2,600 / 54,543` |
+| Included batches, finalized + non-final | `162 / 546` |
+| Included events, finalized + non-final | `16,200 / 54,543` |
+| Missing batches | `384 / 546` |
+
+All checked nodes agreed on the same coverage:
+
+| Node | Hit blocks | Included batches | Finalized batches |
+| --- | ---: | ---: | ---: |
+| `rnode.validator1` | 7 | 162 | 26 |
+| `rnode.validator2` | 7 | 162 | 26 |
+| `rnode.validator3` | 7 | 162 | 26 |
+| `rnode.bootstrap` | 7 | 162 | 26 |
+
+The hit block shape was:
+
+| Block | Deploys | Batches | Finalized | Cost | Block size |
+| ---: | ---: | ---: | --- | ---: | ---: |
+| `211` | 6 | 6 | yes | `3,296,937` | `1,290,113` |
+| `214` | 8 | 8 | yes | `4,418,998` | `1,720,781` |
+| `218` | 8 | 8 | yes | `4,412,837` | `1,719,474` |
+| `223` | 4 | 4 | yes | `2,205,389` | `866,927` |
+| `224` | 4 | 4 | no | `2,200,926` | `866,432` |
+| `225` | 4 | 4 | no | `2,194,256` | `865,133` |
+| `226` | 128 | 128 | no | `71,194,024` | `27,445,862` |
+
+The finalized subset cost `14,334,161` phlo, or `5,513` phlo per finalized
+event. The full observed hit set cost `89,923,367` phlo, or `5,551` phlo per
+included event, but most of that cost sat in non-final blocks.
+
+This run did not produce a full finality throughput number. After all 546
+deploys were accepted, the shard plateaued at LFB `223`. Blocks `224`, `225`,
+and especially the 128-deploy block `226` stayed non-final across all checked
+nodes. During the same observation window, `validator2` and `validator3`
+restarted repeatedly:
+
+| Node | Restart count after probe | Last start |
+| --- | ---: | --- |
+| `rnode.validator2` | 10 | `2026-07-14T18:39:34.361855397Z` |
+| `rnode.validator3` | 12 | `2026-07-14T18:39:03.141655468Z` |
+
+The log pattern also matched the earlier canonicality failure mode:
+
+| Node | Already-in-scope filters | Support-only deferrals | `selected=0` logs | Block `#227` attempts |
+| --- | ---: | ---: | ---: | ---: |
+| `rnode.validator2` | 0 | 16 | 26 | 10 |
+| `rnode.validator3` | 1,743 | 0 | 6 | 12 |
+
+The concrete failure is therefore not event-pointer serialization or Rholang
+contract execution. The client submitted all real stored events successfully,
+and the shard built deploy-carrying blocks up to batch `161`. The failure was
+canonical progress after a large non-final deploy block: remaining deploys were
+accepted but treated as already in DAG scope, while support-only recovery
+proposals did not finalize the branch or reselect the missing work before the
+run was stopped.
+
 ## Query-Latency Coverage
 
 These batch runs measured ingestion, inclusion, and finality. They did not
@@ -1311,6 +1392,14 @@ should therefore report two separate numbers:
     errors and no recurrence of the `pool>0 valid=0 blockExpired=0 selected=0`
     expiry dead end.
 
+11. The full stored-event snapshot exposed the next scaling cliff. The client
+    submitted all `54,543` real event pointers in `546` batch-anchor deploys,
+    but canonical progress stopped at `26 / 546` finalized batches and
+    `162 / 546` included batches. A single non-final block carried `128`
+    deploys and `27.4MB` of block data; after that, validators repeatedly
+    reported already-in-scope deploys or support-only proposals while LFB stayed
+    at `223`.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -1350,3 +1439,8 @@ should therefore report two separate numbers:
    current selection cap, then assert that deploys first seen in non-final
    blocks are either finalized or reselected before `validAfterBlockNumber`
    crosses the expiry threshold.
+
+9. Add a large-block finality regression for the real stored-event shape:
+   submit at least `546x100` real-size terms or an equivalent byte volume, force
+   a non-final deploy block of roughly `25-30MB`, and assert that support
+   proposals either finalize that branch or make the deploys selectable again.
