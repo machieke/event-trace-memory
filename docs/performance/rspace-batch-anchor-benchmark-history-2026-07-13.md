@@ -48,6 +48,7 @@ Related earlier analysis:
 - `docs/performance/rholang-100-event-root-cause-analysis-2026-07-12.md`
 - `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-13.md`
 - `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-14.md`
+- `docs/performance/rspace-stored-events-root-cause-analysis-2026-07-14.md`
 
 ## Terms
 
@@ -88,7 +89,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x75` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 13 | yes | `30,446,800` | `4,060` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 | `100x100` batch-anchor, deploy-aware parent support | Batch anchor | 10,000 | 16 | yes | `39,183,400` | `3,918` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
 | `100x100` batch-anchor, post-restart retest | Batch anchor | 10,000 | 8 | yes | `39,183,300` | `3,918` | `416.995s` | `465.644s` | `21.476 events/s` |
-| Stored percept events, batch-anchor partial | Batch anchor | 54,543 | 4 finalized, 3 non-final hits | partial | `14,334,161` finalized / `89,923,367` observed | `5,513` finalized-event normalized | non-final only after batch `161` | stalled at LFB `223` | no full-run finality |
+| Stored percept events, batch-anchor partial | Batch anchor | 54,543 | 4 finalized, 3 non-final hits | partial | `14,334,161` finalized / `89,923,367` observed | `5,513` finalized-event normalized | non-final only, max observed batch `205` | stalled at LFB `223` | no full-run finality |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1311,11 +1312,11 @@ The log pattern also matched the earlier canonicality failure mode:
 
 The concrete failure is therefore not event-pointer serialization or Rholang
 contract execution. The client submitted all real stored events successfully,
-and the shard built deploy-carrying blocks up to batch `161`. The failure was
-canonical progress after a large non-final deploy block: remaining deploys were
-accepted but treated as already in DAG scope, while support-only recovery
-proposals did not finalize the branch or reselect the missing work before the
-run was stopped.
+and the shard built deploy-carrying blocks for batch ids `0-160` plus `205`.
+The failure was canonical progress after a large non-final deploy block:
+remaining deploys were accepted but treated as already in DAG scope, while
+support-only recovery proposals did not finalize the branch or reselect the
+missing work before the run was stopped.
 
 ## Query-Latency Coverage
 
