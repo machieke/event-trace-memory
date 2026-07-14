@@ -1,0 +1,194 @@
+{
+  "run_id": "rspace-leadership-150x50-20260714T113330Z",
+  "recorded_at_utc": "2026-07-14T11:51:08Z",
+  "status": "failed",
+  "reason": "All 150 logical batches reached non-final blocks, but none reached finalized canonical coverage before deploy lifetime/selection expiry.",
+  "workload": {
+    "name": "150x50",
+    "deploys": 150,
+    "traces_per_deploy": 50,
+    "events": 7500
+  },
+  "contract": {
+    "scoped_registry_uri": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T113330Z",
+    "deploy_id": "304402206339f8155a87f40691b1384cf4e0edc588f481c1453f1055ec642afcdf10d2dc02200ae4088d076cd9265040b0a295fab95f62fb166fe998a9e51ae7238b8f95e428",
+    "finalized_block": 70,
+    "finality_latency_seconds": 32.264
+  },
+  "submission": {
+    "submitted_deploys": 150,
+    "submit_span_seconds": 54.545,
+    "valid_after_block": 71
+  },
+  "observed_inclusion": {
+    "included_batches": 150,
+    "finalized_batches": 0,
+    "hit_blocks": [
+      {
+        "block_number": 75,
+        "hash_prefix": "79ca799d3136",
+        "finalized": false,
+        "deploy_count": 18,
+        "batch_count": 18,
+        "block_size_bytes": 2528922,
+        "cost_sum": 3945438
+      },
+      {
+        "block_number": 78,
+        "hash_prefix": "1fc5cf2ddcc8",
+        "finalized": false,
+        "deploy_count": 64,
+        "batch_count": 64,
+        "block_size_bytes": 8954085,
+        "cost_sum": 14028224
+      },
+      {
+        "block_number": 79,
+        "hash_prefix": "eae5366fb280",
+        "finalized": false,
+        "deploy_count": 86,
+        "batch_count": 86,
+        "block_size_bytes": 12037202,
+        "cost_sum": 18904676
+      },
+      {
+        "block_number": 84,
+        "hash_prefix": "ec357e5d3ede",
+        "finalized": false,
+        "deploy_count": 128,
+        "batch_count": 128,
+        "block_size_bytes": 17898997,
+        "cost_sum": 28086828
+      }
+    ]
+  },
+  "finality": {
+    "last_finalized_block_number_at_2026_07_14T115108Z": 127,
+    "finalized_batches": 0,
+    "throughput_events_per_second": 0.0
+  },
+  "proposer_observations": [
+    {
+      "block": 75,
+      "pool": 18,
+      "valid": 18,
+      "already_in_scope": 0,
+      "selected": 18
+    },
+    {
+      "block": 79,
+      "pool": 150,
+      "valid": 150,
+      "already_in_scope": 64,
+      "selected": 86
+    },
+    {
+      "block": 83,
+      "pool": 150,
+      "valid": 150,
+      "already_in_scope": 0,
+      "selected": 128,
+      "deferred": 22,
+      "cap": 128,
+      "strategy": "oldest-plus-newest"
+    },
+    {
+      "block": 84,
+      "pool": 150,
+      "valid": 150,
+      "already_in_scope": 0,
+      "selected": 128,
+      "deferred": 22,
+      "cap": 128,
+      "strategy": "oldest-plus-newest"
+    },
+    {
+      "block": 130,
+      "pool": 150,
+      "valid": 0,
+      "block_expired": 22,
+      "already_in_scope": 0,
+      "selected": 0,
+      "note": "Logs reported validAfterBlockNumber=71 <= earliestBlock=80 for expired deploys."
+    },
+    {
+      "block": 130,
+      "pool": 128,
+      "valid": 0,
+      "block_expired": 0,
+      "already_in_scope": 0,
+      "selected": 0,
+      "note": "Later proposals still had 128 deploys in pool but selected none."
+    }
+  ],
+  "node_health": {
+    "startup": {
+      "all_nodes_started_at": "2026-07-14T11:21:45Z",
+      "initial_restarts": 0,
+      "initial_lfb": 64
+    },
+    "final_status_at_2026_07_14T115108Z": {
+      "rnode.bootstrap": {
+        "restarts": 0,
+        "lfb": 127
+      },
+      "rnode.validator1": {
+        "restarts": 7,
+        "lfb": 127
+      },
+      "rnode.validator2": {
+        "restarts": 0,
+        "lfb": 127
+      },
+      "rnode.validator3": {
+        "restarts": 0,
+        "lfb": 127
+      },
+      "rnode.readonly": {
+        "restarts": 0,
+        "lfb": 127
+      }
+    },
+    "observed_hard_kill_events": [
+      {
+        "container": "rnode.validator1",
+        "event_time_epoch_seconds": 1784029706,
+        "exit_code": 137,
+        "exec_duration_seconds": 73
+      },
+      {
+        "container": "rnode.validator1",
+        "event_time_epoch_seconds": 1784029853,
+        "exit_code": 137,
+        "exec_duration_seconds": 73
+      }
+    ],
+    "memory_pressure_samples": [
+      {
+        "observed_at_utc": "2026-07-14T11:35:49Z",
+        "rnode.validator1_rss": "747.6MiB",
+        "rnode.validator2_rss": "486MiB",
+        "rnode.validator3_rss": "525.5MiB"
+      },
+      {
+        "observed_at_utc": "2026-07-14T11:46:12Z",
+        "rnode.validator1_rss": "264.6MiB",
+        "rnode.validator2_rss": "521.9MiB",
+        "rnode.validator3_rss": "545.1MiB"
+      },
+      {
+        "observed_at_utc": "2026-07-14T11:51:08Z",
+        "rnode.validator1_rss": "492.5MiB",
+        "rnode.validator2_rss": "584.6MiB",
+        "rnode.validator3_rss": "569.8MiB"
+      }
+    ]
+  },
+  "interpretation": {
+    "clean_benchmark_completed": false,
+    "positive_signal": "The shard accepted and executed the full workload into non-final blocks quickly, memory stayed below 1GiB on sampled validators, and validator2/validator3 did not restart.",
+    "failure_mode": "Finalized coverage stayed at 0/150 after LFB advanced to 127. The deploy-carrying blocks remained non-final, and later proposals selected zero valid deploys after deploy lifetime expiry/non-selectability.",
+    "comparison_to_20260714T092913Z": "This fixed the previous all-node memory blow-up and all-in-scope stall, but not canonical inclusion/finality for 150x50.",
+    "next_action": "Extend deploy lifetime or recover expired deploys from non-final branches, and ensure deploy-carrying branches receive enough finality support before expiration."
+  }
+}

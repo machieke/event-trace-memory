@@ -35,6 +35,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-partial-20260713T193527Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-20260714T080823Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T092913Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T113330Z.json`
 
 Related earlier analysis:
 
@@ -76,6 +77,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>593s` | `>593s` | `<12.648 events/s` |
 | `150x50` batch-anchor, post-fix retest | Batch anchor | 7,500 | 5 finalized, 15 total hits | yes | `32,933,050` | `4,391` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 | `150x50` batch-anchor, 2026-07-14 failed retest | Batch anchor | 7,500 | 0 finalized, non-final scope only | no | n/a | n/a | non-final only | stalled at LFB `81` | `0 events/s` |
+| `150x50` batch-anchor, 2026-07-14 post-fix retest | Batch anchor | 7,500 | 0 finalized, 4 non-final hits | no | n/a | n/a | non-final only | LFB reached `127` | `0 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -718,6 +720,68 @@ be repackaged until finalized coverage exists. It should also cap or stream
 DAG/scope processing; the alternating validator1/validator2 `27-28GiB` RSS
 spikes and exit `137` restarts make large-run finality unrecoverable.
 
+### 150x50 Retest After Additional Fixes
+
+Run id: `rspace-leadership-150x50-20260714T113330Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T113330Z.json`
+
+This retest was cleaner than the earlier `09:29Z` failed run, but it still did
+not produce finalized workload coverage.
+
+Positive changes:
+
+- all shard containers started together at `2026-07-14T11:21:45Z` with `0`
+  restarts before the run;
+- the scoped contract binding finalized in block `70` after `32.264s`;
+- all `150` workload deploys were submitted in `54.545s`;
+- validator2 and validator3 stayed at `0` restarts through the final snapshot;
+- sampled validator RSS stayed below `1GiB`, not the earlier `27-34GiB` range;
+- the workload reached `150 / 150` logical batch inclusion in non-final blocks.
+
+Failure state:
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `150` |
+| Finalized deploys | `0 / 150` |
+| Non-final hit blocks | `4` |
+| Final LFB snapshot | block `127` |
+| Validator1 restarts by `11:51:08Z` | `7` |
+| Validator2 / validator3 restarts | `0 / 0` |
+| Observed validator1 hard-kill exit code | `137` |
+
+The hit blocks were visible from both validator2 and validator3:
+
+| Block | Hash prefix | Deploys | Batch ids seen | Size | Cost | Finalized |
+| ---: | --- | ---: | ---: | ---: | ---: | --- |
+| `75` | `79ca799d3136` | `18` | `18` | `2,528,922` | `3,945,438` | no |
+| `78` | `1fc5cf2ddcc8` | `64` | `64` | `8,954,085` | `14,028,224` | no |
+| `79` | `eae5366fb280` | `86` | `86` | `12,037,202` | `18,904,676` | no |
+| `84` | `ec357e5d3ede` | `128` | `128` | `17,898,997` | `28,086,828` | no |
+
+The new cap behavior appeared in proposer logs:
+
+- block `83`: `pool=150`, `valid=150`, `alreadyInScope=0`, `selected=128`,
+  `deferred=22`, `cap=128`, `strategy=oldest-plus-newest`;
+- block `84`: the same `selected=128`, `deferred=22` shape.
+
+That is a real improvement over the prior `alreadyInScope=150`, `selected=0`
+stall. But canonical finality still did not include the workload. Later block
+`130` proposals showed the deploy lifetime problem:
+
+- `pool=150`, `blockExpired=22`, `valid=0`, `selected=0`;
+- later, `pool=128`, `blockExpired=0`, `valid=0`, `selected=0`.
+
+So the remaining bottleneck shifted again. The shard can admit the full
+`150x50` burst into non-final blocks without global memory blow-up, but it does
+not get those deploys finalized before they expire or become non-selectable.
+The next fix should either extend deploy lifetime for recovery, explicitly
+recover deploys from non-final branches, or accelerate finality support for
+deploy-carrying branches before the expiration window is crossed.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -754,6 +818,7 @@ That is the expected behavior for an anchor-first path.
 | Restarted `100x50` | 5,000 | `33.632s` | `11.614s` | `552.458s` | `594.821s` | `8.406 events/s` |
 | Post-fix `150x50` | 7,500 | `105.702s` | `208.940s` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 | Failed 2026-07-14 `150x50` retest | 7,500 | `56.290s` | non-final only | none | stalled at LFB `81` | `0 events/s` |
+| Failed 2026-07-14 post-fix `150x50` retest | 7,500 | `54.545s` | non-final only | none | LFB reached `127` with `0 / 150` finalized | `0 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
@@ -845,6 +910,13 @@ should therefore report two separate numbers:
    finalized coverage remained `0 / 150` and validator1/validator2 entered
    exit-`137` restart loops with roughly `27-28GiB` RSS spikes.
 
+9. The later 2026-07-14 retest fixed part of that failure but not finality.
+   It avoided the global memory blow-up and admitted all `150` logical batches
+   into non-final blocks, but finalized coverage stayed `0 / 150` after LFB
+   reached `127`. Later proposals selected zero valid deploys after expiration
+   or non-selectability, so deploy lifetime/recovery now gates canonical
+   inclusion.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -879,3 +951,8 @@ should therefore report two separate numbers:
    losing-branch deploys remain eligible for canonical reinclusion until a
    finalized block covers them. A clean retest should not start while LFB is
    pinned and validators are cycling through exit `137`.
+
+8. Add a specific recovery test for deploy lifetime: submit `150x50` with the
+   current selection cap, then assert that deploys first seen in non-final
+   blocks are either finalized or reselected before `validAfterBlockNumber`
+   crosses the expiry threshold.
