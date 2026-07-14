@@ -38,6 +38,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T113330Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-150x50-retest-recovery-20260714T124211Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x75-existing-uri-20260714T142710Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-existing-uri-20260714T145930Z.json`
 
 Related earlier analysis:
 
@@ -83,6 +84,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `150x50` batch-anchor, 2026-07-14 post-fix retest | Batch anchor | 7,500 | 0 finalized, 4 non-final hits | no | n/a | n/a | non-final only | LFB reached `127` | `0 events/s` |
 | `150x50` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 14 | yes | `32,933,200` | `4,391` | `612.679s` | `666.679s` | `11.250 events/s` |
 | `100x75` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 13 | yes | `30,446,800` | `4,060` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
+| `100x100` batch-anchor, deploy-aware parent support | Batch anchor | 10,000 | 16 | yes | `39,183,400` | `3,918` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -966,6 +968,109 @@ showed the workload draining mostly through capped `8`-deploy blocks, with
 deploys were already in unresolved scope, blocks selected `0` additional deploys
 and the remaining time was finality/support catch-up.
 
+### 100x100 Deploy-Aware Parent Support Retest
+
+Run id: `rspace-leadership-100x100-20260714T145930Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-existing-uri-20260714T145930Z.json`
+
+This run reused the finalized scoped URI from the prior deploy-aware tests:
+`event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T124211Z`.
+That keeps the measurement focused on workload ingestion and finality.
+
+Outcome:
+
+| Metric | Value |
+| --- | ---: |
+| Events | `10,000` |
+| Deploys | `100` |
+| Batch size | `100` event pointers/deploy |
+| Workload submit span | `98.360s` |
+| First workload deploy timestamp | `2026-07-14T14:59:31.286224Z` |
+| Last workload deploy accepted | `2026-07-14T15:01:09.646465Z` |
+| First inclusion latency | `167.840s` |
+| Canonical add latency | `1,483.062s` |
+| Finality latency | `1,483.062s` |
+| Finality throughput | `6.743 events/s` |
+| Canonical blocks | `16` |
+| Canonical cost | `39,183,400` |
+| Cost/event | `3,918.34` |
+| Total term bytes | `7,840,000` |
+| Total canonical block size | `18,149,262` |
+| Canonical errored deploys | `0` |
+
+Canonical block shape:
+
+| Block | Batches | Size | Cost |
+| ---: | ---: | ---: | ---: |
+| `391` | `8` | `1,443,809` | `3,134,672` |
+| `392` | `8` | `1,443,959` | `3,134,672` |
+| `393` | `8` | `1,443,809` | `3,134,672` |
+| `394` | `8` | `1,443,887` | `3,134,672` |
+| `396` | `8` | `1,444,401` | `3,134,672` |
+| `397` | `8` | `1,443,884` | `3,134,672` |
+| `399` | `8` | `1,443,663` | `3,134,672` |
+| `400` | `8` | `1,491,981` | `3,134,672` |
+| `402` | `4` | `729,453` | `1,567,336` |
+| `403` | `4` | `729,602` | `1,567,336` |
+| `404` | `8` | `1,443,597` | `3,134,672` |
+| `405` | `4` | `729,754` | `1,567,336` |
+| `406` | `4` | `729,311` | `1,567,336` |
+| `407` | `4` | `729,383` | `1,567,336` |
+| `408` | `4` | `729,459` | `1,567,336` |
+| `409` | `4` | `729,310` | `1,567,336` |
+
+Finalized coverage progression:
+
+| Time UTC | Included | Finalized | Hit blocks | Finalized blocks |
+| --- | ---: | ---: | ---: | ---: |
+| `15:01:09` | `0 / 100` | `0 / 100` | `0` | `0` |
+| `15:02:19` | `8 / 100` | `0 / 100` | `1` | `0` |
+| `15:11:50` | `40 / 100` | `8 / 100` | `5` | `1` |
+| `15:13:36` | `40 / 100` | `16 / 100` | `5` | `2` |
+| `15:18:55` | `64 / 100` | `24 / 100` | `8` | `3` |
+| `15:20:33` | `64 / 100` | `40 / 100` | `8` | `5` |
+| `15:22:30` | `80 / 100` | `40 / 100` | `11` | `5` |
+| `15:23:24` | `92 / 100` | `40 / 100` | `14` | `5` |
+| `15:24:14` | `100 / 100` | `100 / 100` | `16` | `16` |
+
+Compared with the `100x75` retest, `100x100` carried `33.3%` more events and
+finished finality `5.83%` sooner, so finality throughput improved by `41.6%`.
+It also lowered cost/event by `3.48%`. That improvement did not come from faster
+block construction: first inclusion was `22.5%` slower, submit span was `14.6%`
+slower, and canonical add latency was `19.3%` slower. The gain came from more
+events per accepted deploy and from the finality tail catching up completely at
+the final observation.
+
+Compared with deploy-aware `150x50`, `100x100` is still not the throughput
+winner. It has `10.77%` lower cost/event (`3,918` vs `4,391`), but finality
+throughput is `40.1%` lower (`6.743` vs `11.250 events/s`). The workload also
+needed `16` canonical blocks instead of `14`, despite submitting fewer deploys
+than `150x50`.
+
+Proposer logs show why the tail is fragile. Early workload blocks selected
+`8` deploys under backpressure, with 8x100-trace propose totals such as:
+
+```text
+block #392: selected=8, total_ms=140298
+block #393: selected=8, total_ms=156096
+block #394: selected=8, total_ms=157121
+block #400: selected=8, total_ms=154909
+```
+
+When LFB lag reached `8`, the ordinary user deploy fallback tightened to
+`cap=4`:
+
+```text
+block #402: cap=4, fresh_local=36, lfb_lag=8, selected=4
+```
+
+So `100x100` is a cost-per-event improvement over `100x75`, but it pushes the
+proposer into stronger backpressure. On this shard, `150x50` remains the best
+observed latency/throughput point for 7,500-event-class bursts, while `100x100`
+is the cheaper but slower high-density option.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -980,6 +1085,7 @@ and the remaining time was finality/support catch-up.
 | Post-fix `150x50` | 7,500 | 150 | `32,933,050` | `219,554` | `4,391` |
 | Deploy-aware parent `150x50` | 7,500 | 150 | `32,933,200` | `219,555` | `4,391` |
 | Deploy-aware parent `100x75` | 7,500 | 100 | `30,446,800` | `304,468` | `4,060` |
+| Deploy-aware parent `100x100` | 10,000 | 100 | `39,183,400` | `391,834` | `3,918` |
 
 The batch-anchor path makes deploy cost roughly proportional to batch anchor
 term size, not to accumulated on-chain posting-list size. Cost per event falls
@@ -1007,6 +1113,7 @@ That is the expected behavior for an anchor-first path.
 | Failed 2026-07-14 post-fix `150x50` retest | 7,500 | `54.545s` | non-final only | none | LFB reached `127` with `0 / 150` finalized | `0 events/s` |
 | Deploy-aware parent `150x50` retest | 7,500 | `51.368s` | n/a | `612.679s` | `666.679s` | `11.250 events/s` |
 | Deploy-aware parent `100x75` retest | 7,500 | `85.798s` | `136.967s` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
+| Deploy-aware parent `100x100` retest | 10,000 | `98.360s` | `167.840s` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 

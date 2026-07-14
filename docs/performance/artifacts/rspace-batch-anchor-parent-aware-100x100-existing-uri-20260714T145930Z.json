@@ -1,0 +1,2350 @@
+{
+  "container": "rnode.validator3",
+  "contract_binding_wait_s": 0.0,
+  "contract_block": null,
+  "contract_deploy": null,
+  "created_at": "2026-07-14T15:24:31.474290Z",
+  "last_finalized_after": {
+    "hash": "437e56e19f225bb779979192964434eb9f6297c3f8ac02295c7695a4f7fd5a48",
+    "number": 411,
+    "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"437e56e19f225bb779979192964434eb9f6297c3f8ac02295c7695a4f7fd5a48\",\n            sender: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            seq_num: 379,\n            sig: \"304402202f0313d311107efeecab622fd15105cea77f4745c9910db81fc4368c05fa9b97022008a66c301c755e82119cdc664df3ec00463027343e64620c361990df08c0d72b\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784042650032,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"3e4f708ec34040fc7692646f88de7a4c997029e69f6e4b80f37a488735b3cf80\",\n            ],\n            block_number: 411,\n            pre_state_hash: \"3b94bf918ac29d445ef8933d5969078e064e7e078dcc873b84e13c4ac75da9fb\",\n            post_state_hash: \"3b94bf918ac29d445ef8933d5969078e064e7e078dcc873b84e13c4ac75da9fb\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15025\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"2e59d802827258da5bb514ae60bd64ee2652a84390093876e6892a456b8dba5b\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"3e4f708ec34040fc7692646f88de7a4c997029e69f6e4b80f37a488735b3cf80\",\n                },\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"a7a80556fc54a7a41d908acdc98a951f9b1827510d8a81e3f4ec88658a5f43a8\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+  },
+  "latest_block_after": {
+    "hash": "eb2663b5390f53e5260182a10d246fcc8d299bd5f0cb2df1305e79fd7333ce68",
+    "number": 413,
+    "raw": "\n------------- block 413 ---------------\nLightBlockInfo {\n    block_hash: \"eb2663b5390f53e5260182a10d246fcc8d299bd5f0cb2df1305e79fd7333ce68\",\n    sender: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n    seq_num: 380,\n    sig: \"3045022100d2f3550c03ce54c17fe5f592d882b1e61fc846e89f471925dc75f3d39f8f1ebd02202d68e55a6500818a021d62005e5161b2553d90a4e8708d5b3141d88f6c75cf59\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784042660694,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"9b2d3a2c42e8a136081cfc2dfa7c613d804dfbca6a0e96c880f5c8531b62d7f1\",\n    ],\n    block_number: 413,\n    pre_state_hash: \"3b94bf918ac29d445ef8933d5969078e064e7e078dcc873b84e13c4ac75da9fb\",\n    post_state_hash: \"3b94bf918ac29d445ef8933d5969078e064e7e078dcc873b84e13c4ac75da9fb\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"15026\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"3e4f708ec34040fc7692646f88de7a4c997029e69f6e4b80f37a488735b3cf80\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"9b2d3a2c42e8a136081cfc2dfa7c613d804dfbca6a0e96c880f5c8531b62d7f1\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"437e56e19f225bb779979192964434eb9f6297c3f8ac02295c7695a4f7fd5a48\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+  },
+  "node_status": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://f2d1a86af48bbd8c48ee2cd8747bb1666e6d129b@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"f2d1a86af48bbd8c48ee2cd8747bb1666e6d129b\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 411,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 41,\n    epoch_length: 10,\n}\n",
+  "results": {
+    "100x100": {
+      "all_hits": [
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "block_size": 1443809,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b8b32f969eb7e14cbd77ed12f3d0b6ea98e380442cedbdd7f2d535febeec1f5d",
+          "number": 391
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "block_size": 1443959,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b10d8b06892664f5e434d53e8f1812cefd3c27d7c078723d8810b467744aef9f",
+          "number": 392
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "block_size": 1443809,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "c894de121a329a1e424372afbceacfaa8af0c3f93b58348604b485f0a8a8f35e",
+          "number": 393
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "block_size": 1443887,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "0feb0e95d4493e73d09f6bae287e66071a74f6dc5103082d5c48b11e75b447b2",
+          "number": 394
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39
+          ],
+          "block_size": 1444401,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "7ef07e5095b228882ee738f591e5cab79bc8ee853b5efb86d6056c3c0d3f96ef",
+          "number": 396
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "block_size": 1443884,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b15694669a6fa7a8edde942fd9d2d2e2b6649d5828ddd0bbe43871c131dd31c3",
+          "number": 397
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ],
+          "block_size": 1443663,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a395ff1fd79d71acb7055302133e02c78c978c645014d8374af14a36a5bce6c0",
+          "number": 399
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "block_size": 1491981,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "5c2234cb8b5a4b6b112247fe04b043b8f25bde0916ce12d964a8cba2e244f260",
+          "number": 400
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "block_size": 729453,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a4493dc3d8098950452cb8b0e63e57e3c17170ffd28d4dcfac1fab77157e506e",
+          "number": 402
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            68,
+            69,
+            70,
+            71
+          ],
+          "block_size": 729602,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "387f3e2558f5c5c4ae98ba2b0c0d82c7726250005e580f0735603eefa0a5857a",
+          "number": 403
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "block_size": 1443597,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "0e84a4b8eb5d8818eba5aef3170dd5fc747c305964e16af4c9f83eb825f63fcf",
+          "number": 404
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            80,
+            81,
+            82,
+            83
+          ],
+          "block_size": 729754,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "8a1bfa36ad58bae448252c30e0db1b1e9285585cac6778a92a4ad4b08fef6bdb",
+          "number": 405
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            84,
+            85,
+            86,
+            87
+          ],
+          "block_size": 729311,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "16b929028a1430fedef1d9c4a63908088536b1d6201c59c92d4168f5b23b767c",
+          "number": 406
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            88,
+            89,
+            90,
+            91
+          ],
+          "block_size": 729383,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "9c3f0f8e33e489c7814f399291977f161ac3f999915337e134cc0adba35a2238",
+          "number": 407
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            92,
+            93,
+            94,
+            95
+          ],
+          "block_size": 729459,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "50a95b5399448d13355c4b034fdbb49502ac5304648ac17b365769f2f4ab5c40",
+          "number": 408
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            96,
+            97,
+            98,
+            99
+          ],
+          "block_size": 729310,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a7a80556fc54a7a41d908acdc98a951f9b1827510d8a81e3f4ec88658a5f43a8",
+          "number": 409
+        }
+      ],
+      "all_included_s": 1483.061646,
+      "batch_size": 100,
+      "canonical_added_s": 1483.061646,
+      "canonical_added_to_finality_s": 0.0,
+      "canonical_block_count": 16,
+      "canonical_blocks": [
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "block_size": 1443809,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b8b32f969eb7e14cbd77ed12f3d0b6ea98e380442cedbdd7f2d535febeec1f5d",
+          "number": 391
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "block_size": 1443959,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b10d8b06892664f5e434d53e8f1812cefd3c27d7c078723d8810b467744aef9f",
+          "number": 392
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "block_size": 1443809,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "c894de121a329a1e424372afbceacfaa8af0c3f93b58348604b485f0a8a8f35e",
+          "number": 393
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "block_size": 1443887,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "0feb0e95d4493e73d09f6bae287e66071a74f6dc5103082d5c48b11e75b447b2",
+          "number": 394
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39
+          ],
+          "block_size": 1444401,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "7ef07e5095b228882ee738f591e5cab79bc8ee853b5efb86d6056c3c0d3f96ef",
+          "number": 396
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "block_size": 1443884,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "b15694669a6fa7a8edde942fd9d2d2e2b6649d5828ddd0bbe43871c131dd31c3",
+          "number": 397
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ],
+          "block_size": 1443663,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a395ff1fd79d71acb7055302133e02c78c978c645014d8374af14a36a5bce6c0",
+          "number": 399
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "block_size": 1491981,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "5c2234cb8b5a4b6b112247fe04b043b8f25bde0916ce12d964a8cba2e244f260",
+          "number": 400
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "block_size": 729453,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a4493dc3d8098950452cb8b0e63e57e3c17170ffd28d4dcfac1fab77157e506e",
+          "number": 402
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            68,
+            69,
+            70,
+            71
+          ],
+          "block_size": 729602,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "387f3e2558f5c5c4ae98ba2b0c0d82c7726250005e580f0735603eefa0a5857a",
+          "number": 403
+        },
+        {
+          "batch_count": 8,
+          "batch_ids": [
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "block_size": 1443597,
+          "cost_sum": 3134672,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 8,
+          "errors": 0,
+          "finalized": true,
+          "hash": "0e84a4b8eb5d8818eba5aef3170dd5fc747c305964e16af4c9f83eb825f63fcf",
+          "number": 404
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            80,
+            81,
+            82,
+            83
+          ],
+          "block_size": 729754,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "8a1bfa36ad58bae448252c30e0db1b1e9285585cac6778a92a4ad4b08fef6bdb",
+          "number": 405
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            84,
+            85,
+            86,
+            87
+          ],
+          "block_size": 729311,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "16b929028a1430fedef1d9c4a63908088536b1d6201c59c92d4168f5b23b767c",
+          "number": 406
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            88,
+            89,
+            90,
+            91
+          ],
+          "block_size": 729383,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "9c3f0f8e33e489c7814f399291977f161ac3f999915337e134cc0adba35a2238",
+          "number": 407
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            92,
+            93,
+            94,
+            95
+          ],
+          "block_size": 729459,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "50a95b5399448d13355c4b034fdbb49502ac5304648ac17b365769f2f4ab5c40",
+          "number": 408
+        },
+        {
+          "batch_count": 4,
+          "batch_ids": [
+            96,
+            97,
+            98,
+            99
+          ],
+          "block_size": 729310,
+          "cost_sum": 1567336,
+          "cost_values": [
+            391834,
+            391834,
+            391834,
+            391834
+          ],
+          "deploy_count": 4,
+          "errors": 0,
+          "finalized": true,
+          "hash": "a7a80556fc54a7a41d908acdc98a951f9b1827510d8a81e3f4ec88658a5f43a8",
+          "number": 409
+        }
+      ],
+      "comparison": null,
+      "cost_avg": 391834.0,
+      "cost_per_event": 3918.34,
+      "deploys": [
+        {
+          "batch": 0,
+          "deploy_id": "304402204b63b8eb6bce97abe50b9b12256d19052788c91ddd958f1579aa468be95c269702206ce13d03939195d9da7683fd0fd650cc0e317b665669f6b8e2fe72650fa670a2",
+          "elapsed_s": 1.359825,
+          "end_iso": "2026-07-14T14:59:32.646049Z",
+          "output": "Response: Success!\nDeployId is: 304402204b63b8eb6bce97abe50b9b12256d19052788c91ddd958f1579aa468be95c269702206ce13d03939195d9da7683fd0fd650cc0e317b665669f6b8e2fe72650fa670a2\n",
+          "start_iso": "2026-07-14T14:59:31.286224Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 1,
+          "deploy_id": "30450221008ee78ec06894c8cf51532ceb6175769b5d5fbe054876254a1bfa0a336e18c7b8022061e4fd9495e603b02a59df6733bf98b8ee0f329428c5ea254b6cf0925bb2e55f",
+          "elapsed_s": 1.159377,
+          "end_iso": "2026-07-14T14:59:33.858917Z",
+          "output": "Response: Success!\nDeployId is: 30450221008ee78ec06894c8cf51532ceb6175769b5d5fbe054876254a1bfa0a336e18c7b8022061e4fd9495e603b02a59df6733bf98b8ee0f329428c5ea254b6cf0925bb2e55f\n",
+          "start_iso": "2026-07-14T14:59:32.699540Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 2,
+          "deploy_id": "304402201e4125b7dad9dd548f29f271d5b0beed6139cbe4b5913192b5c2a1dfefcfe26602207f387db89d156e5e7b69dd9245411a31e83af01a31279bf74fbc4437dfdde496",
+          "elapsed_s": 0.875758,
+          "end_iso": "2026-07-14T14:59:34.805184Z",
+          "output": "Response: Success!\nDeployId is: 304402201e4125b7dad9dd548f29f271d5b0beed6139cbe4b5913192b5c2a1dfefcfe26602207f387db89d156e5e7b69dd9245411a31e83af01a31279bf74fbc4437dfdde496\n",
+          "start_iso": "2026-07-14T14:59:33.929426Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 3,
+          "deploy_id": "304402207482f4cd1e73f8f3cb01c9b237e7eabc1c9ce5d7378205fe8b656da9230e4fe7022002214b97fa492796f795662a491228dd19837cc04d154e42fef13a83fc09c8c5",
+          "elapsed_s": 1.324168,
+          "end_iso": "2026-07-14T14:59:36.256223Z",
+          "output": "Response: Success!\nDeployId is: 304402207482f4cd1e73f8f3cb01c9b237e7eabc1c9ce5d7378205fe8b656da9230e4fe7022002214b97fa492796f795662a491228dd19837cc04d154e42fef13a83fc09c8c5\n",
+          "start_iso": "2026-07-14T14:59:34.932055Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 4,
+          "deploy_id": "30440220393ded366bf991322074c0aa298c45c2632f3b6fc2ba34032b0c31389cd65e7902207c8f24a15995257cc01714499d15e981f1c736fb47418eb66464b22ca8f1ff5b",
+          "elapsed_s": 1.304186,
+          "end_iso": "2026-07-14T14:59:37.685620Z",
+          "output": "Response: Success!\nDeployId is: 30440220393ded366bf991322074c0aa298c45c2632f3b6fc2ba34032b0c31389cd65e7902207c8f24a15995257cc01714499d15e981f1c736fb47418eb66464b22ca8f1ff5b\n",
+          "start_iso": "2026-07-14T14:59:36.381434Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 5,
+          "deploy_id": "3045022100dbc0f11eb947f9cc0e08eb77b37f7b6337c214296bac4a850921c5836eaf47060220088a6441bf24885ef99ea36b4dd7d91c78dfa6e4df54ad68b455d35dbaf20e6f",
+          "elapsed_s": 1.021921,
+          "end_iso": "2026-07-14T14:59:38.811386Z",
+          "output": "Response: Success!\nDeployId is: 3045022100dbc0f11eb947f9cc0e08eb77b37f7b6337c214296bac4a850921c5836eaf47060220088a6441bf24885ef99ea36b4dd7d91c78dfa6e4df54ad68b455d35dbaf20e6f\n",
+          "start_iso": "2026-07-14T14:59:37.789465Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 6,
+          "deploy_id": "304402203acf9d0675f4af4bef078b29fa1c66d643c926e304477c3b88161b404ee2f76502204b37ce3da609e57eaf78684105885bac6a19e5e82afa968684429f5abff117a0",
+          "elapsed_s": 0.919036,
+          "end_iso": "2026-07-14T14:59:39.820928Z",
+          "output": "Response: Success!\nDeployId is: 304402203acf9d0675f4af4bef078b29fa1c66d643c926e304477c3b88161b404ee2f76502204b37ce3da609e57eaf78684105885bac6a19e5e82afa968684429f5abff117a0\n",
+          "start_iso": "2026-07-14T14:59:38.901892Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 7,
+          "deploy_id": "3045022100d7d1431868eaf88fdbd1e358ef6d23ae28a7babdb5b6ce0a545db5cd8b032c3c0220146fb1db506bf3853233b2ebe239a936155786972710f3b7f321bc7ba772367b",
+          "elapsed_s": 0.776099,
+          "end_iso": "2026-07-14T14:59:40.676102Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d7d1431868eaf88fdbd1e358ef6d23ae28a7babdb5b6ce0a545db5cd8b032c3c0220146fb1db506bf3853233b2ebe239a936155786972710f3b7f321bc7ba772367b\n",
+          "start_iso": "2026-07-14T14:59:39.900003Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 8,
+          "deploy_id": "30450221009f914953df2efe170afd861720baa478b585cfc27cac8d9b9c98e3004c2bc1ed02205778eacce2d7d412e9591aa9b950819e587f4a2c721b30b3b9edfea39208bf59",
+          "elapsed_s": 0.702134,
+          "end_iso": "2026-07-14T14:59:41.494154Z",
+          "output": "Response: Success!\nDeployId is: 30450221009f914953df2efe170afd861720baa478b585cfc27cac8d9b9c98e3004c2bc1ed02205778eacce2d7d412e9591aa9b950819e587f4a2c721b30b3b9edfea39208bf59\n",
+          "start_iso": "2026-07-14T14:59:40.792020Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 9,
+          "deploy_id": "3045022100a2c96fec8783c0d9ea77f70b8b0ec59ca3f4cfb939e0e0771282455c8f9fff8a02201b0852717c02a8918f7b25ff8301c32fd9e3438d6027b5879696e7ad56a9a62c",
+          "elapsed_s": 1.228556,
+          "end_iso": "2026-07-14T14:59:42.842008Z",
+          "output": "Response: Success!\nDeployId is: 3045022100a2c96fec8783c0d9ea77f70b8b0ec59ca3f4cfb939e0e0771282455c8f9fff8a02201b0852717c02a8918f7b25ff8301c32fd9e3438d6027b5879696e7ad56a9a62c\n",
+          "start_iso": "2026-07-14T14:59:41.613452Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 10,
+          "deploy_id": "304402204555e9271ecbdfb01de3c0124e43e0ed8818f87510663a708eaa6f868aec32030220460f8413d45dc7fbfd71037ae28bc3745be99505110134ff6e7fc138886e6fb1",
+          "elapsed_s": 0.837244,
+          "end_iso": "2026-07-14T14:59:43.761230Z",
+          "output": "Response: Success!\nDeployId is: 304402204555e9271ecbdfb01de3c0124e43e0ed8818f87510663a708eaa6f868aec32030220460f8413d45dc7fbfd71037ae28bc3745be99505110134ff6e7fc138886e6fb1\n",
+          "start_iso": "2026-07-14T14:59:42.923986Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 11,
+          "deploy_id": "3045022100af9ef861b92e0973a76c6244cabf5578da65dfd6bd4f8f2a2e48a5d990af2c140220466c320178075b1832a5944914c1927b39659c84347a473846ca4d76ee86bea0",
+          "elapsed_s": 0.907292,
+          "end_iso": "2026-07-14T14:59:44.747302Z",
+          "output": "Response: Success!\nDeployId is: 3045022100af9ef861b92e0973a76c6244cabf5578da65dfd6bd4f8f2a2e48a5d990af2c140220466c320178075b1832a5944914c1927b39659c84347a473846ca4d76ee86bea0\n",
+          "start_iso": "2026-07-14T14:59:43.840010Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 12,
+          "deploy_id": "30440220011c7b8e40bce8d87eca0f639238be9660c81fd63834647c6e651960c9aadc07022061bca6729dc00cb6db3f27fe9fed78c5884f27bb8b6480e35aea92836b011993",
+          "elapsed_s": 0.782238,
+          "end_iso": "2026-07-14T14:59:45.623986Z",
+          "output": "Response: Success!\nDeployId is: 30440220011c7b8e40bce8d87eca0f639238be9660c81fd63834647c6e651960c9aadc07022061bca6729dc00cb6db3f27fe9fed78c5884f27bb8b6480e35aea92836b011993\n",
+          "start_iso": "2026-07-14T14:59:44.841748Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 13,
+          "deploy_id": "3045022100b07d9194ded2b96d735be51b2662148f3bc371c86e0ea546ebfa6745dbfe2bf202206009a0f84a8214d789656410af488dead8dbd1bb9f022f773df123392987c8b3",
+          "elapsed_s": 0.878862,
+          "end_iso": "2026-07-14T14:59:46.572277Z",
+          "output": "Response: Success!\nDeployId is: 3045022100b07d9194ded2b96d735be51b2662148f3bc371c86e0ea546ebfa6745dbfe2bf202206009a0f84a8214d789656410af488dead8dbd1bb9f022f773df123392987c8b3\n",
+          "start_iso": "2026-07-14T14:59:45.693415Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 14,
+          "deploy_id": "304402203e06498534fc4a314a3ee4a733b231c981054b40e11920d3ad0bcf95a04a85ad022053722bbe7e8d6118cbf3b96d979b43e5ffcf76669e2dfee276656c71be9e57ee",
+          "elapsed_s": 1.048456,
+          "end_iso": "2026-07-14T14:59:47.708476Z",
+          "output": "Response: Success!\nDeployId is: 304402203e06498534fc4a314a3ee4a733b231c981054b40e11920d3ad0bcf95a04a85ad022053722bbe7e8d6118cbf3b96d979b43e5ffcf76669e2dfee276656c71be9e57ee\n",
+          "start_iso": "2026-07-14T14:59:46.660020Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 15,
+          "deploy_id": "304402203b456efb484f8dad0affa505575cbc56e083f9ab5b8a0d68266dda2e3d2e8f9b022035390331bbd0f7ff473c8045f74d9659e295ded6e134e95cd610054fd2b00cbc",
+          "elapsed_s": 0.86765,
+          "end_iso": "2026-07-14T14:59:48.653123Z",
+          "output": "Response: Success!\nDeployId is: 304402203b456efb484f8dad0affa505575cbc56e083f9ab5b8a0d68266dda2e3d2e8f9b022035390331bbd0f7ff473c8045f74d9659e295ded6e134e95cd610054fd2b00cbc\n",
+          "start_iso": "2026-07-14T14:59:47.785473Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 16,
+          "deploy_id": "304402206acc644ee2226e94b2b87e3fc5e591935b5183dcf725193914a5fb59fc5c393602206e86455fcaf517663220402ad10a7c46912521a920abc2784168472b21eb6f63",
+          "elapsed_s": 0.853804,
+          "end_iso": "2026-07-14T14:59:49.601716Z",
+          "output": "Response: Success!\nDeployId is: 304402206acc644ee2226e94b2b87e3fc5e591935b5183dcf725193914a5fb59fc5c393602206e86455fcaf517663220402ad10a7c46912521a920abc2784168472b21eb6f63\n",
+          "start_iso": "2026-07-14T14:59:48.747912Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 17,
+          "deploy_id": "3045022100e2f5b76e2a100bae0df6c7afc0cf3fd956be11b1535f437cb412cc2ad420abc702201df30585eed0c0b0474ebaba05771ea9f7d0bd212a4a8a689f76b1cc147f4790",
+          "elapsed_s": 0.625372,
+          "end_iso": "2026-07-14T14:59:50.297352Z",
+          "output": "Response: Success!\nDeployId is: 3045022100e2f5b76e2a100bae0df6c7afc0cf3fd956be11b1535f437cb412cc2ad420abc702201df30585eed0c0b0474ebaba05771ea9f7d0bd212a4a8a689f76b1cc147f4790\n",
+          "start_iso": "2026-07-14T14:59:49.671980Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 18,
+          "deploy_id": "304402203f5311f104153a0ba864f8500c48a6e93551238840696571627d71b143835c9702200e524e4576220f3cbc71db42ad0964e5a34760f38ec92385745c87a773ad2306",
+          "elapsed_s": 0.906999,
+          "end_iso": "2026-07-14T14:59:51.286989Z",
+          "output": "Response: Success!\nDeployId is: 304402203f5311f104153a0ba864f8500c48a6e93551238840696571627d71b143835c9702200e524e4576220f3cbc71db42ad0964e5a34760f38ec92385745c87a773ad2306\n",
+          "start_iso": "2026-07-14T14:59:50.379990Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 19,
+          "deploy_id": "304402200be8f396011a2e04ea93f99114967572c0258bc647e8e07e1d62a335afa1484c02206fdc6bbe3ed9d324ac424496c58e866af1e1864419599fd9a5c8e5a4c8f9feab",
+          "elapsed_s": 0.871068,
+          "end_iso": "2026-07-14T14:59:52.264560Z",
+          "output": "Response: Success!\nDeployId is: 304402200be8f396011a2e04ea93f99114967572c0258bc647e8e07e1d62a335afa1484c02206fdc6bbe3ed9d324ac424496c58e866af1e1864419599fd9a5c8e5a4c8f9feab\n",
+          "start_iso": "2026-07-14T14:59:51.393492Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 20,
+          "deploy_id": "3045022100e7093b5f15dbb580c52d539d7870b3c08cf44d583394e9d7586b7ff45ef4af2002206b844a16c7cb4c96afe18ebb03191128b5af2ac0a0f02e87eda81b1a48b4998a",
+          "elapsed_s": 0.638937,
+          "end_iso": "2026-07-14T14:59:52.994930Z",
+          "output": "Response: Success!\nDeployId is: 3045022100e7093b5f15dbb580c52d539d7870b3c08cf44d583394e9d7586b7ff45ef4af2002206b844a16c7cb4c96afe18ebb03191128b5af2ac0a0f02e87eda81b1a48b4998a\n",
+          "start_iso": "2026-07-14T14:59:52.355993Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 21,
+          "deploy_id": "3045022100d7f6df3fa40baa19fdeb4c034cbcb35151d07a85bddbe828a9b277deca262d800220331c26d28b6454dd77a0117136957902de7914e8d27108fe6f7754eac6a48752",
+          "elapsed_s": 0.834261,
+          "end_iso": "2026-07-14T14:59:53.939741Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d7f6df3fa40baa19fdeb4c034cbcb35151d07a85bddbe828a9b277deca262d800220331c26d28b6454dd77a0117136957902de7914e8d27108fe6f7754eac6a48752\n",
+          "start_iso": "2026-07-14T14:59:53.105480Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 22,
+          "deploy_id": "304402204c08ec43206545755f40c96d883402dd573b9ef0511315a9b41cbad07cf844c5022033963b7dec02b04f1f5a357c64899c729c00796ad3f7a4a625a7f0e05a493da5",
+          "elapsed_s": 0.641033,
+          "end_iso": "2026-07-14T14:59:54.637013Z",
+          "output": "Response: Success!\nDeployId is: 304402204c08ec43206545755f40c96d883402dd573b9ef0511315a9b41cbad07cf844c5022033963b7dec02b04f1f5a357c64899c729c00796ad3f7a4a625a7f0e05a493da5\n",
+          "start_iso": "2026-07-14T14:59:53.995980Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 23,
+          "deploy_id": "304402205bf80d233a25b0eca78b57b426f1dcc350af4a22ea42d75d3d25ae3a05911e9a022051cf5d6846c59830d88ab4fd11d491678f3910ea2a56c4874ba3a34bafc55c0d",
+          "elapsed_s": 0.555527,
+          "end_iso": "2026-07-14T14:59:55.275523Z",
+          "output": "Response: Success!\nDeployId is: 304402205bf80d233a25b0eca78b57b426f1dcc350af4a22ea42d75d3d25ae3a05911e9a022051cf5d6846c59830d88ab4fd11d491678f3910ea2a56c4874ba3a34bafc55c0d\n",
+          "start_iso": "2026-07-14T14:59:54.719996Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 24,
+          "deploy_id": "3044022001f82fd624201b1fc630c65d5b07179b1c5c6eb16f667dbe7aa6e6ff507e6a5b022036be59169fdb7476d8cdead46297609b1c2a07be97a5e2d6fcad8843b5084eaa",
+          "elapsed_s": 1.00698,
+          "end_iso": "2026-07-14T14:59:56.366968Z",
+          "output": "Response: Success!\nDeployId is: 3044022001f82fd624201b1fc630c65d5b07179b1c5c6eb16f667dbe7aa6e6ff507e6a5b022036be59169fdb7476d8cdead46297609b1c2a07be97a5e2d6fcad8843b5084eaa\n",
+          "start_iso": "2026-07-14T14:59:55.359988Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 25,
+          "deploy_id": "3045022100c89801c0348270bc83d22d9b19b80f7ec94e54f247385dc38d504a21deb542e402206e10c934f257aa5b9763f2d5fca3f9aa7e9bd1e587da60e79d50144358ec1e99",
+          "elapsed_s": 1.260226,
+          "end_iso": "2026-07-14T14:59:57.721730Z",
+          "output": "Response: Success!\nDeployId is: 3045022100c89801c0348270bc83d22d9b19b80f7ec94e54f247385dc38d504a21deb542e402206e10c934f257aa5b9763f2d5fca3f9aa7e9bd1e587da60e79d50144358ec1e99\n",
+          "start_iso": "2026-07-14T14:59:56.461504Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 26,
+          "deploy_id": "3045022100a7c6f93f3540332a60a6970b8478aab4bc1f561297cb984d873da1d847a2d52a02203fffb234b59c5faa95a291860119bfe6e39efb00365c3c277867c1fa6911515c",
+          "elapsed_s": 0.70922,
+          "end_iso": "2026-07-14T14:59:58.537147Z",
+          "output": "Response: Success!\nDeployId is: 3045022100a7c6f93f3540332a60a6970b8478aab4bc1f561297cb984d873da1d847a2d52a02203fffb234b59c5faa95a291860119bfe6e39efb00365c3c277867c1fa6911515c\n",
+          "start_iso": "2026-07-14T14:59:57.827927Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 27,
+          "deploy_id": "30450221008a81cb008c7b48822d57534d019ccf5d43dfab35e2a409db4095dd2dde84caf902201e9eccff916eb922a266cc3145f1d127f722c4a35bea28d8eb0ea09e0b1f342a",
+          "elapsed_s": 0.784047,
+          "end_iso": "2026-07-14T14:59:59.396070Z",
+          "output": "Response: Success!\nDeployId is: 30450221008a81cb008c7b48822d57534d019ccf5d43dfab35e2a409db4095dd2dde84caf902201e9eccff916eb922a266cc3145f1d127f722c4a35bea28d8eb0ea09e0b1f342a\n",
+          "start_iso": "2026-07-14T14:59:58.612023Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 28,
+          "deploy_id": "30450221008ca20380f481153d1e3c1f08bd7478cf0c65b6024ddd09a41d32d8400ef6c12702203814de48a7741170ca2b40e6534805ed359d99c016d5fd43488dee3956cc8c0b",
+          "elapsed_s": 0.971069,
+          "end_iso": "2026-07-14T15:00:00.413868Z",
+          "output": "Response: Success!\nDeployId is: 30450221008ca20380f481153d1e3c1f08bd7478cf0c65b6024ddd09a41d32d8400ef6c12702203814de48a7741170ca2b40e6534805ed359d99c016d5fd43488dee3956cc8c0b\n",
+          "start_iso": "2026-07-14T14:59:59.442799Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 29,
+          "deploy_id": "30450221009e7ba15b243eec78f88f5fa96c88546c617ac4f9378eeb83be55c9bb8ce2592c02204c51cb594199ca5a60795568fda1b6fe685655f860a463da3f1d6c287a0aa526",
+          "elapsed_s": 1.105772,
+          "end_iso": "2026-07-14T15:00:01.618311Z",
+          "output": "Response: Success!\nDeployId is: 30450221009e7ba15b243eec78f88f5fa96c88546c617ac4f9378eeb83be55c9bb8ce2592c02204c51cb594199ca5a60795568fda1b6fe685655f860a463da3f1d6c287a0aa526\n",
+          "start_iso": "2026-07-14T15:00:00.512539Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 30,
+          "deploy_id": "3045022100be2724356083c98387c12abeadd18452025b3892e4a05a9228069439059e7e54022055013e3a97709129a3cdc3f72ca3286c661e37094d1efe2477f867e0262f3d20",
+          "elapsed_s": 0.772494,
+          "end_iso": "2026-07-14T15:00:02.495939Z",
+          "output": "Response: Success!\nDeployId is: 3045022100be2724356083c98387c12abeadd18452025b3892e4a05a9228069439059e7e54022055013e3a97709129a3cdc3f72ca3286c661e37094d1efe2477f867e0262f3d20\n",
+          "start_iso": "2026-07-14T15:00:01.723445Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 31,
+          "deploy_id": "304502210082f7c1152caf0c6d0d55619386e677d8f9e3c87b22f809875454c1d86deb650902205d68510ed8ed611008b6a324133a27ddeb2d32bacce9216cd91b0f4fe0218ab3",
+          "elapsed_s": 1.153799,
+          "end_iso": "2026-07-14T15:00:03.748255Z",
+          "output": "Response: Success!\nDeployId is: 304502210082f7c1152caf0c6d0d55619386e677d8f9e3c87b22f809875454c1d86deb650902205d68510ed8ed611008b6a324133a27ddeb2d32bacce9216cd91b0f4fe0218ab3\n",
+          "start_iso": "2026-07-14T15:00:02.594456Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 32,
+          "deploy_id": "304402206c881faf22ef6e94acf2bcc629d1ce483bb50b4373e1fc11fc2db7cd824630dd02203bf51d6ac34845727259c3150c164b8380d46114d7055bf839a1223ce8028caa",
+          "elapsed_s": 0.717797,
+          "end_iso": "2026-07-14T15:00:04.593781Z",
+          "output": "Response: Success!\nDeployId is: 304402206c881faf22ef6e94acf2bcc629d1ce483bb50b4373e1fc11fc2db7cd824630dd02203bf51d6ac34845727259c3150c164b8380d46114d7055bf839a1223ce8028caa\n",
+          "start_iso": "2026-07-14T15:00:03.875984Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 33,
+          "deploy_id": "30450221008c9896cfe3b53c54d0ac7fe31b1b41e7161354713354ea44ae1a90ef97b4782b022032120d9a9b332a6a5fcdb2cfe52f0a0dd40da1cb4d91142179b9015f99a7456a",
+          "elapsed_s": 0.721832,
+          "end_iso": "2026-07-14T15:00:05.393818Z",
+          "output": "Response: Success!\nDeployId is: 30450221008c9896cfe3b53c54d0ac7fe31b1b41e7161354713354ea44ae1a90ef97b4782b022032120d9a9b332a6a5fcdb2cfe52f0a0dd40da1cb4d91142179b9015f99a7456a\n",
+          "start_iso": "2026-07-14T15:00:04.671986Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 34,
+          "deploy_id": "304402202781154f72ea42fe1b7cf9672397501f0113be9092234641ad9b06b0c685c3940220102bdc8c5265ddfba2dc10ff1bc985371230ba6a72bc3dc463a2d8eeca9eae00",
+          "elapsed_s": 0.720017,
+          "end_iso": "2026-07-14T15:00:06.203589Z",
+          "output": "Response: Success!\nDeployId is: 304402202781154f72ea42fe1b7cf9672397501f0113be9092234641ad9b06b0c685c3940220102bdc8c5265ddfba2dc10ff1bc985371230ba6a72bc3dc463a2d8eeca9eae00\n",
+          "start_iso": "2026-07-14T15:00:05.483572Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 35,
+          "deploy_id": "3045022100d493fddc973314006e745663719ca0416bf94a1c51ed5be81c3dda88c7dc1e9b022040082ea82aea486b325da10d75a0814ba5007e0d846c277760b16ebfd8d2b0d4",
+          "elapsed_s": 0.846835,
+          "end_iso": "2026-07-14T15:00:07.126850Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d493fddc973314006e745663719ca0416bf94a1c51ed5be81c3dda88c7dc1e9b022040082ea82aea486b325da10d75a0814ba5007e0d846c277760b16ebfd8d2b0d4\n",
+          "start_iso": "2026-07-14T15:00:06.280015Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 36,
+          "deploy_id": "3044022037854337feb476a84a863fdd4d5c3dd13271ef72424bc9814bc2c3d3cf16329e02204ff7458058ae2a90b050e45918d40ca852edd314f652aa57bf0f8b7d45871945",
+          "elapsed_s": 0.688295,
+          "end_iso": "2026-07-14T15:00:07.876339Z",
+          "output": "Response: Success!\nDeployId is: 3044022037854337feb476a84a863fdd4d5c3dd13271ef72424bc9814bc2c3d3cf16329e02204ff7458058ae2a90b050e45918d40ca852edd314f652aa57bf0f8b7d45871945\n",
+          "start_iso": "2026-07-14T15:00:07.188044Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 37,
+          "deploy_id": "304402204cb03085536a789ea3635d77d08ba93abbce8b40c943a74bac5bd7a1ef4a4e3a02203e737a419aa047f1f99891c433503c4c71a4db299a91222f464c9b4b65390bef",
+          "elapsed_s": 0.945669,
+          "end_iso": "2026-07-14T15:00:08.911186Z",
+          "output": "Response: Success!\nDeployId is: 304402204cb03085536a789ea3635d77d08ba93abbce8b40c943a74bac5bd7a1ef4a4e3a02203e737a419aa047f1f99891c433503c4c71a4db299a91222f464c9b4b65390bef\n",
+          "start_iso": "2026-07-14T15:00:07.965517Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 38,
+          "deploy_id": "30440220410024edcb47fc4655a154db7bc4c1f6cc2c7bdaefd9e60771203c3ade41eb660220611e5f4b8e2ccfc37b5886355a98e1c60c08ea704d8aaacbc3190001ff81bdf5",
+          "elapsed_s": 0.670869,
+          "end_iso": "2026-07-14T15:00:09.680467Z",
+          "output": "Response: Success!\nDeployId is: 30440220410024edcb47fc4655a154db7bc4c1f6cc2c7bdaefd9e60771203c3ade41eb660220611e5f4b8e2ccfc37b5886355a98e1c60c08ea704d8aaacbc3190001ff81bdf5\n",
+          "start_iso": "2026-07-14T15:00:09.009598Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 39,
+          "deploy_id": "3044022038bf153596068f775bcd6bd4471bfa3fdf42c4e27413d9f907af286335bc1f5d0220177f9874167367ee8fecc47a8709b5f2088f3373f2ba8a45e6994d9c215400b4",
+          "elapsed_s": 0.717252,
+          "end_iso": "2026-07-14T15:00:10.470737Z",
+          "output": "Response: Success!\nDeployId is: 3044022038bf153596068f775bcd6bd4471bfa3fdf42c4e27413d9f907af286335bc1f5d0220177f9874167367ee8fecc47a8709b5f2088f3373f2ba8a45e6994d9c215400b4\n",
+          "start_iso": "2026-07-14T15:00:09.753485Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 40,
+          "deploy_id": "30440220559ff3d9aa030ba83f9ea74e1fc33e0aaba0daafcfc23ffcb3081869dd00084b0220473574bf4a40489f04a026037aa4d5951acc56d9f6fa7d344971449594666848",
+          "elapsed_s": 0.596071,
+          "end_iso": "2026-07-14T15:00:11.184905Z",
+          "output": "Response: Success!\nDeployId is: 30440220559ff3d9aa030ba83f9ea74e1fc33e0aaba0daafcfc23ffcb3081869dd00084b0220473574bf4a40489f04a026037aa4d5951acc56d9f6fa7d344971449594666848\n",
+          "start_iso": "2026-07-14T15:00:10.588834Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 41,
+          "deploy_id": "304402205a3f646156bdc92070e872c526c7e672d01a08b62f5a0ffaba9ff43a4eb48f1a02203eecfdd5a74ce1bde8d6caa38c1e9a4d06b9c33a378760f82cd62fe292076c4b",
+          "elapsed_s": 0.684741,
+          "end_iso": "2026-07-14T15:00:11.956747Z",
+          "output": "Response: Success!\nDeployId is: 304402205a3f646156bdc92070e872c526c7e672d01a08b62f5a0ffaba9ff43a4eb48f1a02203eecfdd5a74ce1bde8d6caa38c1e9a4d06b9c33a378760f82cd62fe292076c4b\n",
+          "start_iso": "2026-07-14T15:00:11.272006Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 42,
+          "deploy_id": "304502210089be8ee5387062815bc7b47ef9dd62efc420b0889987239731564668a70e3fcc022044fab42eb7f117b1b78d58a86f67c1653dcb81bddbf977e812c01513147d7475",
+          "elapsed_s": 0.673316,
+          "end_iso": "2026-07-14T15:00:12.694923Z",
+          "output": "Response: Success!\nDeployId is: 304502210089be8ee5387062815bc7b47ef9dd62efc420b0889987239731564668a70e3fcc022044fab42eb7f117b1b78d58a86f67c1653dcb81bddbf977e812c01513147d7475\n",
+          "start_iso": "2026-07-14T15:00:12.021607Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 43,
+          "deploy_id": "3045022100daad70e9b294e7fe3254023f3fe28860d40ff0e746ce5873964337a7dbaae2b10220552a676d4370ea030b24d54a51902bcf08915b5474f35a7693c806db1f9ee340",
+          "elapsed_s": 0.700685,
+          "end_iso": "2026-07-14T15:00:13.492683Z",
+          "output": "Response: Success!\nDeployId is: 3045022100daad70e9b294e7fe3254023f3fe28860d40ff0e746ce5873964337a7dbaae2b10220552a676d4370ea030b24d54a51902bcf08915b5474f35a7693c806db1f9ee340\n",
+          "start_iso": "2026-07-14T15:00:12.791998Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 44,
+          "deploy_id": "3044022056cf38f7630ae85e7b21acc8161f5e7f42becfc391137c98eda2e2ae4d5a377f02203f5369ad0d0df2122ea2819bc87c94d41aceef8f004f7dc182038b552b201617",
+          "elapsed_s": 0.60232,
+          "end_iso": "2026-07-14T15:00:14.127899Z",
+          "output": "Response: Success!\nDeployId is: 3044022056cf38f7630ae85e7b21acc8161f5e7f42becfc391137c98eda2e2ae4d5a377f02203f5369ad0d0df2122ea2819bc87c94d41aceef8f004f7dc182038b552b201617\n",
+          "start_iso": "2026-07-14T15:00:13.525579Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 45,
+          "deploy_id": "3045022100eebe055f637e75501ebbf7379d87808883b0fc391d3503a9439302881254b76402207dcf5bcb38798f6e2e6409cf5633ddf917dada2d81d62cffcf81ff6d684f527d",
+          "elapsed_s": 0.559618,
+          "end_iso": "2026-07-14T15:00:14.777090Z",
+          "output": "Response: Success!\nDeployId is: 3045022100eebe055f637e75501ebbf7379d87808883b0fc391d3503a9439302881254b76402207dcf5bcb38798f6e2e6409cf5633ddf917dada2d81d62cffcf81ff6d684f527d\n",
+          "start_iso": "2026-07-14T15:00:14.217472Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 46,
+          "deploy_id": "304402205759664c0b8d2d9f5a83fd8ab32e91d52ce192528b4798615636c5fb6fe928d102202fc0dfc29878719c6cff37833b31fdd857d10e4d5c91f7b441d70f66073895cf",
+          "elapsed_s": 0.702654,
+          "end_iso": "2026-07-14T15:00:15.588310Z",
+          "output": "Response: Success!\nDeployId is: 304402205759664c0b8d2d9f5a83fd8ab32e91d52ce192528b4798615636c5fb6fe928d102202fc0dfc29878719c6cff37833b31fdd857d10e4d5c91f7b441d70f66073895cf\n",
+          "start_iso": "2026-07-14T15:00:14.885656Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 47,
+          "deploy_id": "3044022043621db2bdf3b89e6bea715ce4633313a3e7c7bc6de698c857cc189d938eb61202203b980707ea20f9fc8f5785f44dbf80507eeffdd6bec73925d7290b33b337d4da",
+          "elapsed_s": 1.138013,
+          "end_iso": "2026-07-14T15:00:16.801920Z",
+          "output": "Response: Success!\nDeployId is: 3044022043621db2bdf3b89e6bea715ce4633313a3e7c7bc6de698c857cc189d938eb61202203b980707ea20f9fc8f5785f44dbf80507eeffdd6bec73925d7290b33b337d4da\n",
+          "start_iso": "2026-07-14T15:00:15.663907Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 48,
+          "deploy_id": "3045022100cd2611e7f50c69f66366ec7790a824ff07d9f7b74f89ba3c18db831d31be26f602200b84bedef1c2ddc6762be174419736d0259462e881ff7a66702c86780d991e18",
+          "elapsed_s": 0.78862,
+          "end_iso": "2026-07-14T15:00:17.672597Z",
+          "output": "Response: Success!\nDeployId is: 3045022100cd2611e7f50c69f66366ec7790a824ff07d9f7b74f89ba3c18db831d31be26f602200b84bedef1c2ddc6762be174419736d0259462e881ff7a66702c86780d991e18\n",
+          "start_iso": "2026-07-14T15:00:16.883977Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 49,
+          "deploy_id": "3045022100f937ecef0776d62b0f0e42847a28334425d687977737c729c515c25b2299e4fc02203cbaee3d553f73a3bb3febd358344d4a4e62e6c2343282a5062c3fda04049e9e",
+          "elapsed_s": 0.756004,
+          "end_iso": "2026-07-14T15:00:18.523993Z",
+          "output": "Response: Success!\nDeployId is: 3045022100f937ecef0776d62b0f0e42847a28334425d687977737c729c515c25b2299e4fc02203cbaee3d553f73a3bb3febd358344d4a4e62e6c2343282a5062c3fda04049e9e\n",
+          "start_iso": "2026-07-14T15:00:17.767989Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 50,
+          "deploy_id": "304402202ff4914e0906596e7cd127a218f1d6292667bb6f4ecb80815ff452e1fdbb4bac022032c77896f3bd51a0c8105e8be391716afd3b989eb9743ad6b7765916b33f8ad5",
+          "elapsed_s": 1.119791,
+          "end_iso": "2026-07-14T15:00:19.725208Z",
+          "output": "Response: Success!\nDeployId is: 304402202ff4914e0906596e7cd127a218f1d6292667bb6f4ecb80815ff452e1fdbb4bac022032c77896f3bd51a0c8105e8be391716afd3b989eb9743ad6b7765916b33f8ad5\n",
+          "start_iso": "2026-07-14T15:00:18.605417Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 51,
+          "deploy_id": "3045022100d1f98f78ff40bb263f3eca254b4f37c82d051b32c1ffde4ba2287b49571c4068022029c1e98d6ec574872667518312da6db1beb7673d2735bb26b16d776262f981ee",
+          "elapsed_s": 0.789235,
+          "end_iso": "2026-07-14T15:00:20.610790Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d1f98f78ff40bb263f3eca254b4f37c82d051b32c1ffde4ba2287b49571c4068022029c1e98d6ec574872667518312da6db1beb7673d2735bb26b16d776262f981ee\n",
+          "start_iso": "2026-07-14T15:00:19.821555Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 52,
+          "deploy_id": "304402207f87e5e70ac01b6c8ac762c71418cb4e875612586396628241894bb8bedbc74c022033aba8e891f2ead8a5ef2586f027b62d9d7ba8d7fbea1aba0311d3d580b3260c",
+          "elapsed_s": 0.908548,
+          "end_iso": "2026-07-14T15:00:21.622165Z",
+          "output": "Response: Success!\nDeployId is: 304402207f87e5e70ac01b6c8ac762c71418cb4e875612586396628241894bb8bedbc74c022033aba8e891f2ead8a5ef2586f027b62d9d7ba8d7fbea1aba0311d3d580b3260c\n",
+          "start_iso": "2026-07-14T15:00:20.713617Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 53,
+          "deploy_id": "3045022100ead6a3c34925108b71611216e804fd54ad7820dcc518ecf437b2ffab786e29f60220525b8f26d2d40da6da47e413b798696e3257c25a92de567c0c9991b1c798fa75",
+          "elapsed_s": 0.920642,
+          "end_iso": "2026-07-14T15:00:22.650223Z",
+          "output": "Response: Success!\nDeployId is: 3045022100ead6a3c34925108b71611216e804fd54ad7820dcc518ecf437b2ffab786e29f60220525b8f26d2d40da6da47e413b798696e3257c25a92de567c0c9991b1c798fa75\n",
+          "start_iso": "2026-07-14T15:00:21.729581Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 54,
+          "deploy_id": "3044022021d0e100f8bd295c79aeb8afada19640b17efd62740ea1bbeff06aaffdec714f02204ef2ecfa7bd3f53c7b9f1aef3be2c1fa5f5b7b20fde8c86f758e5b79824f67a0",
+          "elapsed_s": 1.560786,
+          "end_iso": "2026-07-14T15:00:24.282797Z",
+          "output": "Response: Success!\nDeployId is: 3044022021d0e100f8bd295c79aeb8afada19640b17efd62740ea1bbeff06aaffdec714f02204ef2ecfa7bd3f53c7b9f1aef3be2c1fa5f5b7b20fde8c86f758e5b79824f67a0\n",
+          "start_iso": "2026-07-14T15:00:22.722011Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 55,
+          "deploy_id": "30450221009e6c1105ef4f2a84b439e72be21972857dac11b6d4fafc841edee7c11d4df60f02206af99b7a5fea0b3da9d1cc5babc80486ff7064b156615886bdc1b9feae25410c",
+          "elapsed_s": 1.193903,
+          "end_iso": "2026-07-14T15:00:25.563722Z",
+          "output": "Response: Success!\nDeployId is: 30450221009e6c1105ef4f2a84b439e72be21972857dac11b6d4fafc841edee7c11d4df60f02206af99b7a5fea0b3da9d1cc5babc80486ff7064b156615886bdc1b9feae25410c\n",
+          "start_iso": "2026-07-14T15:00:24.369819Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 56,
+          "deploy_id": "30450221008ec70fa7b59a7cae23d2d080e33bd6354ad067225c17e2895f5ae80db9785fb90220172f40715ad50a732ae49febbb0b2623d448f9db201a1a926b16d72d22b791c6",
+          "elapsed_s": 1.294182,
+          "end_iso": "2026-07-14T15:00:26.907788Z",
+          "output": "Response: Success!\nDeployId is: 30450221008ec70fa7b59a7cae23d2d080e33bd6354ad067225c17e2895f5ae80db9785fb90220172f40715ad50a732ae49febbb0b2623d448f9db201a1a926b16d72d22b791c6\n",
+          "start_iso": "2026-07-14T15:00:25.613606Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 57,
+          "deploy_id": "3045022100f6b3d9275de6c8733f29f007d7bb094dcf38dae95222642b26abf6984751e02502205b40a9884dffbe60c57bfe1238e571b5ac7f1f701e1bd5aeadd6287bdf2bab6f",
+          "elapsed_s": 1.233904,
+          "end_iso": "2026-07-14T15:00:28.249934Z",
+          "output": "Response: Success!\nDeployId is: 3045022100f6b3d9275de6c8733f29f007d7bb094dcf38dae95222642b26abf6984751e02502205b40a9884dffbe60c57bfe1238e571b5ac7f1f701e1bd5aeadd6287bdf2bab6f\n",
+          "start_iso": "2026-07-14T15:00:27.016030Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 58,
+          "deploy_id": "30440220357cc5897948ad0c9a67e9e805f7cc9e00f56e5d704284f619e20f25e5ab89f5022049c5a396a1652c3b1b24581967aabf07b15fddc6b96b975b32687769b5aff561",
+          "elapsed_s": 1.009995,
+          "end_iso": "2026-07-14T15:00:29.331624Z",
+          "output": "Response: Success!\nDeployId is: 30440220357cc5897948ad0c9a67e9e805f7cc9e00f56e5d704284f619e20f25e5ab89f5022049c5a396a1652c3b1b24581967aabf07b15fddc6b96b975b32687769b5aff561\n",
+          "start_iso": "2026-07-14T15:00:28.321629Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 59,
+          "deploy_id": "3045022100926df288193105da27109232eac1b00e99e84c57d436b0007d2695226b4cdd0502200215bbe642bb313f1ece1ed1697d3b753562499acc02ecdf9697320ca3053bf0",
+          "elapsed_s": 1.128463,
+          "end_iso": "2026-07-14T15:00:30.560107Z",
+          "output": "Response: Success!\nDeployId is: 3045022100926df288193105da27109232eac1b00e99e84c57d436b0007d2695226b4cdd0502200215bbe642bb313f1ece1ed1697d3b753562499acc02ecdf9697320ca3053bf0\n",
+          "start_iso": "2026-07-14T15:00:29.431644Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 60,
+          "deploy_id": "3045022100c95b82c712daef38390d0c85c18dbeab56fc76203c5b7aebe8b71ddf03b59b9a0220698b6885c2f19029e7c208d42b5b411b5ba935beb8e62e1a29e580ddbb9165ff",
+          "elapsed_s": 1.222539,
+          "end_iso": "2026-07-14T15:00:31.886527Z",
+          "output": "Response: Success!\nDeployId is: 3045022100c95b82c712daef38390d0c85c18dbeab56fc76203c5b7aebe8b71ddf03b59b9a0220698b6885c2f19029e7c208d42b5b411b5ba935beb8e62e1a29e580ddbb9165ff\n",
+          "start_iso": "2026-07-14T15:00:30.663988Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 61,
+          "deploy_id": "3045022100e6048ca32a2e0cf93718f2a52a26b404cf3cd2671f2fd21f25201bde554c2b03022036280f468d531a64ac65ca8d17ab12a62cbea1e43b81d470ff5b3df4b8ce8db8",
+          "elapsed_s": 1.008316,
+          "end_iso": "2026-07-14T15:00:32.986037Z",
+          "output": "Response: Success!\nDeployId is: 3045022100e6048ca32a2e0cf93718f2a52a26b404cf3cd2671f2fd21f25201bde554c2b03022036280f468d531a64ac65ca8d17ab12a62cbea1e43b81d470ff5b3df4b8ce8db8\n",
+          "start_iso": "2026-07-14T15:00:31.977721Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 62,
+          "deploy_id": "30440220267510f28de99c7d4f93003ecc3a358d189ed85fa8026a51063b922648cfc2f6022064b81ac46772152ca1a1f22915dd52c9d6af9e714ed8542ae3384dcb7b9dd432",
+          "elapsed_s": 1.428171,
+          "end_iso": "2026-07-14T15:00:34.537782Z",
+          "output": "Response: Success!\nDeployId is: 30440220267510f28de99c7d4f93003ecc3a358d189ed85fa8026a51063b922648cfc2f6022064b81ac46772152ca1a1f22915dd52c9d6af9e714ed8542ae3384dcb7b9dd432\n",
+          "start_iso": "2026-07-14T15:00:33.109611Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 63,
+          "deploy_id": "3045022100a8b543a8076f9129645241c364896f29cf553d15b1ae7206aef6372acd54101f0220459ff6e940034df3b7e56d47ac73da76fb62ae95edc2af932b347df5c2da3b33",
+          "elapsed_s": 0.770403,
+          "end_iso": "2026-07-14T15:00:35.395773Z",
+          "output": "Response: Success!\nDeployId is: 3045022100a8b543a8076f9129645241c364896f29cf553d15b1ae7206aef6372acd54101f0220459ff6e940034df3b7e56d47ac73da76fb62ae95edc2af932b347df5c2da3b33\n",
+          "start_iso": "2026-07-14T15:00:34.625370Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 64,
+          "deploy_id": "30450221009257fd1be50030c22308d52aa8919a312e6d92c3f05f8ac9eef2fbee2332fae9022030bf465bd6f3321e5c041f90fb8ff897f987f965ddb7ec8fb2d5100ceb2f9af7",
+          "elapsed_s": 0.935876,
+          "end_iso": "2026-07-14T15:00:36.413586Z",
+          "output": "Response: Success!\nDeployId is: 30450221009257fd1be50030c22308d52aa8919a312e6d92c3f05f8ac9eef2fbee2332fae9022030bf465bd6f3321e5c041f90fb8ff897f987f965ddb7ec8fb2d5100ceb2f9af7\n",
+          "start_iso": "2026-07-14T15:00:35.477710Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 65,
+          "deploy_id": "3044022002f0c795c4e72446aefc710e623315a94d3a2fbb7dbd435f2319a960594d16fe02201af9894fc450387a3bede7e8831daa18b631d69c65e0848b24fd9ecd6d6fcd49",
+          "elapsed_s": 1.095535,
+          "end_iso": "2026-07-14T15:00:37.585525Z",
+          "output": "Response: Success!\nDeployId is: 3044022002f0c795c4e72446aefc710e623315a94d3a2fbb7dbd435f2319a960594d16fe02201af9894fc450387a3bede7e8831daa18b631d69c65e0848b24fd9ecd6d6fcd49\n",
+          "start_iso": "2026-07-14T15:00:36.489990Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 66,
+          "deploy_id": "304502210098e371333936518056f4900a76683c3745368de4bbfcf737663de398a6552a46022069b14d9425fed95010ccb3901c16178c34b80be844ac87c65958f7d8f5648968",
+          "elapsed_s": 0.975304,
+          "end_iso": "2026-07-14T15:00:38.655349Z",
+          "output": "Response: Success!\nDeployId is: 304502210098e371333936518056f4900a76683c3745368de4bbfcf737663de398a6552a46022069b14d9425fed95010ccb3901c16178c34b80be844ac87c65958f7d8f5648968\n",
+          "start_iso": "2026-07-14T15:00:37.680045Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 67,
+          "deploy_id": "3044022051c04b995a440ac1df2037e12398c79353f4ce8ce16c196a28cdf47ea43cb00e02204657ed64d3b19d6287e64d02f9d3a30e4a427a18d3cb6fa09efa812b1d52a19a",
+          "elapsed_s": 0.805929,
+          "end_iso": "2026-07-14T15:00:39.557920Z",
+          "output": "Response: Success!\nDeployId is: 3044022051c04b995a440ac1df2037e12398c79353f4ce8ce16c196a28cdf47ea43cb00e02204657ed64d3b19d6287e64d02f9d3a30e4a427a18d3cb6fa09efa812b1d52a19a\n",
+          "start_iso": "2026-07-14T15:00:38.751991Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 68,
+          "deploy_id": "304402206c328f56f2efb6a93010f508fc1cac93ec68c93b9121b555b08352b324eca7930220368a9769cb938bec75951de663b54ddcfa79487284c0b1ee43d95b4726e7d926",
+          "elapsed_s": 0.935413,
+          "end_iso": "2026-07-14T15:00:40.564861Z",
+          "output": "Response: Success!\nDeployId is: 304402206c328f56f2efb6a93010f508fc1cac93ec68c93b9121b555b08352b324eca7930220368a9769cb938bec75951de663b54ddcfa79487284c0b1ee43d95b4726e7d926\n",
+          "start_iso": "2026-07-14T15:00:39.629448Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 69,
+          "deploy_id": "304402203c8ff6ea98c36f5ec5548d4b0c61dea0334638165292ba3ca8b0e35b4f153d5b0220156895124474781c216a86fcf958c1117eb0db645c069273299d66c2eb61a542",
+          "elapsed_s": 0.927557,
+          "end_iso": "2026-07-14T15:00:41.603586Z",
+          "output": "Response: Success!\nDeployId is: 304402203c8ff6ea98c36f5ec5548d4b0c61dea0334638165292ba3ca8b0e35b4f153d5b0220156895124474781c216a86fcf958c1117eb0db645c069273299d66c2eb61a542\n",
+          "start_iso": "2026-07-14T15:00:40.676029Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 70,
+          "deploy_id": "304502210095620dc69aabb70d87bf9a8f6bb4298c1682f3d82562c79f8181661c4883a57202204f9666dbfaa514ed230be6e4a1d5c012cf69a64cec7be8c8f2a41823df565288",
+          "elapsed_s": 0.792921,
+          "end_iso": "2026-07-14T15:00:42.478605Z",
+          "output": "Response: Success!\nDeployId is: 304502210095620dc69aabb70d87bf9a8f6bb4298c1682f3d82562c79f8181661c4883a57202204f9666dbfaa514ed230be6e4a1d5c012cf69a64cec7be8c8f2a41823df565288\n",
+          "start_iso": "2026-07-14T15:00:41.685684Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 71,
+          "deploy_id": "3045022100d6cdbf5b5085c98a15fdf5e5385fd86f7d1855c2f66182a068753e092f85c94302200b571b499db27d616d676120ca6eda06f8e1556a27a3cb73e0714ac6a263851a",
+          "elapsed_s": 0.806055,
+          "end_iso": "2026-07-14T15:00:43.366189Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d6cdbf5b5085c98a15fdf5e5385fd86f7d1855c2f66182a068753e092f85c94302200b571b499db27d616d676120ca6eda06f8e1556a27a3cb73e0714ac6a263851a\n",
+          "start_iso": "2026-07-14T15:00:42.560134Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 72,
+          "deploy_id": "3045022100f0b926fbbd358f8b9dce61e922723007a3626c78ad6c085d6d957e5dce29d55d02200593fec9d551892e8b8352a17f7dca3db7e2fd089ed6ecbb6962f4317392140c",
+          "elapsed_s": 0.862391,
+          "end_iso": "2026-07-14T15:00:44.338417Z",
+          "output": "Response: Success!\nDeployId is: 3045022100f0b926fbbd358f8b9dce61e922723007a3626c78ad6c085d6d957e5dce29d55d02200593fec9d551892e8b8352a17f7dca3db7e2fd089ed6ecbb6962f4317392140c\n",
+          "start_iso": "2026-07-14T15:00:43.476026Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 73,
+          "deploy_id": "3045022100b968a131d5efdc63a9f6531f6d6d0aa4b1ad3741b6048fbfd6537f9d2295e5c302204eb97ec0b85357da3687186fb26c099ef401fc8af35a6eeca3f99e306cada1cd",
+          "elapsed_s": 0.92313,
+          "end_iso": "2026-07-14T15:00:45.324462Z",
+          "output": "Response: Success!\nDeployId is: 3045022100b968a131d5efdc63a9f6531f6d6d0aa4b1ad3741b6048fbfd6537f9d2295e5c302204eb97ec0b85357da3687186fb26c099ef401fc8af35a6eeca3f99e306cada1cd\n",
+          "start_iso": "2026-07-14T15:00:44.401332Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 74,
+          "deploy_id": "3045022100a646022254f081631f8086c5f58092839f22a19d4aa6eed96e697625d2ded4ae02206c238a48df4c6e88d6548367686092ef8e3e20b6a52acb903bda6a89c0e5729b",
+          "elapsed_s": 0.667528,
+          "end_iso": "2026-07-14T15:00:46.073035Z",
+          "output": "Response: Success!\nDeployId is: 3045022100a646022254f081631f8086c5f58092839f22a19d4aa6eed96e697625d2ded4ae02206c238a48df4c6e88d6548367686092ef8e3e20b6a52acb903bda6a89c0e5729b\n",
+          "start_iso": "2026-07-14T15:00:45.405507Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 75,
+          "deploy_id": "304402200b4ae74e643f32947cd03dbff6d4c812a35766aa6d7b6b31d935ec532388cbeb022012610c07da4a92cabd806e6b05b373605a4dafc1387ee2dd6c9bb5d35fe33a8c",
+          "elapsed_s": 0.988154,
+          "end_iso": "2026-07-14T15:00:47.157628Z",
+          "output": "Response: Success!\nDeployId is: 304402200b4ae74e643f32947cd03dbff6d4c812a35766aa6d7b6b31d935ec532388cbeb022012610c07da4a92cabd806e6b05b373605a4dafc1387ee2dd6c9bb5d35fe33a8c\n",
+          "start_iso": "2026-07-14T15:00:46.169474Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 76,
+          "deploy_id": "3045022100853b39b02cb08d81369f378c8af774068df9b2989b49459446cfc4aaaa62d1fb02203cc2e9658db2a39188350b94e88966bdb1d4057ea8f532d5a80bc43843e6f538",
+          "elapsed_s": 0.630072,
+          "end_iso": "2026-07-14T15:00:47.918002Z",
+          "output": "Response: Success!\nDeployId is: 3045022100853b39b02cb08d81369f378c8af774068df9b2989b49459446cfc4aaaa62d1fb02203cc2e9658db2a39188350b94e88966bdb1d4057ea8f532d5a80bc43843e6f538\n",
+          "start_iso": "2026-07-14T15:00:47.287930Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 77,
+          "deploy_id": "3044022100c692e6c21bb2b9efeaba884c288c03ebf8f6ef30e1d34f0323bf9fa493b0263f021f7dcf9fb96f3e6134408ec2b4afe735fa1513ac5bac765066c35f6e07c62dbe",
+          "elapsed_s": 0.702244,
+          "end_iso": "2026-07-14T15:00:48.707755Z",
+          "output": "Response: Success!\nDeployId is: 3044022100c692e6c21bb2b9efeaba884c288c03ebf8f6ef30e1d34f0323bf9fa493b0263f021f7dcf9fb96f3e6134408ec2b4afe735fa1513ac5bac765066c35f6e07c62dbe\n",
+          "start_iso": "2026-07-14T15:00:48.005511Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 78,
+          "deploy_id": "3045022100b1f12ee3b580c81d7b5104fb13d1b69f60933341bd4da928b6f33238dfd28aef02204e73b58b37c5bd99df88c7d19b2be196dafb3ea9fcb8e6bc5293d307240ca725",
+          "elapsed_s": 0.547618,
+          "end_iso": "2026-07-14T15:00:49.365243Z",
+          "output": "Response: Success!\nDeployId is: 3045022100b1f12ee3b580c81d7b5104fb13d1b69f60933341bd4da928b6f33238dfd28aef02204e73b58b37c5bd99df88c7d19b2be196dafb3ea9fcb8e6bc5293d307240ca725\n",
+          "start_iso": "2026-07-14T15:00:48.817625Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 79,
+          "deploy_id": "3045022100c202163039827bb476e901bfdc74113548090e87ca12f73ab3af0e9fb19b7a4502200fd4031cebda5985e89ba27f52b52a8d08f3fd2f75d8c4ba3ceae74b0f751bdf",
+          "elapsed_s": 0.683819,
+          "end_iso": "2026-07-14T15:00:50.121597Z",
+          "output": "Response: Success!\nDeployId is: 3045022100c202163039827bb476e901bfdc74113548090e87ca12f73ab3af0e9fb19b7a4502200fd4031cebda5985e89ba27f52b52a8d08f3fd2f75d8c4ba3ceae74b0f751bdf\n",
+          "start_iso": "2026-07-14T15:00:49.437778Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 80,
+          "deploy_id": "304402204ec8af7efa7042442f86b1983f2c05f595adc1d0c3a6f316aadb168f91ae7222022013d4aa25b35346969b829e194ee3abd1aaae30d741a17f41668e19b9b535c790",
+          "elapsed_s": 1.181095,
+          "end_iso": "2026-07-14T15:00:51.403052Z",
+          "output": "Response: Success!\nDeployId is: 304402204ec8af7efa7042442f86b1983f2c05f595adc1d0c3a6f316aadb168f91ae7222022013d4aa25b35346969b829e194ee3abd1aaae30d741a17f41668e19b9b535c790\n",
+          "start_iso": "2026-07-14T15:00:50.221957Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 81,
+          "deploy_id": "304502210082733ac8551e66a6ce490e8e0bbbaa7505ec99c5e05d848744d64d5ef143d95e02203d7e5e93082bb401ce2cdc1d0ed138dba4f48325ea0681a625e3bce5044d9c16",
+          "elapsed_s": 1.427238,
+          "end_iso": "2026-07-14T15:00:52.910632Z",
+          "output": "Response: Success!\nDeployId is: 304502210082733ac8551e66a6ce490e8e0bbbaa7505ec99c5e05d848744d64d5ef143d95e02203d7e5e93082bb401ce2cdc1d0ed138dba4f48325ea0681a625e3bce5044d9c16\n",
+          "start_iso": "2026-07-14T15:00:51.483394Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 82,
+          "deploy_id": "3045022100afe8e81dc206fef7ee87ac584ef4550ac8a59e04a53732c9da38514b26b0439702202b1389833070c9281f5f3e6b5bdfe9a6dfe94c82d41db569229e0d1ac32c0ff5",
+          "elapsed_s": 0.847767,
+          "end_iso": "2026-07-14T15:00:53.847780Z",
+          "output": "Response: Success!\nDeployId is: 3045022100afe8e81dc206fef7ee87ac584ef4550ac8a59e04a53732c9da38514b26b0439702202b1389833070c9281f5f3e6b5bdfe9a6dfe94c82d41db569229e0d1ac32c0ff5\n",
+          "start_iso": "2026-07-14T15:00:53.000013Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 83,
+          "deploy_id": "304402200d442550ca2b3a7163b9f81547a358620c9b6959ae55e102963d2853034d494f02203bcee0ad41fb7477fe1bd69bf95e821d53b9980d8eb52fdf6f9ee7434b2c4053",
+          "elapsed_s": 0.926452,
+          "end_iso": "2026-07-14T15:00:54.866497Z",
+          "output": "Response: Success!\nDeployId is: 304402200d442550ca2b3a7163b9f81547a358620c9b6959ae55e102963d2853034d494f02203bcee0ad41fb7477fe1bd69bf95e821d53b9980d8eb52fdf6f9ee7434b2c4053\n",
+          "start_iso": "2026-07-14T15:00:53.940045Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 84,
+          "deploy_id": "3045022100d4c1430a77e751c4399b01d418a966aff09a04ad1a140c3656752eab7c73beb102206606e3d32e1349722620bba34fa0faf8e09dbf1ee4908431f96c05a6d1a9c268",
+          "elapsed_s": 0.84058,
+          "end_iso": "2026-07-14T15:00:55.778174Z",
+          "output": "Response: Success!\nDeployId is: 3045022100d4c1430a77e751c4399b01d418a966aff09a04ad1a140c3656752eab7c73beb102206606e3d32e1349722620bba34fa0faf8e09dbf1ee4908431f96c05a6d1a9c268\n",
+          "start_iso": "2026-07-14T15:00:54.937594Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 85,
+          "deploy_id": "3045022100f086fa83d1af6674851b02e15827f6489b4c544772e6f04fcfbe14db93457452022034483f62a03ae4c7041323fd15e0688a3513914cae1642ff4b4c3ef697aecce9",
+          "elapsed_s": 1.229123,
+          "end_iso": "2026-07-14T15:00:57.078020Z",
+          "output": "Response: Success!\nDeployId is: 3045022100f086fa83d1af6674851b02e15827f6489b4c544772e6f04fcfbe14db93457452022034483f62a03ae4c7041323fd15e0688a3513914cae1642ff4b4c3ef697aecce9\n",
+          "start_iso": "2026-07-14T15:00:55.848897Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 86,
+          "deploy_id": "304402205b60d3445316fcfa5fcde0dcd858b08d55cda603d712b3c0c39beb37fdea666e022067e24dd2c7146a23808815417dd82425d37a591669f668fdc4719d9c344b40c7",
+          "elapsed_s": 1.041867,
+          "end_iso": "2026-07-14T15:00:58.225854Z",
+          "output": "Response: Success!\nDeployId is: 304402205b60d3445316fcfa5fcde0dcd858b08d55cda603d712b3c0c39beb37fdea666e022067e24dd2c7146a23808815417dd82425d37a591669f668fdc4719d9c344b40c7\n",
+          "start_iso": "2026-07-14T15:00:57.183987Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 87,
+          "deploy_id": "30440220160acada3f2175d5c262804d998c0eed816c756ed4be876ff24a41af784d074a0220500e51432c1921b211f55b088cbfafd6ab506d45d574bdf4146b5b135524cbc1",
+          "elapsed_s": 0.880801,
+          "end_iso": "2026-07-14T15:00:59.180780Z",
+          "output": "Response: Success!\nDeployId is: 30440220160acada3f2175d5c262804d998c0eed816c756ed4be876ff24a41af784d074a0220500e51432c1921b211f55b088cbfafd6ab506d45d574bdf4146b5b135524cbc1\n",
+          "start_iso": "2026-07-14T15:00:58.299979Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 88,
+          "deploy_id": "3045022100fc022f1037c8f2e24d7b8a9ef097fb8078d184f8e56a767033a522e042434c12022018a6c7c7edcd13a6ec7784082d5a5d51c44b51bff128a81f7acde4748aa55dad",
+          "elapsed_s": 0.869446,
+          "end_iso": "2026-07-14T15:01:00.137447Z",
+          "output": "Response: Success!\nDeployId is: 3045022100fc022f1037c8f2e24d7b8a9ef097fb8078d184f8e56a767033a522e042434c12022018a6c7c7edcd13a6ec7784082d5a5d51c44b51bff128a81f7acde4748aa55dad\n",
+          "start_iso": "2026-07-14T15:00:59.268001Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 89,
+          "deploy_id": "3044022036e4a3404963dff95e5572fbd0b46769b1eb98d2d2dd700954d7e7988402599b0220165bb4978d0db01ffeb0e22e2104c909774f6207aba67bed6be8665453e27002",
+          "elapsed_s": 0.51727,
+          "end_iso": "2026-07-14T15:01:00.745275Z",
+          "output": "Response: Success!\nDeployId is: 3044022036e4a3404963dff95e5572fbd0b46769b1eb98d2d2dd700954d7e7988402599b0220165bb4978d0db01ffeb0e22e2104c909774f6207aba67bed6be8665453e27002\n",
+          "start_iso": "2026-07-14T15:01:00.228005Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 90,
+          "deploy_id": "304402201c2fa37e930fe67a8838bde592439dd5b6a0c8c17648f5f1cba2cfd6478fe7b3022012d7789696d5674a310f5bae150f63370ace423dbc32c8c3543764adfeadcf36",
+          "elapsed_s": 0.869381,
+          "end_iso": "2026-07-14T15:01:01.689391Z",
+          "output": "Response: Success!\nDeployId is: 304402201c2fa37e930fe67a8838bde592439dd5b6a0c8c17648f5f1cba2cfd6478fe7b3022012d7789696d5674a310f5bae150f63370ace423dbc32c8c3543764adfeadcf36\n",
+          "start_iso": "2026-07-14T15:01:00.820010Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 91,
+          "deploy_id": "304402201eab4d7b765d701049422617d244aeab8db624f19c7211fa883e21dab68a046102206e90da922bdfcd9bd24b2f497a9d997cf201750fc6e9ffadc9404fb3672c9770",
+          "elapsed_s": 0.68916,
+          "end_iso": "2026-07-14T15:01:02.458549Z",
+          "output": "Response: Success!\nDeployId is: 304402201eab4d7b765d701049422617d244aeab8db624f19c7211fa883e21dab68a046102206e90da922bdfcd9bd24b2f497a9d997cf201750fc6e9ffadc9404fb3672c9770\n",
+          "start_iso": "2026-07-14T15:01:01.769389Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 92,
+          "deploy_id": "304402205785fb1f307dff400a02aa8f8fc18dba18cbb1470b85bc22f16d2822b3b18ad70220526842ded553bcec462fbfa9679389606d20e28b6717cb986f9b06be2f230da9",
+          "elapsed_s": 0.724744,
+          "end_iso": "2026-07-14T15:01:03.294164Z",
+          "output": "Response: Success!\nDeployId is: 304402205785fb1f307dff400a02aa8f8fc18dba18cbb1470b85bc22f16d2822b3b18ad70220526842ded553bcec462fbfa9679389606d20e28b6717cb986f9b06be2f230da9\n",
+          "start_iso": "2026-07-14T15:01:02.569420Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 93,
+          "deploy_id": "3045022100ff2a1a621425236f6a52541eeefda1d81340d2089de5150f70a8a282043165e002200859fe3b7cf38b4fb61f988cb6673f666215f684b55d86a6ee3df1bf944cda3e",
+          "elapsed_s": 0.873289,
+          "end_iso": "2026-07-14T15:01:04.265306Z",
+          "output": "Response: Success!\nDeployId is: 3045022100ff2a1a621425236f6a52541eeefda1d81340d2089de5150f70a8a282043165e002200859fe3b7cf38b4fb61f988cb6673f666215f684b55d86a6ee3df1bf944cda3e\n",
+          "start_iso": "2026-07-14T15:01:03.392017Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 94,
+          "deploy_id": "3044022066390acad4bc9863a0945c2d1c3956370c2c23cb4906d095e938f4275758536f02206fb7a9c3a743b5d4d8cede9c3390fc9ae3f2f950b31a15a9ac063cb97bd89c56",
+          "elapsed_s": 1.165562,
+          "end_iso": "2026-07-14T15:01:05.523062Z",
+          "output": "Response: Success!\nDeployId is: 3044022066390acad4bc9863a0945c2d1c3956370c2c23cb4906d095e938f4275758536f02206fb7a9c3a743b5d4d8cede9c3390fc9ae3f2f950b31a15a9ac063cb97bd89c56\n",
+          "start_iso": "2026-07-14T15:01:04.357500Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 95,
+          "deploy_id": "3045022100c009c71e46273738d37a6a0f4ab3a5df18d3727005b48a743188f6016b53be4702202d435bd095fb5e0d9c4ed3bf3c271991c0a8f842f760afafac7199b42784fb68",
+          "elapsed_s": 0.690353,
+          "end_iso": "2026-07-14T15:01:06.326336Z",
+          "output": "Response: Success!\nDeployId is: 3045022100c009c71e46273738d37a6a0f4ab3a5df18d3727005b48a743188f6016b53be4702202d435bd095fb5e0d9c4ed3bf3c271991c0a8f842f760afafac7199b42784fb68\n",
+          "start_iso": "2026-07-14T15:01:05.635983Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 96,
+          "deploy_id": "304402202b224fd1ba8c4d24c0d91aed2ddb38f8f4e85491c8c30ead030ba4e614524969022035b1e76ee0367700b5e48e40aff2b7140143aad46ca1a159cb52247af61d010c",
+          "elapsed_s": 0.722352,
+          "end_iso": "2026-07-14T15:01:07.154623Z",
+          "output": "Response: Success!\nDeployId is: 304402202b224fd1ba8c4d24c0d91aed2ddb38f8f4e85491c8c30ead030ba4e614524969022035b1e76ee0367700b5e48e40aff2b7140143aad46ca1a159cb52247af61d010c\n",
+          "start_iso": "2026-07-14T15:01:06.432271Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 97,
+          "deploy_id": "304402200726d86d07e9f54df1af55e967258791b53023b71743df8d4fe21445a2686a3d022048ebb6a65439f71978673db984ab9419f1a2c2cf4e815156ca72eaf532cc87b3",
+          "elapsed_s": 0.672552,
+          "end_iso": "2026-07-14T15:01:07.924461Z",
+          "output": "Response: Success!\nDeployId is: 304402200726d86d07e9f54df1af55e967258791b53023b71743df8d4fe21445a2686a3d022048ebb6a65439f71978673db984ab9419f1a2c2cf4e815156ca72eaf532cc87b3\n",
+          "start_iso": "2026-07-14T15:01:07.251909Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 98,
+          "deploy_id": "3045022100dd0a3360fd5bc7aa32f8c4f7965eba30b86f94089fa5108554cb6111142c4cfe02203ed4c37e70265cd2b031b08107b7382e580dab62b16a82a372e9e0eda0bf30ee",
+          "elapsed_s": 0.788807,
+          "end_iso": "2026-07-14T15:01:08.808787Z",
+          "output": "Response: Success!\nDeployId is: 3045022100dd0a3360fd5bc7aa32f8c4f7965eba30b86f94089fa5108554cb6111142c4cfe02203ed4c37e70265cd2b031b08107b7382e580dab62b16a82a372e9e0eda0bf30ee\n",
+          "start_iso": "2026-07-14T15:01:08.019980Z",
+          "term_bytes": 78400
+        },
+        {
+          "batch": 99,
+          "deploy_id": "304502210082a336dc679a872af3e1bf50b2cd71d8c03a39be420099299030d0a4f42e29aa0220383a07c0bb03cfedd80828279c74ceff6ea899cd7d9ec30cd071797d822c2cf5",
+          "elapsed_s": 0.762922,
+          "end_iso": "2026-07-14T15:01:09.646465Z",
+          "output": "Response: Success!\nDeployId is: 304502210082a336dc679a872af3e1bf50b2cd71d8c03a39be420099299030d0a4f42e29aa0220383a07c0bb03cfedd80828279c74ceff6ea899cd7d9ec30cd071797d822c2cf5\n",
+          "start_iso": "2026-07-14T15:01:08.883543Z",
+          "term_bytes": 78400
+        }
+      ],
+      "deploys_submitted": 100,
+      "errored_true_count": 0,
+      "events": 10000,
+      "events_per_s_to_canonical_added": 6.742808046429649,
+      "events_per_s_to_finality": 6.742808046429649,
+      "finality_s": 1483.061646,
+      "first_all_included": {
+        "block_count": 16,
+        "elapsed_s": 1483.061646,
+        "observed_iso": "2026-07-14T15:24:14.347870Z"
+      },
+      "first_inclusion": {
+        "batch_count": 8,
+        "batch_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "block_size": 1443809,
+        "cost_sum": 3134672,
+        "cost_values": [
+          391834,
+          391834,
+          391834,
+          391834,
+          391834,
+          391834,
+          391834,
+          391834
+        ],
+        "deploy_count": 8,
+        "elapsed_s": 167.839615,
+        "errors": 0,
+        "finalized": false,
+        "hash": "b8b32f969eb7e14cbd77ed12f3d0b6ea98e380442cedbdd7f2d535febeec1f5d",
+        "number": 391,
+        "observed_iso": "2026-07-14T15:02:19.125839Z"
+      },
+      "first_inclusion_s": 167.839615,
+      "label": "100x100",
+      "run_id": "rspace-leadership-100x100-20260714T145930Z",
+      "submit_span_s": 98.360241,
+      "timeline": [
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 0,
+          "included_batches": 0,
+          "observed_iso": "2026-07-14T15:01:09Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 0,
+          "included_batches": 0,
+          "observed_iso": "2026-07-14T15:01:23Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 0,
+          "included_batches": 0,
+          "observed_iso": "2026-07-14T15:01:37Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 0,
+          "included_batches": 0,
+          "observed_iso": "2026-07-14T15:01:49Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 0,
+          "included_batches": 0,
+          "observed_iso": "2026-07-14T15:02:03Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:02:19Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:02:35Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:02:50Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:03:07Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:03:23Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:03:39Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:03:52Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:04:06Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 1,
+          "included_batches": 8,
+          "observed_iso": "2026-07-14T15:04:22Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:04:40Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:04:56Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:05:14Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:05:31Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:05:47Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:06:06Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:06:23Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:06:40Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 2,
+          "included_batches": 16,
+          "observed_iso": "2026-07-14T15:06:56Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:07:13Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:07:33Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:07:50Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:08:10Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:08:28Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:08:45Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:09:05Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:09:22Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 3,
+          "included_batches": 24,
+          "observed_iso": "2026-07-14T15:09:45Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 4,
+          "included_batches": 32,
+          "observed_iso": "2026-07-14T15:10:06Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 4,
+          "included_batches": 32,
+          "observed_iso": "2026-07-14T15:10:27Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 4,
+          "included_batches": 32,
+          "observed_iso": "2026-07-14T15:10:48Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 4,
+          "included_batches": 32,
+          "observed_iso": "2026-07-14T15:11:09Z"
+        },
+        {
+          "finalized_batches": 0,
+          "finalized_block_count": 0,
+          "hit_block_count": 4,
+          "included_batches": 32,
+          "observed_iso": "2026-07-14T15:11:29Z"
+        },
+        {
+          "finalized_batches": 8,
+          "finalized_block_count": 1,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:11:50Z"
+        },
+        {
+          "finalized_batches": 8,
+          "finalized_block_count": 1,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:12:17Z"
+        },
+        {
+          "finalized_batches": 8,
+          "finalized_block_count": 1,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:12:38Z"
+        },
+        {
+          "finalized_batches": 8,
+          "finalized_block_count": 1,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:12:59Z"
+        },
+        {
+          "finalized_batches": 8,
+          "finalized_block_count": 1,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:13:18Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 5,
+          "included_batches": 40,
+          "observed_iso": "2026-07-14T15:13:36Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:14:01Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:14:26Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:14:48Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:15:05Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:15:23Z"
+        },
+        {
+          "finalized_batches": 16,
+          "finalized_block_count": 2,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:15:36Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 6,
+          "included_batches": 48,
+          "observed_iso": "2026-07-14T15:15:51Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:16:13Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:16:37Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:17:04Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:17:26Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:17:45Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:18:07Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 7,
+          "included_batches": 56,
+          "observed_iso": "2026-07-14T15:18:34Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:18:55Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:19:22Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:19:42Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:19:55Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:20:09Z"
+        },
+        {
+          "finalized_batches": 24,
+          "finalized_block_count": 3,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:20:22Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 8,
+          "included_batches": 64,
+          "observed_iso": "2026-07-14T15:20:33Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 9,
+          "included_batches": 68,
+          "observed_iso": "2026-07-14T15:20:53Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 9,
+          "included_batches": 68,
+          "observed_iso": "2026-07-14T15:21:19Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 9,
+          "included_batches": 68,
+          "observed_iso": "2026-07-14T15:21:38Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 10,
+          "included_batches": 72,
+          "observed_iso": "2026-07-14T15:22:03Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 11,
+          "included_batches": 80,
+          "observed_iso": "2026-07-14T15:22:30Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 13,
+          "included_batches": 88,
+          "observed_iso": "2026-07-14T15:22:57Z"
+        },
+        {
+          "finalized_batches": 40,
+          "finalized_block_count": 5,
+          "hit_block_count": 14,
+          "included_batches": 92,
+          "observed_iso": "2026-07-14T15:23:24Z"
+        },
+        {
+          "finalized_batches": 68,
+          "finalized_block_count": 9,
+          "hit_block_count": 15,
+          "included_batches": 96,
+          "observed_iso": "2026-07-14T15:23:47Z"
+        },
+        {
+          "finalized_batches": 100,
+          "finalized_block_count": 16,
+          "hit_block_count": 16,
+          "included_batches": 100,
+          "observed_iso": "2026-07-14T15:24:14Z"
+        }
+      ],
+      "total_block_size": 18149262,
+      "total_cost_sum": 39183400,
+      "total_term_bytes": 7840000,
+      "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T124211Z",
+      "valid_after": 385
+    }
+  },
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T124211Z"
+}
