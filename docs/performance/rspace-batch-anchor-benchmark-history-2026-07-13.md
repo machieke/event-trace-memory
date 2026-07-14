@@ -36,6 +36,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-20260714T080823Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T092913Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T113330Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-150x50-retest-recovery-20260714T124211Z.json`
 
 Related earlier analysis:
 
@@ -79,6 +80,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `150x50` batch-anchor, post-fix retest | Batch anchor | 7,500 | 5 finalized, 15 total hits | yes | `32,933,050` | `4,391` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 | `150x50` batch-anchor, 2026-07-14 failed retest | Batch anchor | 7,500 | 0 finalized, non-final scope only | no | n/a | n/a | non-final only | stalled at LFB `81` | `0 events/s` |
 | `150x50` batch-anchor, 2026-07-14 post-fix retest | Batch anchor | 7,500 | 0 finalized, 4 non-final hits | no | n/a | n/a | non-final only | LFB reached `127` | `0 events/s` |
+| `150x50` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 14 | yes | `32,933,200` | `4,391` | `612.679s` | `666.679s` | `11.250 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -783,6 +785,96 @@ The next fix should either extend deploy lifetime for recovery, explicitly
 recover deploys from non-final branches, or accelerate finality support for
 deploy-carrying branches before the expiration window is crossed.
 
+### 150x50 Deploy-Aware Parent Support Retest
+
+Run id: `rspace-leadership-150x50-20260714T124211Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-parent-aware-150x50-retest-recovery-20260714T124211Z.json`
+
+This retest ran after two shard-side fixes:
+
+- deploy-aware parent support in `snapshot.rs`, which promotes the non-final
+  parent branch with the most unfinalized deploy signatures after GHOST sorting;
+- expiry cleanup in `block_creator.rs`, so block-expired deploys are no longer
+  hidden from cleanup just because they are already in unresolved DAG scope.
+
+The initial benchmark harness submitted the workload successfully but aborted
+when one `is-finalized` RPC against validator3 timed out. The run was then
+continued with a recovery monitor that used `show-blocks` finalization flags
+across validator1, validator2, and validator3.
+
+Outcome:
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `150` |
+| Contract binding finality | block `46`, `27.750s` |
+| Workload submit span | `51.368s` from deploy timestamps (`51.540s` harness observation) |
+| First workload deploy timestamp | `2026-07-14T12:42:39.321Z` |
+| All-included observation | `2026-07-14T12:52:52Z` |
+| Finality observation | `2026-07-14T12:53:46Z` |
+| All-included latency | `612.679s` |
+| Finality latency | `666.679s` |
+| Added-to-finality after all-included observation | `54.000s` |
+| Finality throughput | `11.250 events/s` |
+| Canonical blocks | `14` |
+| Canonical cost | `32,933,200` |
+| Cost/event | `4,391.09` |
+| Canonical errored deploys | `0` |
+
+Canonical block shape:
+
+| Block | Hash prefix | Batches | Size | Cost |
+| ---: | --- | ---: | ---: | ---: |
+| `50` | `b0347f904f47` | `4` | `621,708` | `876,772` |
+| `51` | `df1f48875ea0` | `14` | `1,970,465` | `3,068,702` |
+| `52` | `f5fe7b3a43e7` | `45` | `6,300,127` | `9,863,685` |
+| `53` | `8904dc9eac54` | `8` | `1,132,208` | `1,753,544` |
+| `54` | `5ab48039212b` | `8` | `1,132,133` | `1,753,544` |
+| `55` | `8be357a88b24` | `8` | `1,132,205` | `1,753,544` |
+| `56` | `c99d45b7dcc1` | `8` | `1,132,505` | `1,753,544` |
+| `57` | `27a51a6ef814` | `8` | `1,133,265` | `1,756,799` |
+| `58` | `7cebedf5a198` | `8` | `1,134,758` | `1,762,224` |
+| `59` | `ac7dd9377ae8` | `8` | `1,134,241` | `1,762,224` |
+| `60` | `ba1b516e4175` | `8` | `1,182,037` | `1,762,224` |
+| `61` | `1cbe76a30fc4` | `8` | `1,133,868` | `1,762,224` |
+| `62` | `d8836569869e` | `8` | `1,134,460` | `1,762,224` |
+| `63` | `92ee0241f0b2` | `7` | `994,298` | `1,541,946` |
+
+The recovery monitor observed this finalized coverage progression:
+
+| Time UTC | Included | Finalized | LFB |
+| --- | ---: | ---: | ---: |
+| `12:49:26` | `95 / 150` | `63 / 150` | `52` |
+| `12:50:18` | `111 / 150` | `71 / 150` | `53` |
+| `12:51:08` | `103 / 150` | `79 / 150` | `54` |
+| `12:51:59` | `119 / 150` | `103 / 150` | `57` |
+| `12:52:52` | `150 / 150` | `119 / 150` | `60` |
+| `12:53:46` | `150 / 150` | `150 / 150` | `65` |
+
+This fixes the previous `0 / 150` finalized-coverage failure. It does not make
+the path single-block: the shard intentionally fell back to smaller deploy
+chunks under backpressure. Logs showed cap `8` once recovery/backpressure was
+active, with examples such as:
+
+```text
+block #55: pool=132, valid=132, alreadyInScope=61, selected=8
+block #56: pool=132, valid=132, alreadyInScope=69, selected=8
+block #62: pool=55, valid=55, alreadyInScope=40, selected=8
+block #63: pool=31, valid=31, alreadyInScope=24, selected=7
+```
+
+The old expiry dead-end signature did not recur. During this run there was no
+workload state matching `pool>0`, `valid=0`, `blockExpired=0`, `selected=0`.
+After finality caught up, pending workload deploys drained to `pool=0`.
+
+Compared with the prior successful `150x50` retest, finality latency improved
+from `1,468.320s` to `666.679s` (`2.20x` faster), and finality throughput
+improved from `5.108` to `11.250 events/s`. The tradeoff is more canonical
+blocks: `14` instead of `5`.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -795,6 +887,7 @@ deploy-carrying branches before the expiration window is crossed.
 | Restarted `10x50` | 500 | 10 | `2,259,850` | `225,985` | `4,520` |
 | Restarted `100x50` | 5,000 | 100 | `22,815,500` | `228,155` | `4,563` |
 | Post-fix `150x50` | 7,500 | 150 | `32,933,050` | `219,554` | `4,391` |
+| Deploy-aware parent `150x50` | 7,500 | 150 | `32,933,200` | `219,555` | `4,391` |
 
 The batch-anchor path makes deploy cost roughly proportional to batch anchor
 term size, not to accumulated on-chain posting-list size. Cost per event falls
@@ -820,6 +913,7 @@ That is the expected behavior for an anchor-first path.
 | Post-fix `150x50` | 7,500 | `105.702s` | `208.940s` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 | Failed 2026-07-14 `150x50` retest | 7,500 | `56.290s` | non-final only | none | stalled at LFB `81` | `0 events/s` |
 | Failed 2026-07-14 post-fix `150x50` retest | 7,500 | `54.545s` | non-final only | none | LFB reached `127` with `0 / 150` finalized | `0 events/s` |
+| Deploy-aware parent `150x50` retest | 7,500 | `51.368s` | n/a | `612.679s` | `666.679s` | `11.250 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
@@ -918,6 +1012,12 @@ should therefore report two separate numbers:
    or non-selectability, so deploy lifetime/recovery now gates canonical
    inclusion.
 
+10. Deploy-aware parent support plus in-scope expiry cleanup fixed the
+    `150x50` canonical inclusion failure in the next retest. The same 7,500
+    event workload finalized all `150` batches in `666.679s`, with no deploy
+    errors and no recurrence of the `pool>0 valid=0 blockExpired=0 selected=0`
+    expiry dead end.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -948,10 +1048,10 @@ should therefore report two separate numbers:
    example `10x100`, `10x250`, and `10x500`, to separate per-deploy shard
    overhead from per-byte Rholang term overhead.
 
-7. Before running another large burst, fix scope filtering so non-final or
-   losing-branch deploys remain eligible for canonical reinclusion until a
-   finalized block covers them. A clean retest should not start while LFB is
-   pinned and validators are cycling through exit `137`.
+7. Keep the deploy-aware parent support and in-scope expiry cleanup regression
+   tests in the shard. They are now directly tied to an observed production
+   benchmark improvement: `0 / 150` finalized before the fix, `150 / 150`
+   finalized after it.
 
 8. Add a specific recovery test for deploy lifetime: submit `150x50` with the
    current selection cap, then assert that deploys first seen in non-final
