@@ -42,6 +42,7 @@ Related earlier analysis:
 - `docs/performance/rholang-100-event-finality-trace-2026-07-12.md`
 - `docs/performance/rholang-100-event-root-cause-analysis-2026-07-12.md`
 - `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-13.md`
+- `docs/performance/rspace-batch-anchor-150x50-root-cause-analysis-2026-07-14.md`
 
 ## Terms
 
