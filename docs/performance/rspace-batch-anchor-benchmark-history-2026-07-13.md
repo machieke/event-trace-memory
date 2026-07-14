@@ -39,6 +39,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-150x50-retest-recovery-20260714T124211Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x75-existing-uri-20260714T142710Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-existing-uri-20260714T145930Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-retest-20260714T175559Z.json`
 
 Related earlier analysis:
 
@@ -85,6 +86,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `150x50` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 14 | yes | `32,933,200` | `4,391` | `612.679s` | `666.679s` | `11.250 events/s` |
 | `100x75` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 13 | yes | `30,446,800` | `4,060` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 | `100x100` batch-anchor, deploy-aware parent support | Batch anchor | 10,000 | 16 | yes | `39,183,400` | `3,918` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
+| `100x100` batch-anchor, post-restart retest | Batch anchor | 10,000 | 8 | yes | `39,183,300` | `3,918` | `416.995s` | `465.644s` | `21.476 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1071,6 +1073,95 @@ proposer into stronger backpressure. On this shard, `150x50` remains the best
 observed latency/throughput point for 7,500-event-class bursts, while `100x100`
 is the cheaper but slower high-density option.
 
+### 100x100 Post-Restart Retest
+
+Run id: `rspace-leadership-100x100-20260714T175559Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-retest-20260714T175559Z.json`
+
+This retest ran after the shard had restarted. Because the block height and
+memory profile indicated a fresh runtime state, the run deployed a fresh scoped
+`EventTraceRSpaceIndex` instead of reusing the prior URI.
+
+Outcome:
+
+| Metric | Value |
+| --- | ---: |
+| Contract binding finality | block `94`, `35.789s` |
+| Events | `10,000` |
+| Deploys | `100` |
+| Batch size | `100` event pointers/deploy |
+| Workload submit span | `53.345s` |
+| First workload deploy timestamp | `2026-07-14T17:56:35.689137Z` |
+| Last workload deploy accepted | `2026-07-14T17:57:29.033865Z` |
+| First inclusion latency | `53.345s` |
+| Canonical add latency | `416.995s` |
+| Finality latency | `465.644s` |
+| Finality throughput | `21.476 events/s` |
+| Canonical blocks | `8` |
+| Canonical cost | `39,183,300` |
+| Cost/event | `3,918.33` |
+| Total term bytes | `7,840,000` |
+| Total canonical block size | `18,029,085` |
+| Canonical errored deploys | `0` |
+
+Canonical block shape:
+
+| Block | Batches | Size | Cost |
+| ---: | ---: | ---: | ---: |
+| `100` | `2` | `420,364` | `783,666` |
+| `101` | `14` | `2,515,477` | `5,485,662` |
+| `102` | `45` | `8,052,422` | `17,632,485` |
+| `103` | `8` | `1,443,947` | `3,134,664` |
+| `104` | `8` | `1,443,726` | `3,134,664` |
+| `105` | `8` | `1,443,874` | `3,134,664` |
+| `106` | `8` | `1,443,582` | `3,134,664` |
+| `107` | `7` | `1,265,693` | `2,742,831` |
+
+Finalized coverage progression:
+
+| Time UTC | Included | Finalized | Hit blocks | Finalized blocks |
+| --- | ---: | ---: | ---: | ---: |
+| `17:57:29` | `16 / 100` | `0 / 100` | `2` | `0` |
+| `17:57:58` | `16 / 100` | `2 / 100` | `2` | `1` |
+| `17:58:12` | `61 / 100` | `2 / 100` | `3` | `1` |
+| `18:02:00` | `85 / 100` | `16 / 100` | `6` | `2` |
+| `18:02:45` | `85 / 100` | `61 / 100` | `6` | `3` |
+| `18:03:32` | `100 / 100` | `61 / 100` | `8` | `3` |
+| `18:04:21` | `100 / 100` | `100 / 100` | `8` | `8` |
+
+Compared with the previous `100x100` retest, this run was a step change:
+
+| Metric | Previous `100x100` | Post-restart retest | Change |
+| --- | ---: | ---: | ---: |
+| Contract binding | skipped, reused URI | fresh URI in `35.789s` | self-contained |
+| Submit span | `98.360s` | `53.345s` | `1.84x` faster |
+| First inclusion | `167.840s` | `53.345s` | `3.15x` faster |
+| Canonical add latency | `1,483.062s` | `416.995s` | `3.56x` faster |
+| Finality latency | `1,483.062s` | `465.644s` | `3.18x` faster |
+| Finality throughput | `6.743 events/s` | `21.476 events/s` | `3.18x` faster |
+| Canonical blocks | `16` | `8` | `0.50x` |
+| Cost/event | `3,918.34` | `3,918.33` | unchanged |
+
+The main change was deploy packaging. The earlier `100x100` run spent most of
+the workload in capped `8`- and `4`-deploy blocks. This retest admitted a large
+canonical block:
+
+```text
+block #100: selected=2, total_ms=3582
+block #101: selected=14, total_ms=19277
+block #102: selected=45, total_ms=56838
+block #103: selected=8, total_ms=47695
+```
+
+That means the shard can now canonicalize a 45-deploy, 4,500-event batch-anchor
+block in under a minute of proposer time. This is still not a general proof of
+linear scaling, but it changes the observed best point: `100x100` now beats the
+previous deploy-aware `150x50` run on finality throughput (`21.476` vs `11.250
+events/s`) and finality latency (`465.644s` vs `666.679s`) while keeping
+cost/event lower (`3,918` vs `4,391`).
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -1086,6 +1177,7 @@ is the cheaper but slower high-density option.
 | Deploy-aware parent `150x50` | 7,500 | 150 | `32,933,200` | `219,555` | `4,391` |
 | Deploy-aware parent `100x75` | 7,500 | 100 | `30,446,800` | `304,468` | `4,060` |
 | Deploy-aware parent `100x100` | 10,000 | 100 | `39,183,400` | `391,834` | `3,918` |
+| Post-restart `100x100` | 10,000 | 100 | `39,183,300` | `391,833` | `3,918` |
 
 The batch-anchor path makes deploy cost roughly proportional to batch anchor
 term size, not to accumulated on-chain posting-list size. Cost per event falls
@@ -1114,6 +1206,7 @@ That is the expected behavior for an anchor-first path.
 | Deploy-aware parent `150x50` retest | 7,500 | `51.368s` | n/a | `612.679s` | `666.679s` | `11.250 events/s` |
 | Deploy-aware parent `100x75` retest | 7,500 | `85.798s` | `136.967s` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 | Deploy-aware parent `100x100` retest | 10,000 | `98.360s` | `167.840s` | `1,483.062s` | `1,483.062s` | `6.743 events/s` |
+| Post-restart `100x100` retest | 10,000 | `53.345s` | `53.345s` | `416.995s` | `465.644s` | `21.476 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
