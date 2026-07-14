@@ -37,6 +37,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T092913Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-failed-20260714T113330Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-150x50-retest-recovery-20260714T124211Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x75-existing-uri-20260714T142710Z.json`
 
 Related earlier analysis:
 
@@ -81,6 +82,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `150x50` batch-anchor, 2026-07-14 failed retest | Batch anchor | 7,500 | 0 finalized, non-final scope only | no | n/a | n/a | non-final only | stalled at LFB `81` | `0 events/s` |
 | `150x50` batch-anchor, 2026-07-14 post-fix retest | Batch anchor | 7,500 | 0 finalized, 4 non-final hits | no | n/a | n/a | non-final only | LFB reached `127` | `0 events/s` |
 | `150x50` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 14 | yes | `32,933,200` | `4,391` | `612.679s` | `666.679s` | `11.250 events/s` |
+| `100x75` batch-anchor, deploy-aware parent support | Batch anchor | 7,500 | 13 | yes | `30,446,800` | `4,060` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -875,6 +877,95 @@ from `1,468.320s` to `666.679s` (`2.20x` faster), and finality throughput
 improved from `5.108` to `11.250 events/s`. The tradeoff is more canonical
 blocks: `14` instead of `5`.
 
+### 100x75 Deploy-Aware Parent Support Retest
+
+Run id: `rspace-leadership-100x75-20260714T142710Z`
+
+Artifact:
+`docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x75-existing-uri-20260714T142710Z.json`
+
+The first attempt used a fresh scoped contract URI, but the harness timed out
+waiting for the contract binding to finalize before workload submission. That
+contract deploy later finalized, so this was a precondition timeout rather than
+a `100x75` workload failure. To isolate the ingestion path, the successful
+workload run reused the already-finalized `150x50` URI:
+`event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T124211Z`.
+
+Outcome:
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `100` |
+| Workload submit span | `85.798s` |
+| First workload deploy timestamp | `2026-07-14T14:27:11.423981Z` |
+| Last workload deploy accepted | `2026-07-14T14:28:37.222120Z` |
+| First inclusion latency | `136.967s` |
+| Canonical add latency | `1,243.384s` |
+| Finality latency | `1,574.848s` |
+| Finality throughput | `4.762 events/s` |
+| Canonical blocks | `13` |
+| Canonical cost | `30,446,800` |
+| Cost/event | `4,059.57` |
+| Total term bytes | `5,867,500` |
+| Total canonical block size | `16,131,660` |
+| Canonical errored deploys | `0` |
+
+Canonical block shape:
+
+| Block | Batches | Size | Cost |
+| ---: | ---: | ---: | ---: |
+| `371` | `4` | `650,404` | `1,217,872` |
+| `372` | `8` | `1,286,082` | `2,435,744` |
+| `373` | `8` | `1,285,859` | `2,435,744` |
+| `374` | `8` | `1,286,305` | `2,435,744` |
+| `375` | `8` | `1,286,379` | `2,435,744` |
+| `376` | `8` | `1,286,307` | `2,435,744` |
+| `377` | `8` | `1,286,012` | `2,435,744` |
+| `378` | `8` | `1,286,009` | `2,435,744` |
+| `379` | `8` | `1,286,163` | `2,435,744` |
+| `380` | `8` | `1,334,182` | `2,435,744` |
+| `381` | `8` | `1,285,641` | `2,435,744` |
+| `382` | `8` | `1,286,234` | `2,435,744` |
+| `383` | `8` | `1,286,083` | `2,435,744` |
+
+Finalized coverage progression:
+
+| Time UTC | Included | Finalized | Hit blocks | Finalized blocks |
+| --- | ---: | ---: | ---: | ---: |
+| `14:30:52` | `4 / 100` | `0 / 100` | `1` | `0` |
+| `14:30:59` | `12 / 100` | `0 / 100` | `2` | `0` |
+| `14:35:03` | `28 / 100` | `0 / 100` | `4` | `0` |
+| `14:38:04` | `44 / 100` | `12 / 100` | `6` | `2` |
+| `14:43:18` | `76 / 100` | `28 / 100` | `10` | `4` |
+| `14:44:54` | `84 / 100` | `52 / 100` | `11` | `7` |
+| `14:47:54` | `100 / 100` | `68 / 100` | `13` | `9` |
+| `14:50:09` | `100 / 100` | `84 / 100` | `13` | `11` |
+| `14:53:26` | `100 / 100` | `100 / 100` | `13` | `13` |
+
+Compared with the deploy-aware `150x50` retest, `100x75` reduced phlo cost but
+regressed latency:
+
+| Metric | Deploy-aware `150x50` | Deploy-aware `100x75` | Change |
+| --- | ---: | ---: | ---: |
+| Events | `7,500` | `7,500` | same |
+| Deploys | `150` | `100` | `0.67x` |
+| Canonical blocks | `14` | `13` | `0.93x` |
+| Cost | `32,933,200` | `30,446,800` | `7.55%` lower |
+| Cost/event | `4,391.09` | `4,059.57` | `7.55%` lower |
+| Submit span | `51.368s` | `85.798s` | `1.67x` slower |
+| Canonical add latency | `612.679s` | `1,243.384s` | `2.03x` slower |
+| Finality latency | `666.679s` | `1,574.848s` | `2.36x` slower |
+| Finality throughput | `11.250 events/s` | `4.762 events/s` | `57.7%` lower |
+
+The practical conclusion is that `75` traces per deploy is not the right
+latency/cost balance on this shard. It amortizes fixed deploy overhead better,
+but the larger Rholang terms made block creation much heavier. Proposer logs
+showed the workload draining mostly through capped `8`-deploy blocks, with
+8x75-trace propose core times in the `55s` to `118s` range. Once all workload
+deploys were already in unresolved scope, blocks selected `0` additional deploys
+and the remaining time was finality/support catch-up.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -888,6 +979,7 @@ blocks: `14` instead of `5`.
 | Restarted `100x50` | 5,000 | 100 | `22,815,500` | `228,155` | `4,563` |
 | Post-fix `150x50` | 7,500 | 150 | `32,933,050` | `219,554` | `4,391` |
 | Deploy-aware parent `150x50` | 7,500 | 150 | `32,933,200` | `219,555` | `4,391` |
+| Deploy-aware parent `100x75` | 7,500 | 100 | `30,446,800` | `304,468` | `4,060` |
 
 The batch-anchor path makes deploy cost roughly proportional to batch anchor
 term size, not to accumulated on-chain posting-list size. Cost per event falls
@@ -914,6 +1006,7 @@ That is the expected behavior for an anchor-first path.
 | Failed 2026-07-14 `150x50` retest | 7,500 | `56.290s` | non-final only | none | stalled at LFB `81` | `0 events/s` |
 | Failed 2026-07-14 post-fix `150x50` retest | 7,500 | `54.545s` | non-final only | none | LFB reached `127` with `0 / 150` finalized | `0 events/s` |
 | Deploy-aware parent `150x50` retest | 7,500 | `51.368s` | n/a | `612.679s` | `666.679s` | `11.250 events/s` |
+| Deploy-aware parent `100x75` retest | 7,500 | `85.798s` | `136.967s` | `1,243.384s` | `1,574.848s` | `4.762 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
