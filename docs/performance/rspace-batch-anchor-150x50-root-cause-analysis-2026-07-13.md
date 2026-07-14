@@ -276,6 +276,38 @@ cost. The contract was never invoked in an observed block for this run.
    - count of pending deploys already in scope versus not in scope,
    - whether the selected leader has acknowledged receipt of new deploys.
 
+## Follow-Up Retest - 2026-07-14
+
+After the shard was restarted with deploy-inclusion leadership changes, the
+same logical workload was retested:
+
+```text
+rspace-leadership-150x50-20260714T080824Z
+```
+
+The raw artifact is:
+
+```text
+docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-20260714T080823Z.json
+```
+
+The fix restored liveness for this workload:
+
+| Metric | 2026-07-13 degraded run | 2026-07-14 post-fix retest |
+| --- | ---: | ---: |
+| Submitted deploys | `150` | `150` |
+| First inclusion | none before `>593s` | `208.940s` |
+| All included | never observed | `1,035.536s` |
+| Finality | never observed | `1,468.320s` |
+| Finalized batches | `0 / 150` | `150 / 150` |
+| Finalized throughput | n/a | `5.108 events/s` |
+
+The root failure from this incident, no inclusion for fresh `150x50` deploys,
+was fixed. The remaining bottleneck is later in the pipeline: duplicate branch
+packaging and finality lag. The completed retest observed `15` total hit blocks
+but only `5` finalized canonical deploy blocks, and finalized coverage stalled
+at `109 / 150` before later blocks finalized the remaining `41` batches.
+
 ## Bottom Line
 
 `150x50` did not fail because 7,500 event traces were too expensive for the

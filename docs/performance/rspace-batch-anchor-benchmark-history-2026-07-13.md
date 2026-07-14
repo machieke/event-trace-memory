@@ -33,6 +33,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x50-20260713T143346Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-100x75-partial-20260713T182238Z.json`
   - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-partial-20260713T193527Z.json`
+  - `docs/performance/artifacts/rspace-batch-anchor-leadership-150x50-retest-20260714T080823Z.json`
 
 Related earlier analysis:
 
@@ -72,6 +73,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x50` batch-anchor, deploy-inclusion leadership | Batch anchor | 5,000 | 4 | yes | `21,918,700` | `4,384` | `183.729s` | `208.419s` | `23.990 events/s` |
 | `100x75` batch-anchor, leadership probe | Batch anchor | 7,500 | 0 finalized, 8 non-final hits | no | n/a | n/a | non-final only | `>2,075s` | `<3.615 events/s` |
 | `150x50` batch-anchor, degraded-shard probe | Batch anchor | 7,500 | 0 hit blocks | no | n/a | n/a | no inclusion `>593s` | `>593s` | `<12.648 events/s` |
+| `150x50` batch-anchor, post-fix retest | Batch anchor | 7,500 | 5 finalized, 15 total hits | yes | `32,933,050` | `4,391` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -582,6 +584,82 @@ So the `150x50` comparison does not show that smaller deploy terms fixed the
 moved earlier: deploys were accepted by the node but did not enter any observed
 deploy-carrying block for that run before the measurement was stopped.
 
+### 150x50 Post-Fix Retest
+
+Run id: `rspace-leadership-150x50-20260714T080824Z`
+
+This run retested the same 150-deploy, 7,500-event workload after the shard was
+restarted with deploy-inclusion leadership changes intended to let non-leaders
+support finality instead of competing with leader-proposed user-deploy packaging.
+
+The fresh scoped contract deployment was included before the workload run, but
+the initial benchmark attempt timed out waiting for its finalized binding after
+`600s`. The contract block finalized shortly afterward. The completed workload
+run reused that existing URI:
+
+```text
+event-trace-memory:EventTraceRSpaceIndexUri:leadership-20260714T075701Z
+```
+
+The resumed benchmark found the contract binding in finalized block `217` in
+`1.314s`, then submitted the workload.
+
+| Metric | Value |
+| --- | ---: |
+| Events | `7,500` |
+| Deploys | `150` |
+| Batch size | `50` |
+| Submit span | `105.702s` |
+| First inclusion | `208.940s` |
+| First all included | `1,035.536s` |
+| Finality | `1,468.320s` |
+| Inclusion to finality gap | `432.784s` |
+| Finality throughput | `5.108 events/s` |
+| Canonical deploy blocks | `5` |
+| Total hit blocks observed | `15` |
+| Total cost | `32,933,050` |
+| Cost per deploy | `219,553.667` |
+| Cost per event | `4,391.073` |
+
+Canonical finalized coverage used five deploy-carrying blocks:
+
+| Block | Hash prefix | Deploys | Cost | Size |
+| ---: | --- | ---: | ---: | ---: |
+| `227` | `ddc56b4227f2...` | `45` | `9,864,725` | `6,299,025` |
+| `228` | `848dc70916c4...` | `32` | `7,015,229` | `4,484,726` |
+| `231` | `27c7d4a800da...` | `32` | `7,021,739` | `4,487,807` |
+| `254` | `eb0bbbf3a857...` | `32` | `7,048,864` | `4,493,052` |
+| `255` | `984eb004d5bf...` | `9` | `1,982,493` | `1,273,972` |
+
+The improvement over the degraded-shard `150x50` run is large but incomplete:
+
+| Metric | Degraded `150x50` | Post-fix retest |
+| --- | ---: | ---: |
+| Submitted deploys | `150` | `150` |
+| Submit span | `47.082s` | `105.702s` |
+| First inclusion | none before `>593s` | `208.940s` |
+| All included | never observed | `1,035.536s` |
+| Finality | never observed | `1,468.320s` |
+| Finalized batches | `0 / 150` | `150 / 150` |
+| Finalized throughput | n/a | `5.108 events/s` |
+
+The root bottleneck shifted. The earlier run failed before any observed
+inclusion. The retest selected and finalized all work, but it still required
+many branch attempts:
+
+- workload selection appeared in proposer logs in chunks such as `32`, `45`,
+  `47`, and `9`;
+- total hit blocks were `15`, while only `5` were canonical finalized blocks;
+- unique inclusion stalled at `109 / 150` for several minutes while duplicate
+  non-final hit blocks accumulated;
+- the final `41` deploys were repeatedly selected on competing branches before
+  finalized blocks `254` and `255` completed coverage.
+
+So the shard fix restored liveness for this workload, but it did not yet make
+the `150x50` path fast enough for a high-throughput ingestion target. The
+remaining problem is duplicate branch packaging plus finality lag, not Rholang
+contract execution cost.
+
 ## Cross-Run Analysis
 
 ### Cost Shape
@@ -593,6 +671,7 @@ deploy-carrying block for that run before the measurement was stopped.
 | Restarted `10x25` | 250 | 10 | `1,370,550` | `137,055` | `5,482` |
 | Restarted `10x50` | 500 | 10 | `2,259,850` | `225,985` | `4,520` |
 | Restarted `100x50` | 5,000 | 100 | `22,815,500` | `228,155` | `4,563` |
+| Post-fix `150x50` | 7,500 | 150 | `32,933,050` | `219,554` | `4,391` |
 
 The batch-anchor path makes deploy cost roughly proportional to batch anchor
 term size, not to accumulated on-chain posting-list size. Cost per event falls
@@ -615,6 +694,7 @@ That is the expected behavior for an anchor-first path.
 | Restarted `10x25` | 250 | `1.614s` | `8.172s` | `52.826s` | `68.318s` | `3.659 events/s` |
 | Restarted `10x50` | 500 | `3.890s` | `2.059s` | `11.445s` | `49.190s` | `10.165 events/s` |
 | Restarted `100x50` | 5,000 | `33.632s` | `11.614s` | `552.458s` | `594.821s` | `8.406 events/s` |
+| Post-fix `150x50` | 7,500 | `105.702s` | `208.940s` | `1,035.536s` | `1,468.320s` | `5.108 events/s` |
 
 The `100x50` run had strong cost scaling but weaker latency scaling:
 
@@ -680,9 +760,10 @@ should therefore report two separate numbers:
    Restarted runs moved from `8,369` phlo/event at `10x10` to about `4,520`
    phlo/event at `10x50` and `4,563` phlo/event at `100x50`.
 
-4. The local shard shows a practical deploy-selection ceiling around 32 deploys
-   per canonical block for this workload.
-   The `100x50` run finalized as `32 + 32 + 32 + 4` deploys.
+4. The local shard usually selects around 32 deploys per useful deploy-carrying
+   block for this workload, with occasional larger chunks.
+   The `100x50` run finalized as `32 + 32 + 32 + 4` deploys; the post-fix
+   `150x50` run finalized as `45 + 32 + 32 + 32 + 9`.
 
 5. Recovery/finality, not contract execution, dominates large-run latency.
    In `100x50`, canonical Rholang compute summed to `105.777s`, but finality
