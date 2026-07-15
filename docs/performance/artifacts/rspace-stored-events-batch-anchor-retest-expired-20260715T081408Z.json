@@ -1,0 +1,3251 @@
+{
+  "container": "rnode.validator3",
+  "contract": {
+    "binding_wait_s": 39.412,
+    "deploy_id": "3044022005247cabd7233c6b2e0e3460964615ed0772293370276bde44abfb37ea5b066602203cb3a2a7fcf9ece7b3176eade866b14691eea6df123688cadd8c6c39b2815133",
+    "finalized_block_number": 64,
+    "valid_after": 61
+  },
+  "created_at": "2026-07-15T08:40:12Z",
+  "last_finalized_after": {
+    "hash": "1e8e16fbc24587660a472eb0e83d30180732502e05aaabd405167d843d6cd535",
+    "number": 148,
+    "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"1e8e16fbc24587660a472eb0e83d30180732502e05aaabd405167d843d6cd535\",\n            sender: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            seq_num: 107,\n            sig: \"3045022100a9352f638a736852c5ffe208e205f6e168e95f9876ccfa32f86315841aee4d6b02206f3c915138876c345545308692a212fa66b5ffbb993143b2e78626dc765da307\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784104790928,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"0ede239d9d3fd72b10cac9da538f4662415cbaca10699c9f6c92e433a0118229\",\n                \"747683c5d5684cb9df0ac7ca0d25a6a8514437fd7d702391927c4b1e75f30f54\",\n                \"af0cf0170929daf9291a351385282bd6f9293ece784f1d2cb0541d7faf528823\",\n            ],\n            block_number: 148,\n            pre_state_hash: \"27f2b4794e075c7eb2da8cc7b08c6f544a945fc575fd875a2822fe25d4ff03c1\",\n            post_state_hash: \"27f2b4794e075c7eb2da8cc7b08c6f544a945fc575fd875a2822fe25d4ff03c1\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"af0cf0170929daf9291a351385282bd6f9293ece784f1d2cb0541d7faf528823\",\n                },\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"0ede239d9d3fd72b10cac9da538f4662415cbaca10699c9f6c92e433a0118229\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"747683c5d5684cb9df0ac7ca0d25a6a8514437fd7d702391927c4b1e75f30f54\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+  },
+  "latest_block_after": {
+    "hash": "665662ab524a90ed8ad5e630a8cace8298c3e2e631b446b0c87fbe3fc369eba9",
+    "number": 150,
+    "raw": "\n------------- block 150 ---------------\nLightBlockInfo {\n    block_hash: \"665662ab524a90ed8ad5e630a8cace8298c3e2e631b446b0c87fbe3fc369eba9\",\n    sender: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n    seq_num: 109,\n    sig: \"304402202daea4e1cf4d713681b1e5b9ee0c366c5752d855d3edd72cff5f969c7d4d3e1902201593ecaf7f2fdf0fcd6a0123ec3929b27940941d33219f5718479a2d577826d6\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784104806600,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n    ],\n    block_number: 150,\n    pre_state_hash: \"27f2b4794e075c7eb2da8cc7b08c6f544a945fc575fd875a2822fe25d4ff03c1\",\n    post_state_hash: \"b6125885c039da16e3957413fa3ffe50eb3f2277687b0ef502d6679e285e5dbc\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63262\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\n\n------------- block 150 ---------------\nLightBlockInfo {\n    block_hash: \"c0aee075c82f557dce3593197537827d241004dd7a95c3a41b8ee6257ff7945a\",\n    sender: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n    seq_num: 109,\n    sig: \"3044022001da2d9bd92abc9afcf0b23c71cc55f6f7a5188f8be15e4f590a75b61f0382e102206e43399c9bd7d30e2fddf0cdd313eda57595c9103cd7e3c2d7ef74b3790af3b3\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784104806614,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n    ],\n    block_number: 150,\n    pre_state_hash: \"27f2b4794e075c7eb2da8cc7b08c6f544a945fc575fd875a2822fe25d4ff03c1\",\n    post_state_hash: \"754ba93f21888cb4551a2e64991e7d37113e9786ad1906132c215447935eb20c\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63188\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        },\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\n\n------------- block 150 ---------------\nLightBlockInfo {\n    block_hash: \"e10f938bee9cd01e6a8cc84a1894f0431cc0e34e3d16921ebe412ee57d9e0af7\",\n    sender: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n    seq_num: 131,\n    sig: \"304402201c01fefc104f4f15dcd98b18b7ba0fe18895abf176b90597db019887f5bad3c8022028466523ee4d472381d73a4d83127a12463c74dc39b2d40de11aa220c00121de\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784104805996,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n    ],\n    block_number: 150,\n    pre_state_hash: \"27f2b4794e075c7eb2da8cc7b08c6f544a945fc575fd875a2822fe25d4ff03c1\",\n    post_state_hash: \"800f4a162d48df43a4c6c55cc500a571bbceabdbc71081283b94c444985fda62\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"63189\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"1aabcd1bc1b10714cc20145c9da4b3d443ae5d616c714904068781c69c4c6caa\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"1126dd1a031f9720f6101df9db5cfcf8a3c02b8e1654d659749d14bf8e764aa2\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"1a2bd3cb1cd02b0a4eba945baaea05ef1638e671bf35f8a132de9b108e6f7042\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 3\n\n"
+  },
+  "node_status": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://3d576c6e13ce7381f068433d4472600dbe98e554@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"3d576c6e13ce7381f068433d4472600dbe98e554\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 148,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 14,\n    epoch_length: 10,\n}\n",
+  "pointer_source": {
+    "byte_size": 60188237,
+    "container": "etm-pointer-reader",
+    "line_count": 54890,
+    "pointer_log": "/data/pointers.jsonl",
+    "pointer_log_sha256": "6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c",
+    "source_volume": "memory_percept-memory-data",
+    "unique_event_count": 54890
+  },
+  "resource_observations": {
+    "during_run_host_memory_available_range": "55GiB-68GiB observed",
+    "pre_run_host_memory_available": "74GiB",
+    "validator_memory_observed_range": "roughly 0.18GiB-6.6GiB per container during sampled run"
+  },
+  "result": {
+    "all_hits": [
+      {
+        "batch_count": 1,
+        "batch_ids": [
+          0
+        ],
+        "block_size": 228405,
+        "cost_sum": 552714,
+        "cost_values": [
+          552714
+        ],
+        "deploy_count": 1,
+        "errors": 0,
+        "event_count": 100,
+        "finalized": true,
+        "hash": "ebb3bf0ce674827f75d41b84819876d236183a2aef6380e7898db1259b6cf9ce",
+        "number": 68
+      },
+      {
+        "batch_count": 6,
+        "batch_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "block_size": 1290135,
+        "cost_sum": 3294433,
+        "cost_values": [
+          553290,
+          552820,
+          538637,
+          545313,
+          554193,
+          550180
+        ],
+        "deploy_count": 6,
+        "errors": 0,
+        "event_count": 600,
+        "finalized": true,
+        "hash": "459eecae404cc35a3d7a4ad8cc1159d2b58006c6e7aebff14e03d5aeda8791a4",
+        "number": 69
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ],
+        "block_size": 3898676,
+        "cost_sum": 9931741,
+        "cost_values": [
+          550460,
+          555265,
+          549602,
+          555128,
+          551405,
+          555668,
+          551330,
+          552251,
+          553099,
+          551801,
+          550318,
+          552823,
+          549419,
+          550934,
+          552232,
+          548503,
+          553982,
+          547521
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "532942a0c76cbaff18357e3002e6acdedfd1d305e58ea347fe20ffa52e8cd770",
+        "number": 70
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          25,
+          26,
+          27,
+          28
+        ],
+        "block_size": 866729,
+        "cost_sum": 2203540,
+        "cost_values": [
+          555403,
+          548981,
+          548729,
+          550427
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "41a8be916e9525ba5dfb56210640ad72fcbad0362904bf65e81df526ed9d9385",
+        "number": 71
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "block_size": 3857452,
+        "cost_sum": 9949257,
+        "cost_values": [
+          552809,
+          551974,
+          554566,
+          547356,
+          540380,
+          547548,
+          555011,
+          552059,
+          554428,
+          552965,
+          557384,
+          552256,
+          554769,
+          555206,
+          555472,
+          556490,
+          553699,
+          554885
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "47a2a916cc4d5935f25e984333e57692a6c502bfe0b1cb3c831b99378ff031f4",
+        "number": 72
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          47,
+          48,
+          49,
+          50
+        ],
+        "block_size": 871090,
+        "cost_sum": 2219350,
+        "cost_values": [
+          555870,
+          557205,
+          553533,
+          552742
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "79da282600b0c1214d863de2f07e9e7997d16de3175c868e46675d74d6481fa2",
+        "number": 73
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          51,
+          52,
+          53,
+          54
+        ],
+        "block_size": 871532,
+        "cost_sum": 2222962,
+        "cost_values": [
+          556556,
+          555333,
+          555020,
+          556053
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "abc0cb4b23193613afe8eb37734e3ee197d8c537c22dc827c696d645cbeae59f",
+        "number": 74
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          55,
+          56,
+          57,
+          58
+        ],
+        "block_size": 871221,
+        "cost_sum": 2221382,
+        "cost_values": [
+          554885,
+          556270,
+          553384,
+          556843
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "b6e71d6a4a7d41157a959b7b6f1830fcbe25b9cb1365811f20f2743833d36dac",
+        "number": 75
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          59,
+          60,
+          61,
+          62
+        ],
+        "block_size": 870637,
+        "cost_sum": 2217868,
+        "cost_values": [
+          553685,
+          553075,
+          555960,
+          555148
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "ab3b8057a4e02fb603add796949fa00ed1a93128e45109b2884bcbeed080e178",
+        "number": 76
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          63,
+          64,
+          65,
+          66
+        ],
+        "block_size": 869763,
+        "cost_sum": 2215410,
+        "cost_values": [
+          554710,
+          554250,
+          552842,
+          553608
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "eaff25b3f2d0d21a879cae7d8dd9c48a2a3fbf10b3aca7007c08aaa2a4789dc3",
+        "number": 77
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84
+        ],
+        "block_size": 3861772,
+        "cost_sum": 9966243,
+        "cost_values": [
+          551849,
+          554627,
+          556314,
+          554047,
+          556076,
+          556169,
+          556081,
+          553993,
+          555375,
+          554478,
+          555362,
+          552203,
+          557260,
+          555890,
+          550266,
+          548279,
+          549695,
+          548279
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "1eb39d3f7ac037c2182f6dc93dbb0af80cbf8ab92d6dc590e97889f06353e1f3",
+        "number": 78
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          85,
+          86,
+          87,
+          88
+        ],
+        "block_size": 866387,
+        "cost_sum": 2195676,
+        "cost_values": [
+          549695,
+          548007,
+          548551,
+          549423
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "2e713899faf50ecb159179ab6cbeaf5c2135a04bebc76dee2434b18952c3a9d9",
+        "number": 79
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106
+        ],
+        "block_size": 3899132,
+        "cost_sum": 9907087,
+        "cost_values": [
+          548279,
+          548279,
+          548279,
+          548551,
+          548279,
+          548819,
+          548819,
+          549423,
+          548279,
+          548551,
+          548279,
+          549423,
+          548551,
+          548212,
+          554076,
+          557674,
+          557910,
+          557404
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "eaf9e94796f717adae687ff0e643b7329ca1f7f58e587b137b9d731c0d9cdd77",
+        "number": 80
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          107,
+          108,
+          109,
+          110
+        ],
+        "block_size": 873624,
+        "cost_sum": 2233079,
+        "cost_values": [
+          558355,
+          558659,
+          558287,
+          557778
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "d8342150c79894436635117049bc2cc0e3b0022616c9fc63a62903545a584aaf",
+        "number": 81
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128
+        ],
+        "block_size": 3897600,
+        "cost_sum": 10120413,
+        "cost_values": [
+          555342,
+          558313,
+          558020,
+          557331,
+          557833,
+          556369,
+          557248,
+          557799,
+          557944,
+          552797,
+          624614,
+          551783,
+          554091,
+          556091,
+          605129,
+          555100,
+          554612,
+          549997
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "18cda509a0f62be153f035b757266a567887d71d9ac9d627a999ddfe40afdd7b",
+        "number": 82
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          129,
+          130,
+          131,
+          132
+        ],
+        "block_size": 867219,
+        "cost_sum": 2205015,
+        "cost_values": [
+          551246,
+          551209,
+          552646,
+          549914
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "e79929e5a57ae6646505404dc66d80fbcb3c104d4dfe84ae1ddec26a1639f31c",
+        "number": 83
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          133,
+          134,
+          135,
+          136
+        ],
+        "block_size": 870013,
+        "cost_sum": 2213424,
+        "cost_values": [
+          553605,
+          551936,
+          556423,
+          551460
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "e998125d30fa294cb844b2d3ce630cd8f8fcb8c9831d166c66c4924c8de9e332",
+        "number": 84
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          137,
+          138,
+          139,
+          140
+        ],
+        "block_size": 871043,
+        "cost_sum": 2221368,
+        "cost_values": [
+          555748,
+          554582,
+          556487,
+          554551
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "4eaa607e6edcf9e75c4ea7164545d6d489fc45b1758d2893489e4edc20a30604",
+        "number": 85
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          141,
+          142,
+          143,
+          144
+        ],
+        "block_size": 869562,
+        "cost_sum": 2215299,
+        "cost_values": [
+          553278,
+          553123,
+          552814,
+          556084
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "84b6619c341eca961d10c7dbf2d38ed9a8265f2b34e61ee7f1b46e4c009e20b9",
+        "number": 86
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          145,
+          146,
+          147,
+          148
+        ],
+        "block_size": 866004,
+        "cost_sum": 2197885,
+        "cost_values": [
+          551866,
+          546862,
+          548524,
+          550633
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "5e35adcb7c3ec4f3502f434efc17f1a6e6c2287b492c71762c1192e05473d47a",
+        "number": 87
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          548
+        ],
+        "block_size": 3905576,
+        "cost_sum": 10145450,
+        "cost_values": [
+          587582,
+          555070,
+          553551,
+          595051,
+          566294,
+          544589,
+          550485,
+          550081,
+          549433,
+          712722,
+          552374,
+          548386,
+          551706,
+          555745,
+          556433,
+          552843,
+          555753,
+          507352
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1790,
+        "finalized": true,
+        "hash": "cee48f78348cf204ef33440f2d5440e3fc4cb1d2b182528f728ba39f15f556f8",
+        "number": 88
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          166,
+          167,
+          168,
+          169
+        ],
+        "block_size": 870481,
+        "cost_sum": 2219430,
+        "cost_values": [
+          554953,
+          553431,
+          555937,
+          555109
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "0ebe2d66a78305e541890f994581828941a371b31df8d0cfa41fcac87f090825",
+        "number": 89
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          170,
+          171,
+          172,
+          173
+        ],
+        "block_size": 916619,
+        "cost_sum": 2211274,
+        "cost_values": [
+          553833,
+          553767,
+          554491,
+          549183
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "666f079a4c8e152fbed7b7657151914680254974d66683e238278ce3553852d1",
+        "number": 90
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          174,
+          175,
+          176,
+          177
+        ],
+        "block_size": 880538,
+        "cost_sum": 2260156,
+        "cost_values": [
+          552287,
+          550803,
+          601960,
+          555106
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "54525005b11d5c69b43ee8d7a5ae67f69490136da5d0c848c5a8c5f77fdcb8db",
+        "number": 91
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          178,
+          179,
+          180,
+          181
+        ],
+        "block_size": 875416,
+        "cost_sum": 2237566,
+        "cost_values": [
+          573510,
+          554323,
+          557228,
+          552505
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "450f28bdd6e966aa60fed889d1a33ef742b5a965c8ae001ca52f2457c751a808",
+        "number": 92
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          182,
+          183,
+          184,
+          185
+        ],
+        "block_size": 870286,
+        "cost_sum": 2218050,
+        "cost_values": [
+          554793,
+          555254,
+          555340,
+          552663
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "dfdce6a5e87aaecaea35b19f58332fdb2f52643d4e00d7699485b9a26b3eb438",
+        "number": 93
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          186,
+          187,
+          188,
+          189
+        ],
+        "block_size": 869944,
+        "cost_sum": 2216857,
+        "cost_values": [
+          553386,
+          553850,
+          555648,
+          553973
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "aed4a66f13dd04ea5737a38c67cfb9f8a223eb593bd307877995cde79187227f",
+        "number": 94
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          190,
+          191,
+          192,
+          193
+        ],
+        "block_size": 882978,
+        "cost_sum": 2270165,
+        "cost_values": [
+          611398,
+          552252,
+          553665,
+          552850
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "3ec6a3ba4b8596f0049c4093df135a579162f67cdc092500aa5746d39c48e722",
+        "number": 95
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          194,
+          195,
+          196,
+          197
+        ],
+        "block_size": 870926,
+        "cost_sum": 2220004,
+        "cost_values": [
+          554040,
+          556642,
+          554008,
+          555314
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "a7a1d3162f9dac278ff49c65fd92f3d0d990e58eee67b436bc55a1bf6de627fd",
+        "number": 96
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          198,
+          199,
+          200,
+          201
+        ],
+        "block_size": 870803,
+        "cost_sum": 2220377,
+        "cost_values": [
+          555713,
+          554949,
+          555100,
+          554615
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "8af6640ae64130b1e2c7e53f8add412cfd9ec981251faef6c555e656d10aeb6f",
+        "number": 97
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          202,
+          203,
+          204,
+          205
+        ],
+        "block_size": 876174,
+        "cost_sum": 2242742,
+        "cost_values": [
+          555849,
+          555797,
+          576683,
+          554413
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "2fa2f4c12fcf8541a6b929be63c17dcabea2ec53873f38a301c7f4b9cf2ff8f4",
+        "number": 98
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          206,
+          207,
+          208,
+          209
+        ],
+        "block_size": 870383,
+        "cost_sum": 2219362,
+        "cost_values": [
+          553317,
+          554928,
+          555503,
+          555614
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "795595549a84dd21f50830b21b41489e47610e1b8aae8fbd99676eb0c5c5ba01",
+        "number": 99
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          210,
+          211,
+          212,
+          213
+        ],
+        "block_size": 919285,
+        "cost_sum": 2220660,
+        "cost_values": [
+          554744,
+          560105,
+          552944,
+          552867
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "a8f371ec0a2e153025c7ce6d0dd555b8ea713f18845de9eee59a489495e7176e",
+        "number": 100
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          214,
+          215,
+          216,
+          217
+        ],
+        "block_size": 875337,
+        "cost_sum": 2238903,
+        "cost_values": [
+          553648,
+          551841,
+          556805,
+          576609
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "febe51708914452e635b3450babf4499ecaf52354fc0ab879918631aece66d0e",
+        "number": 101
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          218,
+          219,
+          220,
+          221
+        ],
+        "block_size": 869214,
+        "cost_sum": 2213336,
+        "cost_values": [
+          552260,
+          553924,
+          553862,
+          553290
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "6c9d68f24748b4fee62f38e72296143b4327b6752920b5b8781427057db891ab",
+        "number": 102
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          222,
+          223,
+          224,
+          225
+        ],
+        "block_size": 871388,
+        "cost_sum": 2222211,
+        "cost_values": [
+          556617,
+          556364,
+          554306,
+          554924
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "0f477ba00e4df70c21da90d84afbfc28f25f91be9e9af76dc60fa40f8a0cf002",
+        "number": 103
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243
+        ],
+        "block_size": 3884779,
+        "cost_sum": 10065815,
+        "cost_values": [
+          556598,
+          553398,
+          553748,
+          557509,
+          553039,
+          554089,
+          555228,
+          556855,
+          553837,
+          554400,
+          595905,
+          568371,
+          556398,
+          562525,
+          555943,
+          550120,
+          552582,
+          575270
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "014261ead7fa15ca4f3c205fbd82884260d45dbd15ef79baed29027d8406f941",
+        "number": 104
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          244,
+          245,
+          246,
+          247
+        ],
+        "block_size": 871282,
+        "cost_sum": 2222973,
+        "cost_values": [
+          556264,
+          555450,
+          554843,
+          556416
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "70c729c40915888c0914ee569eec48f3cbc20d0f6aa56c6d8c0e996dabd8d3ea",
+        "number": 105
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          248,
+          249,
+          250,
+          251
+        ],
+        "block_size": 871139,
+        "cost_sum": 2221415,
+        "cost_values": [
+          556363,
+          554919,
+          556628,
+          553505
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "7dc573e5200e9dc15461de8cd77cf85a3b3991152a6c64a9c0c0c212262016d4",
+        "number": 106
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          252,
+          253,
+          254,
+          255
+        ],
+        "block_size": 878612,
+        "cost_sum": 2251639,
+        "cost_values": [
+          553635,
+          555450,
+          589471,
+          553083
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "cca6cf558feb21bd46af9a28b107bd71fc97a915cfb80b20428a63e0696d7369",
+        "number": 107
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          256,
+          257,
+          258,
+          259
+        ],
+        "block_size": 895035,
+        "cost_sum": 2314620,
+        "cost_values": [
+          568881,
+          648251,
+          548710,
+          548778
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "f3888b45c928f478cdacf62f65f05b4bccfe45f0d18c4d7b30a5555d744d0f21",
+        "number": 108
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          260,
+          261,
+          262,
+          263
+        ],
+        "block_size": 918701,
+        "cost_sum": 2410655,
+        "cost_values": [
+          624006,
+          689003,
+          548823,
+          548823
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "f58839efdfa5d1311488c938b11462ea34f31a544bb8f117b7bd8ba53638d3c5",
+        "number": 109
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          264,
+          265,
+          266,
+          267
+        ],
+        "block_size": 914625,
+        "cost_sum": 2195292,
+        "cost_values": [
+          548823,
+          548823,
+          548823,
+          548823
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "db83f45d0b476a89308b6bfd32c2661105b638228e52e9b15631127f6485d035",
+        "number": 110
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          268,
+          269,
+          270,
+          271
+        ],
+        "block_size": 912073,
+        "cost_sum": 2385822,
+        "cost_values": [
+          548823,
+          548823,
+          736417,
+          551759
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "67085353d6df228bc1dd6296ff4926f24a25a9cc43f7b1394574d9ea8c3185e9",
+        "number": 111
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          272,
+          273,
+          274,
+          275
+        ],
+        "block_size": 866450,
+        "cost_sum": 2201703,
+        "cost_values": [
+          551961,
+          553651,
+          547184,
+          548907
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "82219be180609a129817887a714c2467a4435569d9a5f2cf1b2ba7b2cbea307f",
+        "number": 112
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          276,
+          277,
+          278,
+          279
+        ],
+        "block_size": 869808,
+        "cost_sum": 2216155,
+        "cost_values": [
+          554366,
+          551231,
+          554297,
+          556261
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "52ba4868734c8ef307059924dbcf3c4242f3ece758f80d28203682e2eb4c7547",
+        "number": 113
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          280,
+          281,
+          282,
+          283
+        ],
+        "block_size": 894264,
+        "cost_sum": 2313250,
+        "cost_values": [
+          552872,
+          568294,
+          588126,
+          603958
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "ac1d8936b8f80663ac09fd11e257080e4d9f6ff9f7c8a92921c9f158d92e277f",
+        "number": 114
+      }
+    ],
+    "canonical_block_count": 47,
+    "canonical_blocks": [
+      {
+        "batch_count": 1,
+        "batch_ids": [
+          0
+        ],
+        "block_size": 228405,
+        "cost_sum": 552714,
+        "cost_values": [
+          552714
+        ],
+        "deploy_count": 1,
+        "errors": 0,
+        "event_count": 100,
+        "finalized": true,
+        "hash": "ebb3bf0ce674827f75d41b84819876d236183a2aef6380e7898db1259b6cf9ce",
+        "number": 68
+      },
+      {
+        "batch_count": 6,
+        "batch_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "block_size": 1290135,
+        "cost_sum": 3294433,
+        "cost_values": [
+          553290,
+          552820,
+          538637,
+          545313,
+          554193,
+          550180
+        ],
+        "deploy_count": 6,
+        "errors": 0,
+        "event_count": 600,
+        "finalized": true,
+        "hash": "459eecae404cc35a3d7a4ad8cc1159d2b58006c6e7aebff14e03d5aeda8791a4",
+        "number": 69
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ],
+        "block_size": 3898676,
+        "cost_sum": 9931741,
+        "cost_values": [
+          550460,
+          555265,
+          549602,
+          555128,
+          551405,
+          555668,
+          551330,
+          552251,
+          553099,
+          551801,
+          550318,
+          552823,
+          549419,
+          550934,
+          552232,
+          548503,
+          553982,
+          547521
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "532942a0c76cbaff18357e3002e6acdedfd1d305e58ea347fe20ffa52e8cd770",
+        "number": 70
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          25,
+          26,
+          27,
+          28
+        ],
+        "block_size": 866729,
+        "cost_sum": 2203540,
+        "cost_values": [
+          555403,
+          548981,
+          548729,
+          550427
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "41a8be916e9525ba5dfb56210640ad72fcbad0362904bf65e81df526ed9d9385",
+        "number": 71
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "block_size": 3857452,
+        "cost_sum": 9949257,
+        "cost_values": [
+          552809,
+          551974,
+          554566,
+          547356,
+          540380,
+          547548,
+          555011,
+          552059,
+          554428,
+          552965,
+          557384,
+          552256,
+          554769,
+          555206,
+          555472,
+          556490,
+          553699,
+          554885
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "47a2a916cc4d5935f25e984333e57692a6c502bfe0b1cb3c831b99378ff031f4",
+        "number": 72
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          47,
+          48,
+          49,
+          50
+        ],
+        "block_size": 871090,
+        "cost_sum": 2219350,
+        "cost_values": [
+          555870,
+          557205,
+          553533,
+          552742
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "79da282600b0c1214d863de2f07e9e7997d16de3175c868e46675d74d6481fa2",
+        "number": 73
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          51,
+          52,
+          53,
+          54
+        ],
+        "block_size": 871532,
+        "cost_sum": 2222962,
+        "cost_values": [
+          556556,
+          555333,
+          555020,
+          556053
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "abc0cb4b23193613afe8eb37734e3ee197d8c537c22dc827c696d645cbeae59f",
+        "number": 74
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          55,
+          56,
+          57,
+          58
+        ],
+        "block_size": 871221,
+        "cost_sum": 2221382,
+        "cost_values": [
+          554885,
+          556270,
+          553384,
+          556843
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "b6e71d6a4a7d41157a959b7b6f1830fcbe25b9cb1365811f20f2743833d36dac",
+        "number": 75
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          59,
+          60,
+          61,
+          62
+        ],
+        "block_size": 870637,
+        "cost_sum": 2217868,
+        "cost_values": [
+          553685,
+          553075,
+          555960,
+          555148
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "ab3b8057a4e02fb603add796949fa00ed1a93128e45109b2884bcbeed080e178",
+        "number": 76
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          63,
+          64,
+          65,
+          66
+        ],
+        "block_size": 869763,
+        "cost_sum": 2215410,
+        "cost_values": [
+          554710,
+          554250,
+          552842,
+          553608
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "eaff25b3f2d0d21a879cae7d8dd9c48a2a3fbf10b3aca7007c08aaa2a4789dc3",
+        "number": 77
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84
+        ],
+        "block_size": 3861772,
+        "cost_sum": 9966243,
+        "cost_values": [
+          551849,
+          554627,
+          556314,
+          554047,
+          556076,
+          556169,
+          556081,
+          553993,
+          555375,
+          554478,
+          555362,
+          552203,
+          557260,
+          555890,
+          550266,
+          548279,
+          549695,
+          548279
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "1eb39d3f7ac037c2182f6dc93dbb0af80cbf8ab92d6dc590e97889f06353e1f3",
+        "number": 78
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          85,
+          86,
+          87,
+          88
+        ],
+        "block_size": 866387,
+        "cost_sum": 2195676,
+        "cost_values": [
+          549695,
+          548007,
+          548551,
+          549423
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "2e713899faf50ecb159179ab6cbeaf5c2135a04bebc76dee2434b18952c3a9d9",
+        "number": 79
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106
+        ],
+        "block_size": 3899132,
+        "cost_sum": 9907087,
+        "cost_values": [
+          548279,
+          548279,
+          548279,
+          548551,
+          548279,
+          548819,
+          548819,
+          549423,
+          548279,
+          548551,
+          548279,
+          549423,
+          548551,
+          548212,
+          554076,
+          557674,
+          557910,
+          557404
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "eaf9e94796f717adae687ff0e643b7329ca1f7f58e587b137b9d731c0d9cdd77",
+        "number": 80
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          107,
+          108,
+          109,
+          110
+        ],
+        "block_size": 873624,
+        "cost_sum": 2233079,
+        "cost_values": [
+          558355,
+          558659,
+          558287,
+          557778
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "d8342150c79894436635117049bc2cc0e3b0022616c9fc63a62903545a584aaf",
+        "number": 81
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128
+        ],
+        "block_size": 3897600,
+        "cost_sum": 10120413,
+        "cost_values": [
+          555342,
+          558313,
+          558020,
+          557331,
+          557833,
+          556369,
+          557248,
+          557799,
+          557944,
+          552797,
+          624614,
+          551783,
+          554091,
+          556091,
+          605129,
+          555100,
+          554612,
+          549997
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "18cda509a0f62be153f035b757266a567887d71d9ac9d627a999ddfe40afdd7b",
+        "number": 82
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          129,
+          130,
+          131,
+          132
+        ],
+        "block_size": 867219,
+        "cost_sum": 2205015,
+        "cost_values": [
+          551246,
+          551209,
+          552646,
+          549914
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "e79929e5a57ae6646505404dc66d80fbcb3c104d4dfe84ae1ddec26a1639f31c",
+        "number": 83
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          133,
+          134,
+          135,
+          136
+        ],
+        "block_size": 870013,
+        "cost_sum": 2213424,
+        "cost_values": [
+          553605,
+          551936,
+          556423,
+          551460
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "e998125d30fa294cb844b2d3ce630cd8f8fcb8c9831d166c66c4924c8de9e332",
+        "number": 84
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          137,
+          138,
+          139,
+          140
+        ],
+        "block_size": 871043,
+        "cost_sum": 2221368,
+        "cost_values": [
+          555748,
+          554582,
+          556487,
+          554551
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "4eaa607e6edcf9e75c4ea7164545d6d489fc45b1758d2893489e4edc20a30604",
+        "number": 85
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          141,
+          142,
+          143,
+          144
+        ],
+        "block_size": 869562,
+        "cost_sum": 2215299,
+        "cost_values": [
+          553278,
+          553123,
+          552814,
+          556084
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "84b6619c341eca961d10c7dbf2d38ed9a8265f2b34e61ee7f1b46e4c009e20b9",
+        "number": 86
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          145,
+          146,
+          147,
+          148
+        ],
+        "block_size": 866004,
+        "cost_sum": 2197885,
+        "cost_values": [
+          551866,
+          546862,
+          548524,
+          550633
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "5e35adcb7c3ec4f3502f434efc17f1a6e6c2287b492c71762c1192e05473d47a",
+        "number": 87
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          548
+        ],
+        "block_size": 3905576,
+        "cost_sum": 10145450,
+        "cost_values": [
+          587582,
+          555070,
+          553551,
+          595051,
+          566294,
+          544589,
+          550485,
+          550081,
+          549433,
+          712722,
+          552374,
+          548386,
+          551706,
+          555745,
+          556433,
+          552843,
+          555753,
+          507352
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1790,
+        "finalized": true,
+        "hash": "cee48f78348cf204ef33440f2d5440e3fc4cb1d2b182528f728ba39f15f556f8",
+        "number": 88
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          166,
+          167,
+          168,
+          169
+        ],
+        "block_size": 870481,
+        "cost_sum": 2219430,
+        "cost_values": [
+          554953,
+          553431,
+          555937,
+          555109
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "0ebe2d66a78305e541890f994581828941a371b31df8d0cfa41fcac87f090825",
+        "number": 89
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          170,
+          171,
+          172,
+          173
+        ],
+        "block_size": 916619,
+        "cost_sum": 2211274,
+        "cost_values": [
+          553833,
+          553767,
+          554491,
+          549183
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "666f079a4c8e152fbed7b7657151914680254974d66683e238278ce3553852d1",
+        "number": 90
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          174,
+          175,
+          176,
+          177
+        ],
+        "block_size": 880538,
+        "cost_sum": 2260156,
+        "cost_values": [
+          552287,
+          550803,
+          601960,
+          555106
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "54525005b11d5c69b43ee8d7a5ae67f69490136da5d0c848c5a8c5f77fdcb8db",
+        "number": 91
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          178,
+          179,
+          180,
+          181
+        ],
+        "block_size": 875416,
+        "cost_sum": 2237566,
+        "cost_values": [
+          573510,
+          554323,
+          557228,
+          552505
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "450f28bdd6e966aa60fed889d1a33ef742b5a965c8ae001ca52f2457c751a808",
+        "number": 92
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          182,
+          183,
+          184,
+          185
+        ],
+        "block_size": 870286,
+        "cost_sum": 2218050,
+        "cost_values": [
+          554793,
+          555254,
+          555340,
+          552663
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "dfdce6a5e87aaecaea35b19f58332fdb2f52643d4e00d7699485b9a26b3eb438",
+        "number": 93
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          186,
+          187,
+          188,
+          189
+        ],
+        "block_size": 869944,
+        "cost_sum": 2216857,
+        "cost_values": [
+          553386,
+          553850,
+          555648,
+          553973
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "aed4a66f13dd04ea5737a38c67cfb9f8a223eb593bd307877995cde79187227f",
+        "number": 94
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          190,
+          191,
+          192,
+          193
+        ],
+        "block_size": 882978,
+        "cost_sum": 2270165,
+        "cost_values": [
+          611398,
+          552252,
+          553665,
+          552850
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "3ec6a3ba4b8596f0049c4093df135a579162f67cdc092500aa5746d39c48e722",
+        "number": 95
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          194,
+          195,
+          196,
+          197
+        ],
+        "block_size": 870926,
+        "cost_sum": 2220004,
+        "cost_values": [
+          554040,
+          556642,
+          554008,
+          555314
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "a7a1d3162f9dac278ff49c65fd92f3d0d990e58eee67b436bc55a1bf6de627fd",
+        "number": 96
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          198,
+          199,
+          200,
+          201
+        ],
+        "block_size": 870803,
+        "cost_sum": 2220377,
+        "cost_values": [
+          555713,
+          554949,
+          555100,
+          554615
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "8af6640ae64130b1e2c7e53f8add412cfd9ec981251faef6c555e656d10aeb6f",
+        "number": 97
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          202,
+          203,
+          204,
+          205
+        ],
+        "block_size": 876174,
+        "cost_sum": 2242742,
+        "cost_values": [
+          555849,
+          555797,
+          576683,
+          554413
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "2fa2f4c12fcf8541a6b929be63c17dcabea2ec53873f38a301c7f4b9cf2ff8f4",
+        "number": 98
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          206,
+          207,
+          208,
+          209
+        ],
+        "block_size": 870383,
+        "cost_sum": 2219362,
+        "cost_values": [
+          553317,
+          554928,
+          555503,
+          555614
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "795595549a84dd21f50830b21b41489e47610e1b8aae8fbd99676eb0c5c5ba01",
+        "number": 99
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          210,
+          211,
+          212,
+          213
+        ],
+        "block_size": 919285,
+        "cost_sum": 2220660,
+        "cost_values": [
+          554744,
+          560105,
+          552944,
+          552867
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "a8f371ec0a2e153025c7ce6d0dd555b8ea713f18845de9eee59a489495e7176e",
+        "number": 100
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          214,
+          215,
+          216,
+          217
+        ],
+        "block_size": 875337,
+        "cost_sum": 2238903,
+        "cost_values": [
+          553648,
+          551841,
+          556805,
+          576609
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "febe51708914452e635b3450babf4499ecaf52354fc0ab879918631aece66d0e",
+        "number": 101
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          218,
+          219,
+          220,
+          221
+        ],
+        "block_size": 869214,
+        "cost_sum": 2213336,
+        "cost_values": [
+          552260,
+          553924,
+          553862,
+          553290
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "6c9d68f24748b4fee62f38e72296143b4327b6752920b5b8781427057db891ab",
+        "number": 102
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          222,
+          223,
+          224,
+          225
+        ],
+        "block_size": 871388,
+        "cost_sum": 2222211,
+        "cost_values": [
+          556617,
+          556364,
+          554306,
+          554924
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "0f477ba00e4df70c21da90d84afbfc28f25f91be9e9af76dc60fa40f8a0cf002",
+        "number": 103
+      },
+      {
+        "batch_count": 18,
+        "batch_ids": [
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243
+        ],
+        "block_size": 3884779,
+        "cost_sum": 10065815,
+        "cost_values": [
+          556598,
+          553398,
+          553748,
+          557509,
+          553039,
+          554089,
+          555228,
+          556855,
+          553837,
+          554400,
+          595905,
+          568371,
+          556398,
+          562525,
+          555943,
+          550120,
+          552582,
+          575270
+        ],
+        "deploy_count": 18,
+        "errors": 0,
+        "event_count": 1800,
+        "finalized": true,
+        "hash": "014261ead7fa15ca4f3c205fbd82884260d45dbd15ef79baed29027d8406f941",
+        "number": 104
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          244,
+          245,
+          246,
+          247
+        ],
+        "block_size": 871282,
+        "cost_sum": 2222973,
+        "cost_values": [
+          556264,
+          555450,
+          554843,
+          556416
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "70c729c40915888c0914ee569eec48f3cbc20d0f6aa56c6d8c0e996dabd8d3ea",
+        "number": 105
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          248,
+          249,
+          250,
+          251
+        ],
+        "block_size": 871139,
+        "cost_sum": 2221415,
+        "cost_values": [
+          556363,
+          554919,
+          556628,
+          553505
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "7dc573e5200e9dc15461de8cd77cf85a3b3991152a6c64a9c0c0c212262016d4",
+        "number": 106
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          252,
+          253,
+          254,
+          255
+        ],
+        "block_size": 878612,
+        "cost_sum": 2251639,
+        "cost_values": [
+          553635,
+          555450,
+          589471,
+          553083
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "cca6cf558feb21bd46af9a28b107bd71fc97a915cfb80b20428a63e0696d7369",
+        "number": 107
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          256,
+          257,
+          258,
+          259
+        ],
+        "block_size": 895035,
+        "cost_sum": 2314620,
+        "cost_values": [
+          568881,
+          648251,
+          548710,
+          548778
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "f3888b45c928f478cdacf62f65f05b4bccfe45f0d18c4d7b30a5555d744d0f21",
+        "number": 108
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          260,
+          261,
+          262,
+          263
+        ],
+        "block_size": 918701,
+        "cost_sum": 2410655,
+        "cost_values": [
+          624006,
+          689003,
+          548823,
+          548823
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "f58839efdfa5d1311488c938b11462ea34f31a544bb8f117b7bd8ba53638d3c5",
+        "number": 109
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          264,
+          265,
+          266,
+          267
+        ],
+        "block_size": 914625,
+        "cost_sum": 2195292,
+        "cost_values": [
+          548823,
+          548823,
+          548823,
+          548823
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "db83f45d0b476a89308b6bfd32c2661105b638228e52e9b15631127f6485d035",
+        "number": 110
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          268,
+          269,
+          270,
+          271
+        ],
+        "block_size": 912073,
+        "cost_sum": 2385822,
+        "cost_values": [
+          548823,
+          548823,
+          736417,
+          551759
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "67085353d6df228bc1dd6296ff4926f24a25a9cc43f7b1394574d9ea8c3185e9",
+        "number": 111
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          272,
+          273,
+          274,
+          275
+        ],
+        "block_size": 866450,
+        "cost_sum": 2201703,
+        "cost_values": [
+          551961,
+          553651,
+          547184,
+          548907
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "82219be180609a129817887a714c2467a4435569d9a5f2cf1b2ba7b2cbea307f",
+        "number": 112
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          276,
+          277,
+          278,
+          279
+        ],
+        "block_size": 869808,
+        "cost_sum": 2216155,
+        "cost_values": [
+          554366,
+          551231,
+          554297,
+          556261
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "52ba4868734c8ef307059924dbcf3c4242f3ece758f80d28203682e2eb4c7547",
+        "number": 113
+      },
+      {
+        "batch_count": 4,
+        "batch_ids": [
+          280,
+          281,
+          282,
+          283
+        ],
+        "block_size": 894264,
+        "cost_sum": 2313250,
+        "cost_values": [
+          552872,
+          568294,
+          588126,
+          603958
+        ],
+        "deploy_count": 4,
+        "errors": 0,
+        "event_count": 400,
+        "finalized": true,
+        "hash": "ac1d8936b8f80663ac09fd11e257080e4d9f6ff9f7c8a92921c9f158d92e277f",
+        "number": 114
+      }
+    ],
+    "cost_per_finalized_event": 5576.694559494559,
+    "deploys_submitted": 549,
+    "errored_true_count": 0,
+    "events": 54890,
+    "expired_deploys_from_log": 272,
+    "finalized_batches": 285,
+    "finalized_events": 28490,
+    "included_batches": 285,
+    "interrupted_after_expiry": true,
+    "missing_finalized_batches": 264,
+    "missing_finalized_events": 26400,
+    "missing_included_batches": 264,
+    "selected_deploys_from_log_before_expiry": 284,
+    "timed_out": false,
+    "total_block_size": 62110112,
+    "total_cost_sum": 158880028
+  },
+  "run_id": "rspace-stored-events-batch-anchor-20260715T081408Z",
+  "selection_summary": {
+    "block_116": [
+      {
+        "already_in_scope": 0,
+        "block_expired": 272,
+        "block_number": 116,
+        "future": 0,
+        "pool": 272,
+        "selected": 0,
+        "time_expired": 0,
+        "valid": 0
+      }
+    ],
+    "budget_2m_blocks": 7,
+    "budget_2m_selected_sum": 126,
+    "budget_512k_blocks": 32,
+    "budget_512k_selected_sum": 128,
+    "expired_sum": 272,
+    "selected_sum": 284,
+    "workload_selection_blocks": [
+      {
+        "already_in_scope": 1,
+        "block_expired": 0,
+        "block_number": 69,
+        "future": 0,
+        "pool": 7,
+        "selected": 6,
+        "time_expired": 0,
+        "valid": 7
+      },
+      {
+        "already_in_scope": 7,
+        "block_expired": 0,
+        "block_number": 70,
+        "byte_budget": 2097152,
+        "deferred_bytes": 113881,
+        "future": 0,
+        "pool": 26,
+        "selected": 18,
+        "selected_bytes": 2034772,
+        "time_expired": 0,
+        "valid": 26
+      },
+      {
+        "already_in_scope": 25,
+        "block_expired": 0,
+        "block_number": 71,
+        "byte_budget": 524288,
+        "deferred_bytes": 5343877,
+        "future": 0,
+        "pool": 76,
+        "selected": 4,
+        "selected_bytes": 451519,
+        "time_expired": 0,
+        "valid": 76
+      },
+      {
+        "already_in_scope": 22,
+        "block_expired": 0,
+        "block_number": 72,
+        "byte_budget": 2097152,
+        "deferred_bytes": 9237570,
+        "future": 0,
+        "pool": 121,
+        "selected": 18,
+        "selected_bytes": 2041124,
+        "time_expired": 0,
+        "valid": 121
+      },
+      {
+        "already_in_scope": 40,
+        "block_expired": 0,
+        "block_number": 73,
+        "byte_budget": 524288,
+        "deferred_bytes": 20470243,
+        "future": 0,
+        "pool": 223,
+        "selected": 4,
+        "selected_bytes": 455657,
+        "time_expired": 0,
+        "valid": 223
+      },
+      {
+        "already_in_scope": 26,
+        "block_expired": 0,
+        "block_number": 74,
+        "byte_budget": 524288,
+        "deferred_bytes": 25498955,
+        "future": 0,
+        "pool": 252,
+        "selected": 4,
+        "selected_bytes": 456322,
+        "time_expired": 0,
+        "valid": 252
+      },
+      {
+        "already_in_scope": 26,
+        "block_expired": 0,
+        "block_number": 75,
+        "byte_budget": 524288,
+        "deferred_bytes": 32049916,
+        "future": 0,
+        "pool": 309,
+        "selected": 4,
+        "selected_bytes": 455936,
+        "time_expired": 0,
+        "valid": 309
+      },
+      {
+        "already_in_scope": 30,
+        "block_expired": 0,
+        "block_number": 76,
+        "byte_budget": 524288,
+        "deferred_bytes": 37112317,
+        "future": 0,
+        "pool": 355,
+        "selected": 4,
+        "selected_bytes": 455279,
+        "time_expired": 0,
+        "valid": 355
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 77,
+        "byte_budget": 524288,
+        "deferred_bytes": 43102159,
+        "future": 0,
+        "pool": 387,
+        "selected": 4,
+        "selected_bytes": 454553,
+        "time_expired": 0,
+        "valid": 387
+      },
+      {
+        "already_in_scope": 8,
+        "block_expired": 0,
+        "block_number": 78,
+        "byte_budget": 2097152,
+        "deferred_bytes": 44453336,
+        "future": 0,
+        "pool": 409,
+        "selected": 18,
+        "selected_bytes": 2046037,
+        "time_expired": 0,
+        "valid": 409
+      },
+      {
+        "already_in_scope": 26,
+        "block_expired": 0,
+        "block_number": 79,
+        "byte_budget": 524288,
+        "deferred_bytes": 52456182,
+        "future": 0,
+        "pool": 481,
+        "selected": 4,
+        "selected_bytes": 451176,
+        "time_expired": 0,
+        "valid": 481
+      },
+      {
+        "already_in_scope": 22,
+        "block_expired": 0,
+        "block_number": 80,
+        "byte_budget": 2097152,
+        "deferred_bytes": 51447811,
+        "future": 0,
+        "pool": 482,
+        "selected": 18,
+        "selected_bytes": 2035005,
+        "time_expired": 0,
+        "valid": 482
+      },
+      {
+        "already_in_scope": 40,
+        "block_expired": 0,
+        "block_number": 81,
+        "byte_budget": 524288,
+        "deferred_bytes": 50989323,
+        "future": 0,
+        "pool": 482,
+        "selected": 4,
+        "selected_bytes": 458488,
+        "time_expired": 0,
+        "valid": 482
+      },
+      {
+        "already_in_scope": 22,
+        "block_expired": 0,
+        "block_number": 82,
+        "byte_budget": 2097152,
+        "deferred_bytes": 48907458,
+        "future": 0,
+        "pool": 460,
+        "selected": 18,
+        "selected_bytes": 2081865,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 40,
+        "block_expired": 0,
+        "block_number": 83,
+        "byte_budget": 524288,
+        "deferred_bytes": 48455302,
+        "future": 0,
+        "pool": 460,
+        "selected": 4,
+        "selected_bytes": 452156,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 44,
+        "block_expired": 0,
+        "block_number": 84,
+        "byte_budget": 524288,
+        "deferred_bytes": 48000500,
+        "future": 0,
+        "pool": 460,
+        "selected": 4,
+        "selected_bytes": 454802,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 48,
+        "block_expired": 0,
+        "block_number": 85,
+        "byte_budget": 524288,
+        "deferred_bytes": 47544742,
+        "future": 0,
+        "pool": 460,
+        "selected": 4,
+        "selected_bytes": 455758,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 52,
+        "block_expired": 0,
+        "block_number": 86,
+        "byte_budget": 524288,
+        "deferred_bytes": 47090391,
+        "future": 0,
+        "pool": 460,
+        "selected": 4,
+        "selected_bytes": 454351,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 56,
+        "block_expired": 0,
+        "block_number": 87,
+        "byte_budget": 524288,
+        "deferred_bytes": 46639745,
+        "future": 0,
+        "pool": 460,
+        "selected": 4,
+        "selected_bytes": 450646,
+        "time_expired": 0,
+        "valid": 460
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 88,
+        "byte_budget": 2097152,
+        "deferred_bytes": 44550053,
+        "future": 0,
+        "pool": 412,
+        "selected": 18,
+        "selected_bytes": 2089692,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 30,
+        "block_expired": 0,
+        "block_number": 89,
+        "byte_budget": 524288,
+        "deferred_bytes": 44094709,
+        "future": 0,
+        "pool": 412,
+        "selected": 4,
+        "selected_bytes": 455344,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 34,
+        "block_expired": 0,
+        "block_number": 90,
+        "byte_budget": 524288,
+        "deferred_bytes": 43641247,
+        "future": 0,
+        "pool": 412,
+        "selected": 4,
+        "selected_bytes": 453462,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 38,
+        "block_expired": 0,
+        "block_number": 91,
+        "byte_budget": 524288,
+        "deferred_bytes": 43175771,
+        "future": 0,
+        "pool": 412,
+        "selected": 4,
+        "selected_bytes": 465476,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 42,
+        "block_expired": 0,
+        "block_number": 92,
+        "byte_budget": 524288,
+        "deferred_bytes": 42715566,
+        "future": 0,
+        "pool": 412,
+        "selected": 4,
+        "selected_bytes": 460205,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 46,
+        "block_expired": 0,
+        "block_number": 93,
+        "future": 0,
+        "pool": 412,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 412
+      },
+      {
+        "already_in_scope": 42,
+        "block_expired": 0,
+        "block_number": 94,
+        "byte_budget": 524288,
+        "deferred_bytes": 41805682,
+        "future": 0,
+        "pool": 404,
+        "selected": 4,
+        "selected_bytes": 454808,
+        "time_expired": 0,
+        "valid": 404
+      },
+      {
+        "already_in_scope": 46,
+        "block_expired": 0,
+        "block_number": 95,
+        "future": 0,
+        "pool": 404,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 404
+      },
+      {
+        "already_in_scope": 50,
+        "block_expired": 0,
+        "block_number": 96,
+        "future": 0,
+        "pool": 404,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 404
+      },
+      {
+        "already_in_scope": 24,
+        "block_expired": 0,
+        "block_number": 97,
+        "future": 0,
+        "pool": 374,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 374
+      },
+      {
+        "already_in_scope": 16,
+        "block_expired": 0,
+        "block_number": 98,
+        "byte_budget": 524288,
+        "deferred_bytes": 39965571,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "selected_bytes": 461111,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 20,
+        "block_expired": 0,
+        "block_number": 99,
+        "byte_budget": 524288,
+        "deferred_bytes": 39510251,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "selected_bytes": 455320,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 24,
+        "block_expired": 0,
+        "block_number": 100,
+        "byte_budget": 524288,
+        "deferred_bytes": 39054493,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "selected_bytes": 455758,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 28,
+        "block_expired": 0,
+        "block_number": 101,
+        "byte_budget": 524288,
+        "deferred_bytes": 38594218,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "selected_bytes": 460275,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 32,
+        "block_expired": 0,
+        "block_number": 102,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 36,
+        "block_expired": 0,
+        "block_number": 103,
+        "future": 0,
+        "pool": 362,
+        "selected": 4,
+        "time_expired": 0,
+        "valid": 362
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 104,
+        "byte_budget": 2097152,
+        "deferred_bytes": 35615289,
+        "future": 0,
+        "pool": 334,
+        "selected": 18,
+        "selected_bytes": 2068822,
+        "time_expired": 0,
+        "valid": 334
+      },
+      {
+        "already_in_scope": 30,
+        "block_expired": 0,
+        "block_number": 105,
+        "byte_budget": 524288,
+        "deferred_bytes": 35158995,
+        "future": 0,
+        "pool": 334,
+        "selected": 4,
+        "selected_bytes": 456294,
+        "time_expired": 0,
+        "valid": 334
+      },
+      {
+        "already_in_scope": 34,
+        "block_expired": 0,
+        "block_number": 106,
+        "byte_budget": 524288,
+        "deferred_bytes": 34703066,
+        "future": 0,
+        "pool": 334,
+        "selected": 4,
+        "selected_bytes": 455929,
+        "time_expired": 0,
+        "valid": 334
+      },
+      {
+        "already_in_scope": 38,
+        "block_expired": 0,
+        "block_number": 107,
+        "byte_budget": 524288,
+        "deferred_bytes": 34239664,
+        "future": 0,
+        "pool": 334,
+        "selected": 4,
+        "selected_bytes": 463402,
+        "time_expired": 0,
+        "valid": 334
+      },
+      {
+        "already_in_scope": 30,
+        "block_expired": 0,
+        "block_number": 108,
+        "byte_budget": 524288,
+        "deferred_bytes": 33759839,
+        "future": 0,
+        "pool": 322,
+        "selected": 4,
+        "selected_bytes": 479825,
+        "time_expired": 0,
+        "valid": 322
+      },
+      {
+        "already_in_scope": 34,
+        "block_expired": 0,
+        "block_number": 109,
+        "byte_budget": 524288,
+        "deferred_bytes": 33256274,
+        "future": 0,
+        "pool": 322,
+        "selected": 4,
+        "selected_bytes": 503565,
+        "time_expired": 0,
+        "valid": 322
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 110,
+        "byte_budget": 524288,
+        "deferred_bytes": 32805176,
+        "future": 0,
+        "pool": 296,
+        "selected": 4,
+        "selected_bytes": 451098,
+        "time_expired": 0,
+        "valid": 296
+      },
+      {
+        "already_in_scope": 16,
+        "block_expired": 0,
+        "block_number": 111,
+        "byte_budget": 524288,
+        "deferred_bytes": 32308166,
+        "future": 0,
+        "pool": 296,
+        "selected": 4,
+        "selected_bytes": 497010,
+        "time_expired": 0,
+        "valid": 296
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 112,
+        "byte_budget": 524288,
+        "deferred_bytes": 31856926,
+        "future": 0,
+        "pool": 288,
+        "selected": 4,
+        "selected_bytes": 451240,
+        "time_expired": 0,
+        "valid": 288
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 113,
+        "byte_budget": 524288,
+        "deferred_bytes": 31402328,
+        "future": 0,
+        "pool": 284,
+        "selected": 4,
+        "selected_bytes": 454598,
+        "time_expired": 0,
+        "valid": 284
+      },
+      {
+        "already_in_scope": 12,
+        "block_expired": 0,
+        "block_number": 114,
+        "byte_budget": 524288,
+        "deferred_bytes": 30923421,
+        "future": 0,
+        "pool": 280,
+        "selected": 4,
+        "selected_bytes": 478907,
+        "time_expired": 0,
+        "valid": 280
+      },
+      {
+        "already_in_scope": 0,
+        "block_expired": 272,
+        "block_number": 116,
+        "future": 0,
+        "pool": 272,
+        "selected": 0,
+        "time_expired": 0,
+        "valid": 0
+      }
+    ]
+  },
+  "summary": {
+    "accepted_deploys": 549,
+    "accepted_events": 54890,
+    "dominant_failure": "block-lifespan expiry under 512KiB backpressure byte budget",
+    "expired_deploys": 272,
+    "expired_events_estimate": 26400,
+    "finalized_batches": 285,
+    "finalized_events": 28490,
+    "local_proposer_expired_deploys": 272,
+    "missing_finalized_batches": 264,
+    "missing_finalized_events": 26400,
+    "status": "expired",
+    "submit_acceptance_events_per_s": 155.6244825748211,
+    "submit_span_s": 352.708
+  },
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:stored-events-20260715T081408Z",
+  "workload": {
+    "batch_size": 100,
+    "deploys_submitted": 549,
+    "events": 54890,
+    "first_progress_line_included": {
+      "finalized": 59,
+      "included": 85
+    },
+    "last_progress_line_before_interrupt": {
+      "finalized": 277,
+      "included": 281
+    },
+    "submit_acceptance_deploys_per_s": 1.5565283463941844,
+    "submit_acceptance_events_per_s": 155.6244825748211,
+    "submit_span_s": 352.708,
+    "valid_after": 65
+  }
+}

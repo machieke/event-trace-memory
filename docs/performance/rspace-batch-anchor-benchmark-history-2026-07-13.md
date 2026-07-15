@@ -1487,6 +1487,65 @@ should therefore report two separate numbers:
     `399` pending deploys at block `269` because the 524 KiB byte budget was
     only selecting 4 real-size batch deploys per deploy-carrying block.
 
+## Stored-Event Retest After Host Pressure Cleared, 2026-07-15
+
+The machine was no longer under the severe memory pressure seen during earlier
+runs. Before submission the host had about `74GiB` available memory, and sampled
+validator memory during the run stayed in the low GiB range rather than the
+previous `27-28GiB` restart loop. The pointer source was read from the existing
+`memory_percept-memory-data` Docker volume through a temporary read-only helper
+container, so the `percept-android` project was not modified.
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-expired-20260715T081408Z.json`
+
+Run configuration:
+
+| Field | Value |
+|---|---:|
+| Pointer log lines / unique events | `54,890` |
+| Pointer log SHA-256 | `6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c` |
+| Batch size | `100` events/deploy |
+| Workload deploys submitted | `549` |
+| Workload `validAfter` | `65` |
+| Contract finalized | block `64` after `39.412s` |
+| Submit span | `352.708s` |
+| Submit acceptance throughput | `155.624` events/s |
+
+Outcome:
+
+| Metric | Value |
+|---|---:|
+| Finalized batches | `285 / 549` |
+| Finalized events | `28,490 / 54,890` |
+| Missing finalized batches | `264 / 549` |
+| Canonical workload blocks | `47` |
+| Rholang errors | `0` |
+| Total finalized cost | `158,880,028` |
+| Cost per finalized event | `5,576.695` |
+| Local proposer expiry signal | block `116`: `blockExpired=272`, `valid=0`, `selected=0` |
+
+Compared with the prior post-restart stored-event retest, API acceptance
+improved from `92.013` to `155.624` events/s (`1.69x`), and finalized coverage
+improved from `160 / 547` batches to `285 / 549` batches. That is a real
+resource-pressure improvement, but it is still not a successful all-stored-event
+ingestion run.
+
+The remaining bottleneck is still the fixed-`validAfter` lifespan combined with
+byte-budget backpressure. This workload used one `validAfter=65` for all `549`
+deploys. The deploys expired when proposer height reached `116`, leaving only
+the block range before that point to drain the accepted pool. In the sampled
+validator3 proposer logs, `32` workload proposal attempts used the `512KiB`
+backpressure budget and selected `128` deploys total, while only `7` attempts
+used the normal `2MiB` budget and selected `126` deploys total. The 512 KiB
+mode therefore dominated the available window and reduced real-size stored-event
+terms to about `4` deploys per affected block.
+
+This confirms that the previous failure was amplified by host pressure, but not
+caused solely by it. Once the machine recovered, the shard still could not drain
+a single fixed-`validAfter` burst of `549` real-size inline-pointer deploys
+before block-based expiry.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -1545,3 +1604,11 @@ should therefore report two separate numbers:
     batch-anchor path should put the detailed event list in DA and deploy only
     the anchor plus manifest CIDs when full detailed on-chain lookup is not
     required.
+
+12. Do not treat fixed-`validAfter` all-history bursts as a viable production
+    ingest mode. For the next full stored-event test, either pace the workload
+    in smaller chunks with refreshed `validAfter` after each drain, or make the
+    on-chain term truly anchor-only so the 2 MiB/512 KiB byte budgets admit far
+    more batches per block. The shard should also reject or backpressure client
+    bursts that cannot fit inside the configured deploy lifespan under the
+    current byte budget.
