@@ -42,6 +42,9 @@ Primary sources:
   - `docs/performance/artifacts/rspace-batch-anchor-parent-aware-100x100-retest-20260714T175559Z.json`
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-partial-20260714T181331Z.json`
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-partial-20260714T211039Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-expired-20260715T081408Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-contract-timeout-20260716T073606Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-20260716T084337Z.json`
 
 Related earlier analysis:
 
@@ -93,6 +96,8 @@ recovery-aware coverage instead of trusting first inclusion.
 | `100x100` batch-anchor, post-restart retest | Batch anchor | 10,000 | 8 | yes | `39,183,300` | `3,918` | `416.995s` | `465.644s` | `21.476 events/s` |
 | Stored percept events, batch-anchor partial | Batch anchor | 54,543 | 4 finalized, 3 non-final hits | partial | `14,334,161` finalized / `89,923,367` observed | `5,513` finalized-event normalized | non-final only, max observed batch `205` | stalled at LFB `223` | no full-run finality |
 | Stored percept events, post-restart retest | Batch anchor | 54,647 | 40 finalized | partial | `88,821,538` finalized | `5,551` finalized-event normalized | `160 / 547` batches canonical | stopped by deploy expiry at block `269` | no full-run finality |
+| Stored percept events, host-pressure-cleared retest | Batch anchor | 54,890 | 47 finalized | partial | `158,880,028` finalized | `5,577` finalized-event normalized | `285 / 549` batches canonical | stopped by deploy expiry at block `116` | no full-run finality |
+| Stored percept events, current restarted shard retest | Batch anchor | 54,890 | 28 finalized, 7 non-final hits | partial | `160,077,483` finalized | `5,578` finalized-event normalized | `287 / 549` batches canonical | stopped by deploy expiry at block `137` | no full-run finality |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1603,6 +1608,77 @@ So this retest is not an all-stored-events throughput measurement. It is a
 pre-workload canonicality failure: a single setup deploy became visible in a
 non-final block, remained non-final, and then became ineligible for immediate
 canonical reselection because it was already in unresolved DAG scope.
+
+## Stored-Event Retest On Current Restarted Shard, 2026-07-16
+
+The shard was restarted again before this run and had converged at preflight:
+all validators reported LFB `76`, head block `78`, and no deploys in the head
+block. Host pressure was not the limiting factor. The host had about `75GiB`
+available memory before submission, and sampled node RSS stayed in the MiB to
+low-GiB range during the run.
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-20260716T084337Z.json`
+
+Run configuration:
+
+| Field | Value |
+|---|---:|
+| Pointer log lines / unique events | `54,890` |
+| Pointer log SHA-256 | `6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c` |
+| Batch size | `100` events/deploy |
+| Workload deploys submitted | `549` |
+| Contract `validAfter` | `80` |
+| Contract finalized | block `83` after `27.735s` |
+| Workload `validAfter` | `83` |
+| Submit span | `307.817s` |
+| Submit acceptance throughput | `178.320` events/s, `1.784` deploys/s |
+
+Outcome:
+
+| Metric | Value |
+|---|---:|
+| API-accepted deploys | `549 / 549` |
+| API-accepted events | `54,890 / 54,890` |
+| Observed included batches | `323 / 549` |
+| Observed included events | `32,300 / 54,890` |
+| Finalized batches | `287 / 549` |
+| Finalized events | `28,700 / 54,890` |
+| Non-final included batches | `36` |
+| Missing finalized batches | `262 / 549` |
+| Missing finalized events | `26,190` |
+| Canonical workload blocks | `28`, blocks `88..121` |
+| Non-final hit blocks | `7` |
+| Rholang errors | `0` |
+| Total finalized cost | `160,077,483` |
+| Cost per finalized event | `5,577.613` |
+| Local proposer expiry signal | block `137`: `blockExpired=262`, `valid=0`, `selected=0` |
+
+Compared with the 2026-07-15 host-pressure-cleared retest, API acceptance
+improved from `155.624` to `178.320` events/s (`1.146x`). Finalized coverage
+only improved from `285 / 549` batches to `287 / 549` batches. That is a
+negligible canonical-coverage improvement despite the healthier runtime and
+faster deploy submission.
+
+The proposer did select more work before expiry, but selection attempts did not
+translate into enough canonical finalized coverage. Across workload proposal
+attempts, the logs show `18` normal `2MiB` byte-budget blocks selecting `324`
+deploys and `16` `512KiB` backpressure blocks selecting `64` deploys. Total
+logged selections were `419`, but only `287` unique batches finalized. Another
+`36` unique batches appeared only in non-final blocks, and the remaining
+`262` deploys expired at block `137`.
+
+The quantified bottleneck is therefore not Rholang execution and not host
+memory. It is still the combination of a single fixed `validAfter=83`, the
+block-height deploy lifespan, byte-budget caps, and non-final branch churn. The
+run needed to finalize all `549` deploys before expiry, which means about
+`11` unique deploys per available block-height window. It finalized about
+`5.7` deploys per height before the missing `262` deploys expired.
+
+This retest is a successful API-ingestion test and a failed full on-chain
+ingestion test. The next viable full-snapshot path is still either paced chunks
+with refreshed `validAfter`, or a stricter anchor-only on-chain term where the
+detailed event list lives in DA and does not consume block byte budget.
 
 ## Recommendations
 
