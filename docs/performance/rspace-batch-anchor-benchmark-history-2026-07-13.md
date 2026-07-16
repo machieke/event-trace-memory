@@ -1546,6 +1546,64 @@ caused solely by it. Once the machine recovered, the shard still could not drain
 a single fixed-`validAfter` burst of `549` real-size inline-pointer deploys
 before block-based expiry.
 
+## Stored-Event Retest Contract Timeout, 2026-07-16
+
+The next retest did not reach stored-event workload submission. The live pointer
+snapshot was unchanged (`54,890` events, SHA-256
+`6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c`), but the
+shard was already lagged and inconsistent before the run:
+
+| Node | LFB before run |
+|---|---:|
+| `rnode.validator1` | `199` |
+| `rnode.validator2` | `196` |
+| `rnode.validator3` | `191` |
+| `rnode.bootstrap` | `199` |
+| `rnode.readonly` | `199` |
+
+`rnode.validator1` was used because it had the freshest LFB. Its head was
+already around `203-204`, so the run started with roughly `4-5` blocks of lag
+on the best node and worse lag elsewhere. During the contract wait, head moved
+to `222` while LFB only reached `203`.
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-contract-timeout-20260716T073606Z.json`
+
+Run outcome:
+
+| Metric | Value |
+|---|---:|
+| Planned stored events | `54,890` |
+| Planned workload deploys | `549` |
+| Contract `validAfter` | `199` |
+| Contract selected block | `220` |
+| Contract block finalized within wait | `false` |
+| Contract wait timeout | `600s` |
+| Workload deploys submitted | `0` |
+| LFB after timeout | `203` |
+| Head after timeout | `222` |
+
+The contract deploy did enter a block:
+
+```text
+Deploy selection for block #220: pool=1, valid=1, alreadyInScope=0, selected=1
+```
+
+But that block did not finalize in the contract wait window. Follow-up proposals
+then treated the deploy as already in unresolved DAG scope and did not reselect
+it:
+
+```text
+Deploy selection for block #221: pool=1, valid=1, alreadyInScope=1, selected=0
+Deploy selection for block #222: pool=1, valid=1, alreadyInScope=1, selected=0
+Deploy selection for block #223: pool=1, valid=1, alreadyInScope=1, selected=0
+```
+
+So this retest is not an all-stored-events throughput measurement. It is a
+pre-workload canonicality failure: a single setup deploy became visible in a
+non-final block, remained non-final, and then became ineligible for immediate
+canonical reselection because it was already in unresolved DAG scope.
+
 ## Recommendations
 
 1. Keep production ingestion on `putBatchAnchor` or compatibility
@@ -1612,3 +1670,10 @@ before block-based expiry.
     more batches per block. The shard should also reject or backpressure client
     bursts that cannot fit inside the configured deploy lifespan under the
     current byte budget.
+
+13. Add a benchmark preflight gate before full stored-event runs. If validators
+    disagree on LFB by more than a few blocks, or if the chosen submission node
+    has head/LFB lag above the backpressure threshold, the run should either
+    wait for convergence or record a preflight failure instead of submitting the
+    workload. The 2026-07-16 retest failed before workload submission under
+    exactly that condition.

@@ -1,0 +1,409 @@
+{
+  "container": "rnode.validator1",
+  "contract_deploy": {
+    "deploy_id": "304302202869b459d84c284159391538c7a312944b4aee810238a33501da12ce9ea126cf021f3ff3433db81819de8ed38370384160fb89110562dd7167501c095ec3aef649",
+    "finalized": false,
+    "hits": [
+      {
+        "block_size": 169926,
+        "contains_uri": true,
+        "cost_sum": 114729,
+        "cost_values": [
+          114729
+        ],
+        "deploy_count": 1,
+        "errors": 0,
+        "finalized": false,
+        "hash": "5aebdfd4c1bc45d14c50ab8b5b7d5bd14e08f77eb38c7cbea1302b813077e85f",
+        "number": 220,
+        "output_excerpt_match": true
+      }
+    ],
+    "selected_block": {
+      "hash": "5aebdfd4c1bc45d14c50ab8b5b7d5bd14e08f77eb38c7cbea1302b813077e85f",
+      "number": 220
+    },
+    "submitted": true,
+    "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:stored-events-20260716T073606Z",
+    "valid_after": 199,
+    "wait_timeout_s": 600
+  },
+  "created_at": "2026-07-16T07:47:11Z",
+  "pointer_source": {
+    "byte_size_observed": 60188237,
+    "container": "etm-pointer-reader",
+    "last_modified_observed": "2026-07-15 07:53 UTC",
+    "line_count": 54890,
+    "pointer_log": "/data/pointers.jsonl",
+    "pointer_log_sha256": "6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c",
+    "source_volume": "memory_percept-memory-data",
+    "unique_event_count": 54890
+  },
+  "post_timeout_observation": {
+    "contract_block_is_finalized": false,
+    "last_finalized_after": {
+      "hash": "180ad1926629c023464f5a862ef38aaec1a19f6630cf08a7edfe2c52cd538333",
+      "number": 203,
+      "raw": "BlockInfo {\n    block_info: Some(\n        LightBlockInfo {\n            block_hash: \"180ad1926629c023464f5a862ef38aaec1a19f6630cf08a7edfe2c52cd538333\",\n            sender: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            seq_num: 183,\n            sig: \"304402201ff0b9356cb604b4a3c2c1432654efff07d07f50c7f04247c7d23cb925f0032202200b0b282af1a1b9c4a231cbceeb0d2c86ee20b7fc663b45e3405fe6bed4346639\",\n            sig_algorithm: \"secp256k1\",\n            shard_id: \"root\",\n            extra_bytes: b\"\",\n            version: 1,\n            timestamp: 1784185516759,\n            header_extra_bytes: b\"\",\n            parents_hash_list: [\n                \"430b1c7e4f148c95ec9a09b36ceee78ecccfad5e8e27c195a0e757fdb42451b2\",\n                \"7cf4f09ae2cb8221f553a2f015e574d255d79eff0a3439d2331fd862bb8d49b6\",\n                \"de021cc249f5f2c6e0112dec79d6f2b6bb4fd2d5d8ae5bb93759af49dc219c0f\",\n            ],\n            block_number: 203,\n            pre_state_hash: \"173a476e9d79e937f739ebfbca40a1b9a82b0144d557c84497429c1c8d8e7f31\",\n            post_state_hash: \"173a476e9d79e937f739ebfbca40a1b9a82b0144d557c84497429c1c8d8e7f31\",\n            body_extra_bytes: b\"\",\n            bonds: [\n                BondInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    stake: 1000,\n                },\n                BondInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    stake: 1000,\n                },\n            ],\n            block_size: \"15093\",\n            deploy_count: 0,\n            fault_tolerance: 0.33333334,\n            justifications: [\n                JustificationInfo {\n                    validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n                    latest_block_hash: \"de021cc249f5f2c6e0112dec79d6f2b6bb4fd2d5d8ae5bb93759af49dc219c0f\",\n                },\n                JustificationInfo {\n                    validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n                    latest_block_hash: \"430b1c7e4f148c95ec9a09b36ceee78ecccfad5e8e27c195a0e757fdb42451b2\",\n                },\n                JustificationInfo {\n                    validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n                    latest_block_hash: \"7cf4f09ae2cb8221f553a2f015e574d255d79eff0a3439d2331fd862bb8d49b6\",\n                },\n            ],\n            rejected_deploys: [],\n            is_finalized: true,\n        },\n    ),\n    deploys: [],\n}\n"
+    },
+    "latest_block_after": {
+      "hash": "db714b5f6e790449f817c791f2f35e0342b12889fee72fd5fc58097fc3eaabd9",
+      "number": 222,
+      "raw": "\n------------- block 222 ---------------\nLightBlockInfo {\n    block_hash: \"db714b5f6e790449f817c791f2f35e0342b12889fee72fd5fc58097fc3eaabd9\",\n    sender: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n    seq_num: 202,\n    sig: \"30450221009807a0102ef440c0efab1618d06495468f0c919e24029f46c3eecb2eb33310db02202c098f0fa2c3356325c7349695b376468775aed2eb2bbf03f61042f5ff52271f\",\n    sig_algorithm: \"secp256k1\",\n    shard_id: \"root\",\n    extra_bytes: b\"\",\n    version: 1,\n    timestamp: 1784187772569,\n    header_extra_bytes: b\"\",\n    parents_hash_list: [\n        \"2a3f454d6afe4427bf7d05534df49149464e3ceb1ca8ec4fdd4622ddbf4c90a0\",\n        \"00e6d1b9a954273669aacae05ab3c18c49b26f9eee6245cb828ac9c9de9fac41\",\n        \"5295ae77977c022b8beb290ca2b6e178e8f10d7fe0560ad8a012335eb6c378f0\",\n    ],\n    block_number: 222,\n    pre_state_hash: \"df2566c217f3e4052d3c61fd2b9421c548f298b174621fcacc030a7caac1a9ec\",\n    post_state_hash: \"df2566c217f3e4052d3c61fd2b9421c548f298b174621fcacc030a7caac1a9ec\",\n    body_extra_bytes: b\"\",\n    bonds: [\n        BondInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            stake: 1000,\n        },\n        BondInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            stake: 1000,\n        },\n    ],\n    block_size: \"15094\",\n    deploy_count: 0,\n    fault_tolerance: -1.0,\n    justifications: [\n        JustificationInfo {\n            validator: \"04fa70d7be5eb750e0915c0f6d19e7085d18bb1c22d030feb2a877ca2cd226d04438aa819359c56c720142fbc66e9da03a5ab960a3d8b75363a226b7c800f60420\",\n            latest_block_hash: \"2a3f454d6afe4427bf7d05534df49149464e3ceb1ca8ec4fdd4622ddbf4c90a0\",\n        },\n        JustificationInfo {\n            validator: \"04837a4cff833e3157e3135d7b40b8e1f33c6e6b5a4342b9fc784230ca4c4f9d356f258debef56ad4984726d6ab3e7709e1632ef079b4bcd653db00b68b2df065f\",\n            latest_block_hash: \"00e6d1b9a954273669aacae05ab3c18c49b26f9eee6245cb828ac9c9de9fac41\",\n        },\n        JustificationInfo {\n            validator: \"0457febafcc25dd34ca5e5c025cd445f60e5ea6918931a54eb8c3a204f51760248090b0c757c2bdad7b8c4dca757e109f8ef64737d90712724c8216c94b4ae661c\",\n            latest_block_hash: \"5295ae77977c022b8beb290ca2b6e178e8f10d7fe0560ad8a012335eb6c378f0\",\n        },\n    ],\n    rejected_deploys: [],\n    is_finalized: false,\n}\n-----------------------------------------------------\n\ncount: 1\n\n"
+    },
+    "status_by_node": {
+      "rnode.bootstrap": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"c03f217909ee24b746c3416c7af5bebeb87fd136\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 203,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 20,\n    epoch_length: 10,\n}\n",
+      "rnode.readonly": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 199,\n    is_validator: false,\n    is_read_only: true,\n    is_ready: true,\n    current_epoch: 19,\n    epoch_length: 10,\n}\n",
+      "rnode.validator1": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"c03f217909ee24b746c3416c7af5bebeb87fd136\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 203,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 20,\n    epoch_length: 10,\n}\n",
+      "rnode.validator2": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"c03f217909ee24b746c3416c7af5bebeb87fd136\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 196,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 19,\n    epoch_length: 10,\n}\n",
+      "rnode.validator3": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n            node_id: \"24f315807e49a51b6c5ae18553ddc14f60418db4\",\n            host: \"rnode.validator1\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"c03f217909ee24b746c3416c7af5bebeb87fd136\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 191,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 19,\n    epoch_length: 10,\n}\n"
+    },
+    "validator1_status": "Status {\n    version: Some(\n        VersionInfo {\n            api: \"1\",\n            node: \"F1r3node Rust 0.4.15 ()\",\n        },\n    ),\n    address: \"rnode://24f315807e49a51b6c5ae18553ddc14f60418db4@rnode.validator1?protocol=40400&discovery=40404\",\n    network_id: \"testnet\",\n    shard_id: \"root\",\n    peers: 4,\n    nodes: 4,\n    min_phlo_price: 1,\n    peer_list: [\n        PeerInfo {\n            address: \"rnode://c03f217909ee24b746c3416c7af5bebeb87fd136@rnode.readonly?protocol=40400&discovery=40404\",\n            node_id: \"c03f217909ee24b746c3416c7af5bebeb87fd136\",\n            host: \"rnode.readonly\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://cf0e82074956a32efab6af9af5d1aa0efed547d4@rnode.validator2?protocol=40400&discovery=40404\",\n            node_id: \"cf0e82074956a32efab6af9af5d1aa0efed547d4\",\n            host: \"rnode.validator2\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://a5aec03d60a08500cbebbbe48de6e49bed9491bb@rnode.validator3?protocol=40400&discovery=40404\",\n            node_id: \"a5aec03d60a08500cbebbbe48de6e49bed9491bb\",\n            host: \"rnode.validator3\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n        PeerInfo {\n            address: \"rnode://1e780e5dfbe0a3d9470a2b414f502d59402e09c2@rnode.bootstrap?protocol=40400&discovery=40404\",\n            node_id: \"1e780e5dfbe0a3d9470a2b414f502d59402e09c2\",\n            host: \"rnode.bootstrap\",\n            protocol_port: 40400,\n            discovery_port: 40404,\n            is_connected: true,\n        },\n    ],\n    native_token_name: \"F1R3CAP\",\n    native_token_symbol: \"F1R3\",\n    native_token_decimals: 8,\n    last_finalized_block_number: 203,\n    is_validator: false,\n    is_read_only: false,\n    is_ready: true,\n    current_epoch: 20,\n    epoch_length: 10,\n}\n"
+  },
+  "pre_run_observation": {
+    "git_status": "clean master...origin/master",
+    "host_memory_before": {
+      "available": "47GiB",
+      "swap_used": "877MiB",
+      "used": "29GiB"
+    },
+    "idle_catchup_check": "validator1 LFB stayed at 199 while head moved from 203 to 204 over about 60s before the run",
+    "initial_head_validator1": 203,
+    "initial_lfb_by_node": {
+      "rnode.bootstrap": 199,
+      "rnode.readonly": 199,
+      "rnode.validator1": 199,
+      "rnode.validator2": 196,
+      "rnode.validator3": 191
+    },
+    "load_average_before": "7.78, 8.28, 8.88"
+  },
+  "run_id": "rspace-stored-events-batch-anchor-20260716T073606Z",
+  "selection_summary": {
+    "contract_related_selections": [
+      {
+        "already_in_scope": 0,
+        "block_expired": 0,
+        "block_number": 220,
+        "future": 0,
+        "pool": 1,
+        "selected": 1,
+        "time_expired": 0,
+        "valid": 1
+      },
+      {
+        "already_in_scope": 1,
+        "block_expired": 0,
+        "block_number": 221,
+        "future": 0,
+        "pool": 1,
+        "selected": 0,
+        "time_expired": 0,
+        "valid": 1
+      },
+      {
+        "already_in_scope": 1,
+        "block_expired": 0,
+        "block_number": 222,
+        "future": 0,
+        "pool": 1,
+        "selected": 0,
+        "time_expired": 0,
+        "valid": 1
+      },
+      {
+        "already_in_scope": 1,
+        "block_expired": 0,
+        "block_number": 223,
+        "future": 0,
+        "pool": 1,
+        "selected": 0,
+        "time_expired": 0,
+        "valid": 1
+      }
+    ],
+    "interesting_logs": [
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:33:18.284133Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=18, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:33:24.886476Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:33:38.330534Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=19, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:33:58.742831Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=20, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:35:16.025427Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:35:18.385003Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:35:38.432489Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:35:58.490696Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:36:18.539925Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:36:38.593419Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:36:58.642756Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:37:18.689597Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:37:38.740277Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:37:58.789968Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: pending deploy recovery backstop: lag=21 exceeds cap=20 while ahead; forcing propose after 3000ms",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:38:06.697129Z"
+      },
+      {
+        "message": "Deploy selection for block #220: pool=1, future=0 (validAfterBlockNumber >= 220), blockExpired=0 (validAfterBlockNumber <= 170), timeExpired=0 (expirationTimestamp <= 1784187486748), valid=1, alreadyInScope=0, selected=1",
+        "target": "casper::rust::blocks::proposer::block_creator",
+        "timestamp": "2026-07-16T07:38:06.819655Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:38:18.837756Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:38:38.860824Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:38:58.911169Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:39:18.957416Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:39:39.006431Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:39:59.105919Z"
+      },
+      {
+        "message": "Self-created block validated: #220 (5aebdfd4c1...) (1d) (Valid) [26.70702ms]",
+        "target": "casper::rust::engine::multi_parent_casper::validation_dispatcher",
+        "timestamp": "2026-07-16T07:40:13.329189Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:40:19.163735Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:40:39.214412Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=18, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:40:42.963917Z"
+      },
+      {
+        "message": "Deploy selection for block #221: pool=1, future=0 (validAfterBlockNumber >= 221), blockExpired=0 (validAfterBlockNumber <= 171), timeExpired=0 (expirationTimestamp <= 1784187643013), valid=1, alreadyInScope=1, selected=0",
+        "target": "casper::rust::blocks::proposer::block_creator",
+        "timestamp": "2026-07-16T07:40:43.104441Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:40:59.264112Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:41:19.320966Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:41:39.379823Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:41:59.430766Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:42:19.682534Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:42:39.702603Z"
+      },
+      {
+        "message": "Self-created block validated: #221 (2a3f454d6a...) (0d) (Valid) [27.950293ms]",
+        "target": "casper::rust::engine::multi_parent_casper::validation_dispatcher",
+        "timestamp": "2026-07-16T07:42:52.285212Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=19, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:42:52.497523Z"
+      },
+      {
+        "message": "Deploy selection for block #222: pool=1, future=0 (validAfterBlockNumber >= 222), blockExpired=0 (validAfterBlockNumber <= 172), timeExpired=0 (expirationTimestamp <= 1784187772569), valid=1, alreadyInScope=1, selected=0",
+        "target": "casper::rust::blocks::proposer::block_creator",
+        "timestamp": "2026-07-16T07:42:52.704830Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:42:59.761634Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:43:19.820293Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:43:39.827113Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:43:59.870558Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:44:19.920710Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:44:39.924424Z"
+      },
+      {
+        "message": "Self-created block validated: #222 (db714b5f6e...) (0d) (Valid) [26.869142ms]",
+        "target": "casper::rust::engine::multi_parent_casper::validation_dispatcher",
+        "timestamp": "2026-07-16T07:44:55.976388Z"
+      },
+      {
+        "message": "Heartbeat: Proposing block - reason: new parents observed (lag=20, self_recently_proposed=true, cooldown_active=false, cooldown_ms=3000, cooldown_override_for_deploy_recovery=false, frontier_chase_cap=20, user_deploy_parent=false, deploy_grace_active=false, stale_recovery_interval_ms=3000); proposing to keep frontier moving",
+        "target": "node::rust::instances::heartbeat_proposer",
+        "timestamp": "2026-07-16T07:44:56.070715Z"
+      },
+      {
+        "message": "Deploy selection for block #223: pool=1, future=0 (validAfterBlockNumber >= 223), blockExpired=0 (validAfterBlockNumber <= 173), timeExpired=0 (expirationTimestamp <= 1784187896120), valid=1, alreadyInScope=1, selected=0",
+        "target": "casper::rust::blocks::proposer::block_creator",
+        "timestamp": "2026-07-16T07:44:56.199141Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:44:59.974184Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:45:20.019002Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:45:40.067359Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:46:00.110294Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:46:20.155875Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:46:40.160145Z"
+      },
+      {
+        "message": "Requesting tips update as newest latest message is more than 60s old. Might be network is faulty.",
+        "target": "casper::rust::engine::running",
+        "timestamp": "2026-07-16T07:47:00.168013Z"
+      }
+    ]
+  },
+  "summary": {
+    "accepted_events": 0,
+    "accepted_workload_deploys": 0,
+    "contract_finalized": false,
+    "contract_hits": 1,
+    "contract_selected_block": 220,
+    "dominant_failure": "pre-workload contract deploy remained non-final while later proposals saw it already in unresolved DAG scope",
+    "latest_block_after_timeout": 222,
+    "lfb_after_timeout": 203,
+    "planned_events": 54890,
+    "planned_workload_deploys": 549,
+    "status": "contract_finality_timeout"
+  },
+  "uri_name": "event-trace-memory:EventTraceRSpaceIndexUri:stored-events-20260716T073606Z",
+  "workload": {
+    "batch_size": 100,
+    "deploys_planned": 549,
+    "events_planned": 54890,
+    "reason_not_submitted": "scoped contract deploy was visible in block 220 but did not finalize within the 600s contract wait",
+    "submitted": false
+  }
+}
