@@ -45,6 +45,7 @@ Primary sources:
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-expired-20260715T081408Z.json`
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-contract-timeout-20260716T073606Z.json`
   - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-20260716T084337Z.json`
+  - `docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-20260717T084449Z.json`
 
 Related earlier analysis:
 
@@ -98,6 +99,7 @@ recovery-aware coverage instead of trusting first inclusion.
 | Stored percept events, post-restart retest | Batch anchor | 54,647 | 40 finalized | partial | `88,821,538` finalized | `5,551` finalized-event normalized | `160 / 547` batches canonical | stopped by deploy expiry at block `269` | no full-run finality |
 | Stored percept events, host-pressure-cleared retest | Batch anchor | 54,890 | 47 finalized | partial | `158,880,028` finalized | `5,577` finalized-event normalized | `285 / 549` batches canonical | stopped by deploy expiry at block `116` | no full-run finality |
 | Stored percept events, current restarted shard retest | Batch anchor | 54,890 | 28 finalized, 7 non-final hits | partial | `160,077,483` finalized | `5,578` finalized-event normalized | `287 / 549` batches canonical | stopped by deploy expiry at block `137` | no full-run finality |
+| Stored percept events, 2026-07-17 restarted shard retest | Batch anchor | 54,890 | 27 finalized | partial | `136,194,681` finalized | `5,559` finalized-event normalized | `245 / 549` batches canonical | stopped by deploy expiry at block `105` | no full-run finality |
 
 The batch-anchor design changed the cost profile by two to three orders of
 magnitude compared with the detailed per-event path. The remaining bottleneck in
@@ -1679,6 +1681,72 @@ This retest is a successful API-ingestion test and a failed full on-chain
 ingestion test. The next viable full-snapshot path is still either paced chunks
 with refreshed `validAfter`, or a stricter anchor-only on-chain term where the
 detailed event list lives in DA and does not consume block byte budget.
+
+## Stored-Event Retest On Restarted Shard, 2026-07-17
+
+The shard had been restarted shortly before this run. Preflight showed all
+nodes healthy and converged at LFB `49`, with heads at `51-52` and no deploys
+in the head blocks. Host memory was healthy: about `73GiB` available before
+submission. The pointer source was unchanged.
+
+Artifact:
+`docs/performance/artifacts/rspace-stored-events-batch-anchor-retest-20260717T084449Z.json`
+
+Run configuration:
+
+| Field | Value |
+|---|---:|
+| Pointer log lines / unique events | `54,890` |
+| Pointer log SHA-256 | `6545fc55bf41c37580e28b9b06fb2245e8d793a53e30272bf2e2eb536e7e5c8c` |
+| Batch size | `100` events/deploy |
+| Workload deploys submitted | `549` |
+| Contract `validAfter` | `52` |
+| Contract finalized | block `55` after `26.042s` |
+| Workload `validAfter` | `55` |
+| Submit span | `511.976s` |
+| Submit acceptance throughput | `107.212` events/s, `1.072` deploys/s |
+
+Outcome:
+
+| Metric | Value |
+|---|---:|
+| API-accepted deploys | `549 / 549` |
+| API-accepted events | `54,890 / 54,890` |
+| Finalized batches | `245 / 549` |
+| Finalized events | `24,500 / 54,890` |
+| Missing finalized batches | `304 / 549` |
+| Missing finalized events | `30,390` |
+| Canonical workload blocks | `27`, blocks `60..104` |
+| Non-final hit blocks after final scan | `0` |
+| Rholang errors | `0` |
+| Total finalized cost | `136,194,681` |
+| Cost per finalized event | `5,558.967` |
+| Local proposer expiry signal | block `105`: `blockExpired=316`, `valid=0`, `selected=0` |
+
+This run regressed relative to the 2026-07-16 all-stored-event retest:
+
+| Metric | 2026-07-16 | 2026-07-17 |
+|---|---:|---:|
+| Submit span | `307.817s` | `511.976s` |
+| Submit acceptance throughput | `178.320` events/s | `107.212` events/s |
+| Finalized batches | `287 / 549` | `245 / 549` |
+| Finalized events | `28,700` | `24,500` |
+| Expiry block | `137` | `105` |
+| Local proposer expired deploys | `262` | `316` |
+
+The main difference is that the 2026-07-17 run used workload `validAfter=55`,
+so block-height expiry arrived at block `105`, giving a much shorter drain
+window than the 2026-07-16 run with `validAfter=83` and expiry at block `137`.
+Within that shorter window, selection was still byte-budget constrained:
+`9` normal `2MiB` selection blocks admitted `162` deploys, while `16`
+`512KiB` blocks admitted only `64` deploys. Total logged workload selections
+matched the final canonical count, `245` deploys.
+
+The result reinforces the same root cause: this fixed-`validAfter` full-history
+burst is governed by deploy lifespan and byte-budget-limited block packaging.
+It is not a Rholang execution failure. All finalized deploys completed with
+`errored: false`, and the normalized finalized-event cost remained near the
+previous runs at about `5.56k` phlo/event.
 
 ## Recommendations
 
